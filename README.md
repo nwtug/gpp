@@ -1,4 +1,4 @@
-# clout-v1.0
+# PSS-v1.0
 Version 1.0 of the PSS project.
 
 1. To setup this website on your machine, make sure you have the following:
