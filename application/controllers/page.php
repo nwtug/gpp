@@ -10,13 +10,28 @@
  */
 class Page extends CI_Controller 
 {
-	#home page
+	# home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		
 		$this->load->view('home', $data);
 	}
+	
+	
+	# portal home page
+	function portal()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# Collect all data needed for the UI
+		$data['procurementPlanList'] = array();
+		$data['activeProvidersList'] = array();
+		$data['documentsList'] = array();
+		$data['publicForumsList'] = array();
+		
+		$this->load->view('home_portal', $data);
+	}
+	
 	
 	
 }

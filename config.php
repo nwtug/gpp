@@ -37,7 +37,7 @@
 
 	define('RETRIEVE_URL_DATA_IGNORE', 3);#The starting point to obtain the passed url data
 	
-	define('SITE_TITLE', "Procurement Portal");
+	define('SITE_TITLE', "Public Procurement Portal");
 		
 	define('SITE_SLOGAN', "");
 
