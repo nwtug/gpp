@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo IMAGE_URL;?>favicon.ico">
-	<title><?php echo SITE_TITLE;?></title>
+	<title><?php echo SITE_TITLE.': Register of Providers';?></title>
     
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/external-fonts.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
@@ -14,16 +14,13 @@
 
 <body>
 <table class='body-table water-mark-bg'>
-<?php $this->load->view('addons/public_header');?>
+<?php 
+$this->load->view('addons/public_header');
 
-<tr>
-  <td class='purple-bg'>&nbsp;</td>
-  <td class='purple-bg row-divs'>
-  <div class='left-div top-divs'><div class='active'>Home</div><div>About This Portal</div><div>Providers</div><div>Procuring Entities</div><div>Resources</div><div>Frequently Asked Questions</div>
-  </div>
-  <div class='right-div'><div class='trigger-search shadow-box' data-url=''>&nbsp;</div></div></td>
-  <td class='purple-bg'>&nbsp;</td>
-</tr>
+$this->load->view('addons/top_menu', array('__page'=>'home_portal'));
+?>
+
+
 
 <tr>
   <td>&nbsp;</td>
@@ -35,8 +32,8 @@
 <tr><th class='h3 blue tender-icon'>Tender Notices</th></tr>
 <tr><td>
 <table class='list-tabs' data-type='tenders'><tr>
-<td id='procurement_plans'>Procurement Plans</td>
-<td id='active_notices' class='active'>Active Notices</td>
+<td id='procurement_plans' class='active'>Procurement Plans</td>
+<td id='active_notices'>Active Notices</td>
 <td id='best_evaluated_bidders'>Best Evaluated Bidders</td>
 <td id='contract_awards'>Contract Awards</td>
 </tr></table>
@@ -123,6 +120,6 @@
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>

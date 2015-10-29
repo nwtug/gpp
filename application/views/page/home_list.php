@@ -20,6 +20,9 @@
 
 
 
+
+
+
 else if($type == 'active_providers'){ ?>
 <tr><td><span class='bold'>PricewaterhouseCoopers, LLP</span>
 <br><span class='grey-box'>Education</span></td>
@@ -36,12 +39,17 @@ else if($type == 'active_providers'){ ?>
 
 
 
+
+
+
+
+
 else if($type == 'documents'){ ?>
 <tr><td class='pdf-icon-row'><span class='bold'>Public Procurement Bill MoFEP</span>
 <br><span class='grey-box'>Legal</span></td>
 <td class='dark-grey'>Posted: 04/10/2015 <br>Size: 256KB</td></tr>
 
-<tr><td class='mspp-icon-row'><span class='bold'>How Local Contractors Transform for International Procurem..</span>
+<tr><td class='msppt-icon-row'><span class='bold'>How Local Contractors Transform for International Procurem..</span>
 <br><span class='grey-box'>Case Studies</span></td>
 <td class='dark-grey'>Posted: 03/10/2015 <br>Size: 1.35MB</td></tr>
 
