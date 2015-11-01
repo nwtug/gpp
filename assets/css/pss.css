@@ -5,10 +5,11 @@
 html, body {
     height: 100%;
 	font-size:15px;
-	font-family: 'Roboto', sans-serif;
+	font-family: Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     font-weight:200;
 	margin: 0px;
+	padding: 0px;
 }
 
 input, textarea, .textfield {
@@ -23,7 +24,7 @@ input, textarea, .textfield {
 
 /* LINKS */
 a {
-	font-family: 'Roboto', sans-serif;
+	font-family: Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     font-weight:100;
 	text-decoration: none;
@@ -41,6 +42,35 @@ a:hover {
 }
 
 
+.error {
+	padding:5px;
+	font-weight:bold;	 
+	background-color: #FFE79B;
+	text-align:left;
+	color: #FF0000;
+}
+
+a.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+
+.message{
+	padding:5px;
+	font-weight:bold;	 
+	background-color: #FFE79B;
+	text-align:left;
+	color:#009933;
+}
+
+
+
+
+
+
+
+
 
 /* FONT SIZES */
 .h1, .h1 > a {
@@ -52,7 +82,10 @@ a:hover {
 	font-weight: 700;
 }
 
-.h3, .h3 > a {}
+.h3, .h3 > a {
+	font-size: 26px;
+	font-weight: 700;
+}
 
 .h4, .h4 > a {
 	font-size: 14px;
@@ -140,9 +173,14 @@ a:hover {
 	width: calc(100% - 30px);
 }
 
-
-
-
+.center-block {
+	display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+	text-align:center;
+	min-width: 300px;
+	min-height: 300px;
+}
 
 
 
@@ -172,6 +210,7 @@ a:hover {
 
 .left-div {
 	float: left;
+	text-align:left;
 }
 
 .right-div {
@@ -236,6 +275,15 @@ a:hover {
 	margin-top: 20px;
 }
 
+.one-column {
+	vertical-align: top;
+	padding-top: 15px !important;
+}
+
+.one-column .list-tabs > tbody > tr > td:not(:last-child) {
+	width: 1%;
+	white-space:nowrap;
+}
 
 
 .summary-table {
@@ -281,9 +329,49 @@ a:hover {
 }
 
 
-.btn {
+
+button.btn {
+	font-size: 20px;
+	padding: 6px 15px 6px 15px;
 	cursor: pointer;
-	font-weight: bold;
+	min-width: 150px;
+	text-decoration:none;
+}
+
+
+button.smallbtn {
+	font-size: 15px;
+	padding: 3px 8px 3px 8px;
+	cursor: pointer;
+	min-width: 70px;
+	text-decoration:none;
+}
+
+button.btn.green, button.smallbtn.green {
+	color: #FFF;
+	background-color: #18C93E;
+	border: solid 1px #18C93E;
+}
+
+
+button.btn.blue, button.smallbtn.blue {
+	color: #FFF;
+	background-color: #2DA0D1;
+	border: solid 1px #2DA0D1;
+}
+
+
+button.btn.purple, button.smallbtn.purple {
+	color: #FFF;
+	background-color: #8566AB;
+	border: solid 1px #8566AB;
+}
+
+
+button.btn.grey, button.smallbtn.grey {
+	color:#666;
+	background-color: #CCC;
+	border: solid 1px #CCC;
 }
 
 
@@ -334,22 +422,6 @@ a:hover {
 }
 
 
-
-.home-list-table {
-	border-collapse:collapse;
-	border: 1px solid #999;
-	border-top: 5px solid #999;
-	width: 100%;
-	min-width: 240px;
-	background-color: #F8F8F8;
-}
-
-.home-list-table > tbody > tr > th {
-	padding: 5px;
-	padding-left: 35px;
-	text-align: left;
-}
-
 .tender-icon {
 	background: url(../../assets/images/tender_icon.png) no-repeat left center;
 }
@@ -363,36 +435,6 @@ a:hover {
 	background: url(../../assets/images/forums_icon.png) no-repeat left center;
 }
 
-.list-tabs {
-	width: 100%;
-	border-collapse:collapse;
-}
-
-.list-tabs td {
-	padding: 8px 15px;
-	border-top: 1px solid #999;
-	border-bottom: 1px solid #999;
-	border-right: 1px solid #999;
-	font-weight: 800;
-	font-size: 13px;
-	color: #333;
-	cursor: pointer;
-}
-
-.list-tabs td:not(:last-child) {
-	word-wrap: break-word !important;
-}
-.list-tabs td:last-child {
-	border-right: 0px;
-	word-wrap: break-word !important;
-}
-
-.list-tabs td.active {
-	background: url(../../assets/images/grey_border.png) repeat-x left bottom;
-	color: #010166;
-	cursor: default;
-}
-
 .show-on-mobile {
 	display:none;
 }
@@ -402,27 +444,6 @@ a:hover {
 
 
 
-.home-list-div {
-	width: 100%;
-	height: 20vh;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-.home-list-div > table {
-	width: 100%;
-	font-size: 13px;
-	border-collapse:collapse;
-}
-.home-list-div > table > tbody > tr:nth-child(odd) {
-	background-color: #F8F8F8;
-}
-.home-list-div > table > tbody > tr:nth-child(even) {
-	background-color: #FFF;
-}
-.home-list-div > table > tbody > tr > td {
-	vertical-align: top;
-	padding: 5px;
-}
 
 
 
@@ -443,6 +464,66 @@ a:hover {
 	padding-left: 25px !important;
 }
 
+.grey-box {
+	display: inline-block;
+	background-color: #CCC;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+
+.picture-div {
+	padding: 10px;
+	text-align:center;
+	display: inline;
+}
+
+.picture-div img {
+	margin-bottom: 10px;
+}
+
+.picture-div .name {
+	font-size: 13px;
+	color: #999;
+	font-weight: 800;
+}
+
+.picture-div .caption {
+	font-size: 12px;
+	font-style:italic;
+}
+
+.body-title {
+	font-size: 26px;
+	font-weight: 700;
+	color: #010166;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.body-content {
+	text-align: justify;
+	width: 100%;
+	max-width: 1300px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -455,16 +536,12 @@ a:hover {
 
 /* CSS for small screens */
 @media only screen and (max-width:900px){
-	
+
 .two-columns.multiple > div {
 	width: calc(100% - 20px) !important;
 	margin-right: 10px;
 	margin-left: 10px;
 	margin-top: 20px;
-}
-
-.home-list-table {
-	width: 100%;
 }
 
 
@@ -487,6 +564,9 @@ a:hover {
 
 /* CSS for smaller screens */
 @media only screen and (max-width:700px){
+.body-table > tr > td:first-child, .body-table > tr > td:last-child {
+	width:0px !important;
+}
 
 .h1, .h1 > a {
 	font-size: 26px;
@@ -502,9 +582,9 @@ a:hover {
 }
 
 
-.row-divs > div, .top-divs > div {
+.row-divs > div, .top-divs > div:not(.active) {
 	display: block;
-	width: 100%;
+	width: 100% !important;
 }
 
 .right-div, .content-div {
@@ -512,7 +592,7 @@ a:hover {
 	float: left;
 }
 
-.right-div {
+.right-div, .left-div {
 	text-align:left;
 }
 

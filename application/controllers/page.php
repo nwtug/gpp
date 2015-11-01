@@ -34,6 +34,37 @@ class Page extends CI_Controller
 	
 	
 	
+	
+	
+	# load a home list
+	function home_list()
+	{
+		$data = filter_forwarded_data($this);
+		
+		$data['type'] = $data['t'];
+		# TODO: Select list based on type passed
+		$data['list'] = array();
+		
+		$this->load->view('page/home_list', $data);
+	}
+	
+	
+	
+	
+	
+	# about us page
+	function about()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('page/about', $data);
+	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 /* End of controller file */

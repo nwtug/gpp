@@ -3,7 +3,7 @@
   <td><div class='h4 blue left-div small-div-padding'>Friday, October 9, 2015 2:30PM EAT</div>
 <div class='right-div row-divs small-padding'>
 	<div class='btn h5 dark-green-bg small' data-url=''>Register</div>
-    <div class='btn h5 dark-grey' data-url=''>Login</div>
+    <div class='btn h5 dark-grey' data-rel='account/login'>Login</div>
     <div class='btn h5 dark-grey' data-url=''>Verify Document</div>
     <div class='btn h5 dark-grey' data-url=''>Contact Us</div>
     <div class='btn h5 dark-grey' data-rel='http://www.grss-mof.org' data-target='blank'>Ministry</div>

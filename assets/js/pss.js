@@ -2045,6 +2045,20 @@ $(".closefancybox").on("click", function( e ) {
 
 
 
+// --------------------------------------------------------------------------------------------------------
+// Positioning styles
+// --------------------------------------------------------------------------------------------------------
+$(function(){
+	// Fire on first load
+	recenterBlock();
+	
+	// Update position on reload
+	$(window).resize(function() {
+		recenterBlock();
+	});
+});
+
+
 
 
 	
@@ -2182,6 +2196,24 @@ function getAtCharIndices(stringVal){
 }
 
 
+
+
+
+//Recenter block
+function recenterBlock(){
+	if($('.center-block').length){
+		var centerHeight = $('.center-block').outerHeight();
+		var centerWidth = $('.center-block').outerWidth();
+		var container = $('.center-block').parents('td').first();
+		var containerHeight = container.height();
+		var containerWidth = container.width();
+		
+		var topOffset = container.offset().top + (containerHeight / 2) - (centerHeight / 2);
+		var leftOffset = container.offset().left + (containerWidth / 2) - (centerWidth / 2);
+		
+		$('.center-block').offset({left: leftOffset, top: topOffset });
+	}
+}
 
 
 
@@ -2442,7 +2474,7 @@ $(function(){
 		// If it is a link proceed with the action
 		if($(this).data('rel')){
 			var url = $(this).data('rel');
-			if($(this).data('rel').indexOf('://') == 0) url = getBaseURL()+$(this).data('rel');
+			if(url.indexOf('://') == -1) url = getBaseURL()+$(this).data('rel');
 			
 			//Is this a button in a popup - iframe?
 			if($(this).hasClass('frompop')){
@@ -2532,6 +2564,12 @@ $(function(){
 		parent.history.back();
 		return false;
 	});
+	
+	
+	// add the layer id if not available on a page
+	if($('#layerid').length  == 0){
+		$(document).append( "<input type='hidden' id='layerid' name='layerid' value=''>" );
+	}
 });
 
 

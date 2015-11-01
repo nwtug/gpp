@@ -148,3 +148,10 @@ function repositionCloser(iFrame)
 	closer.offset({top: (iFrame.offset().top + 3), left: (iFrame.offset().left + iFrame.outerWidth() - closer.outerWidth() - 5)});
 }
 
+
+
+// Close shadowbox inside iframe
+function closeShadowBoxInFrame()
+{
+	$('#__shadowbox_closer', window.parent.document).click();
+}
