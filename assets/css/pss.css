@@ -21,6 +21,25 @@ input, textarea, .textfield {
 	-webkit-appearance: none; /* remove shadows added by mobile browser */
 }
 
+.nextdiv {
+	display:inline-block;
+	min-width:100px;
+	margin-right: 15px;
+}
+
+.nextdiv label, .value {
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+	font-weight:400;
+	color: #999999;
+}
+
+.lastdiv {
+	display:inline-block;
+	min-width:100px;
+	margin-right: 15px;
+	float: right;
+}
 
 /* LINKS */
 a {

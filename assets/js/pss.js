@@ -326,9 +326,9 @@ function getBaseURL()
    var urlArray = pageURL.split("/");  
    var BaseURL = urlArray[0]+"//"+urlArray[2]+"/";
    //Dev environments have the installation sitting in a separate folder
-   if(urlArray[2] == 'localhost:8888' || urlArray[2] == '0.0.0.0')
+   if(urlArray[2] == '127.0.0.1' || urlArray[2] == '0.0.0.0')
    {
-		BaseURL = BaseURL+'pss/';   
+		BaseURL = BaseURL+'pss-version-1.0/';   
    }
    
 
