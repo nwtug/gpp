@@ -37,7 +37,7 @@ $this->load->view('addons/top_menu', array('__page'=>'verify_document'));
  <div class="nextdiv label" style="width:120px; height:30px;">Tracking Number: </div>
  <div class="nextdiv">
 <input type="text" id="trackingnumber" name="trackingnumber" placeholder="Enter Number" class="textfield numbersonly"  style='width:calc(100% - 20px);' /></div></td></tr>
-<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">VALIDATE TRACKING NUMBER</button><input type='hidden' id='verifydocument__type' name='verifydocument__type' value='verify_document' />
+<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:92%;">VERIFY </button><input type='hidden' id='verifydocument__type' name='verifydocument__type' value='verify_document' />
     <input type='hidden' id='verifydocument__ignorepostprocessing' name='verifydocument__ignorepostprocessing' value='verify_document' /></td></tr>
 
 </table>
