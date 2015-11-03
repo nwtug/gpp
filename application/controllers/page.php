@@ -87,6 +87,13 @@ class Page extends CI_Controller
 		$this->load->view('page/government_agencies', $data);
 	}
 	
+	# standards page
+	function standards()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('page/standards', $data);
+	}
+	
 	# Verify a document page
 	function verify()
 	{
