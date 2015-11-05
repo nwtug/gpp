@@ -2,7 +2,7 @@
   <td class='black-bg'>&nbsp;</td>
   <td class='black-bg'>
 <table>
-<tr><td class='two-columns vertical-align'><div class='left-div content-div'>This service is provided in accordance with the provisions of Articles 55(3)(b), 110(n), and 85(1) of the  Transitional  Constitution of the Republic of South Sudan, 2011. It is operated under the Ministry of Finance and Economic Planning in the Directorate of Public Procurement. It is headed by the Director of Procurement assisted by the Minister of Finance. More details are available on this service’s <a href='javascript:;'>About Page</a>.</div>
+<tr><td class='two-columns vertical-align'><div class='left-div content-div'>This service is provided in accordance with the provisions of Articles 55(3)(b), 110(n), and 85(1) of the  Transitional  Constitution of the Republic of South Sudan, 2011. It is operated under the Ministry of Finance and Economic Planning in the Directorate of Public Procurement. It is headed by the Director of Procurement assisted by the Minister of Finance. More details are available on this service’s <a href='<?php echo BASE_URL;?>page/about'>About Page</a>.</div>
 
 <div class='row-divs right-div white-link-divs' style='margin-top:15px;'>
 <div><a href='<?php echo BASE_URL;?>page/terms_of_use'>Terms</a></div>

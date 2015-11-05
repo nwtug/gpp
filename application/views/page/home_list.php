@@ -2,73 +2,74 @@
 
 <?php if($type == 'procurement_plans'){?>
 <tr>
-<td><span class='bold'>Ministry of Education, Science, Technology and Sports</span></td>
-<td ><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plans</div></td></tr>
+<td colspan="2"><span class='bold'>Ministry of Education, Science, Technology and Sports</span><br><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plan</div></td>
+</tr>
 
 <tr>
-<td><span class='bold'>National Medical Stores</span></td>
-<td ><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plans</div></td></tr>
+<td colspan="2"><span class='bold'>National Medical Stores</span><br><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plan</div></td>
+</tr>
 
 <tr>
-<td><span class='bold'>Ministry of Education, Science, Technology and Sports</span></td>
-<td ><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plans</div></td></tr>
+<td colspan="2"><span class='bold'>Ministry of Education, Science, Technology and Sports</span><br><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plan</div></td>
+</tr>
 
 <?php } 
 
 
 else if($type == 'active_notices'){?>
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Supply Of Electrical Consumables under frame work </span>
+<tr>
+  <td><span class='bold'>Supply Of Electrical Consumables under frame work </span>
 <br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>By: Ministry of Roads and Infrastructure</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Ministry of Roads and Infrastructure<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Deadline:</span> 04/10/2015</td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Purchase of New Motor vehicle </span>
+<tr><td><span class='bold'>Purchase of New Motor vehicle </span>
 <br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>By: Microfinance Support Centre</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Ministry of Roads and Infrastructure<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Deadline:</span> 04/10/2015</td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Construction of Yei-Juba Road RGC in Juba </span>
+<tr><td><span class='bold'>Construction of Yei-Juba Road RGC in Juba </span>
 <br><span class='grey-box'>Works</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>By: Ministry of Water and Development</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Ministry of Roads and Infrastructure<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Deadline:</span> 04/10/2015</td></tr>
 
 <?php } 
 
 
 else if($type == 'best_evaluated_bidders'){?>
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; ICT Equipment </span>
+<tr><td><span class='bold'>ICT Equipment </span>
 <br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Prison Service<br><span class='bold'>Provider:</span> Bet Forward SS<br><span class='bold'>Date BEB Expires:</span> 04/10/2015</td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; ICT Equipment </span>
+<tr><td><span class='bold'>ICT Equipment </span>
 <br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Prison Service<br><span class='bold'>Provider:</span> Bet Forward SS<br><span class='bold'>Date BEB Expires:</span> 04/10/2015</td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; ICT Equipment </span>
+<tr><td><span class='bold'>ICT Equipment </span>
 <br><span class='grey-box'>Works</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Prison Service<br><span class='bold'>Provider:</span> Bet Forward SS<br><span class='bold'>Date BEB Expires:</span> 04/10/2015</td></tr>
 
 <?php } 
 
 
 else if($type == 'contract_awards'){?>
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Printing Stationery & Publication</span>
-<br><span class='grey-box'>Entity</span> <span class='dark-grey'>Juba Rvenue Authority</span>
+<tr><td><span class='bold'>Printing Stationery & Publication</span>
+<br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Date Signed:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Revenue Authority<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Contract Value:</span> 2,980USD<br><span class='bold'>Status: </span> <span class="orange-box">Awarded</span></td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Printing Stationery & Publication </span>
-<br><span class='grey-box'>Entity</span> <span class='dark-grey'>Juba Road Fund</span>
+<tr><td><span class='bold'>Printing Stationery & Publication </span>
+<br><span class='grey-box'>Works</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Date Signed:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Revenue Authority<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Contract Value:</span> 2,980USD<br><span class='bold'>Status: </span> <span class="green-box">Completed</span></td></tr>
 
-<tr><td><span class='bold'>25/12/2015 &nbsp; &nbsp; Printing Stationery & Publication</span>
-<br><span class='grey-box'>Entity</span> <span class='dark-grey'>Law Development Centre</span>
+<tr><td><span class='bold'>Printing Stationery & Publication</span>
+<br><span class='grey-box'>Supplies</span> <span class='dark-grey'>Open International Bidding</span>
 <br><span class='dark-grey'><span class='bold'>Date Signed:</span> 04/10/2015</span></td>
-<td class='dark-grey'>Provider: Virtual Investiment Authority</td></tr>
+<td class='dark-grey'><span class='bold'>Entity:</span> Juba Revenue Authority<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Contract Value:</span> 2,980USD<br><span class='bold'>Status: </span> <span class="green-box">Completed</span></td></tr>
 
 <?php } 
 
@@ -203,7 +204,8 @@ else if($type == 'public_forums'){ ?>
 
 else if($type == 'secure_forums'){ ?>
 
-<tr><td><span class='bold'>What were the objectives of reforming the procurement and disposal system in Local Governments?</span>
+<tr>
+  <td><span class='bold'>What were the objectives of disposal systems?</span>
 <br><span class='grey-box'>General</span></td>
 <td class='dark-grey'>Started: 12/05/2015<br>Contributors: 1,453</td></tr>
 
