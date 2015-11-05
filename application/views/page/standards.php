@@ -17,7 +17,7 @@
 <table class='body-table water-mark-bg'>
 <?php $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'Standards'));
+$this->load->view('addons/top_menu', array('__page'=>'standards'));
 ?>
 
 <tr>

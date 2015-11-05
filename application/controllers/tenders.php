@@ -1,28 +1,28 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * This class controls viewing resources pages.
+ * This class controls viewing tender pages.
  *
  * @author David Buwembo <dbuwembo@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
- * @created 11/2/2015
+ * @created 11/4/2015
  */
-class Resources extends CI_Controller 
+class Tenders extends CI_Controller 
 {
-	# resources home page
+	# tender notices home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		$data['documentsList'] = array();
+		$data['procurementPlanList'] = array();
 		
-		$this->load->view('resources/home', $data);
+		$this->load->view('tender_notices/home', $data);
 	}
 	
 	
 	
-	# documents lists
-	function documents_list()
+	# tender notices lists
+	function tenders_list()
 	{
 		$data = filter_forwarded_data($this);
 		
@@ -30,7 +30,7 @@ class Resources extends CI_Controller
 		# TODO: Select list based on type passed
 		$data['list'] = array();
 		
-		$this->load->view('resources/details_list', $data);
+		$this->load->view('tender_notices/details_list', $data);
 	}
 	
 	
