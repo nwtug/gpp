@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * This class controls viewing provider pages.
+ * This class controls viewing faqs pages.
  *
- * @author Al Zziwa <azziwa@newwavetech.co.ug>
+ * @author David Buwembo <dbuwembo@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
- * @created 10/30/2015
+ * @created 11/2/2015
  */
 class Faqs extends CI_Controller 
 {
-	# providers home page
+	# faqs home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
@@ -21,7 +21,7 @@ class Faqs extends CI_Controller
 	
 	
 	
-	# providers lists
+	# faqs lists
 	function faqs_list()
 	{
 		$data = filter_forwarded_data($this);

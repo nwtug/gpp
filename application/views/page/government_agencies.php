@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo IMAGE_URL;?>favicon.ico">
-	<title><?php echo SITE_TITLE.': Providers';?></title>
+	<title><?php echo SITE_TITLE.': Government Agencies';?></title>
     
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/external-fonts.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
@@ -17,7 +17,7 @@
 <table class='body-table water-mark-bg'>
 <?php $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'Government Agencies'));
+$this->load->view('addons/top_menu', array('__page'=>'government_agencies'));
 ?>
 
 <tr>

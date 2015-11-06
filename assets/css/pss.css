@@ -589,6 +589,39 @@ button.btn.grey, button.smallbtn.grey {
 	margin-bottom: 3px;
 }
 
+.blue-box {
+	display: inline-block;
+	background-color: #2C9FD1;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.green-box {
+    display: inline-block;
+	background-color: #5cb85c;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.orange-box {
+    display: inline-block;
+	background-color: #f0ad4e;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
 
 .picture-div {
 	padding: 10px;

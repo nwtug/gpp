@@ -68,11 +68,7 @@ if(!empty($result) && $result){
 <br>P.O. Box 80
 <br>Juba
 <br>Republic of South Sudan
-<br>Email: <a href='mailto:info@grss-mof.org'>info@grss-mof.org</a>
-
-
-
-      </div>
+</div>
 </form>
 </div>
 

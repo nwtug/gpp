@@ -31,23 +31,23 @@ $this->load->view('addons/top_menu', array('__page'=>'faqs'));
 <table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Frequently Asked Questions</th><th class='btn closer' data-rel='page/portal'></th></tr>
 <tr><td colspan='2'>
-<table class='list-tabs' data-type='paginationdiv__faqssearch' data-page='faqs/faqs_list'><tr>
-<td id='public_forums' class='active'>Public</td>
+<table class='list-tabs' data-type='paginationdiv__faqsearch' data-page='faqs/faqs_list'><tr>
+<td id='public_forums' >Public</td>
 <td id='secure_forums'>Secure</td>
-<td id='frequently_asked_questions'>Frequently Asked Questions</td>
+<td id='frequently_asked_questions' class='active'>Frequently Asked Questions</td>
 </tr></table>
 </td></tr>
-<tr><td colspan='2'><div id='paginationdiv__faqssearch_list' class='page-list-div'>
-<?php $this->load->view('faqs/details_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
+<tr><td colspan='2'><div id='paginationdiv__faqsearch_list' class='page-list-div'>
+<?php $this->load->view('faqs/details_list',array('type'=>'frequently_asked_questions','list'=>$publicForumsList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
          
-<div id='faqs_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="faqssearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__faqssearch_action" id="paginationdiv__faqssearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/documents";?>" />
-<input name="paginationdiv__faqssearch_maxpages" id="paginationdiv__faqssearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
-<input name="paginationdiv__faqssearch_noperlist" id="paginationdiv__faqssearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-<input name="paginationdiv__faqssearch_showdiv" id="paginationdiv__faqssearch_showdiv" type="hidden" value="paginationdiv__faqssearch_list" />
-<input name="paginationdiv__faqssearch_extrafields" id="paginationdiv__faqssearch_extrafields" type="hidden" value="" /></div>
+<div id='faq_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="faqssearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__faqsearch_action" id="paginationdiv__faqsearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/faqs";?>" />
+<input name="paginationdiv__faqsearch_maxpages" id="paginationdiv__faqsearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__faqsearch_noperlist" id="paginationdiv__faqsearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__faqsearch_showdiv" id="paginationdiv__faqsearch_showdiv" type="hidden" value="paginationdiv__faqsearch_list" />
+<input name="paginationdiv__faqsearch_extrafields" id="paginationdiv__faqsearch_extrafields" type="hidden" value="" /></div>
           
 
 </td><td width='1%' class='filter-list'>FILTER</td></tr></table>

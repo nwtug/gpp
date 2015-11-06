@@ -94,7 +94,7 @@ class Page extends CI_Controller
 		$this->load->view('page/standards', $data);
 	}
 	
-	# Verify a document page
+	# verify a document page
 	function verify()
 	{
 		$data = filter_forwarded_data($this);
@@ -102,7 +102,7 @@ class Page extends CI_Controller
 		$this->load->view('page/verify_document', $data);
 	}
 	
-	# Contact Us page
+	# contact us page
 	function contact_us()
 	{
 		$data = filter_forwarded_data($this);
