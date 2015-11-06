@@ -606,14 +606,30 @@ button.btn.grey, button.smallbtn.grey {
 	max-width: 1300px;
 }
 
+.step-ribbon {
+	background: url(../../assets/images/transparent_bg.png) center center;
+	border-top: solid 1px #D6D6D6;
+	border-bottom: solid 1px #D6D6D6;
+}
 
+.step-ribbon > td {
+	padding: 6px 15px;
+}
 
-
-
-
-
-
-
+.step-ribbon table > tbody > tr > td {
+	padding-left: 30px;
+	padding-right: 30px;
+	border-right: 1px solid #CCC;
+}
+.step-ribbon table > tbody > tr > td:first-child {
+	padding-left: 0px;
+}
+.step-ribbon table > tbody > tr > td:last-child {
+	border-right: 0px;
+}
+.step-ribbon table > tbody > tr > td.active {
+	color: #010066;
+}
 
 
 

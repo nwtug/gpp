@@ -18,6 +18,27 @@ class Account extends CI_Controller
         $this->load->model('_account');
 	}
 	
+	
+	# Register a user account
+	function register()
+	{
+		$data = filter_forwarded_data($this);
+		
+		
+		
+		$this->load->view('account/register', $data);
+	}
+	
+	
+	# Account explanation
+	function type_explanation()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('account/type_explanation', $data);
+	}
+	
+	
+	
 	# login
 	function login()
 	{

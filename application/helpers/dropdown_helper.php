@@ -29,6 +29,15 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		case "organizationtypes":
+			$types = array('provider'=>'Provider', 'government_agency'=>'Government Agency', 'pde'=>'Procurement or Disposal Entity');
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' onclick=\"updateFieldLayer('".base_url()."account/type_explanation/t/".$key."','','','type_explanation','')\">".$row."</option>";
+			}
+		break;
+		
 		
 		
 		
