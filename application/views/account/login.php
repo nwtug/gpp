@@ -17,19 +17,19 @@
 <table class='body-table water-mark-bg'>
 <?php $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'login'));
+$this->load->view('addons/public_top_menu', array('__page'=>'login'));
 ?>
 
 <tr>
   <td>&nbsp;</td>
   <td style='height:calc(85vh - 214px);'>
 
-<div class='center-block'>
+<div class='center-block body-table-border'>
 <form method="post">
 <table class='normal-table'>
 <tr><td class='body-title'>Login</td></tr>
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-<tr><td><input type='text' id='loginusername' name='loginusername' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td><input type='text' id='loginusername' name='loginusername' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
 
@@ -48,6 +48,6 @@ $this->load->view('addons/top_menu', array('__page'=>'login'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

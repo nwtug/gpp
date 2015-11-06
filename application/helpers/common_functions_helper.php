@@ -415,7 +415,7 @@ function get_ip_address()
     	$ip = $_SERVER["HTTP_CLIENT_IP"];
 	}
 	
-	return (ENVIRONMENT == 'development' || (!empty($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE))? DEFAULT_IP: $ip;
+	return (ENVIRONMENT == 'development' || (!empty($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE))? '': $ip;
 }
 
 

@@ -19,7 +19,7 @@
 <?php 
 $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'providers'));
+$this->load->view('addons/public_top_menu', array('__page'=>'providers'));
 ?>
 
 
