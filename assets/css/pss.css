@@ -21,6 +21,26 @@ input, textarea, .textfield {
 	-webkit-appearance: none; /* remove shadows added by mobile browser */
 }
 
+.nextdiv {
+	display:inline-block;
+	min-width:100px;
+	margin-right: 15px;
+}
+
+.nextdiv label, .value {
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+	font-weight:400;
+	color: #999999;
+}
+
+.lastdiv {
+	display:inline-block;
+	min-width:100px;
+	margin-right: 15px;
+	float: right;
+}
+
 .drop-down {
 	border: 1px solid #DDDDDD;
 	padding:8px 20px 8px 8px;
@@ -52,7 +72,6 @@ input, textarea, .textfield {
 	padding-right: 25px;
 	background: url(../../assets/images/down_arrow_grey.png) no-repeat right center;
 }
-
 
 
 
@@ -562,6 +581,39 @@ button.btn.grey, button.smallbtn.grey {
 .grey-box {
 	display: inline-block;
 	background-color: #CCC;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.blue-box {
+	display: inline-block;
+	background-color: #2C9FD1;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.green-box {
+    display: inline-block;
+	background-color: #5cb85c;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.orange-box {
+    display: inline-block;
+	background-color: #f0ad4e;
 	color: #FFF;
 	padding: 5px;
 	font-size: 11px;

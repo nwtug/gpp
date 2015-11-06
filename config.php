@@ -33,7 +33,7 @@
  */
 	define('SECURE_MODE', FALSE);
 	
-	define('BASE_URL', 'http://localhost:8888/pss/');#Set to HTTPS:// if SECURE_MODE = TRUE
+	define('BASE_URL', 'http://127.0.0.1/pss-version-1.0/');#Set to HTTPS:// if SECURE_MODE = TRUE
 
 	define('RETRIEVE_URL_DATA_IGNORE', 3);#The starting point to obtain the passed url data
 	

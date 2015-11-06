@@ -105,6 +105,9 @@
 }
 
 .page-list-div {
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 	height: 46vh;
 }
 
