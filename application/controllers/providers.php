@@ -8,7 +8,7 @@
  * @copyright PSS
  * @created 10/30/2015
  */
-class Provider extends CI_Controller 
+class Providers extends CI_Controller 
 {
 	# providers home page
 	function index()
@@ -16,7 +16,7 @@ class Provider extends CI_Controller
 		$data = filter_forwarded_data($this);
 		$data['activeProvidersList'] = array();
 		
-		$this->load->view('provider/home', $data);
+		$this->load->view('providers/home', $data);
 	}
 	
 	
@@ -30,7 +30,7 @@ class Provider extends CI_Controller
 		# TODO: Select list based on type passed
 		$data['list'] = array();
 		
-		$this->load->view('provider/details_list', $data);
+		$this->load->view('providers/details_list', $data);
 	}
 	
 	

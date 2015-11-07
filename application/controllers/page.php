@@ -110,6 +110,22 @@ class Page extends CI_Controller
 		$this->load->view('page/contact_us', $data);
 	}
 	
+	
+	
+	# Generate a custom drop down list
+	function get_custom_drop_list()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['type'])){
+			$searchBy = !empty($data['search_by'])? $data['search_by']: '';
+			$data['list'] =  get_option_list($this, $data['type'], 'div', $searchBy, $data); 
+		}
+		
+		$data['area'] = "dropdown_list";
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
 }
 
 /* End of controller file */

@@ -21,6 +21,11 @@ input, textarea, .textfield {
 	-webkit-appearance: none; /* remove shadows added by mobile browser */
 }
 
+textarea {
+	font-size:15px;
+	font-family: Arial, sans-serif;
+}
+
 .nextdiv {
 	display:inline-block;
 	min-width:100px;
@@ -682,6 +687,67 @@ button.btn.grey, button.smallbtn.grey {
 .step-ribbon table > tbody > tr > td.active {
 	color: #010066;
 }
+
+
+
+
+
+.normal-table.two-columns {
+	width: 100%;
+}
+
+.normal-table.two-columns td {
+	text-align: left;
+}
+
+.normal-table.two-columns input[type=text]:not(.drop-down), .normal-table.two-columns textarea {
+	width: calc(100% - 20px);
+}
+
+.normal-table.two-columns select, .normal-table.two-columns input.drop-down {
+	width: calc(100% - 32px);
+}
+
+
+
+
+
+
+
+.drop-down-div {
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	max-height: 200px;
+	max-width: 200px;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	z-index: 10001;
+}
+
+
+.drop-down-div div {
+	padding:5px;
+	border-bottom: 1px solid #DDD;
+	text-align:left;
+	cursor: pointer;
+	width:100%;
+	font-size:15px;
+}
+
+.drop-down-div div:last-child {
+	border-bottom: 0px;
+}
+
+
+.drop-down-div div.delete-icon {
+	background: url(../../assets/images/delete_icon.png) no-repeat calc(100% - 5px) center;
+}
+
+
+
+
+
 
 
 

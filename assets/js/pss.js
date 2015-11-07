@@ -326,9 +326,9 @@ function getBaseURL()
    var urlArray = pageURL.split("/");  
    var BaseURL = urlArray[0]+"//"+urlArray[2]+"/";
    //Dev environments have the installation sitting in a separate folder
-   if(urlArray[2] == '127.0.0.1' || urlArray[2] == '0.0.0.0')
+   if(urlArray[2] == '127.0.0.1' || urlArray[2] == '0.0.0.0' || urlArray[2].indexOf("localhost") > -1)
    {
-		BaseURL = BaseURL+'pss-version-1.0/';   
+		BaseURL = 'http://localhost:8888/pss/';   
    }
    
 
@@ -2470,12 +2470,12 @@ $( document ).ready(function() {
 // Handling buttons with click otions
 // --------------------------------------------------------------------------------------------------------
 $(function(){
-	$(document).on('click', '.btn, .greybtn', function(){
+	$(document).on('click', '.btn, .greybtn', function(){console.log('BTN CLICKED');
 		// If it is a link proceed with the action
 		if($(this).data('rel')){
 			var url = $(this).data('rel');
 			if(url.indexOf('://') == -1) url = getBaseURL()+$(this).data('rel');
-			
+			console.log('URL: '+url);
 			//Is this a button in a popup - iframe?
 			if($(this).hasClass('frompop')){
 				window.top.location.href = url;

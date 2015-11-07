@@ -39,6 +39,24 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		case "documenttypes":
+			$types = array('provider_registration'=>'Provider Registration Certificate', 'training_completion'=>'Training Completion Certificate');
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		case "contactreason":
+			$types = array('Issues With Registration', 'Report Error On System', 'Can Not Find Document', 'Report Provider Fraud');
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
 		
 		
 		

@@ -24,9 +24,11 @@ class Account extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
+		if(!empty($_POST['organization__organizationtypes'])){
+			$this->native_session->set('__organization_type', $_POST['organization__organizationtypes']);
+		}
 		
-		
-		$this->load->view('account/register', $data);
+		$this->load->view('account/register_step_'.(!empty($data['step'])? $data['step']: '1'), $data);
 	}
 	
 	

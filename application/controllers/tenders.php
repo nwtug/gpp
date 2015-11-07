@@ -16,7 +16,7 @@ class Tenders extends CI_Controller
 		$data = filter_forwarded_data($this);
 		$data['procurementPlanList'] = array();
 		
-		$this->load->view('tender_notices/home', $data);
+		$this->load->view('tenders/home', $data);
 	}
 	
 	
@@ -30,7 +30,7 @@ class Tenders extends CI_Controller
 		# TODO: Select list based on type passed
 		$data['list'] = array();
 		
-		$this->load->view('tender_notices/details_list', $data);
+		$this->load->view('tenders/details_list', $data);
 	}
 	
 	

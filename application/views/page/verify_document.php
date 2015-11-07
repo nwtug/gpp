@@ -17,31 +17,25 @@
 <table class='body-table water-mark-bg'>
 <?php $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'verify_document'));
+$this->load->view('addons/public_top_menu', array('__page'=>'verify_document'));
 ?>
 
 <tr>
   <td>&nbsp;</td>
   <td style='height:calc(85vh - 214px);'>
-<div class='body-title'>Verify Document</div>
 
-<div class='center-block'>
-<form method="post">
-<table class='normal-table'>
 
+
+<div class='center-block body-table-border'>
+<table class='normal-table microform'>
+<tr><td class='body-title'>Verify Document</td></tr>
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-<tr><td>
-<div class="nextdiv label" style="width:120px; height:30px;">Document Type: </div>
-<div class="nextdiv"><input type="text" id="documenttype__documenttypes" name="documenttype__documenttypes" placeholder="Select Document Type" class="textfield selectfield" value="" style='width:calc(100% - 20px);' /><input type='hidden' id='documenttype' name='documenttype' value='' /></div></td></tr>
-<tr><td>
- <div class="nextdiv label" style="width:120px; height:30px;">Tracking Number: </div>
- <div class="nextdiv">
-<input type="text" id="trackingnumber" name="trackingnumber" placeholder="Enter Number" class="textfield numbersonly"  style='width:calc(100% - 20px);' /></div></td></tr>
-<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:92%;">VERIFY </button><input type='hidden' id='verifydocument__type' name='verifydocument__type' value='verify_document' />
-    <input type='hidden' id='verifydocument__ignorepostprocessing' name='verifydocument__ignorepostprocessing' value='verify_document' /></td></tr>
-
+<tr><td><select id='documenttype__documenttypes' name='documenttype__documenttypes' class='drop-down' value='' style='width:100%;'>
+<?php echo get_option_list($this, 'documenttypes');?>
+</select></td></tr>
+<tr><td><input type='text' id='trackingnumber' name='trackingnumber' autocapitalize='off' placeholder="Enter Tracking Number" value='' class='numbersonly' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td><button type="button" id="verifydocument" name="verifydocument" class="btn green" style="width:100%;">Verify</button></td></tr>
 </table>
-</form>
 </div>
 
 
