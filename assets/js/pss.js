@@ -2211,7 +2211,11 @@ function recenterBlock(){
 		var topOffset = container.offset().top + (containerHeight / 2) - (centerHeight / 2);
 		var leftOffset = container.offset().left + (containerWidth / 2) - (centerWidth / 2);
 		
-		$('.center-block').offset({left: leftOffset, top: topOffset });
+		if(!($('.center-block').hasClass('right-div') || $('.center-block').hasClass('left-div'))) {
+			$('.center-block').offset({left: leftOffset});
+		}
+		
+		$('.center-block').offset({top: topOffset });
 	}
 }
 

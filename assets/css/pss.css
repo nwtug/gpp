@@ -283,12 +283,16 @@ a.error {
 
 .center-block {
 	display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-	text-align:center;
+    
 	width: 30%;
 	min-width: 240px;
 	min-height: 200px;
+}
+
+.center-block:not(.left-div):not(.right-div) {
+	margin-left: auto;
+    margin-right: auto;
+	text-align:center;
 }
 
 

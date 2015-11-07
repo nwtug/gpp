@@ -32,14 +32,14 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <tr><th class='h3 blue rop-icon'>Tender Notices</th><th class='btn closer' data-rel='page/portal'></th></tr>
 <tr><td colspan='2'>
 <table class='list-tabs' data-type='paginationdiv__tendernoticesearch' data-page='tenders/tenders_list'><tr>
-<td id='procurement_plans' class='active'>Procurement Plans</td>
-<td id='active_notices'>Active Notices</td>
-<td id='best_evaluated_bidders'>Best Evaluated Bidders</td>
-<td id='contract_awards'>Contract Awards</td>
+<td id='procurement_plans' <?php if(empty($area) || !empty($area) && $area == 'procurement_plans') echo "class='active'";?>>Procurement Plans</td>
+<td id='active_notices' <?php if(!empty($area) && $area == 'active_notices') echo "class='active'";?>>Active Notices</td>
+<td id='best_evaluated_bidders' <?php if(!empty($area) && $area == 'best_evaluated_bidders') echo "class='active'";?>>Best Evaluated Bidders</td>
+<td id='contract_awards' <?php if(!empty($area) && $area == 'contract_awards') echo "class='active'";?>>Contract Awards</td>
 </tr></table>
 </td></tr>
 <tr><td colspan='2'><div id='paginationdiv__tendernoticesearch_list' class='page-list-div'>
-<?php $this->load->view('tender_notices/details_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
+<?php $this->load->view('tenders/details_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
