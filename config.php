@@ -149,4 +149,22 @@
 	define('DBPORT', "3306");
 
 
+
+/*
+ *---------------------------------------------------------------
+ * COMMUNICATION SETTINGS
+ *---------------------------------------------------------------
+ */
+
+	define("NOREPLY_EMAIL", ""); #TODO set up no-reply email
+	define("HELP_EMAIL", ""); #TODO set up help email
+
+	define('SITE_ADMIN_MAIL', ""); #TODO set up site admin emails
+
+	define('SITE_ADMIN_NAME', ""); #TODO set up site admin name
+
+	define('SITE_GENERAL_NAME', "PSS");
+
+
+
 ?>
