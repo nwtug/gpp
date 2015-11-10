@@ -1,3 +1,4 @@
+<?php if(empty($msg)) $msg = get_session_msg($this);?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
@@ -50,7 +51,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
     <td><textarea id="details" name="details" placeholder="Enter your message here" style="height:120px;"></textarea></td>
   </tr>
   <tr>
-    <td colspan="2"><button type="button" id="verifydocument" name="verifydocument" class="btn green" style="width:100%;">Send Message</button></td>
+    <td colspan="2"><button type="button" id="verifydocument" name="verifydocument" class="btn green submitmicrobtn" style="width:100%;">Send Message</button>
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'page/contact_us';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'page/contact_us';?>' />
+    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
+    </td>
   </tr>
   
   <tr>

@@ -2,9 +2,9 @@
 /**
  * This class generates and formats account details. 
  *
- * @author Al Zziwa <al@clout.com>
- * @version 1.3.0
- * @copyright Clout
+ * @author Al Zziwa <azziwa@newwavetech.co.ug>
+ * @version 1.0.0
+ * @copyright PSS
  * @created 07/30/2015
  */
 class _account extends CI_Model
@@ -36,6 +36,14 @@ class _account extends CI_Model
 		return array('verified'=>(!empty($result) && $result? 'Y': 'N'));
 	}
 	
+	
+	
+	
+	# Check if the user name is available
+	public function valid_user_name($desiredUserName)
+	{
+		return array('is_valid'=>($this->_query_reader->get_count('check_user_name', array('user_name'=>htmlentities($desiredUserName, ENT_QUOTES) )) > 0? 'N': 'Y'));
+	}
 	
 	
 	
@@ -210,7 +218,11 @@ class _account extends CI_Model
 	
 	
 	
-	
+	# Get a list of accounts of a given type
+	function types($type, $restrictions=array())
+	{
+		return $this->_query_reader->get_single_column_as_array('get_accounts_of_type', '_user_id', array('account_type'=>$type));
+	}
 	
 }
 

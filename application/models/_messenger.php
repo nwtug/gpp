@@ -27,15 +27,6 @@ class _messenger extends CI_Model {
 	# $formatStrict - send using only the required formats
 	function send($receiverId, $message, $required=array('system'), $formatStrict=FALSE)
 	{
-		# Send to store staff if the receipient type is store
-		if(!empty($message['receivertype']) && $message['receivertype'] == 'store')
-		{
-			$staff = $this->_query_reader->get_list('get_store_staff', array('store_id'=>$receiverId));
-			# Form an array of store staff user-ids
-			$receiverId = array();
-			foreach($staff AS $row) array_push($receiverId, $row['_staff_user_id']);
-		}
-		
 		$results = array();
 		if(!empty($receiverId) && !empty($message['code']))
 		{
@@ -294,7 +285,7 @@ class _messenger extends CI_Model {
 			
 			
 			# Put default if user is not specified
-			if(!empty($message['emailfrom'])){
+			if(empty($message['emailfrom'])){
 				$message['fromname'] = SITE_TITLE;
 				$message['emailfrom'] = NOREPLY_EMAIL;
 			}
@@ -316,7 +307,7 @@ class _messenger extends CI_Model {
 			$this->email->clear(TRUE);
 			
 			# 2. copy admin if required
-			if(!empty($message['copyadmin']) && $message['copyadmin'] == 'Y')
+			if($isSent && !empty($message['copyadmin']) && $message['copyadmin'] == 'Y')
 			{
 			 	$isSent = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($message['code'])? $message['code']: 'user_defined_message'), 'details'=>htmlentities($message['details'], ENT_QUOTES), 'subject'=>htmlentities($message['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($message['fileurl'])? substr(strrchr($message['fileurl'], "/"),1): ''), 'sender_id'=>(!empty($userId)? $userId: '1'), 'recipient_id'=>implode("','", $this->get_admin_users()) ));
 			}

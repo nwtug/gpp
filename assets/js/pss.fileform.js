@@ -269,7 +269,6 @@ $(function() {
 	// action field and shows the result in the specified results div.
 	// --------------------------------------------------------------------------------------------------------
 	$(document).on('click', '.microform button.submitmicrobtn', function(e){
-		
 		// Collect all fields to process
 		var submitBtn = $(this);
 		var formContainer = $(this).parents('.microform').first();
@@ -429,6 +428,7 @@ $(function() {
 			showServerSideFadingMessage(errorMessage);
 		}
 	});
+
 	
 	
 	
@@ -602,6 +602,74 @@ $(function() {
 			$(this).val('');
 		}
 	});
+	
+	
+	
+	
+	
+	$(document).on('keyup', '#newusername', function(e){
+		var thisField = $(this);
+		
+		if($(this).val().length > 5){
+			var userName = $(this).val();
+			// Process the form data submitted
+			$.ajax({
+        		type: "POST",
+       			url: getBaseURL()+'account/check_user_name',
+      			data: {user_name: userName},
+      			beforeSend: function() {},
+      			success: function(data) {
+					if(data == 'VALID'){
+						thisField.removeClass('invalid').addClass('valid');
+						thisField.after("<input type='hidden' id='validusername' name='validusername' value='Y' />");
+						if($('#invalidusername').length) $('#invalidusername').remove();
+						
+					} else {
+						thisField.removeClass('valid').addClass('invalid');
+						thisField.after("<input type='hidden' id='invalidusername' name='invalidusername' value='N' />");
+						if($('#validusername').length) $('#validusername').remove();
+					}
+					
+				}
+   			});
+		}
+		else {
+			thisField.removeClass('valid').addClass('invalid');
+			thisField.after("<input type='hidden' id='invalidusername' name='invalidusername' value='N' />");
+			if($('#validusername').length) $('#validusername').remove();
+		}
+    	
+	});
+	
+	
+	// Show a valid password
+	$(document).on('keyup', '#newpassword', function(e){
+		var fieldValue = $(this).val();
+		var hasNumber = /\d/;
+		
+		if(fieldValue.length > 7 && hasNumber.test(fieldValue)){
+			$(this).removeClass('invalid').addClass('valid');
+			$(this).after("<input type='hidden' id='validpassword' name='validpassword' value='Y' />");
+		}
+	});
+	
+	
+	
+	// Show a valid password
+	$(document).on('keyup', '.same-as', function(e){
+		var otherField = $(this).data('field');
+		
+		if($(this).val() == $('#'+otherField).val()){
+			$(this).removeClass('invalid').addClass('valid');
+		} else {
+			$(this).removeClass('valid').addClass('invalid');
+		}
+	});
+	
+	
+	
+	
+	
 	
 	
 	

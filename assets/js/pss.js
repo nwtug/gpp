@@ -2474,7 +2474,7 @@ $( document ).ready(function() {
 // Handling buttons with click otions
 // --------------------------------------------------------------------------------------------------------
 $(function(){
-	$(document).on('click', '.btn, .greybtn', function(){console.log('BTN CLICKED');
+	$(document).on('click', '.btn, .greybtn', function(){
 		// If it is a link proceed with the action
 		if($(this).data('rel')){
 			var url = $(this).data('rel');

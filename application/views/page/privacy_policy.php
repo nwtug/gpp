@@ -1,3 +1,6 @@
+<?php
+if(empty($area)){
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
@@ -24,7 +27,18 @@ $this->load->view('addons/public_top_menu', array('__page'=>'privacy'));
   <td>&nbsp;</td>
   <td style='height:calc(85vh - 214px);'>
 <div class='body-title'>Privacy Policy</div>
-<div class="body-content"><table>
+<div class="body-content">
+<?php }
+
+else {
+	echo "<link rel='stylesheet' href='".base_url()."assets/css/pss.css' type='text/css' media='screen' />"; 
+}?>
+
+
+
+
+<table>
+<?php if(!empty($area)) echo "<tr><td><div class='body-title'>Privacy Policy</div></td></tr>"; ?>
 <tr><td>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum. Donec blandit ultricies eros. Suspendisse quis nisi volutpat justo tincidunt vehicula vitae sit amet tellus. Sed lacus turpis, dignissim non arcu ac, dictum maximus dui. Nulla congue orci at libero facilisis aliquet. Sed in mauris et eros ornare pretium eu ac quam. Phasellus metus erat, faucibus ut commodo non, varius eu felis. Morbi sit amet lacus maximus, placerat augue eget, ornare velit.
 <br /><br />
@@ -46,7 +60,14 @@ Nulla tempus elit elit, vel cursus sapien porttitor in. Duis ut ex vel mauris ve
 Ut mauris metus, maximus pretium viverra ornare, pharetra ac lacus. Ut maximus egestas nulla, eu porta odio faucibus ut. Etiam rhoncus lectus at lorem consectetur, a placerat enim gravida. Proin ac dolor in mauris rhoncus convallis ut eget odio. Donec bibendum mattis odio, vitae bibendum mi dictum nec. Proin vitae elit imperdiet, blandit lectus vel, vulputate velit. Cras eu ipsum placerat nunc aliquet accumsan. Etiam mollis id nulla sed mollis. Cras vehicula ac massa at rutrum. Pellentesque luctus ut tellus sed tempor. Aenean dictum rhoncus tortor iaculis mollis. Duis aliquet sapien nulla, in imperdiet neque imperdiet sit amet.
 <br /><br />
 </td></tr>
-</table></div>
+</table>
+
+
+
+<?php 
+# Use only if showing the whole page
+if(empty($area)){?>
+</div>
 
 
 </td>
@@ -59,3 +80,4 @@ Ut mauris metus, maximus pretium viverra ornare, pharetra ac lacus. Ut maximus e
 <?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>
+<?php } ?>

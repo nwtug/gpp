@@ -75,7 +75,9 @@
 
 	define('DOWNLOAD_LIMIT', 10000); #Max number of rows that can be downloaded
 
-	define('MAXIMUM_FINANCIAL_HISTORY', 5); # Number of years the financial history goes back
+	define('FULL_DATE_FORMAT', 'd/M/Y h:iA');
+	
+	define('SHORT_DATE_FORMAT', 'd/M/Y');
 
 
 
@@ -118,12 +120,16 @@
 
 /*
  *---------------------------------------------------------------
- * QUERY CACHE SETTINGS
+ * CACHE SETTINGS
  *---------------------------------------------------------------
  */
  	
 	define('ENABLE_QUERY_CACHE', FALSE); 
  	
+	define('ENABLE_MESSAGE_CACHE', FALSE); 
+	
+	define('QUERY_FILE', HOME_URL.'application/helpers/queries_list_helper.php'); 
+	
  	define('MESSAGE_FILE', HOME_URL.'application/helpers/message_list_helper.php');  
 
 
@@ -148,5 +154,55 @@
 	
 	define('DBPORT', "3306");
 
+	
 
+/*
+ *---------------------------------------------------------------
+ * EMAIL SETTINGS
+ *---------------------------------------------------------------
+ */
+	define('SMTP_HOST', "localhost");
+	
+	define('SMTP_PORT', "25");
+	
+	define('SMTP_USER', "root"); 
+	
+	define('SMTP_PASS', "");
+	
+	define('FLAG_TO_REDIRECT', "0");// 1 => Redirect emails to a specific mail id, 
+									// 0 => No need to redirect emails.
+
+
+/*
+ *---------------------------------------------------------------
+ * COMMUNICATION SETTINGS
+ *---------------------------------------------------------------
+ */
+	
+	define("NOREPLY_EMAIL", "noreply@rssprocurement.org");
+	
+	define("APPEALS_EMAIL", "appeals@rssprocurement.org");
+	
+	define("FRAUD_EMAIL", "fraud@rssprocurement.org");
+	
+	define("SECURITY_EMAIL", "security@rssprocurement.org");
+	
+	define("HELP_EMAIL", "support@rssprocurement.org");
+	        	        
+	define('SITE_ADMIN_MAIL', "admin@rssprocurement.org");
+	
+	define("SIGNUP_EMAIL", "register@rssprocurement.org");
+	
+	define('SITE_ADMIN_NAME', "RSS Admin");
+	
+	define('SITE_GENERAL_NAME', "RSS Procurement");
+		
+	define('DEV_TEST_EMAIL', "azziwa@gmail.com");
+
+/*
+ * If "FLAG_TO_REDIRECT" is set to 1, it will redirect all the mails from this site
+ * to the email address  defined in "MAILID_TO_REDIRECT".
+ */
+		
+	define('MAILID_TO_REDIRECT', DEV_TEST_EMAIL);
 ?>

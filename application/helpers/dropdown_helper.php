@@ -34,7 +34,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			foreach($types AS $key=>$row)
 			{
 				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."' onclick=\"updateFieldLayer('".base_url()."account/type_explanation/t/".$key."','','','type_explanation','')\">".$row."</option>";
+				else $optionString .= "<option value='".$key."' onclick=\"updateFieldLayer('".base_url()."account/type_explanation/t/".$key."','','','type_explanation','')\" ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
 			}
 		break;
 		
@@ -59,7 +59,46 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		case "businesscategories":
+			$types = $obj->_query_reader->get_list(($more['type'] == 'government_agency'? 'get_government_ministries': 'get_business_categories'));
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a Category</div>";
+			else $optionString .= "<option value=''>Select a Category</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['id']."' ".(!empty($more['selected']) && $more['selected'] == $row['id']? 'selected': '').">".$row['name']."</option>";
+			}
+		break;
 		
+		
+		case "countries":
+			$types = $obj->_query_reader->get_list('get_countries_list');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Country</div>";
+			else $optionString .= "<option value=''>Select Country</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['id']."' ".(!empty($more['selected']) && $more['selected'] == $row['id']? 'selected': '').">".$row['name']."</option>";
+			}
+		break;
+		
+		
+		case "secretquestions":
+			$types = $obj->_query_reader->get_list('get_secret_questions');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Secret Question</div>";
+			else $optionString .= "<option value=''>Select Secret Question</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['id']."'>".$row['question']."</div>";
+				else $optionString .= "<option value='".$row['id']."' ".(!empty($more['selected']) && $more['selected'] == $row['id']? 'selected': '').">".$row['question']."</option>";
+			}
+		break;
 		
 		
 		

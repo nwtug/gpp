@@ -10,6 +10,14 @@
  */
 class Page extends CI_Controller 
 {
+	
+	#Constructor to set some default values at class load
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('_page');
+	}
+	
 	# home page
 	function index()
 	{
@@ -107,7 +115,11 @@ class Page extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		$this->load->view('page/contact_us', $data);
+		if(!empty($_POST)) {
+			$msg = $this->_page->send_contact_message($_POST)? 'Your message has been sent': 'ERROR: Your message could not be sent';
+			$this->native_session->set('msg',$msg);
+		}
+		else $this->load->view('page/contact_us', $data);
 	}
 	
 	

@@ -26,30 +26,11 @@ textarea {
 	font-family: Arial, sans-serif;
 }
 
-.nextdiv {
-	display:inline-block;
-	min-width:100px;
-	margin-right: 15px;
-}
-
-.nextdiv label, .value {
-	font-family: Arial, sans-serif;
-	font-size: 18px;
-	font-weight:400;
-	color: #999999;
-}
-
-.lastdiv {
-	display:inline-block;
-	min-width:100px;
-	margin-right: 15px;
-	float: right;
-}
 
 .drop-down {
 	border: 1px solid #DDDDDD;
-	padding:8px 20px 8px 8px;
-	font-size: 18px;
+	padding:7px 20px 7px 6px;
+	font-size: 15px;
     color:#999999;
 	-webkit-appearance: none;
     -moz-appearance: none;
@@ -58,7 +39,7 @@ textarea {
 }
 
 .drop-down.small {
-	font-size:14px; 
+	font-size:12px; 
 	padding: 5px 20px 5px 5px;
 }
 
@@ -78,6 +59,15 @@ textarea {
 	background: url(../../assets/images/down_arrow_grey.png) no-repeat right center;
 }
 
+
+.valid {
+	background: url(../../assets/images/correct.jpg) no-repeat right center #FFF;
+}
+
+
+.invalid {
+	background: url(../../assets/images/wrong.jpg) no-repeat right center #FFF;
+}
 
 
 
@@ -377,6 +367,32 @@ a.error {
 }
 
 
+.two-fields {
+	vertical-align: top !important;
+}
+.two-fields > div {
+	display: inline-block !important;
+	vertical-align: top !important;
+}
+
+.two-fields > div input {
+	width: calc(100% - 23px) !important;
+}
+.two-fields > div textarea {
+	width: calc(100% - 28px) !important;
+}
+.two-fields > div select {
+	 width: calc(100% - 5px) !important;
+}
+.two-fields > div:first-child {
+	width: calc(50% - 30px);
+	margin-right: 10px;
+}
+.two-fields > div:last-child {
+	width: calc(50% - 30px);
+	margin-left: 10px;
+} 
+
 .two-columns.multiple > div:nth-child(even) {
 	width: calc(50% - 30px);
 	margin-right: 10px;
@@ -439,6 +455,19 @@ a.error {
 	border: 1px solid #999;
 	border-top: 5px solid #999;
 	background-color: #F8F8F8;
+}
+
+
+.default-table {
+    min-width: 0;
+    display: table;
+	text-align:left;
+	border-collapse: collapse;
+}
+.default-table td {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
 }
 
 .content-div {
@@ -881,6 +910,14 @@ button.btn.grey, button.smallbtn.grey {
 	display:none;
 }
 
+.two-fields > div {
+	display: block !important;
+	vertical-align: top !important;
+	width: calc(100% - 40px) !important;
+	margin-top: 15px;
+	margin-left:0px;
+	margin-right: 0px;
+}
 
 
 	
