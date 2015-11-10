@@ -19,7 +19,7 @@
 <?php 
 $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'resources'));
+$this->load->view('addons/public_top_menu', array('__page'=>'resources'));
 ?>
 
 
@@ -32,14 +32,14 @@ $this->load->view('addons/top_menu', array('__page'=>'resources'));
 <tr><th class='h3 blue rop-icon'>Resoucres</th><th class='btn closer' data-rel='page/portal'></th></tr>
 <tr><td colspan='2'>
 <table class='list-tabs' data-type='paginationdiv__resourcesearch' data-page='resources/documents_list'><tr>
-<td id='documents' class='active'>Documents</td>
-<td id='important_links'>Important Links</td>
-<td id='standards'>Standards</td>
-<td id='training_activities'>Training Activities</td>
+<td id='documents' <?php if(empty($area) || !empty($area) && $area == 'documents') echo "class='active'";?>>Documents</td>
+<td id='important_links' <?php if(!empty($area) && $area == 'important_links') echo "class='active'";?>>Important Links</td>
+<td id='standards' <?php if(!empty($area) && $area == 'standards') echo "class='active'";?>>Standards</td>
+<td id='training_activities' <?php if(!empty($area) && $area == 'training_activities') echo "class='active'";?>>Training Activities</td>
 </tr></table>
 </td></tr>
 <tr><td colspan='2'><div id='paginationdiv__resourcesearch_list' class='page-list-div'>
-<?php $this->load->view('resources/details_list',array('type'=>'documents','list'=>$documentsList));?>
+<?php $this->load->view('resources/details_list',array('type'=>(!empty($area)? $area: 'documents'),'list'=>$documentsList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>

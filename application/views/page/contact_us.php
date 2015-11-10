@@ -17,60 +17,56 @@
 <table class='body-table water-mark-bg'>
 <?php $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'contact_us'));
+$this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
 ?>
 
 <tr>
   <td>&nbsp;</td>
   <td style='height:calc(85vh - 214px);'>
-<div class='body-title'>Contact Us</div>
 
-<div class='center-block'>
-<form method="post">
-<div style="display:inline-block;">
-<table border="0" class='normal-table' cellspacing="0" cellpadding="10">
-<?php
-if(!empty($result) && $result){
-	echo "<tr><td style='padding-bottom:100px;'>".format_notice($this, $msg)."</td></tr>";
-} else {
-	echo !empty($msg)? "<tr><td colspan='2'>".format_notice($this, $msg)."</td></tr>": "";
-?>
+
+<div class='center-block body-table-border left-div' style='margin:15px; width:100%; max-width:600px;'>
+<table class='normal-table microform two-columns'>
+<tr><td colspan='2' class='body-title'>Contact Us</td></tr>
+<?php if(!empty($msg)) echo "<tr><td colspan='2' style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
+<tr>
+    <td>Your Name: </td>
+    <td><input type="text" id="yourname" name="yourname" value="" maxlength="100"/></td>
+  </tr>
+  <tr>
+    <td>Email Address: </td>
+    <td><input type="text" id="emailaddress" name="emailaddress" class="email" value="" maxlength="100"/></td>
+  </tr>
+  <tr>
+    <td>Telephone: </td>
+    <td><input type="text" id="telephone" name="telephone" placeholder="Optional (e.g: 0782123456)" class="numbersonly telephone optional" value="" maxlength="10"/></td>
+  </tr>
+  <tr>
+    <td>Reason: </td>
+    <td><input type="text" id="reason__contactreason" name="reason__contactreason" placeholder="Enter or Select reason" class="drop-down searchable do-not-clear" value=""/></td>
+  </tr>
+  <tr>
+    <td valign="top">Message: </td>
+    <td><textarea id="details" name="details" placeholder="Enter your message here" style="height:120px;"></textarea></td>
+  </tr>
+  <tr>
+    <td colspan="2"><button type="button" id="verifydocument" name="verifydocument" class="btn green" style="width:100%;">Send Message</button></td>
+  </tr>
   
   <tr>
-    <td class="label">Your Name: </td>
-    <td><input type="text" id="yourname" name="yourname" class="textfield" value="" maxlength="100"/></td>
-  </tr>
-  <tr>
-    <td class="label">Email Address: </td>
-    <td><input type="text" id="emailaddress" name="emailaddress" class="textfield email" value="" maxlength="100"/></td>
-  </tr>
-  <tr>
-    <td class="label">Telephone: </td>
-    <td><input type="text" id="telephone" name="telephone" placeholder="Optional (e.g: 0782123456)" class="textfield numbersonly telephone optional" value="" maxlength="10"/></td>
-  </tr>
-  <tr>
-    <td class="label">Reason: </td>
-    <td><input type="text" id="reason__contactreason" name="reason__contactreason" placeholder="Enter or Select reason" class="textfield selectfield editable" value=""/></td>
-  </tr>
-  <tr>
-    <td class="label" valign="top">Message: </td>
-    <td><textarea id="details" name="details" placeholder="Enter your message here" class="textarea" style="height:120px;"></textarea></td>
-  </tr>
-  <tr>
-    <td colspan="2" style="text-align:right;"><input type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;" value="SEND" /></td>
-  </tr>
-<?php }?>
-      </table>
-      </div>
-      <div style="display:inline-block; vertical-align:top; text-align:left; padding-left:20px; padding-top:10px;">
-<span class="">ADDRESS:
-<br>Ministry of Finance and Economic Planning</span>
+    <td colspan="2">
+<span class="bold">ADDRESS:</span>
+<br>Ministry of Finance and Economic Planning
 <br>P.O. Box 80
 <br>Juba
 <br>Republic of South Sudan
+</td>
+  </tr>
+  
+</table>
 </div>
-</form>
-</div>
+
+
 
 
 </td>
@@ -85,6 +81,6 @@ if(!empty($result) && $result){
 
 
 
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

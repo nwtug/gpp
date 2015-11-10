@@ -19,7 +19,7 @@
 <?php 
 $this->load->view('addons/public_header');
 
-$this->load->view('addons/top_menu', array('__page'=>'faqs'));
+$this->load->view('addons/public_top_menu', array('__page'=>'faqs'));
 ?>
 
 
@@ -31,14 +31,14 @@ $this->load->view('addons/top_menu', array('__page'=>'faqs'));
 <table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Frequently Asked Questions</th><th class='btn closer' data-rel='page/portal'></th></tr>
 <tr><td colspan='2'>
-<table class='list-tabs' data-type='paginationdiv__faqsearch' data-page='faqs/faqs_list'><tr>
-<td id='public_forums' >Public</td>
-<td id='secure_forums'>Secure</td>
-<td id='frequently_asked_questions' class='active'>Frequently Asked Questions</td>
+<table class='list-tabs' data-type='paginationdiv__faqsearch' data-page='forums/forums_list'><tr>
+<td id='public_forums' <?php if(empty($area) || !empty($area) && $area == 'public_forums') echo "class='active'";?>>Public</td>
+<td id='secure_forums' <?php if(!empty($area) && $area == 'secure_forums') echo "class='active'";?>>Secure</td>
+<td id='frequently_asked_questions' <?php if(!empty($area) && $area == 'frequently_asked_questions') echo "class='active'";?>>Frequently Asked Questions</td>
 </tr></table>
 </td></tr>
 <tr><td colspan='2'><div id='paginationdiv__faqsearch_list' class='page-list-div'>
-<?php $this->load->view('faqs/details_list',array('type'=>'frequently_asked_questions','list'=>$publicForumsList));?>
+<?php $this->load->view('forums/details_list',array('type'=>(!empty($area)? $area: 'public_forums'),'list'=>$publicForumsList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>

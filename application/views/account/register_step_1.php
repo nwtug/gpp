@@ -23,21 +23,14 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
 <tr>
   <td>&nbsp;</td><td class='body-title' style='padding:15px;'>Register</td><td>&nbsp;</td>
 </tr>
-<tr class='step-ribbon'>
-  <td>&nbsp;</td><td><table><tr>
-  		<td class='active'>1. Choose Account Type</td>
-    	<td>2. About Your Account</td>
-    	<td>3. Contact Information</td>
-        <td>4. Login</td>
-    </tr></table></td><td>&nbsp;</td>
-</tr>
+<?php $this->load->view('addons/step_ribbon', array('step'=>'1')); ?>
 
 <tr>
   <td>&nbsp;</td><td style='height:calc(85vh - 214px); vertical-align: top;'>
   
   <table class='normal-table'><tr>
   	<td>
-    <table class='micro-form' style='max-width:450px;'>
+    <table style='max-width:450px;'>
     <tr><td class='dark-grey'>To help us serve you better, fill out this form as completely as possible.</td></tr>
     <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
     <tr><td class='bold'>a) What is your organization type?</td></tr>
@@ -45,7 +38,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
   <?php echo get_option_list($this, 'organizationtypes');?>
   </select></td></tr>
     <tr><td><div id='type_explanation' class='dark-grey'>Use this account type if you wish to submit bids to organizations for work.</div></td></tr>
-    <tr><td><div class='right-div' style=""><button type="button" id="next" name="next" class="btn green" style="width:100%;max-width:300px;">Next</button></div></td></tr>
+    <tr><td><div class='right-div'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/register/step/2';?>' />
+    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
+    </td></tr>
     </table>
     
     

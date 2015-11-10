@@ -31,18 +31,18 @@ $this->load->view('addons/public_top_menu', array('__page'=>'providers'));
 <table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Registry of Providers</th><th class='btn closer' data-rel='page/portal'></th></tr>
 <tr><td colspan='2'>
-<table class='list-tabs' data-type='paginationdiv__providersearch' data-page='provider/provider_list'><tr>
+<table class='list-tabs' data-type='paginationdiv__providersearch' data-page='providers/provider_list'><tr>
 <td id='active_providers' class='active'>Active Providers</td>
 <td id='suspended_providers'>Suspended Providers</td>
 </tr></table>
 </td></tr>
 <tr><td colspan='2'><div id='paginationdiv__providersearch_list' class='page-list-div'>
-<?php $this->load->view('provider/details_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
+<?php $this->load->view('providers/details_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
          
-<div id='provider_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="providersearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__providersearch_action" id="paginationdiv__providersearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/provider";?>" />
+<div id='provider_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="providersearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__providersearch_action" id="paginationdiv__providersearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/providers";?>" />
 <input name="paginationdiv__providersearch_maxpages" id="paginationdiv__providersearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
 <input name="paginationdiv__providersearch_noperlist" id="paginationdiv__providersearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
 <input name="paginationdiv__providersearch_showdiv" id="paginationdiv__providersearch_showdiv" type="hidden" value="paginationdiv__providersearch_list" />

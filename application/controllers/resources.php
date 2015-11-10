@@ -14,6 +14,8 @@ class Resources extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['a'])) $data['area'] = $data['a'];
 		$data['documentsList'] = array();
 		
 		$this->load->view('resources/home', $data);

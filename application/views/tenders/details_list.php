@@ -21,7 +21,7 @@ else if($type == 'active_notices'){ ?>
 </td>
   <td><span class="grey-box">WORKS </span> <span class="dark-grey">[Open Domestic Bidding]</span></td><td>03 Nov, 2015</td></tr>
 <tr><td >Insurance Regulatory Authority</td><td>Construction of Juba roads <br><div class="blue-box" data-rel=''>View Details</div></td><td><span class="grey-box">WORKS </span> <span class="dark-grey">[Open Domestic Bidding]</span></td><td>03 Nov, 2015</td></tr>
-<tr><td >Juba Municipla Council</td><td>Consultancy services to develop the Municipal Master plan for drainage<br><div class="blue-box" data-rel=''>View Details</div></td><td><span class="grey-box">WORKS </span> <span class="dark-grey">[Open Domestic Bidding]</span></td><td>03 Nov, 2015</td></tr>
+<tr><td >Juba Municipal Council</td><td>Consultancy services to develop the Municipal Master plan for drainage<br><div class="blue-box" data-rel=''>View Details</div></td><td><span class="grey-box">WORKS </span> <span class="dark-grey">[Open Domestic Bidding]</span></td><td>03 Nov, 2015</td></tr>
 
 
 <?php }  
