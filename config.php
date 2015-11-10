@@ -75,7 +75,7 @@
 
 	define('DOWNLOAD_LIMIT', 10000); #Max number of rows that can be downloaded
 
-	
+	define('MAXIMUM_FINANCIAL_HISTORY', 5); # Number of years the financial history goes back
 
 
 
@@ -113,6 +113,18 @@
 	define('URI_PROTOCOL', 'AUTO'); // Set "AUTO" For WINDOWS
 									       // Set "REQUEST_URI" For LINUX
 
+
+
+
+/*
+ *---------------------------------------------------------------
+ * QUERY CACHE SETTINGS
+ *---------------------------------------------------------------
+ */
+ 	
+	define('ENABLE_QUERY_CACHE', FALSE); 
+ 	
+ 	define('MESSAGE_FILE', HOME_URL.'application/helpers/message_list_helper.php');  
 
 
 
