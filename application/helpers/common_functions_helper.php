@@ -367,7 +367,7 @@ function format_telephone($number)
 # Format ID for display
 function format_id($id)
 {
-	return !empty($id)? "CT".str_pad(dechex($id),10,'0',STR_PAD_LEFT): "";
+	return !empty($id)? "PP".str_pad(dechex($id),5,'0',STR_PAD_LEFT): "";
 }
 
 
@@ -638,9 +638,9 @@ function format_inline_edit($category, $string, $id)
 
 
 # Add data to unchageable user session
-function add_to_user_session($obj, $data)
+function add_to_user_session($obj, $data, $prefix='__', $ignore=array())
 {
-	foreach($data AS $key=>$value) $obj->native_session->set('__'.$key, $value);
+	foreach($data AS $key=>$value) if(!in_array($key, $ignore)) $obj->native_session->set($prefix.$key, $value);
 }
 
 

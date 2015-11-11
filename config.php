@@ -191,8 +191,6 @@
 	        	        
 	define('SITE_ADMIN_MAIL', "admin@rssprocurement.org");
 	
-	define("SIGNUP_EMAIL", "register@rssprocurement.org");
-	
 	define('SITE_ADMIN_NAME', "RSS Admin");
 	
 	define('SITE_GENERAL_NAME', "RSS Procurement");

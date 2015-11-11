@@ -18,7 +18,15 @@
 <?php $this->load->view('addons/public_header');
 
 $this->load->view('addons/public_top_menu', array('__page'=>'login'));
+
+if($this->native_session->get('__step') && $this->native_session->get('__step') == 3){
 ?>
+<tr>
+  <td>&nbsp;</td><td class='body-title' style='padding:15px;'>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<?php $this->load->view('addons/step_ribbon', array('step'=>'4')); 
+
+}?>
 
 <tr>
   <td>&nbsp;</td>
@@ -29,11 +37,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'login'));
 <table class='normal-table'>
 <tr><td class='body-title'>Login</td></tr>
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-<tr><td><input type='text' id='loginusername' name='loginusername' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td><input type='text' id='loginusername' name='loginusername' autocapitalize='off' placeholder="User Name" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
 
-<tr><td class='row-divs'><div class='left-div'><a href="javascript:;">New Account</a></div>
+<tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'account/register';?>">New Account</a><?php }?></div>
 <div class='right-div'><a href="javascript:;">Forgot Password</a></div>
 </td></tr>
 </table>
