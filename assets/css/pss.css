@@ -21,10 +21,16 @@ input, textarea, .textfield {
 	-webkit-appearance: none; /* remove shadows added by mobile browser */
 }
 
+textarea {
+	font-size:15px;
+	font-family: Arial, sans-serif;
+}
+
+
 .drop-down {
 	border: 1px solid #DDDDDD;
-	padding:8px 20px 8px 8px;
-	font-size: 18px;
+	padding:7px 20px 7px 6px;
+	font-size: 15px;
     color:#999999;
 	-webkit-appearance: none;
     -moz-appearance: none;
@@ -33,7 +39,7 @@ input, textarea, .textfield {
 }
 
 .drop-down.small {
-	font-size:14px; 
+	font-size:12px; 
 	padding: 5px 20px 5px 5px;
 }
 
@@ -54,6 +60,14 @@ input, textarea, .textfield {
 }
 
 
+.valid {
+	background: url(../../assets/images/correct.jpg) no-repeat right center #FFF;
+}
+
+
+.invalid {
+	background: url(../../assets/images/wrong.jpg) no-repeat right center #FFF;
+}
 
 
 
@@ -259,12 +273,16 @@ a.error {
 
 .center-block {
 	display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-	text-align:center;
+    
 	width: 30%;
 	min-width: 240px;
 	min-height: 200px;
+}
+
+.center-block:not(.left-div):not(.right-div) {
+	margin-left: auto;
+    margin-right: auto;
+	text-align:center;
 }
 
 
@@ -349,6 +367,32 @@ a.error {
 }
 
 
+.two-fields {
+	vertical-align: top !important;
+}
+.two-fields > div {
+	display: inline-block !important;
+	vertical-align: top !important;
+}
+
+.two-fields > div input {
+	width: calc(100% - 23px) !important;
+}
+.two-fields > div textarea {
+	width: calc(100% - 28px) !important;
+}
+.two-fields > div select {
+	 width: calc(100% - 5px) !important;
+}
+.two-fields > div:first-child {
+	width: calc(50% - 30px);
+	margin-right: 10px;
+}
+.two-fields > div:last-child {
+	width: calc(50% - 30px);
+	margin-left: 10px;
+} 
+
 .two-columns.multiple > div:nth-child(even) {
 	width: calc(50% - 30px);
 	margin-right: 10px;
@@ -411,6 +455,19 @@ a.error {
 	border: 1px solid #999;
 	border-top: 5px solid #999;
 	background-color: #F8F8F8;
+}
+
+
+.default-table {
+    min-width: 0;
+    display: table;
+	text-align:left;
+	border-collapse: collapse;
+}
+.default-table td {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
 }
 
 .content-div {
@@ -570,6 +627,39 @@ button.btn.grey, button.smallbtn.grey {
 	margin-bottom: 3px;
 }
 
+.blue-box {
+	display: inline-block;
+	background-color: #2C9FD1;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.green-box {
+    display: inline-block;
+	background-color: #5cb85c;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.orange-box {
+    display: inline-block;
+	background-color: #f0ad4e;
+	color: #FFF;
+	padding: 5px;
+	font-size: 11px;
+	font-weight: 800;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
 
 .picture-div {
 	padding: 10px;
@@ -630,6 +720,67 @@ button.btn.grey, button.smallbtn.grey {
 .step-ribbon table > tbody > tr > td.active {
 	color: #010066;
 }
+
+
+
+
+
+.normal-table.two-columns {
+	width: 100%;
+}
+
+.normal-table.two-columns td {
+	text-align: left;
+}
+
+.normal-table.two-columns input[type=text]:not(.drop-down), .normal-table.two-columns textarea {
+	width: calc(100% - 20px);
+}
+
+.normal-table.two-columns select, .normal-table.two-columns input.drop-down {
+	width: calc(100% - 32px);
+}
+
+
+
+
+
+
+
+.drop-down-div {
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	max-height: 200px;
+	max-width: 200px;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	z-index: 10001;
+}
+
+
+.drop-down-div div {
+	padding:5px;
+	border-bottom: 1px solid #DDD;
+	text-align:left;
+	cursor: pointer;
+	width:100%;
+	font-size:15px;
+}
+
+.drop-down-div div:last-child {
+	border-bottom: 0px;
+}
+
+
+.drop-down-div div.delete-icon {
+	background: url(../../assets/images/delete_icon.png) no-repeat calc(100% - 5px) center;
+}
+
+
+
+
+
 
 
 
@@ -759,6 +910,14 @@ button.btn.grey, button.smallbtn.grey {
 	display:none;
 }
 
+.two-fields > div {
+	display: block !important;
+	vertical-align: top !important;
+	width: calc(100% - 40px) !important;
+	margin-top: 15px;
+	margin-left:0px;
+	margin-right: 0px;
+}
 
 
 	

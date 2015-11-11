@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('_query_reader', '_logger');
+$autoload['model'] = array('_query_reader', '_logger', '_messenger');
 
 
 /* End of file autoload.php */

@@ -326,9 +326,9 @@ function getBaseURL()
    var urlArray = pageURL.split("/");  
    var BaseURL = urlArray[0]+"//"+urlArray[2]+"/";
    //Dev environments have the installation sitting in a separate folder
-   if(urlArray[2] == 'localhost:8888' || urlArray[2] == '0.0.0.0')
+   if(urlArray[2] == '127.0.0.1' || urlArray[2] == '0.0.0.0' || urlArray[2].indexOf("localhost") > -1)
    {
-		BaseURL = BaseURL+'pss/';   
+		BaseURL = 'http://localhost:8888/pss/';   
    }
    
 
@@ -2211,7 +2211,11 @@ function recenterBlock(){
 		var topOffset = container.offset().top + (containerHeight / 2) - (centerHeight / 2);
 		var leftOffset = container.offset().left + (containerWidth / 2) - (centerWidth / 2);
 		
-		$('.center-block').offset({left: leftOffset, top: topOffset });
+		if(!($('.center-block').hasClass('right-div') || $('.center-block').hasClass('left-div'))) {
+			$('.center-block').offset({left: leftOffset});
+		}
+		
+		$('.center-block').offset({top: topOffset });
 	}
 }
 
@@ -2475,7 +2479,7 @@ $(function(){
 		if($(this).data('rel')){
 			var url = $(this).data('rel');
 			if(url.indexOf('://') == -1) url = getBaseURL()+$(this).data('rel');
-			
+			console.log('URL: '+url);
 			//Is this a button in a popup - iframe?
 			if($(this).hasClass('frompop')){
 				window.top.location.href = url;

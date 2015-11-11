@@ -742,7 +742,19 @@ function format_date_interval($startDate, $endDate, $returnArray=TRUE, $minKey='
 
 
 
-
+# Create an image from the text given
+function create_image_from_text($fileName, $text, $size = array('width'=>80, 'height'=>40))
+{
+	$imageObject = imagecreate($size['width'], $size['height']);
+	# Create white background and black text with roboto font
+	$bg = imagecolorallocate($imageObject, 255, 255, 255);
+	$textColor = imagecolorallocate($imageObject, 0, 0, 0);
+	$font = 5;
+	
+	# Write the string at the top left
+	imagestring($imageObject, $font, 15, 15, $text, $textColor);
+	imagepng($imageObject, UPLOAD_DIRECTORY.$fileName, 9);
+}
 
 
 ?>

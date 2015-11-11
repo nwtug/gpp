@@ -24,9 +24,26 @@ class Account extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		
-		
-		$this->load->view('account/register', $data);
+		if(!empty($_POST['organization__organizationtypes'])){
+			$this->native_session->set('organization_type', $_POST['organization__organizationtypes']);
+		}
+		# Just viewing the form for the first time
+		else {
+			
+			# Step two requires pregnerating an image to check if its a valid user submitting the form
+			if(!empty($data['step']) && $data['step'] == '2'){
+				if(empty(session_id())) @session_start();
+				$now = strtotime('now');
+				$numbers = substr($now, -3);
+				$checks = array('left'=>substr($numbers, 0,1), 'right'=>substr($numbers, -1));
+				$this->native_session->set('check_numbers',$checks);
+				$text = $checks['left'].' + '.$checks['right'];
+				create_image_from_text(session_id().'.png', $text); 
+			}
+			
+			
+			$this->load->view('account/register_step_'.(!empty($data['step'])? $data['step']: '1'), $data);
+		}
 	}
 	
 	
@@ -128,7 +145,15 @@ class Account extends CI_Controller
 	
 	
 	
-	
+	# Check provider user name
+	function check_user_name()
+	{
+		$data = filter_forwarded_data($this);
+		if(!empty($_POST['user_name'])){
+			$check = $this->_account->valid_user_name($_POST['user_name']);
+			echo !empty($check['is_valid']) && $check['is_valid'] == 'Y'? 'VALID': 'INVALID';
+		}
+	}
 	
 	
 	
