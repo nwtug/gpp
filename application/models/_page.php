@@ -23,6 +23,20 @@ class _page extends CI_Model
 			
 		return $this->_messenger->send_direct_email($formDetails['emailaddress'], '', $message);
 	}
+
+	# verify certificate
+	public function verify_certificate($formData)
+	{
+		$certificate['certificate_type'] = $formData['documenttype__documenttypes'];
+
+		# trackingnumber is expected to be numeric
+		$certificate['certificate_id'] = is_numeric($formData['trackingnumber'])?$formData['trackingnumber']:'';
+
+		# TODO (Rogers generate a query to cross reference $formData against table: [certificate.certificate_type] and [certificate.certificate_id]
+		return $this->_query_reader->get_count('get_certificate_verification',$certificate);
+
+	}
+
 	
 	
 }
