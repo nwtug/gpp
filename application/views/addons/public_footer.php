@@ -10,8 +10,8 @@
 <div><a href='<?php echo BASE_URL;?>page/providers'>Providers</a></div>
 <div><a href='<?php echo BASE_URL;?>page/government_agencies'>Government Agencies</a></div>
 <div class='ignore-border'><a href='<?php echo BASE_URL;?>page/contact_us'>Contact Us</a></div>
-<div class='btn ignore-border' data-url=''><img src='<?php echo IMAGE_URL.'twitter.png';?>' border='0' /></div>
-<div class='btn ignore-border' data-url=''><img src='<?php echo IMAGE_URL.'facebook.png';?>' border='0' /></div>
+<div class='btn ignore-border'><a href="https://twitter.com/grssprocurement" target="_blank"><img src='<?php echo IMAGE_URL.'twitter.png';?>' border='0' /></a></div>
+<div class='btn ignore-border' ><a href="https://www.facebook.com/rssprocurement" target="_blank"><img src='<?php echo IMAGE_URL.'facebook.png';?>' border='0' /></a></div>
 </div>
 </td></tr>
 
