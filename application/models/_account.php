@@ -10,19 +10,6 @@
 class _account extends CI_Model
 {
 	
-	# Add an application
-	public function add($formDetails)
-	{
-		$userId = '';
-		$emailVerified = 'N';
-		
-		return array('result'=>((!empty($result) && $result)? 'SUCCESS': 'FAIL'), 'new_user_id'=>$userId, 'email_verified'=>$emailVerified);
-	}
-	
-	
-	
-	
-	
 	# Verify a new user's account
 	public function verify($code)
 	{

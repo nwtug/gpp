@@ -126,18 +126,9 @@ class Account extends CI_Controller
 	function admin_dashboard()
 	{
 		$data = filter_forwarded_data($this);
+		$data['auditTrailList'] = array();
 		$this->load->view('account/admin_dashboard', $data);
 	}
-	
-	
-	
-	# The government dashboard
-	function government_dashboard()
-	{
-		$data = filter_forwarded_data($this);
-		$this->load->view('account/government_dashboard', $data);
-	}
-	
 	
 	
 	# The pde dashboard
@@ -152,6 +143,7 @@ class Account extends CI_Controller
 	function provider_dashboard()
 	{
 		$data = filter_forwarded_data($this);
+		$data['tendersList'] = array();
 		$this->load->view('account/provider_dashboard', $data);
 	}
 	

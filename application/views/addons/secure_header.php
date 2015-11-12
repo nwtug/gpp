@@ -2,7 +2,7 @@
   <td>&nbsp;</td>
   <td><div class='h4 left-div small-div-padding'>Friday, October 9, 2015 2:30PM EAT</div>
 <div class='right-div row-divs small-padding'>
-	<div class='btn h5' data-url=''>Peter Mabior [MoFEP]</div>
+	<div class='btn h5' data-url=''>Peter Mabior [admin]</div>
     <div class='btn h5' data-rel='account/logout'>Log Out</div>
 </div></td>
   <td>&nbsp;</td>

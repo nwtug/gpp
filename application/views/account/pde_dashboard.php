@@ -17,7 +17,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header');
-$this->load->view('addons/admin_top_menu', array('__page'=>'my_dashboard'));
+$this->load->view('addons/pde_top_menu', array('__page'=>'my_dashboard'));
 ?>
 
 <tr>

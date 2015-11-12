@@ -79,7 +79,7 @@
 	
 	define('SHORT_DATE_FORMAT', 'd/M/Y');
 
-
+	define('MAXIMUM_FINANCIAL_HISTORY', 5);
 
 
 /*
