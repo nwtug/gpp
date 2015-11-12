@@ -142,7 +142,13 @@ class Account extends CI_Controller
 	}
 	
 	
-	
+	# Forgot the password
+	function forgot()
+	{
+		$data = filter_forwarded_data($this);
+		
+		$this->load->view('account/recover_password', $data);
+	}
 	
 	
 	# Check provider user name

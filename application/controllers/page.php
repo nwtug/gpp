@@ -110,6 +110,32 @@ class Page extends CI_Controller
 		$this->load->view('page/verify_document', $data);
 	}
 	
+	
+	# Get values filled in by a form layer and put them in a session for layer use
+	function get_layer_form_values()
+	{
+		$data = filter_forwarded_data($this);
+		
+		switch($data['type'])
+		{
+			
+			
+			case 'verify_document':
+				$this->load->model('_validator');
+				$result = $this->_validator->is_valid_document($_POST);
+				$data['msg'] = !empty($result)? 'The document is valid.<br><br>It was issued to '.$result['owner_name'].' on '.date('d-M-Y', strtotime($result['date_added'])) : 'WARNING: Document is invalid.';
+			break;
+			
+			default:
+			break;
+		}
+		
+		$data['area'] = "basic_msg";
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
+	
+	
 	# contact us page
 	function contact_us()
 	{
