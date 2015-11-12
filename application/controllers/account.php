@@ -154,7 +154,26 @@ class Account extends CI_Controller
 			echo !empty($check['is_valid']) && $check['is_valid'] == 'Y'? 'VALID': 'INVALID';
 		}
 	}
-	
+
+
+	# Forgot Password
+	function forgot()
+	{
+		$data = filter_forwarded_data($this);  # if form is submitted
+		if(!empty($_POST)) {
+
+			$this->load->model('_user');
+			$result = $this->_user->recover_password($this->input->post('registeredemail'));
+			$data['msg'] = $result['boolean']? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
+
+			$data['area'] = 'basic_msg';
+			$this->load->view('addons/basic_addons', $data);
+
+		}
+		else
+		$this->load->view('account/recover_password', $data);
+	}
+
 	
 	
 }
