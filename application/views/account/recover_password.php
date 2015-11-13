@@ -26,7 +26,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'forgot_password'));
 
 <div class='center-block body-table-border'>
 <form method="post">
-<table class='microform'>
+<table class='normal-table microform'>
 <tr><td>
    
    <div id='forgotmsgdiv'></div></td></tr>
@@ -34,7 +34,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'forgot_password'));
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
 
 <tr><td><input type='text' id='registeredemail' name='registeredemail' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
-<tr><td style="padding-top:10px;"><button type="button" id="sendpassword" name="sendpassword" class="btn grey submitmicrobtn" style="width:100%;">Send Recovery Link</button>
+<tr><td style="padding-bottom:0px;"><button type="button" id="sendpassword" name="sendpassword" class="btn grey submitmicrobtn" style="width:100%;">Send Recovery Link</button>
     <input type="hidden" name="action" id="action" value="<?php echo base_url();?>account/forgot">
     <input type="hidden" name="resultsdiv" id="resultsdiv" value="forgotmsgdiv">
     </td></tr>

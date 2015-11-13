@@ -121,9 +121,9 @@ class Page extends CI_Controller
 			
 			
 			case 'verify_document':
-				$this->load->model('_validator');
-				$result = $this->_validator->is_valid_document($_POST);
-				$data['msg'] = !empty($result)? 'The document is valid.<br><br>It was issued to '.$result['owner_name'].' on '.date('d-M-Y', strtotime($result['date_added'])) : 'WARNING: Document is invalid.';
+				
+				$data['msg'] = 'Verified';
+				
 			break;
 			
 			default:

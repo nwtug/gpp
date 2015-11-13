@@ -170,6 +170,7 @@ $(function() {
 	
 	//Activate form submission if the required fields are filled in
 	$(document).on('change', '.simpleform input', function(e){
+		
 		var activate = true;
 		var form = $(this).parents('.simpleform').first();
 		form.find('input').each(function(){
@@ -186,17 +187,17 @@ $(function() {
 		var formBtn = form.find('.submitbtn').first();
 		if(activate){
 			formBtn.attr('onclick',"postFormFromLayer('"+form.attr('id')+"')");
-			formBtn.removeClass('greybtn').addClass('btn');
+			formBtn.removeClass('grey').addClass('green');
 		} 
 		else 
 		{
 			formBtn.removeAttr('onclick');
-			formBtn.removeClass('btn').addClass('greybtn');
+			formBtn.removeClass('green').addClass('grey');
 		}
 	});
 	
 	$(document).on('click', '.submitbtn', function(){
-		if($(this).hasClass('greybtn')){
+		if($(this).hasClass('grey')){
 			showServerSideFadingMessage('Enter all required fields to continue.');
 		}
 	});
