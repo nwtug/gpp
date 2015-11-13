@@ -144,10 +144,23 @@ class Account extends CI_Controller
 	
 	# Forgot the password
 	function forgot()
-	{
+	
+	{ 
+	
 		$data = filter_forwarded_data($this);
-		
-		$this->load->view('account/recover_password', $data);
+		if(!empty($_POST))
+		{
+			
+			$data['msg'] ="An Email has been sent with your new password!";
+			
+			$data['area'] = 'basic_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		else
+		{
+			$this->load->view('account/recover_password', $data);
+		}
+	
 	}
 	
 	
