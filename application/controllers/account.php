@@ -24,13 +24,46 @@ class Account extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
+		# STEP 1 - post
 		if(!empty($_POST['organization__organizationtypes'])){
-			$this->native_session->set('organization_type', $_POST['organization__organizationtypes']);
-		}
-		# Just viewing the form for the first time
-		else {
+			# marks which step has been reached
+			if(!$this->native_session->get('organizationtype'))$this->native_session->set('__step',1); 
 			
-			# Step two requires pregnerating an image to check if its a valid user submitting the form
+			$this->native_session->set('organizationtype', $_POST['organization__organizationtypes']);
+		}
+		
+		# STEP 2 - post
+		else if(!empty($_POST['businessname'])){
+			$check = $this->native_session->get('check_numbers');
+			if($_POST['checkanswer'] == ($check['left'] + $check['right'])) 
+			{
+				$response = $this->_account->save($_POST, 'step_2');
+				# Completed step 2 for the first time
+				if($response['result'] == 'SUCCESS' && !$this->native_session->get('businessname')) {
+					$this->native_session->set('__step',2);
+				}
+				add_to_user_session($this, $_POST, '', array('newpassword', 'confirmpassword', 'secretanswer', 'checkanswer'));
+			}
+			else $response['reason'] = 'The sum you provided does not match the expected answer.';
+			
+			if(!(!empty($response) && $response['result'] == 'SUCCESS')) echo "ERROR: Your application could not be saved. ".$response['reason'];
+		}
+		
+		# STEP 3 - post
+		else if(!empty($_POST['confirmationcode'])){
+			$response = $this->_account->save($_POST, 'step_3');
+			# Completed step 3 for the first time
+			if($response['result'] == 'SUCCESS' && !$this->native_session->get('address')) {
+				$this->native_session->set('__step',3);
+			}
+			add_to_user_session($this, $_POST, '', array('confirmationcode'));
+			
+			if(!(!empty($response) && $response['result'] == 'SUCCESS')) echo "ERROR: Your application could not be saved. ".$response['reason'];
+		}
+		
+		# DEFAULT - Just viewing the form
+		else {
+			# Step two requires pre-generating an image to check if its a valid user submitting the form
 			if(!empty($data['step']) && $data['step'] == '2'){
 				if(empty(session_id())) @session_start();
 				$now = strtotime('now');
@@ -93,18 +126,9 @@ class Account extends CI_Controller
 	function admin_dashboard()
 	{
 		$data = filter_forwarded_data($this);
+		$data['auditTrailList'] = array();
 		$this->load->view('account/admin_dashboard', $data);
 	}
-	
-	
-	
-	# The government dashboard
-	function government_dashboard()
-	{
-		$data = filter_forwarded_data($this);
-		$this->load->view('account/government_dashboard', $data);
-	}
-	
 	
 	
 	# The pde dashboard
@@ -119,6 +143,7 @@ class Account extends CI_Controller
 	function provider_dashboard()
 	{
 		$data = filter_forwarded_data($this);
+		$data['tendersList'] = array();
 		$this->load->view('account/provider_dashboard', $data);
 	}
 	

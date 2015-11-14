@@ -42,7 +42,7 @@
 .home-list-div > table > tbody > tr:nth-child(even) {
 	background-color: #FFF;
 }
-.home-list-div > table > tbody > tr > td {
+.home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td {
 	vertical-align: top;
 	padding: 5px;
 }

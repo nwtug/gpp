@@ -30,7 +30,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "organizationtypes":
-			$types = array('provider'=>'Provider', 'government_agency'=>'Government Agency', 'pde'=>'Procurement or Disposal Entity');
+			$types = array('provider'=>'Provider', 'pde'=>'Procurement or Disposal Entity');
 			foreach($types AS $key=>$row)
 			{
 				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
@@ -60,10 +60,11 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "businesscategories":
-			$types = $obj->_query_reader->get_list(($more['type'] == 'government_agency'? 'get_government_ministries': 'get_business_categories'));
+			$types = $obj->_query_reader->get_list(($more['type'] == 'pde'? 'get_government_ministries': 'get_business_categories'));
+			$categoryName = $more['type'] == 'pde'? 'Ministry': 'Category';
 			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a Category</div>";
-			else $optionString .= "<option value=''>Select a Category</option>";
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
 			
 			foreach($types AS $row)
 			{

@@ -15,53 +15,41 @@
 
 <body>
 <table class='body-table water-mark-bg'>
-  <?php $this->load->view('addons/public_header');
 
-  $this->load->view('addons/public_top_menu', array('__page'=>'register'));
-  ?>
+<?php $this->load->view('addons/public_header');
 
-  <tr>
-    <td>&nbsp;</td><td class='body-title' style='padding:15px;'>Register</td><td>&nbsp;</td>
-  </tr>
-  <?php $this->load->view('addons/step_ribbon', array('step'=>'1')); ?>
+$this->load->view('addons/public_top_menu', array('__page'=>'register'));
+?>
 
-  <tr>
-    <td>&nbsp;</td><td style='height:calc(85vh - 214px); vertical-align: top;'>
+<tr>
+  <td>&nbsp;</td><td class='body-title' style='padding:15px;'>Register</td><td>&nbsp;</td>
+</tr>
+<?php $this->load->view('addons/step_ribbon', array('step'=>'1')); ?>
 
-      <table class='normal-table'><tr>
-          <td>
-            <table class='microform' style='max-width:500px;'>
-              <tr><td class='dark-grey'>To help us serve you better, fill out this form as completely as possible.</td></tr>
-              <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-              <tr><td class='bold'>a) What is your organization type?</td></tr>
-              <tr><td><select id='organization__organizationtypes' name='organization__organizationtypes' class='drop-down' style='width:100%;'>
-                    <?php echo get_option_list($this, 'organizationtypes', 'select', '', array('selected'=>$this->native_session->get('organization_type')));?>
-                  </select></td></tr>
-              <tr><td><div id='type_explanation' class='dark-grey'>Use this account type if you wish to submit bids to organizations for work.</div></td></tr>
-              <tr><td><div class='right-div'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
-                  <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
-                  <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/register/step/2';?>' />
-                  <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
-                </td></tr>
-            </table>
-
-
-
-
-
-          </td>
-          <td style='vertical-align:top; width:20%;'><span class='bold'>NOTE:</span>
-            <br />
-            Any saved applications will
-            be deleted if not submitted within 30 days.
-            <br /><br />
-            If you have questions on how
-            to fill this form, see our
-            <a href='javascript:;' class='blue'>help section</a> or <a href='javascript:;' class='blue'>drop us a
-              message</a>.</td>
-        </tr></table>
-
-
+<tr>
+  <td>&nbsp;</td><td style='height:calc(85vh - 214px); vertical-align: top;'>
+  
+  <table class='normal-table'><tr>
+  	<td>
+    <table class='microform' style='max-width:500px;'>
+    <tr><td class='dark-grey'>To help us serve you better, fill out this form as completely as possible.</td></tr>
+    <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
+    <tr><td class='bold'>a) What is your organization type?</td></tr>
+    <tr><td><select id='organization__organizationtypes' name='organization__organizationtypes' class='drop-down' style='width:100%;'<?php if($this->native_session->get('organizationtype')) echo ' readonly';?>>
+  <?php echo get_option_list($this, 'organizationtypes', 'select', '', array('selected'=>$this->native_session->get('organizationtype')));?>
+  </select></td></tr>
+    <tr><td><div id='type_explanation' class='dark-grey'>Use this account type if you wish to submit bids to organizations for work.</div></td></tr>
+    <tr><td><div class='right-div'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/register/step/2';?>' />
+    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
+    </td></tr>
+    </table>
+    
+    
+    
+    
+    
 
     </td>
     <td>&nbsp;</td>

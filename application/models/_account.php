@@ -10,19 +10,6 @@
 class _account extends CI_Model
 {
 	
-	# Add an application
-	public function add($formDetails)
-	{
-		$userId = '';
-		$emailVerified = 'N';
-		
-		return array('result'=>((!empty($result) && $result)? 'SUCCESS': 'FAIL'), 'new_user_id'=>$userId, 'email_verified'=>$emailVerified);
-	}
-	
-	
-	
-	
-	
 	# Verify a new user's account
 	public function verify($code)
 	{
@@ -223,6 +210,126 @@ class _account extends CI_Model
 	{
 		return $this->_query_reader->get_single_column_as_array('get_accounts_of_type', '_user_id', array('account_type'=>$type));
 	}
+	
+	
+	
+	
+	
+	# Save account details based on registration steps
+	function save($data, $step)
+	{
+		if($step == 'step_2') return $this->register_step_2($data);
+		else if($step == 'step_3') return $this->register_step_3($data);	
+	}
+	
+	
+	
+	# Save details of registration step 2
+	function register_step_2($data)
+	{
+		$message = '';
+		
+		# Save a temporary user
+		$details1['email_address'] = $data['emailaddress'];
+		$details1['telephone'] = $data['telephone'];
+		$details1['country'] = $data['registration__countries'];
+		$details1['user_name'] = trim($data['newusername']);
+		$details1['password'] = sha1($data['newpassword']);
+		$details1['secret_question_id'] = $data['question__secretquestions'];
+		$details1['secret_answer'] = htmlentities($data['secretanswer'], ENT_QUOTES);
+		$userId = $this->_query_reader->add_data('save_temp_user', $details1);
+		
+		# Create a temporary organization if a temporary user has been saved
+		if(!empty($userId)){
+			$details2['name'] = htmlentities($data['businessname'], ENT_QUOTES);
+			$details2['description'] = htmlentities($data['description'], ENT_QUOTES); 
+			$details2['registration_country_id'] = $data['registration__countries'];
+			$details2['registration_number'] = (!empty($data['registrationno'])? $data['registrationno']: '');
+			$details2['tax_id'] = (!empty($data['taxid'])? $data['taxid']: '');
+			$details2['category_id'] = ($data['organizationtype'] == 'provider'? $data['category__businesscategories']: '');
+			$details2['ministry_id'] = ($data['organizationtype'] == 'pde'? $data['category__businesscategories']: '');
+			$details2['user_id'] = $userId;
+			$organizationId = $this->_query_reader->add_data('save_temp_organization', $details2);
+		}
+		else $message = 'Your account details could not be saved.';
+		
+		# Then send an email with a verification link for confirmation of contact email
+		# Do NOT resend email if user reached this step already
+		if(!empty($organizationId) && $this->native_session->get('__step') < 2){
+			$message['code'] = 'account_verification_code';
+			$message['verificationcode'] = format_id($userId);
+			$message['emailaddress'] = $data['emailaddress'];
+			$message['telephone'] = $data['telephone'];
+			$message['username'] = $data['newusername'];
+			$message['businessname'] = htmlentities($data['businessname'], ENT_QUOTES);
+			
+			$result = $this->_messenger->send_direct_email($data['emailaddress'], '', $message);
+			if(!$result) {
+				$message = 'Your account verification code could not be sent.';
+				$results[0] = $this->_query_reader->run('remove_temp_user', array('user_id'=>$userId));
+				$results[1] = $this->_query_reader->run('remove_temp_organization', array('organization_id'=>$organizationId));
+			}
+			else {
+				$this->native_session->set('__user_id', $userId);
+				$this->native_session->set('__organization_id', $organizationId);
+				$this->native_session->set('__user_name', $details1['user_name']);
+			}
+		}
+		
+		# The user is just saving this step to continue (they passed this step before)
+		else if($this->native_session->get('__step') > 1){
+			$result = TRUE;
+		}
+		
+		# The user could just not proceed
+		else if($this->native_session->get('__step') < 2){
+			$message = 'Your account organization could not be saved.';
+			$results[0] = $this->_query_reader->run('remove_temp_user', array('user_id'=>$userId));
+		}
+		
+		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 'reason'=>$message);
+	}
+	
+	
+	
+	# Save details of registration step 3
+	function register_step_3($data)
+	{
+		$message = '';
+		# Proceed only if the verification code matches a registered user
+		$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>extract_id($data['confirmationcode'])));
+		if(!empty($user['user_name']) && $user['user_name'] == $this->native_session->get('__user_name')) 
+		{
+			# Update the user's organization contact 
+			$result = $this->_query_reader->run('update_organization_contact', array(
+				'organization_id'=>$this->native_session->get('__organization_id'),
+				'contact_address'=>htmlentities($data['address'], ENT_QUOTES),
+				'contact_city'=>htmlentities($data['city'], ENT_QUOTES),
+				'contact_region'=>htmlentities($data['region'], ENT_QUOTES),
+				'contact_zipcode'=>$data['zipcode'],
+				'contact_country_id'=>$data['contact__countries'],
+			));
+			
+			# Activate user
+			if($result) {
+				$result = $this->_query_reader->run('activate_user_account', array(
+					'first_name'=>htmlentities($data['firstname'], ENT_QUOTES),
+					'last_name'=>htmlentities($data['lastname'], ENT_QUOTES),
+					'user_id'=>$this->native_session->get('__user_id'),
+					'organization_id'=>$this->native_session->get('__organization_id'),
+					'organization_type'=>$this->native_session->get('organizationtype') 
+				));
+				
+				if(!$result) $message = 'Your saved account could not be activated.';
+			}
+			else $message = 'The organization contact could not be saved.';
+		}
+		else $message = 'Your code could not be verified.';
+		
+		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 'reason'=>$message);
+	}
+	
+	
 	
 }
 

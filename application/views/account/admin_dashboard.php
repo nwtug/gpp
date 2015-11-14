@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.list.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.shadowbox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.pagination.css" type="text/css" media="screen" />
 </head>
 
 <body>
@@ -22,44 +23,41 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'my_dashboard'));
 
 <tr>
   <td>&nbsp;</td>
-  <td style='text-align: left; padding-top:25px;'>
-  <select id='year__financialyears' name='year__financialyears' class='drop-down'>
-  <?php echo get_option_list($this, 'financialyears');?>
-  </select></td>
-  <td>&nbsp;</td>
-</tr>
+  <td class='one-column' style='height:calc(80vh - 100px); padding-bottom: 20px;'>
 
-<tr>
-  <td>&nbsp;</td>
-  <td class='three-columns' style='height:calc(93vh - 200px); padding-top:20px;'>
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>22</span>
-<br /><span class='h3 blue'>Procurement Plans Submitted</span></td></tr>
-<tr><td><a href='javascript:;'>Add Procurement Plan</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Procurement Plan</a></td></tr>
-</table></div>
+<table class='home-list-table'>
+<tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Audit Trail</th></tr>
 
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>1000</span>
-<br /><span class='h3 blue'>Tenders Advertised</span></td></tr>
-<tr><td><a href='javascript:;'>Invite For Tenders</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Tenders</a></td></tr>
-</table></div>
+<tr><td><div id='paginationdiv__audittrailsearch_list' class='page-list-div'>
+<?php $this->load->view('account/audit_list',array('list'=>$auditTrailList));?>
+</div></td></tr>
+<tr><td>
+<table><tr><td>
+         
+<div id='audittrail_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="audittrailsearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__audittrailsearch_action" id="paginationdiv__audittrailsearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/audit";?>" />
+<input name="paginationdiv__audittrailsearch_maxpages" id="paginationdiv__audittrailsearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__audittrailsearch_noperlist" id="paginationdiv__audittrailsearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__audittrailsearch_showdiv" id="paginationdiv__audittrailsearch_showdiv" type="hidden" value="paginationdiv__audittrailsearch_list" />
+<input name="paginationdiv__audittrailsearch_extrafields" id="paginationdiv__audittrailsearch_extrafields" type="hidden" value="" /></div>
+          
 
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>760</span>
-<br /><span class='h3 blue'>Contracts Awarded</span></td></tr>
-<tr><td><a href='javascript:;'>Award Contract</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Contracts</a></td></tr>
-</table></div>
+</td><td width='1%' class='filter-list'>FILTER</td></tr></table>
+</td></tr>
+</table>
+
+
+
+
+
+
 
 </td>
-  <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js'));?>
 </body>
 </html>

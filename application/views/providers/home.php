@@ -66,6 +66,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'providers'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
+<<<<<<< HEAD
 <?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js'));?>
 </body><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
@@ -135,6 +136,8 @@ $this->load->view('addons/public_top_menu', array('__page'=>'providers'));
     <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js'));?>
+
+<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+
 </body>
 </html>

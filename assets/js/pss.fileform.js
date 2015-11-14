@@ -651,6 +651,7 @@ $(function() {
 			$(this).removeClass('invalid').addClass('valid');
 			$(this).after("<input type='hidden' id='validpassword' name='validpassword' value='Y' />");
 		}
+		else $(this).removeClass('valid').addClass('invalid');
 	});
 	
 	
@@ -659,11 +660,9 @@ $(function() {
 	$(document).on('keyup', '.same-as', function(e){
 		var otherField = $(this).data('field');
 		
-		if($(this).val() == $('#'+otherField).val()){
-			$(this).removeClass('invalid').addClass('valid');
-		} else {
-			$(this).removeClass('valid').addClass('invalid');
-		}
+		if($(this).val() == $('#'+otherField).val()) $(this).removeClass('invalid').addClass('valid');
+		else $(this).removeClass('valid').addClass('invalid');
+		
 	});
 	
 	

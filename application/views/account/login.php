@@ -15,36 +15,47 @@
 
 <body>
 <table class='body-table water-mark-bg'>
-    <?php $this->load->view('addons/public_header');
-    $this->load->view('addons/public_top_menu', array('__page'=>'login'));
-    ?>
 
-    <tr>
-        <td>&nbsp;</td>
-        <td style='height:calc(85vh - 214px);'>
+<?php $this->load->view('addons/public_header');
 
-            <div class='center-block body-table-border'>
-                <form method="post">
-                    <table class='normal-table'>
-                        <tr><td class='body-title'>Login</td></tr>
-                        <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-                        <tr><td><input type='text' id='loginusername' name='loginusername' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
-                        <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
-                        <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
+$this->load->view('addons/public_top_menu', array('__page'=>'login'));
 
-                        <tr><td class='row-divs'><div class='left-div'><a href="javascript:;">New Account</a></div>
-                                <div class='right-div'><a href="<?php echo base_url().'account/forgot';?>">Forgot Password</a></div>
-                            </td></tr>
-                    </table>
-                </form>
-            </div>
+if($this->native_session->get('__step') && $this->native_session->get('__step') == 3){
+?>
+<tr>
+  <td>&nbsp;</td><td class='body-title' style='padding:15px;'>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<?php $this->load->view('addons/step_ribbon', array('step'=>'4')); 
+
+}?>
+
+<tr>
+  <td>&nbsp;</td>
+  <td style='height:calc(85vh - 214px);'>
+
+<div class='center-block body-table-border'>
+<form method="post">
+<table class='normal-table'>
+<tr><td class='body-title'>Login</td></tr>
+<?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
+<tr><td><input type='text' id='loginusername' name='loginusername' autocapitalize='off' placeholder="User Name" value='' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
+
+<tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'account/register';?>">New Account</a><?php }?></div>
+<div class='right-div'><a href="javascript:;">Forgot Password</a></div>
+</td></tr>
+</table>
+</form>
+</div>
 
 
-        </td>
-        <td>&nbsp;</td>
-    </tr>
+</td>
+  <td>&nbsp;</td>
+</tr>
 
-    <?php $this->load->view('addons/public_footer');?>
+<?php $this->load->view('addons/public_footer');?>
+
 
 </table>
 <?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
