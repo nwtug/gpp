@@ -165,20 +165,6 @@ class Account extends CI_Controller
 		$this->native_session->delete_all();
 		$this->load->view('account/login', $data);
 	}
-	
-	
-	
-	
-	
-	# Check provider user name
-	function check_user_name()
-	{
-		$data = filter_forwarded_data($this);
-		if(!empty($_POST['user_name'])){
-			$check = $this->_account->valid_user_name($_POST['user_name']);
-			echo !empty($check['is_valid']) && $check['is_valid'] == 'Y'? 'VALID': 'INVALID';
-		}
-	}
 
 
 	# Forgot Password
@@ -196,8 +182,22 @@ class Account extends CI_Controller
 
 		}
 		else
-		$this->load->view('account/recover_password', $data);
+			$this->load->view('account/recover_password', $data);
 	}
+	
+	
+	# Check provider user name
+	function check_user_name()
+	{
+		$data = filter_forwarded_data($this);
+		if(!empty($_POST['user_name'])){
+			$check = $this->_account->valid_user_name($_POST['user_name']);
+			echo !empty($check['is_valid']) && $check['is_valid'] == 'Y'? 'VALID': 'INVALID';
+		}
+	}
+
+
+
 
 	
 	

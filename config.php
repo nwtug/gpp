@@ -178,28 +178,7 @@ define('FLAG_TO_REDIRECT', "0");// 1 => Redirect emails to a specific mail id,
  * COMMUNICATION SETTINGS
  *---------------------------------------------------------------
  */
-<<<<<<< HEAD
 
-define("NOREPLY_EMAIL", "noreply@rssprocurement.org");
-
-define("APPEALS_EMAIL", "appeals@rssprocurement.org");
-
-define("FRAUD_EMAIL", "fraud@rssprocurement.org");
-
-define("SECURITY_EMAIL", "security@rssprocurement.org");
-
-define("HELP_EMAIL", "support@rssprocurement.org");
-
-define('SITE_ADMIN_MAIL', "admin@rssprocurement.org");
-
-define("SIGNUP_EMAIL", "register@rssprocurement.org");
-
-define('SITE_ADMIN_NAME', "RSS Admin");
-
-define('SITE_GENERAL_NAME', "RSS Procurement");
-
-define('DEV_TEST_EMAIL', "azziwa@gmail.com");
-=======
 	
 	define("NOREPLY_EMAIL", "noreply@rssprocurement.org");
 	
@@ -218,7 +197,6 @@ define('DEV_TEST_EMAIL', "azziwa@gmail.com");
 	define('SITE_GENERAL_NAME', "RSS Procurement");
 		
 	define('DEV_TEST_EMAIL', "azziwa@gmail.com");
->>>>>>> 8353f4fd32f5a522524b38ec1fabe83c0dc3a715
 
 /*
  * If "FLAG_TO_REDIRECT" is set to 1, it will redirect all the mails from this site

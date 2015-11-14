@@ -6,9 +6,15 @@ if(!empty($area) && $area == "dropdown_list")
 {
 	$tableHTML .= !empty($list)? $list: "";
 }
-else if(!empty($area) && $area == "basic_msg" && !empty($msg))
+
+
+else if(!empty($area) && $area == "basic_msg" && !empty($msg)) 
 {
 	$tableHTML .= format_notice($this, $msg);
 }
+
+
+
+
 echo $tableHTML;
 ?>
