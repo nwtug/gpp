@@ -111,7 +111,7 @@ class Page extends CI_Controller
         # if form is submitted
         if(!empty($_POST)) {
 
-            # check if verification number exists
+            # check if verification number exists (Expected result is boolean)
             $msg = $this->_page->verify_certificate($_POST)? 'Document exists': 'ERROR: Document does not exist';
 
             $this->native_session->set('msg',$msg);

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo IMAGE_URL;?>favicon.ico">
-    <title><?php echo SITE_TITLE.': Login';?></title>
+    <title><?php echo SITE_TITLE.': Forgot Password';?></title>
 
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/external-fonts.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
@@ -16,7 +16,7 @@
 <body>
 <table class='body-table water-mark-bg'>
     <?php $this->load->view('addons/public_header');
-    $this->load->view('addons/public_top_menu', array('__page'=>'login'));
+    $this->load->view('addons/public_top_menu', array('__page'=>'forgot_password'));
     ?>
 
     <tr>
@@ -25,15 +25,17 @@
 
             <div class='center-block body-table-border'>
                 <form method="post">
-                    <table class='normal-table'>
-                        <tr><td class='body-title'>Login</td></tr>
-                        <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
-                        <tr><td><input type='text' id='loginusername' name='loginusername' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
-                        <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
-                        <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
+                    <table class='microform'>
+                        <tr><td>
 
-                        <tr><td class='row-divs'><div class='left-div'><a href="javascript:;">New Account</a></div>
-                                <div class='right-div'><a href="<?php echo base_url().'account/forgot';?>">Forgot Password</a></div>
+                                <div id='forgotmsgdiv'></div></td></tr>
+                        <tr><td class='body-title'>Enter Your Registered Email Address</td></tr>
+                        <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
+
+                        <tr><td><input type='text' id='registeredemail' name='registeredemail' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
+                        <tr><td style="padding-top:10px;"><button type="button" id="sendpassword" name="sendpassword" class="btn grey submitmicrobtn" style="width:100%;">Send Recovery Link</button>
+                                <input type="hidden" name="action" id="action" value="<?php echo base_url();?>account/forgot">
+                                <input type="hidden" name="resultsdiv" id="resultsdiv" value="forgotmsgdiv">
                             </td></tr>
                     </table>
                 </form>

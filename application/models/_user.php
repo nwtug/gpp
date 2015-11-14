@@ -227,7 +227,7 @@ class _user extends CI_Model
 				$result = $this->update_password($user['user_id'], $password);
 				if($result)
 				{
-					$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url()), array('email'));
+					$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
 					if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
 				}
 				else $msg = "ERROR: The password update failed.";

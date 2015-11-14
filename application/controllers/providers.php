@@ -8,36 +8,36 @@
  * @copyright PSS
  * @created 10/30/2015
  */
-class Providers extends CI_Controller 
+class Providers extends CI_Controller
 {
 	# providers home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
 		$data['activeProvidersList'] = array();
-		
+
 		$this->load->view('providers/home', $data);
 	}
-	
-	
-	
+
+
+
 	# providers lists
 	function provider_list()
 	{
 		$data = filter_forwarded_data($this);
-		
+
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
-		
+
 		$this->load->view('providers/details_list', $data);
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 }
 
 /* End of controller file */
