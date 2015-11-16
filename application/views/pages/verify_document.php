@@ -27,14 +27,18 @@ $this->load->view('addons/public_top_menu', array('__page'=>'verify_document'));
 
 
 <div class='center-block body-table-border'>
-<table class='normal-table microform'>
+<table class='normal-table simpleform' id="verifydocument__form" >
 <tr><td class='body-title'>Verify Document</td></tr>
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
 <tr><td><select id='documenttype__documenttypes' name='documenttype__documenttypes' class='drop-down' value='' style='width:100%;'>
 <?php echo get_option_list($this, 'documenttypes');?>
 </select></td></tr>
-<tr><td><input type='text' id='trackingnumber' name='trackingnumber' autocapitalize='off' placeholder="Enter Tracking Number" value='' class='numbersonly' style='width:calc(100% - 20px);' /></td></tr>
-<tr><td><button type="button" id="verifydocument" name="verifydocument" class="btn green" style="width:100%;">Verify</button></td></tr>
+<tr><td><input type='text' id='trackingnumber' name='trackingnumber' autocapitalize='off' placeholder="Enter Tracking Number" value='' class='textfield numbersonly' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td><button type="button" id="verifydocument" name="verifydocument" class="btn grey submitbtn" style="width:100%;">Verify</button><input type='hidden' id='verifydocument__type' name='verifydocument__type' value='verify_document' />
+    <input type='hidden' id='verifydocument__ignorepostprocessing' name='verifydocument__ignorepostprocessing' value='verify_document' /></td></tr>
+    <tr>
+    <td><div id='verifydocument__resultsdiv'></div></td>
+  </tr>
 </table>
 </div>
 
@@ -51,6 +55,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'verify_document'));
 
 
 
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.fileform.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>

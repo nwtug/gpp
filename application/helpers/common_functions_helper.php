@@ -757,6 +757,7 @@ function create_image_from_text($fileName, $text, $size = array('width'=>80, 'he
 }
 
 
+<<<<<<< HEAD
 
 
 # Make date a us date
@@ -764,11 +765,71 @@ function make_us_date($date)
 {
 	$parts = explode('/',$date);
 	return implode('/',array($parts[1],$parts[0],$parts[2]));
+=======
+#Validate an email address. If the email address is not required, then an empty string will be an acceptable
+#value for the email address
+function is_valid_email($email, $isRequired = true)
+{
+	$isValid = true;
+	$atIndex = strrpos($email, "@");
+
+	#if email is not required and is an empty string, do not check it. Return True.
+	if(!$isRequired && empty($email)){
+		return true;
+	}
+	if (is_bool($atIndex) && !$atIndex){
+		$isValid = false;
+	} else {
+		$domain = substr($email, $atIndex+1);
+		$local = substr($email, 0, $atIndex);
+		$localLen = strlen($local);
+		$domainLen = strlen($domain);
+
+		if ($localLen < 1 || $localLen > 64) {
+			# local part length exceeded
+			$isValid = false;
+		} else if ($domainLen < 1 || $domainLen > 255) {
+			# domain part length exceeded
+			$isValid = false;
+		}  else if ($local[0] == '.' || $local[$localLen-1] == '.') {
+			# local part starts or ends with '.'
+			$isValid = false;
+		} else if (preg_match('/\\.\\./', $local)) {
+			# local part has two consecutive dots
+			$isValid = false;
+		} else if (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain)) {
+			# character not valid in domain part
+			$isValid = false;
+		} else if (preg_match('/\\.\\./', $domain)) {
+			# domain part has two consecutive dots
+			$isValid = false;
+		} else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\","",$local))) {
+			# character not valid in local part unless
+			# local part is quoted
+			if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\","",$local))) {
+				$isValid = false;
+			}
+		} else if (strpos($domain, '.') === FALSE) {
+			# domain has no period
+			$isValid = false;
+		}
+
+		/* if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A"))) {
+            # domain not found in DNS
+            $isValid = false;
+         } */
+	}
+	#return true if all above pass
+	return $isValid;
+>>>>>>> origin/master
 }
 
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin/master
 ?>

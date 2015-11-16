@@ -65,6 +65,7 @@ class _user extends CI_Model
 	
 	
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -75,6 +76,65 @@ class _user extends CI_Model
 	
 	
 	
+=======
+	# Activate email address
+	function activate_email_address($userId, $contactId, $code)
+	{
+		$result = $this->_query_reader->run('activate_email_by_code', array('contact_id'=>$contactId, 'activation_code'=>sha1($code) ), TRUE);
+		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'));
+	}
+	
+	
+	
+	
+	# Activate telephone
+	function activate_telephone($userId, $contactId, $code)
+	{
+		$result = $this->_query_reader->run('activate_telephone_by_code', array('contact_id'=>$contactId, 'activation_code'=>sha1($code) ), TRUE);
+		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'));
+	}
+
+
+	# Recover a user password
+	function recover_password($formData)
+	{
+		$result = false;
+		$msg = '';
+
+		if(is_valid_email($formData['registeredemail']))
+		{
+			# TODO Rogers (generate a query to cross reference the table: [users.email_address] against the provided email adddress
+			$user = $this->_query_reader->get_row_as_array('get_user_by_email', array('email_address'=>$formData['registeredemail']));
+			if(!empty($user))
+			{
+				$password = generate_temp_password();
+				$result = $this->update_password($user['user_id'], $password);
+				if($result)
+				{
+					$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
+					if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
+				}
+				else $msg = "ERROR: The password update failed.";
+			}
+			else $msg = "WARNING: There is no valid user with the given email address.";
+		}
+		else $msg = "WARNING: Please enter a valid email address.";
+
+		return array('boolean'=>$result, 'msg'=>$msg);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> origin/master
 }
 
 
