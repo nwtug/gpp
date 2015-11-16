@@ -40,7 +40,7 @@ class Providers extends CI_Controller
 
 		$this->load->view('providers/details_list', $data);
 	}
-<<<<<<< HEAD
+
 	
 	
 	
@@ -72,20 +72,7 @@ class Providers extends CI_Controller
 		$this->load->view('providers/list_filter', $data);
 	}
 	
-	
-	
-	
-	
-	
-	
-=======
 
-
-
-
-
-
->>>>>>> origin/master
 }
 
 /* End of controller file */

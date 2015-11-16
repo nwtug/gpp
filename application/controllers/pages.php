@@ -8,11 +8,7 @@
  * @copyright PSS
  * @created 10/20/2015
  */
-<<<<<<< HEAD:application/controllers/pages.php
 class Pages extends CI_Controller 
-=======
-class Page extends CI_Controller
->>>>>>> origin/master:application/controllers/page.php
 {
 
 	#Constructor to set some default values at class load
@@ -54,13 +50,7 @@ class Page extends CI_Controller
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
-<<<<<<< HEAD:application/controllers/pages.php
-		
 		$this->load->view('pages/home_list', $data);
-=======
-
-		$this->load->view('page/home_list', $data);
->>>>>>> origin/master:application/controllers/page.php
 	}
 
 
@@ -110,11 +100,6 @@ class Page extends CI_Controller
 	function verify()
 	{
 		$data = filter_forwarded_data($this);
-<<<<<<< HEAD:application/controllers/pages.php
-		
-		$this->load->view('pages/verify_document', $data);
-=======
-
 		# assumption a certificate belongsTo an organisation (one-to-one relationship)
 		# if form is submitted
 		if (!empty($_POST)) {
@@ -124,29 +109,20 @@ class Page extends CI_Controller
 
 			$this->native_session->set('msg', $msg);
 
-		} else
-			$this->load->view('page/verify_document', $data);
->>>>>>> origin/master:application/controllers/page.php
+		} 
+		else $this->load->view('pages/verify_document', $data);
 	}
 
 	# contact us page
 	function contact_us()
 	{
 		$data = filter_forwarded_data($this);
-<<<<<<< HEAD:application/controllers/pages.php
-		
+
 		if(!empty($_POST)) {
 			$msg = $this->_page->send_contact_message($_POST)? 'Your message has been sent': 'ERROR: Your message could not be sent';
 			$this->native_session->set('msg',$msg);
 		}
 		else $this->load->view('pages/contact_us', $data);
-=======
-
-		if (!empty($_POST)) {
-			$msg = $this->_page->send_contact_message($_POST) ? 'Your message has been sent' : 'ERROR: Your message could not be sent';
-			$this->native_session->set('msg', $msg);
-		} else $this->load->view('page/contact_us', $data);
->>>>>>> origin/master:application/controllers/page.php
 	}
 
 

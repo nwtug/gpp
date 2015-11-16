@@ -62,37 +62,6 @@ class _user extends CI_Model
 		return $result1 && $result2;
 	}
 	
-	
-	
-	
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
-	# Activate email address
-	function activate_email_address($userId, $contactId, $code)
-	{
-		$result = $this->_query_reader->run('activate_email_by_code', array('contact_id'=>$contactId, 'activation_code'=>sha1($code) ), TRUE);
-		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'));
-	}
-	
-	
-	
-	
-	# Activate telephone
-	function activate_telephone($userId, $contactId, $code)
-	{
-		$result = $this->_query_reader->run('activate_telephone_by_code', array('contact_id'=>$contactId, 'activation_code'=>sha1($code) ), TRUE);
-		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'));
-	}
 
 
 	# Recover a user password
@@ -124,17 +93,6 @@ class _user extends CI_Model
 	}
 
 
-
-
-
-
-
-
-
-
-
-
->>>>>>> origin/master
 }
 
 

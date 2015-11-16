@@ -33,7 +33,7 @@ define('ENVIRONMENT', 'development');
  */
 define('SECURE_MODE', FALSE);
 
-define('BASE_URL', 'http://localhost/pss/');#Set to HTTPS:// if SECURE_MODE = TRUE
+define('BASE_URL', 'http://localhost:8888/pss/');#Set to HTTPS:// if SECURE_MODE = TRUE
 
 define('RETRIEVE_URL_DATA_IGNORE', 3);#The starting point to obtain the passed url data
 
@@ -41,11 +41,6 @@ define('SITE_TITLE', "Public Procurement Portal");
 
 define('SITE_SLOGAN', "");
 
-<<<<<<< HEAD
-	define('FULL_DATE_FORMAT', 'd/m/Y h:iA');
-	
-	define('SHORT_DATE_FORMAT', 'd/m/Y');
-=======
 define('SYS_TIMEZONE', "America/Los_Angeles");
 
 define('NUM_OF_ROWS_PER_PAGE', "5");
@@ -54,9 +49,9 @@ define('NUM_OF_LISTS_PER_VIEW', "10");
 
 define('IMAGE_URL', BASE_URL."assets/images/");
 
-define('HOME_URL', getcwd()."/");
+define('HOME_URL', getcwd()."/"); 
 
-define('DEFAULT_CONTROLLER', 'page');
+define('DEFAULT_CONTROLLER', 'pages');
 
 define('LABEL_DIRECTORY',  HOME_URL."assets/labels/");
 
@@ -83,9 +78,8 @@ define('DOWNLOAD_LIMIT', 10000); #Max number of rows that can be downloaded
 define('FULL_DATE_FORMAT', 'd/M/Y h:iA');
 
 define('SHORT_DATE_FORMAT', 'd/M/Y');
->>>>>>> origin/master
 
-	define('MAXIMUM_FINANCIAL_HISTORY', 5);
+define('MAXIMUM_FINANCIAL_HISTORY', 5);
 
 
 /*

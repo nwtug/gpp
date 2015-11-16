@@ -757,7 +757,7 @@ function create_image_from_text($fileName, $text, $size = array('width'=>80, 'he
 }
 
 
-<<<<<<< HEAD
+
 
 
 # Make date a us date
@@ -765,7 +765,8 @@ function make_us_date($date)
 {
 	$parts = explode('/',$date);
 	return implode('/',array($parts[1],$parts[0],$parts[2]));
-=======
+}
+
 #Validate an email address. If the email address is not required, then an empty string will be an acceptable
 #value for the email address
 function is_valid_email($email, $isRequired = true)
@@ -821,15 +822,6 @@ function is_valid_email($email, $isRequired = true)
 	}
 	#return true if all above pass
 	return $isValid;
->>>>>>> origin/master
 }
 
-
-
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> origin/master
 ?>
