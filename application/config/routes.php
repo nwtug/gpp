@@ -44,8 +44,8 @@ $route['404_override'] = '';
 #----------------------------
 
 #User password recovery
-$route['([Pp])/([a-zA-Z0-9=]+)'] = "account/recover_password/p/$2";
-$route['([Pp])/([a-zA-Z0-9=]+)/(:any)'] = "account/recover_password/p/$2/m/$3";
+$route['([Pp])/([a-zA-Z0-9=]+)'] = "accounts/recover_password/p/$2";
+$route['([Pp])/([a-zA-Z0-9=]+)/(:any)'] = "accounts/recover_password/p/$2/m/$3";
 
 
 

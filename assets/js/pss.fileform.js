@@ -16,7 +16,7 @@ $(function() {
 				if(localStorage.getItem('__latitude') !== null) $('#submitlogin').after("<input type='hidden' name='latitude' id='latitude' value='"+localStorage.getItem('__latitude')+"' />");
 				if(localStorage.getItem('__longitude') !== null) $('#submitlogin').after("<input type='hidden' name='longitude' id='longitude' value='"+localStorage.getItem('__longitude')+"' />");
 				
-				loginForm.attr("action", getBaseURL()+"account/login");
+				loginForm.attr("action", getBaseURL()+"accounts/login");
 				$('#submitlogin').attr("type", "submit");
 				$('#submitlogin').removeClass('grey').addClass('green');
 			}
@@ -53,7 +53,7 @@ $(function() {
 			//In cases where you are coming back to the page from another page
 			if($('#'+fieldId+'__div').html() == ''){
 				$('#'+fieldId+'__div').width($('#'+fieldId).outerWidth());//Set its width to be the same as that of the field
-				updateFieldLayer(getBaseURL()+"page/get_custom_drop_list/type/"+listType+addSelectVariables($('#'+fieldId)),'','',fieldId+'__div','');
+				updateFieldLayer(getBaseURL()+"pages/get_custom_drop_list/type/"+listType+addSelectVariables($('#'+fieldId)),'','',fieldId+'__div','');
 			} 
 			//In cases where you are just showing the same page div that you have just loaded
 			else 
@@ -65,7 +65,7 @@ $(function() {
 		{
 			$('#'+fieldId).before("<div id='"+fieldId+"__div' class='drop-down-div'></div><input type='hidden' id='"+fieldId+"__hidden' name='"+fieldId+"__hidden' value=''>");//Add the field div and value hidden field
 			$('#'+fieldId+'__div').css('min-width', $('#'+fieldId).outerWidth());//Set its width to be the same as that of the field
-			updateFieldLayer(getBaseURL()+"page/get_custom_drop_list/type/"+listType+addSelectVariables($('#'+fieldId)),'','',fieldId+'__div','');
+			updateFieldLayer(getBaseURL()+"pages/get_custom_drop_list/type/"+listType+addSelectVariables($('#'+fieldId)),'','',fieldId+'__div','');
 		}
 		
 		//Reposition the drop down either above or below field based on its location
@@ -148,7 +148,7 @@ $(function() {
 		var listType = fieldId.split('__').pop();
 		var searchValue = ($(this).val() != ''? '/search_by/'+replaceBadChars($(this).val()): '');
 		
-		updateFieldLayer(getBaseURL()+"page/get_custom_drop_list/type/"+listType+searchValue+addSelectVariables($(this)),'','',fieldId+'__div','');
+		updateFieldLayer(getBaseURL()+"pages/get_custom_drop_list/type/"+listType+searchValue+addSelectVariables($(this)),'','',fieldId+'__div','');
 	});
 	
 	
@@ -615,7 +615,7 @@ $(function() {
 			// Process the form data submitted
 			$.ajax({
         		type: "POST",
-       			url: getBaseURL()+'account/check_user_name',
+       			url: getBaseURL()+'accounts/check_user_name',
       			data: {user_name: userName},
       			beforeSend: function() {},
       			success: function(data) {
@@ -667,7 +667,11 @@ $(function() {
 	
 	
 	
-	
+
+	// Clear one field if another is empty
+	$(document).on('change', '.clear-on-empty', function(){
+		if($(this).val() == '') $('#'+$(this).data('clearfield')).val('');
+	});
 	
 	
 	
@@ -838,7 +842,7 @@ function postFormFromLayer(formId)
 	// Process the form data submitted
 	$.ajax({
         type: "POST",
-       	url: getBaseURL()+"page/get_layer_form_values/type/"+formType,
+       	url: getBaseURL()+"pages/get_layer_form_values/type/"+formType,
       	data: inputs.serializeArray(),
       	beforeSend: function() {
            	//Do nothing
@@ -864,7 +868,28 @@ function postFormFromLayer(formId)
 	}
 }
 
-
+	
+	
+	
+	
+	
+	
+	
+	// Collect filter values, update the filter specs, reload the list and close the shadowbox
+	function applyFilter(type){
+		var container = $(document).find('.filter-container').first();
+		var url = getBaseURL()+'lists/load/t/'+type;
+		
+		container.find('input, select').each(function(){
+			if($(this).data('final') && $(this).val() != '') url += '/'+$(this).data('final')+'/'+replaceBadChars($(this).val());
+		});
+		//Update the pagination action
+		window.parent.document.getElementById('paginationdiv__'+type+'_action').value = url;
+		//Refresh the pagination list with this new url
+		window.parent.document.getElementById('refreshlist').click();
+		window.parent.document.getElementById('__shadowbox_closer').click();
+	}
+	
 
 
 

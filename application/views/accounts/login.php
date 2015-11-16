@@ -41,7 +41,7 @@ if($this->native_session->get('__step') && $this->native_session->get('__step') 
 <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
 
-<tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'account/register';?>">New Account</a><?php }?></div>
+<tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'accounts/register';?>">New Account</a><?php }?></div>
 <div class='right-div'><a href="javascript:;">Forgot Password</a></div>
 </td></tr>
 </table>

@@ -15,6 +15,11 @@
 	text-align: left;
 }
 
+.list-table > tbody > tr > th {
+	padding: 5px;
+	text-align: left;
+}
+
 .home-list-table > tbody > tr:last-child {
 	background-color: #FFF;
 	border-top: 1px solid #999;
@@ -31,24 +36,31 @@
 	overflow-y: auto;
 	height: 20vh;
 }
-.home-list-div > table {
+.home-list-div > table, .list-table {
 	width: 100%;
 	font-size: 13px;
 	border-collapse:collapse;
 }
-.home-list-div > table > tbody > tr:nth-child(odd) {
+.home-list-div > table > tbody > tr:nth-child(odd), .list-table > tbody > tr:nth-child(odd) {
 	background-color: #F8F8F8;
 }
-.home-list-div > table > tbody > tr:nth-child(even) {
+.home-list-div > table > tbody > tr:nth-child(even), .list-table > tbody > tr:nth-child(even) {
 	background-color: #FFF;
 }
-.home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td {
+.home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td, .list-table > tbody > tr > td {
 	vertical-align: top;
 	padding: 5px;
+	text-align:left;
 }
 
 .closer {
 	background: url(../../assets/images/grey_closer.png) no-repeat center center; 
+	width: 20px;
+	cursor:pointer;
+}
+
+.settings {
+	background: url(../../assets/images/settings_icon.png) no-repeat center center; 
 	width: 20px;
 	cursor:pointer;
 }
@@ -133,6 +145,108 @@
 .page-list-div > div > table > tbody > tr:nth-child(even) {
 	background-color: #FFF;
 }
+
+
+
+
+.actions-list-btn {
+	height: 40px;
+	padding: 0px;
+	cursor: pointer;
+	white-space:nowrap;
+}
+
+.actions-list-btn > div {
+	height: 40px;
+	display: inline-block !important;
+}
+
+.actions-list-btn > div:first-child {
+	width: 35px;
+}
+
+.actions-list-btn > div:last-child {
+	width: 15px;
+}
+
+.list-actions.selected > div:last-child {
+	background: url(../../assets/images/down_arrow_grey.png) no-repeat center center;
+}
+
+.list-actions-div {
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 0px;
+	position: absolute;
+	max-height: 200px;
+	max-width: 200px;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	z-index: 10001;
+}
+
+.list-actions-div > div {
+	width: 100%;
+	padding: 5px;
+	cursor: pointer;
+	font-size: 15px;
+	text-align:left;
+}
+
+.list-actions-div > div:not(:last-child), .sideways-drop-down-div > div:not(:last-child)  {
+	border-bottom: 1px solid #DDD;
+}
+
+.list-actions-div > div:hover, .sideways-drop-down-div > div:hover {
+	background-color: #F1F1F1;
+}
+
+
+
+
+/* START: List checkbox styling  */
+
+.bigcheckbox, .selectallcheck {
+    display: none;
+}
+ 
+.bigcheckbox + label,
+.selectallcheck + label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+ 
+.bigcheckbox + label:active, .bigcheckbox:checked + label:active,
+.selectallcheck + label:active, .selectallcheck:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+ 
+.bigcheckbox:checked + label,
+.selectallcheck:checked + label {
+    background-color: #e9ecee;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #99a1a7;
+}
+ 
+.bigcheckbox:checked + label:after,
+.selectallcheck:checked + label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    color: #18C93E;
+	font-weight:bold;
+}
+
+
+/*  END: List checkbox styling  */
 
 
 

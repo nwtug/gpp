@@ -16,7 +16,7 @@
 <body>
 <table class='body-table water-mark-bg'>
 <?php 
-$this->load->view('addons/secure_header');
+$this->load->view('addons/secure_header', array('__page'=>'Dashboard'));
 $this->load->view('addons/pde_top_menu', array('__page'=>'my_dashboard'));
 ?>
 

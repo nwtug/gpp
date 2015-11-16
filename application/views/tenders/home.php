@@ -29,7 +29,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
   <td class='one-column' style='height:calc(85vh - 255px); padding-bottom: 20px;'>
 
 <table class='home-list-table'>
-<tr><th class='h3 blue rop-icon'>Tender Notices</th><th class='btn closer' data-rel='page/portal'></th></tr>
+<tr><th class='h3 blue rop-icon'>Tender Notices</th><th class='btn closer' data-rel='pages/portal'></th></tr>
 <tr><td colspan='2'>
 <table class='list-tabs' data-type='paginationdiv__tendernoticesearch' data-page='tenders/tenders_list'><tr>
 <td id='procurement_plans' <?php if(empty($area) || !empty($area) && $area == 'procurement_plans') echo "class='active'";?>>Procurement Plans</td>

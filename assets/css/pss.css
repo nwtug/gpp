@@ -286,6 +286,11 @@ a.error {
 }
 
 
+.calendar {
+	background: url(../../assets/images/calendar_icon.png) no-repeat right center #F9F9F9;
+	padding-right: 40px;
+	width: 188px;
+}
 
 
 /* OTHER */

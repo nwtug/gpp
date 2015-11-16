@@ -34,7 +34,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			foreach($types AS $key=>$row)
 			{
 				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."' onclick=\"updateFieldLayer('".base_url()."account/type_explanation/t/".$key."','','','type_explanation','')\" ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+				else $optionString .= "<option value='".$key."' onclick=\"updateFieldLayer('".base_url()."accounts/type_explanation/t/".$key."','','','type_explanation','')\" ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
 			}
 		break;
 		
@@ -102,10 +102,72 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		case "users":
+			$types = $obj->_query_reader->get_list('search_user_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['user_id']."' onclick=\"universalUpdate('user_id','".$row['user_id']."')\">".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['user_id']."' onclick=\"universalUpdate('user_id','".$row['user_id']."'>".$row['name']."</option>";
+			}
+		break;
+		
+		
+		case "activitycodes":
+			$types = $obj->_query_reader->get_list('get_activity_codes');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Activity Code</div>";
+			else $optionString .= "<option value=''>Select Activity Code</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['code']."'>".ucwords($row['display_code'])."</div>";
+				else $optionString .= "<option value='".$row['code']."' ".(!empty($more['selected']) && $more['selected'] == $row['code']? 'selected': '').">".ucwords($row['display_code'])."</option>";
+			}
+		break;
 		
 		
 		
 		
+		
+		
+		case "users_list_actions":
+		case "provider_users_list_actions":
+			
+			if($list_type == "users_list_actions") $types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'update_type'=>'Update Type', 'update_permission_group'=>'Update Permission Group');
+			else if($list_type == "provider_users_list_actions") $types = array('message'=>'Message');
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'message') $url = 'users/message';
+				else if(in_array($key, array('activate', 'deactivate'))) $url = 'users/update_status/t/'.$key;
+				else if($key == 'update_type') $url = 'users/update_type';
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		
+		break;
+		
+		
+		
+		
+		
+		
+		case "provider_list_actions":
+			
+			$types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'suspend'=>'Suspend');
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'message') $url = 'providers/message';
+				else if(in_array($key, array('activate', 'deactivate', 'suspend'))) $url = 'providers/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		
+		break;
 		
 		
 		

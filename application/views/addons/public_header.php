@@ -2,10 +2,10 @@
   <td>&nbsp;</td>
   <td><div class='h4 blue left-div small-div-padding'>Friday, October 9, 2015 2:30PM EAT</div>
 <div class='right-div row-divs small-padding'>
-	<div class='btn h5 dark-green-bg small' data-rel='account/register'>Register</div>
-    <div class='btn h5 dark-grey' data-rel='account/login'>Login</div>
-    <div class='btn h5 dark-grey' data-rel='page/verify'>Verify Document</div>
-    <div class='btn h5 dark-grey' data-rel='page/contact_us'>Contact Us</div>
+	<div class='btn h5 dark-green-bg small' data-rel='accounts/register'>Register</div>
+    <div class='btn h5 dark-grey' data-rel='accounts/login'>Login</div>
+    <div class='btn h5 dark-grey' data-rel='pages/verify'>Verify Document</div>
+    <div class='btn h5 dark-grey' data-rel='pages/contact_us'>Contact Us</div>
     <div class='btn h5 dark-grey' data-rel='http://www.grss-mof.org' data-target='blank'>Ministry</div>
 </div></td>
   <td>&nbsp;</td>

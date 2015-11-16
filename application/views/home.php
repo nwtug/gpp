@@ -22,7 +22,7 @@
   <td class='three-columns' style='height:calc(85vh - 214px);'>
 <div><table class='summary-table'>
 <tr><th class='h3 blue'>Welcome</th></tr>
-<tr><td><a href='<?php base_url();?>page/about'>About This Portal</a></td></tr>
+<tr><td><a href='<?php base_url();?>pages/about'>About This Portal</a></td></tr>
 <tr><td><a href='javascript:;'>The Directorate of Public Procurement</a></td></tr>
 <tr><td><a href='javascript:;'>Laws and Regulations</a></td></tr>
 <tr><td><a href='http://www.grss-mof.org' target="_blank">Ministry of Finance Website</a></td></tr>
@@ -33,11 +33,11 @@
 <div><table class='summary-table'>
 <tr><th class='h3 blue'>For Providers</th></tr>
 <tr><td><a href='javascript:;'>Registration Requirements</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>page/privacy_policy'>Privacy Policy</a></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>pages/privacy_policy'>Privacy Policy</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>tenders'>Tender Notices</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>account/login/a/view_subscription'>Your Subscription</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>account/login/a/download_certificate'>Download Certificate</a></td></tr>
-<tr><td><div class='btn stripped-black' data-rel='page/portal'>More Services</div></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>accounts/login/a/view_subscription'>Your Subscription</a></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>accounts/login/a/download_certificate'>Download Certificate</a></td></tr>
+<tr><td><div class='btn stripped-black' data-rel='pages/portal'>More Services</div></td></tr>
 </table></div>
 
 <div><table class='summary-table'>
@@ -47,7 +47,7 @@
 <tr><td><a href='javascript:;'>Procurement Regulations</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>resources/index/a/training_activities'>Training Activities</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>resources/index/a/important_links'>Important Links</a></td></tr>
-<tr><td><div class='btn stripped-black' data-rel='page/portal'>More Services</div></td></tr>
+<tr><td><div class='btn stripped-black' data-rel='pages/portal'>More Services</div></td></tr>
 </table></div>
 
 </td>

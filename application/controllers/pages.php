@@ -8,7 +8,7 @@
  * @copyright PSS
  * @created 10/20/2015
  */
-class Page extends CI_Controller 
+class Pages extends CI_Controller 
 {
 	
 	#Constructor to set some default values at class load
@@ -53,7 +53,7 @@ class Page extends CI_Controller
 		# TODO: Select list based on type passed
 		$data['list'] = array();
 		
-		$this->load->view('page/home_list', $data);
+		$this->load->view('pages/home_list', $data);
 	}
 	
 	
@@ -64,42 +64,42 @@ class Page extends CI_Controller
 	function about()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/about', $data);
+		$this->load->view('pages/about', $data);
 	}
 	
 	# terms of use page
 	function terms_of_use()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/terms_of_use', $data);
+		$this->load->view('pages/terms_of_use', $data);
 	}
 	
 	# privacy policy page
 	function privacy_policy()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/privacy_policy', $data);
+		$this->load->view('pages/privacy_policy', $data);
 	}
 	
 	# providers page
 	function providers()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/providers', $data);
+		$this->load->view('pages/providers', $data);
 	}
 	
 	# government agencies page
 	function government_agencies()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/government_agencies', $data);
+		$this->load->view('pages/government_agencies', $data);
 	}
 	
 	# standards page
 	function standards()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('page/standards', $data);
+		$this->load->view('pages/standards', $data);
 	}
 	
 	# verify a document page
@@ -107,7 +107,7 @@ class Page extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		$this->load->view('page/verify_document', $data);
+		$this->load->view('pages/verify_document', $data);
 	}
 	
 	# contact us page
@@ -119,7 +119,7 @@ class Page extends CI_Controller
 			$msg = $this->_page->send_contact_message($_POST)? 'Your message has been sent': 'ERROR: Your message could not be sent';
 			$this->native_session->set('msg',$msg);
 		}
-		else $this->load->view('page/contact_us', $data);
+		else $this->load->view('pages/contact_us', $data);
 	}
 	
 	

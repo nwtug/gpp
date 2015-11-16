@@ -461,6 +461,16 @@ function passFormValue(passingField, receivingField, fieldType){
 
 
 
+
+
+// Toggle the empty field between two fields
+function toggleEmpty(field1, field2)
+{
+	if($('#'+field1).val() != '') $('#'+field2).val() != '';
+	else if($('#'+field2).val() != '') $('#'+field1).val() != '';
+}
+
+
 // Pass the visible text value to a field
 function passTextValue(idStub){
 	$('#'+idStub+'_text').val($('#'+idStub+' option:selected').text()); 
@@ -2222,6 +2232,9 @@ function recenterBlock(){
 
 
 
+
+
+
 //THe search field jquery
 $(document).on('keyup', '.searchfield', function(){ 
 	if($(this).val() != '')
@@ -2581,64 +2594,6 @@ $(function(){
 
 
 
-// Initialize the calendars on the page
-$(function() {
-	if($('.calendar').length > 0){
-	
-	/*$( ".calendar.birthday" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		yearRange: "-100:+0",
-		dateFormat: 'mm/dd/yy'
-	});
-	
-	$( ".calendar.history" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		yearRange: "-200:+0",
-		dateFormat: 'mm/dd/yy'
-	});
-	*/
-	// This will require including the timepicker-addon js file
-	if($('.calendar.showtime').length > 0){
-		$('.calendar.showtime').datetimepicker({
-			changeMonth: true,
-			changeYear: true,
-			dateFormat: 'mm/dd/yy',
-			timeFormat: "hh:mm tt"
-		});
-	}
-	
-	$(".calendar").datetimepicker({
-		changeMonth: true,
-		changeYear: true,
-		dateFormat: 'mm/dd/yy',
-		timeFormat: 'hh:mm tt'
-	});
-	
-	}
-});
-
-function setDatePicker()
-{
-	// Date only
-	$( ".calendar.clickactivated:not(.showtime)" ).datepicker({
-		changeMonth: true,
-		changeYear: true,
-		dateFormat: 'mm/dd/yy'
-	});
-	$( ".calendar.clickactivated:not(.showtime)" ).focus();
-	
-	
-	// Date and time
-	$('.showtime.clickactivated').datetimepicker({
-		changeMonth: true,
-		changeYear: true,
-		dateFormat: 'mm/dd/yy',
-		timeFormat: "hh:mm tt"
-	});
-	$('.showtime.clickactivated').focus();
-}
 
 
 

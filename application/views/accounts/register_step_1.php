@@ -39,8 +39,8 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
   </select></td></tr>
     <tr><td><div id='type_explanation' class='dark-grey'>Use this account type if you wish to submit bids to organizations for work.</div></td></tr>
     <tr><td><div class='right-div'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
-    <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
-    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/register/step/2';?>' />
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'accounts/register';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'accounts/register/step/2';?>' />
     <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
     </td></tr>
     </table>

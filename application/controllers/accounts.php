@@ -8,7 +8,7 @@
  * @copyright PSS
  * @created 10/30/2015
  */
-class Account extends CI_Controller 
+class Accounts extends CI_Controller 
 {
 	
 	#Constructor to set some default values at class load
@@ -75,7 +75,7 @@ class Account extends CI_Controller
 			}
 			
 			
-			$this->load->view('account/register_step_'.(!empty($data['step'])? $data['step']: '1'), $data);
+			$this->load->view('accounts/register_step_'.(!empty($data['step'])? $data['step']: '1'), $data);
 		}
 	}
 	
@@ -84,7 +84,7 @@ class Account extends CI_Controller
 	function type_explanation()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('account/type_explanation', $data);
+		$this->load->view('accounts/type_explanation', $data);
 	}
 	
 	
@@ -117,7 +117,7 @@ class Account extends CI_Controller
 			else $data['msg'] = "ERROR: Your login could not be verified.";
 		}
 		
-		$this->load->view('account/login', $data);
+		$this->load->view('accounts/login', $data);
 	}
 	
 	
@@ -126,8 +126,8 @@ class Account extends CI_Controller
 	function admin_dashboard()
 	{
 		$data = filter_forwarded_data($this);
-		$data['auditTrailList'] = array();
-		$this->load->view('account/admin_dashboard', $data);
+		$data['list'] = $this->_account->audit_trail();
+		$this->load->view('accounts/admin_dashboard', $data);
 	}
 	
 	
@@ -135,7 +135,7 @@ class Account extends CI_Controller
 	function pde_dashboard()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('account/pde_dashboard', $data);
+		$this->load->view('accounts/pde_dashboard', $data);
 	}
 	
 	
@@ -144,7 +144,7 @@ class Account extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$data['tendersList'] = array();
-		$this->load->view('account/provider_dashboard', $data);
+		$this->load->view('accounts/provider_dashboard', $data);
 	}
 	
 	
@@ -163,7 +163,7 @@ class Account extends CI_Controller
 					
 		#Remove any set session variables
 		$this->native_session->delete_all();
-		$this->load->view('account/login', $data);
+		$this->load->view('accounts/login', $data);
 	}
 	
 	
@@ -179,6 +179,17 @@ class Account extends CI_Controller
 			echo !empty($check['is_valid']) && $check['is_valid'] == 'Y'? 'VALID': 'INVALID';
 		}
 	}
+	
+	
+	
+	# Filter audit form
+	function audit_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('accounts/audit_filter', $data);
+	}
+	
+	
 	
 	
 	

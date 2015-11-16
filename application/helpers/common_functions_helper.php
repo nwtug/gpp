@@ -757,4 +757,18 @@ function create_image_from_text($fileName, $text, $size = array('width'=>80, 'he
 }
 
 
+
+
+# Make date a us date
+function make_us_date($date)
+{
+	$parts = explode('/',$date);
+	return implode('/',array($parts[1],$parts[0],$parts[2]));
+}
+
+
+
+
+
+
 ?>

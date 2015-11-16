@@ -17,7 +17,7 @@
 <body>
 <table class='body-table water-mark-bg'>
 <?php 
-$this->load->view('addons/secure_header');
+$this->load->view('addons/secure_header', array('__page'=>'Dashboard'));
 $this->load->view('addons/provider_top_menu', array('__page'=>'my_dashboard'));
 ?>
 
@@ -29,7 +29,7 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'my_dashboard'));
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Tender Notices</th></tr>
 
 <tr><td><div id='paginationdiv__tenderssearch_list' class='page-list-div'>
-<?php $this->load->view('account/tenders_list',array('list'=>$tendersList));?>
+<div id="tenderssearch__1"><?php $this->load->view('tenders/manage_list',array('list'=>$list));?></div>
 </div></td></tr>
 <tr><td>
 <table><tr><td>

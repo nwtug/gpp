@@ -23,7 +23,7 @@ class _api extends CI_Model
 	{
 		#$result = $this->execute('GET', $url, $variables);
 		#TODO: Add handling result
-		$user = file_get_contents('http://localhost:8888/pss/backend/v1/account/index?id=CT5852345');
+		$user = file_get_contents('http://localhost:8888/pss/backend/v1/accounts/index?id=CT5852345');
   		$user = json_decode($user, true);
 		print_r($user);
 		

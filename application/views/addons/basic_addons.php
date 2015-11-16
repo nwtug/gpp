@@ -9,7 +9,16 @@ if(!empty($area) && $area == "dropdown_list")
 	$tableHTML .= !empty($list)? $list: "";
 }
 
+else if(!empty($area) && $area == "basic_msg")
+{
+	$tableHTML .= format_notice($this, $msg);
+}
 
+else if(!empty($area) && $area == "refresh_list_msg")
+{
+	$tableHTML .= format_notice($this, $msg)."<br><br>
+	<button type='button' id='refreshlistfromiframe' name='refreshlistfromiframe' class='btn blue' style='width:100%;' onclick='parent.location.reload();'>Refresh List</button>";
+}
 
 
 echo $tableHTML;

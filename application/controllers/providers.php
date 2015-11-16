@@ -10,6 +10,14 @@
  */
 class Providers extends CI_Controller 
 {
+	
+	#Constructor to set some default values at class load
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('_provider');
+	}
+	
 	# providers home page
 	function index()
 	{
@@ -32,6 +40,37 @@ class Providers extends CI_Controller
 		
 		$this->load->view('providers/details_list', $data);
 	}
+	
+	
+	
+	# manage the providers list
+	function manage()
+	{
+		$data = filter_forwarded_data($this);
+		$data['list'] = $this->_provider->lists();
+		$this->load->view('providers/manage', $data);
+	}
+	
+	
+	
+	
+	
+	# provider list actions
+	function list_actions()
+	{
+		$data = filter_forwarded_data($this);
+		echo get_option_list($this, 'provider_list_actions', 'div');
+	}
+	
+	
+	
+	# Filter provider
+	function list_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('providers/list_filter', $data);
+	}
+	
 	
 	
 	

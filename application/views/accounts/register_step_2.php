@@ -105,14 +105,14 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     </td></tr>
     
     
-    <tr><td class='dark-grey'>By clicking the Next button, you agree to this website's <a href="<?php echo base_url().'page/terms_of_use/area/text_only';?>" class='shadowbox'>Terms</a> and <a href="<?php echo base_url().'page/privacy_policy/area/text_only';?>" class='shadowbox'>Privacy Policy</a>.</td></tr>
+    <tr><td class='dark-grey'>By clicking the Next button, you agree to this website's <a href="<?php echo base_url().'pages/terms_of_use/area/text_only';?>" class='shadowbox'>Terms</a> and <a href="<?php echo base_url().'pages/privacy_policy/area/text_only';?>" class='shadowbox'>Privacy Policy</a>.</td></tr>
     
     <tr><td>&nbsp;</td></tr>
     
-    <tr><td><div class='left-div'><button type="button" id="back" name="back" class="btn grey" data-rel='account/register/step/1' style="width:100%;max-width:300px;">Back</button></div>
+    <tr><td><div class='left-div'><button type="button" id="back" name="back" class="btn grey" data-rel='accounts/register/step/1' style="width:100%;max-width:300px;">Back</button></div>
     <div class='right-div' style='padding-right:40px;'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
-    <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
-    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/register/step/3';?>' />
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'accounts/register';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'accounts/register/step/3';?>' />
     <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
     </td></tr>
     

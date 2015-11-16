@@ -64,10 +64,10 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     
     <tr><td>&nbsp;</td></tr>
     
-    <tr><td><div class='left-div'><button type="button" id="back" name="back" class="btn grey" data-rel='account/register/step/2' style="width:100%;max-width:300px;">Back</button></div>
+    <tr><td><div class='left-div'><button type="button" id="back" name="back" class="btn grey" data-rel='accounts/register/step/2' style="width:100%;max-width:300px;">Back</button></div>
     <div class='right-div' style='padding-right:40px;'><button type="button" id="next" name="next" class="btn green submitmicrobtn" style="width:100%;max-width:300px;">Next</button></div>
-    <input type='hidden' id='action' name='action' value='<?php echo base_url().'account/register';?>' />
-    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'account/login';?>' />
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'accounts/register';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'accounts/login';?>' />
     <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
     </td></tr>
     

@@ -52,8 +52,8 @@ $this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
   </tr>
   <tr>
     <td colspan="2"><button type="button" id="verifydocument" name="verifydocument" class="btn green submitmicrobtn" style="width:100%;">Send Message</button>
-    <input type='hidden' id='action' name='action' value='<?php echo base_url().'page/contact_us';?>' />
-    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'page/contact_us';?>' />
+    <input type='hidden' id='action' name='action' value='<?php echo base_url().'pages/contact_us';?>' />
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'pages/contact_us';?>' />
     <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
     </td>
   </tr>
@@ -86,6 +86,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
 
 
 
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
+<?php echo minify_js('contact_us', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

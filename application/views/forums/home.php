@@ -29,7 +29,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'faqs'));
   <td class='one-column' style='height:calc(85vh - 255px); padding-bottom: 20px;'>
 
 <table class='home-list-table'>
-<tr><th class='h3 blue rop-icon'>Frequently Asked Questions</th><th class='btn closer' data-rel='page/portal'></th></tr>
+<tr><th class='h3 blue rop-icon'>Frequently Asked Questions</th><th class='btn closer' data-rel='pages/portal'></th></tr>
 <tr><td colspan='2'>
 <table class='list-tabs' data-type='paginationdiv__faqsearch' data-page='forums/forums_list'><tr>
 <td id='public_forums' <?php if(empty($area) || !empty($area) && $area == 'public_forums') echo "class='active'";?>>Public</td>

@@ -10,6 +10,13 @@
  */
 class Tenders extends CI_Controller 
 {
+	#Constructor to set some default values at class load
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('_tender');
+	}
+	
 	# tender notices home page
 	function index()
 	{
@@ -35,7 +42,14 @@ class Tenders extends CI_Controller
 	
 	
 	
-	
+	# to manage tenders
+	function manage()
+	{
+		$data = filter_forwarded_data($this);
+		$data['list'] = $this->_tender->lists();
+		
+		$this->load->view('tenders/manage', $data);
+	}
 	
 	
 }

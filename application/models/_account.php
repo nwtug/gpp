@@ -79,7 +79,8 @@ class _account extends CI_Model
 					'email_verified'=>$user['email_verified'],  
 					'telephone'=>$user['telephone'],  
 					'telephone_carrier'=>(!empty($user['telephone_carrier'])? $user['telephone_carrier']: ''),
-					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: '')
+					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
+					'user_type'=>$user['group_type']
 			);
 			
 			# The allowed permissions for the user
@@ -128,19 +129,19 @@ class _account extends CI_Model
 		if(!empty($groupType)){
 			switch($groupType){
 				case 'admin':
-					$view = 'account/admin_dashboard';
+					$view = 'accounts/admin_dashboard';
 				break;
 				
 				case 'government_agency':
-					$view = 'account/government_dashboard';
+					$view = 'accounts/government_dashboard';
 				break;
 				
 				case 'pde':
-					$view = 'account/pde_dashboard';
+					$view = 'accounts/pde_dashboard';
 				break;
 				
 				default:
-					$view = 'account/provider_dashboard';
+					$view = 'accounts/provider_dashboard';
 				break;
 			}
 		}
@@ -174,34 +175,7 @@ class _account extends CI_Model
 	
 	
 	
-	# Function to reset the user's password
-	function reset_password($userId, $tempPassword, $newPassword)
-	{
-		# Simply checking if this link is still valid
-		if(!empty($tempPassword)){
-			$realPass = decrypt_value($tempPassword);
-			$realUserId = substr($realPass, strrpos($realPass, '-') + 1);
-			if(!empty($realUserId)) $user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>$realUserId));
-			
-			return array('result'=>(!empty($user)? 'verified': 'failed'), 'user_id'=>(!empty($user)? $realUserId: ''));
-		}
-		
-		# actually changing the password
-		else {
-			if(!empty($newPassword) && !empty($userId)){
-				$result = post_to_url(IAM_URL,  array(
-					'__action'=>'update_user_password', 
-					'userId'=>$userId,
-					'password'=>decrypt_value($newPassword)
-				));
-				
-				if(!empty($result['result']) && $result['result']=='SUCCESS') $sendResult = $this->_messenger->send($userId, array('code'=>'password_has_changed', 'securityemail'=>SECURITY_EMAIL));
-			}
-			
-			
-			return array('result'=>(!empty($result['result']) && $result['result']=='SUCCESS')? 'SUCCESS': 'FAIL');
-		}
-	}
+	
 	
 	
 	
@@ -328,6 +302,28 @@ class _account extends CI_Model
 		
 		return array('result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 'reason'=>$message);
 	}
+	
+	
+	
+	
+	
+	
+	# Get user audit trail
+	function audit_trail($scope = array('date'=>'', 'user_id'=>'', 'activity_code'=>'', 'phrase'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
+	{
+		return $this->_query_reader->get_list('get_audit_trail', array(
+			'date_condition'=>(!empty($scope['date'])? " AND DATE(event_time) = DATE('".date('Y-m-d', strtotime(make_us_date($scope['date'])))."')": ''),
+			'user_condition'=>(!empty($scope['user_id'])? " AND _user_id='".$scope['user_id']."' ": ''),
+			'activity_condition'=>(!empty($scope['activity_code'])? " AND activity_code='".$scope['activity_code']."' ": ''),
+			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(log_details) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"') ": ''),
+			'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "
+		));
+	}
+	
+	
+	
+	
+	
 	
 	
 	

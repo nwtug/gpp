@@ -49,7 +49,7 @@ $(function() {
 		
 			// If this URL requires in-system load, then do not pass the URL 
 			if($(this).data('type') && $(this).data('type') == 'in-sys-load') {
-				url = getBaseURL()+'page/redirect_url/url/'+replaceBadChars(url);
+				url = getBaseURL()+'pages/redirect_url/url/'+replaceBadChars(url);
 			}
 		
 			// Put the div and iframe to load the link href
