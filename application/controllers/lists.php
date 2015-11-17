@@ -80,6 +80,66 @@ class Lists extends CI_Controller
 				
 				
 				
+				case 'procurement_plan':
+					$this->load->model('_procurement_plan');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_procurement_plan->lists(array(
+						'pde_id'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('procurement_plans/procurement_plan_list', $data);
+				break;
+				
+				
+				
+				
+				
+				
+				case 'tender':
+					$this->load->model('_tender');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_procurement_plan->lists(array(
+						'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'), 
+						'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+						'pde'=>$this->native_session->get($data['t'].'__pde'),
+						'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('tenders/tender_list', $data);
+				break;
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 			

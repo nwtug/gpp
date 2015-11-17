@@ -14,6 +14,7 @@ class _procurement_plan extends CI_Model
 	{
 		return $this->_query_reader->get_list('get_procurement_plan_list', array(
 			'pde_condition'=>(!empty($scope['pde'])? " AND _organization_id='".$scope['pde']."' ": ''),
+			'phrase_condition'=>(!empty($scope['phrase'])? " AND name LIKE '%".htmlentities($scope['phrase'], ENT_QUOTES)."%' ": ''),
 			'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "
 		));
 	}

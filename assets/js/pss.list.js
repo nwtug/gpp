@@ -17,7 +17,26 @@ $(function() {
 		// b) add the active class to clicked cell
 		clickedCell.addClass('active');
 		
-		// c) load the clicked cell section list
+		// c) change the filter url
+		var filterListCell = clickedCell.parents('.home-list-table').first().find('.filter-list').first();
+		if(filterListCell.data('url')){
+			var url = filterListCell.data('url');
+			//...tenders/home_filter/t/procurement_plans
+			//...tenders/home_filter/t/[clicked id]
+			var currentIdPart = url.substring(url.lastIndexOf("/")); //  "/procurement_plans"
+			var url = url.replace(currentIdPart, '/'+clickedId);
+			filterListCell.data('url', url);
+		}
+		
+		// d) change the more url
+		var moreListCell = clickedCell.parents('.home-list-table').first().find('.load-more').first();
+		if(moreListCell.data('rel')){
+			var moreUrl = moreListCell.data('rel');
+			var currentMoreIdPart = moreUrl.substring(moreUrl.lastIndexOf("/"));
+			var moreUrl = moreUrl.replace(currentMoreIdPart, '/'+clickedId);
+			moreListCell.data('rel',moreUrl);
+		}
+		// e) load the clicked cell section list
 		updateFieldLayer(getBaseURL()+page+'/t/'+clickedId,'','',tableType+'_list','');
 	});
 

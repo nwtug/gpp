@@ -43,7 +43,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('pages/home_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
 </div></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more' data-rel='tenders'>MORE</td></tr></table>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'tenders/home_filter/t/procurement_plans';?>'>FILTER</td><td width='1%' class='btn load-more' data-rel='tenders/index/a/procurement_plans'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -83,7 +83,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('pages/home_list',array('type'=>'documents','list'=>$documentsList));?>
 </div></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='resources'>MORE</td></tr></table>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='resources/index/a/documents'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 

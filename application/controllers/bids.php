@@ -22,10 +22,21 @@ class Bids extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
-		$data['list'] = $this->_bid->lists();
+		$data['list'] = $this->_bid->lists(!empty($data['t'])? $data['t']: '');
 		
 		$this->load->view('bids/manage', $data);
 	}
+	
+	
+	# list actions
+	function list_actions()
+	{
+		$data = filter_forwarded_data($this);
+		echo get_option_list($this, (!empty($data['t'])? $data['t'].'_':'all_').'bid_list_actions', 'div');
+	}
+	
+	
+	
 	
 	
 }

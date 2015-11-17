@@ -29,6 +29,31 @@ class Procurement_plans extends CI_Controller
 	}
 	
 	
+	# list actions
+	function list_actions()
+	{
+		$data = filter_forwarded_data($this);
+		echo get_option_list($this, 'procurement_plan_list_actions', 'div');
+	}
+	
+	
+	# list filters
+	function list_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('procurement_plans/list_filter', $data);
+	}
+	
+	
+	
+	# to add a procurement plan
+	function add()
+	{
+		$data = filter_forwarded_data($this);
+		
+		$this->load->view('procurement_plans/new_plan', $data);
+	}
+	
 }
 
 /* End of controller file */

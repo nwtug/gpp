@@ -39,7 +39,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 </tr></table>
 </td></tr>
 <tr><td colspan='2'><div id='paginationdiv__tendernoticesearch_list' class='page-list-div'>
-<?php $this->load->view('tenders/details_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
+<?php $this->load->view('tenders/details_list',array('type'=>(!empty($area)? $area: 'procurement_plans'),'list'=>$procurementPlanList));?>
 </div></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
