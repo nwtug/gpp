@@ -139,6 +139,37 @@ class Pages extends CI_Controller
 		$data['area'] = "dropdown_list";
 		$this->load->view('addons/basic_addons', $data);
 	}
+
+	# Get values filled in by a form layer and put them in a session for layer use
+	function get_layer_form_values()
+	{
+		$data = filter_forwarded_data($this);
+
+		switch($data['type'])
+		{
+
+
+			case 'verify_document':
+
+				if(isset($_POST)){
+
+					# check if verification number exists (Expected result is boolean)
+					$data['msg'] = $this->_page->verify_certificate($_POST) ? 'Document exists' : 'ERROR: Document does not exist';
+
+				}
+
+
+
+				break;
+
+			default:
+				break;
+		}
+
+		$data['area'] = "basic_msg";
+		$this->load->view('addons/basic_addons', $data);
+	}
+
 }
 
 /* End of controller file */

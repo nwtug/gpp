@@ -837,7 +837,7 @@ function addSelectVariables(selectObj)
 function postFormFromLayer(formId)
 {
 	// Collect all fields to process
-	var inputs = $('#'+formId).find('input');
+	var inputs =  $('#'+formId).find(':input');
 	var fieldId = formId.replace(/\__form/g, '');
 	var formType = $("#"+fieldId+'__type').val();
 	// Process the form data submitted
