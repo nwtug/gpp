@@ -24,19 +24,19 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <tr>
   <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
-<?php $this->load->view('addons/procurement_ribbon', array('page'=>(!empty($t)?$t: 'bids') )); ?>
+<?php $this->load->view('addons/procurement_ribbon', array('page'=>'contracts')); ?>
 
 <tr>
   <td>&nbsp;</td>
   <td class='one-column' style='height:calc(80vh - 100px); padding-bottom: 20px;'>
 
 <table class='home-list-table'> 
-<tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Best Evaluated Bidders List</th>
-<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='bid_actions' class='actions-list-btn list-actions' data-url='bids/list_actions<?php echo (!empty($t)?'/t/'.$t: '');?>' data-width='300' data-targetdiv='paginationdiv__bid_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
+<tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Contracts</th>
+<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='bid_actions' class='actions-list-btn list-actions' data-url='bids/list_actions' data-width='300' data-targetdiv='paginationdiv__bid_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
 </tr>
 
 <tr><td colspan='2'><div id='paginationdiv__bid_list' class='page-list-div'>
-<div id="bid__1"><?php $this->load->view('bids/bid_list',array('list'=>$list));?></div>
+<div id="bid__1"><?php $this->load->view('contracts/contract_list',array('list'=>$list));?></div>
 </div>
 <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td colspan='2'>
@@ -49,7 +49,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <input name="paginationdiv__bid_extrafields" id="paginationdiv__bid_extrafields" type="hidden" value="" /></div>
           
 
-</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'bids/list_filter';?>'>FILTER</td></tr></table>
+</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'contracts/list_filter';?>'>FILTER</td></tr></table>
 </td></tr>
 </table>
 

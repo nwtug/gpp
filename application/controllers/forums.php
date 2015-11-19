@@ -37,7 +37,17 @@ class Forums extends CI_Controller
 	
 	
 	
-	
+	# Filter home resources
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'public_forums') $list = 'public_list_filter';
+		else if($data['t'] == 'secure_forums') $list = 'secure_list_filter';
+		else if($data['t'] == 'frequently_asked_questions') $list = 'faq_list_filter';
+		
+		$this->load->view('forums/'.$list, $data);
+	}
 	
 	
 }

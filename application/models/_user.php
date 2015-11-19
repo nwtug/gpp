@@ -72,21 +72,26 @@ class _user extends CI_Model
 
 		if(is_valid_email($formData['registeredemail']))
 		{
-			# TODO Rogers (generate a query to cross reference the table: [users.email_address] against the provided email adddress
 			$user = $this->_query_reader->get_row_as_array('check_email_address', array('email_address'=>$formData['registeredemail']));
+
 			if(!empty($user))
 			{
+
 				# generate_temp_password is a helper function in common_functions_helper file
 				$password = generate_temp_password();
-				$result = $this->update_password($user['user_id'], $password);
+
+				$result = $this->update_password($user['id'], $password);
 
 				#if user's password was updated
 				if($result)
 				{
-					$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
+					$result = $this->_messenger->send($user['id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
+					echo 'foo4';
+
+
 					if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
 				}
-				else $msg = "ERROR: The password update failed.";
+				else echo $msg = "ERROR: The password update failed.";
 			}
 			else $msg = "WARNING: There is no valid user with the given email address.";
 		}
@@ -98,13 +103,26 @@ class _user extends CI_Model
 	# Update the user password
 	function update_password($userId, $newPassword)
 	{
-		$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>$userId));
-
-		#TODO Rogers Generate query with code ['update_user_password'] that accepts parameters ('new_password','old_password','updated_by')
-		$result1 = !empty($user)? $this->_query_reader->run('update_user_password', array('user_id'=>$userId, 'new_password'=>sha1($newPassword), 'old_password'=>$user['login_password'], 'updated_by'=>$this->native_session->get('__user_id') )): false;
+		$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('id'=>$userId));
+		$result1 = !empty($user)? $this->_query_reader->run('update_user_password', array('id'=>$userId, 'password'=>sha1($newPassword) )): false;
 
 
 		return get_decision(array($result1));
+	}
+
+	# Get user info
+	function get_info($user_id){
+		return $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>$user_id));
+
+	}
+
+	# Get organization info
+	function get_organization($user_id){
+
+		#TODO a query to get organizational details by organisational id
+		$result=array();
+		return $result;
+
 	}
 
 

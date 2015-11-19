@@ -223,7 +223,27 @@ $(function() {
 		if($('#'+listStub+'__1').length) updateFieldLayer($('#paginationdiv__'+listStub+'_action').val(),'','',listStub+'__1','');
 	});
 	
-	
+	//Refresh the list based on pagination
+	$(document).on('click', '#refreshlist', function(){
+		var listContainer = $(document).find('.home-list-div').first();
+		var listId = listContainer.find('div').first().attr('id');
+		var listStub = listId.substr(0, listId.indexOf('__'));
+		
+		// Remove all pagination page-divs
+		$('#'+listStub).children('div').each(function(){
+			if(!($(this).hasClass('previousbtn') || $(this).hasClass('nextbtn') || $(this).html() == '1')) $(this).remove();
+			//Make the first page selected
+			if($(this).html() == '1') $(this).addClass('selected');
+		});
+		
+		// Now remove all the container children - except the first
+		listContainer.children('div').each(function(){
+			if($(this).attr('id') == listStub+'__1') $(this).show('fast');
+			else $(this).remove();
+		});
+		//Now update the first page with the new data
+		if($('#'+listStub+'__1').length) updateFieldLayer($('#paginationdiv__'+listStub+'_action').val(),'','',listStub+'__1','');
+	});
 	
 	
 	

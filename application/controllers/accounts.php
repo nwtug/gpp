@@ -174,8 +174,8 @@ class Accounts extends CI_Controller
 		if($_POST){
 
 			$this->load->model('_user');
-			$result = $this->_user->recover_password($this->input->post('registeredemail'));
-			$data['msg'] = $result['boolean']? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
+			$result = $this->_user->recover_password($_POST);
+			$data['msg'] = $result? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
 
 
 			$data['area'] = 'basic_msg';

@@ -32,14 +32,15 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 
 <table class='home-list-table'> 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Tender Notices List</th>
+<th style='border-bottom:1px solid #999; width:1%;padding:0px; padding-right:15px;'><button type='button' id='newitem' name='newitem' class='btn smallbtn green' data-rel='tenders/add'>New</button></th>
 <th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='tender_actions' class='actions-list-btn list-actions' data-url='tenders/list_actions' data-width='300' data-targetdiv='paginationdiv__provider_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
 </tr>
 
-<tr><td colspan='2'><div id='paginationdiv__tender_list' class='page-list-div'>
+<tr><td colspan='3'><div id='paginationdiv__tender_list' class='page-list-div'>
 <div id="provider__1"><?php $this->load->view('tenders/tender_list',array('list'=>$list));?></div>
 </div>
 <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
-<tr><td colspan='2'>
+<tr><td colspan='3'>
 <table><tr><td>
          
 <div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tender" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" />

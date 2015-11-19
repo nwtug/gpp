@@ -1,43 +1,38 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * This class controls viewing bid pages.
+ * This class controls viewing contract pages.
  *
  * @author Al Zziwa <azziwa@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
  * @created 11/4/2015
  */
-class Bids extends CI_Controller 
+class Contracts extends CI_Controller 
 {
 	#Constructor to set some default values at class load
 	public function __construct()
     {
         parent::__construct();
-        $this->load->model('_bid');
+        $this->load->model('_contract');
 	}
 	
 	
-	# to manage bids
+	# to manage contracts
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
-		$data['list'] = $this->_bid->lists(!empty($data['t'])? $data['t']: '');
+		$data['list'] = $this->_bid->lists();
 		
-		$this->load->view('bids/manage', $data);
+		$this->load->view('contracts/manage', $data);
 	}
 	
-	
-	# list actions
-	function list_actions()
+	# Filter contracts
+	function list_filter()
 	{
 		$data = filter_forwarded_data($this);
-		echo get_option_list($this, (!empty($data['t'])? $data['t'].'_':'all_').'bid_list_actions', 'div');
+		$this->load->view('contracts/list_filter', $data);
 	}
-	
-	
-	
-	
 	
 }
 

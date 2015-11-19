@@ -13,7 +13,7 @@
 <td colspan="2"><span class='bold'>Ministry of Education, Science, Technology and Sports</span><br><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plan</div></td>
 </tr>
 
-<?php } 
+<?php }
 
 
 else if($type == 'active_notices'){?>
@@ -33,7 +33,7 @@ else if($type == 'active_notices'){?>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
 <td class='dark-grey'><span class='bold'>Entity:</span> Ministry of Roads and Infrastructure<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Deadline:</span> 04/10/2015</td></tr>
 
-<?php } 
+<?php }
 
 
 else if($type == 'best_evaluated_bidders'){?>
@@ -52,7 +52,7 @@ else if($type == 'best_evaluated_bidders'){?>
 <br><span class='dark-grey'><span class='bold'>Posted:</span> 04/10/2015</span></td>
 <td class='dark-grey'><span class='bold'>Entity:</span> Juba Prison Service<br><span class='bold'>Provider:</span> Bet Forward SS<br><span class='bold'>Date BEB Expires:</span> 04/10/2015</td></tr>
 
-<?php } 
+<?php }
 
 
 else if($type == 'contract_awards'){?>
@@ -71,7 +71,7 @@ else if($type == 'contract_awards'){?>
 <br><span class='dark-grey'><span class='bold'>Date Signed:</span> 04/10/2015</span></td>
 <td class='dark-grey'><span class='bold'>Entity:</span> Juba Revenue Authority<br><span class='bold'>Provider:</span> Virtual Investiment Authority<br><span class='bold'>Contract Value:</span> 2,980USD<br><span class='bold'>Status: </span> <span class="green-box">Completed</span></td></tr>
 
-<?php } 
+<?php }
 
 
 else if($type == 'active_providers'){ ?>
@@ -86,7 +86,7 @@ else if($type == 'active_providers'){ ?>
 <tr><td><span class='bold'>Millenial Publishing Ltd</span>
 <br><span class='grey-box'>Education</span></td>
 <td class='dark-grey'>Registered: 14/11/2014</td></tr>
-<?php }  
+<?php }
 
 
 else if($type == 'suspended_providers'){ ?>
@@ -101,7 +101,7 @@ else if($type == 'suspended_providers'){ ?>
 <tr><td><span class='bold'>Michele and Joshua Enterprises Limited</span>
 <br><span class='grey-box'>Consultants</span></td>
 <td class='dark-grey'>Registered: 14/11/2014</td></tr>
-<?php }  
+<?php }
 
 
 
@@ -125,7 +125,7 @@ else if($type == 'documents'){ ?>
 <tr><td class='file-icon-row'><span class='bold'>Avoidable Causes of Delays in Bid Evaluation</span>
 <br><span class='grey-box'>Reports</span></td>
 <td class='dark-grey'>Posted: 01/10/2015<br>Size: 256KB</td></tr>
-<?php }  
+<?php }
 
 
 else if($type == 'important_links'){ ?>
@@ -144,7 +144,7 @@ else if($type == 'important_links'){ ?>
 <tr><td colspan="2" ><span class='bold'>Avoidable Causes of Delays in Bid Evaluation</span>
   </td>
 </tr>
-<?php }  
+<?php }
 
 
 else if($type == 'standards'){ ?>
@@ -163,7 +163,7 @@ else if($type == 'standards'){ ?>
 <tr><td class='file-icon-row'><span class='bold'>Complaining to the tribunal</span>
 <br><span class='grey-box'>Reports</span></td>
 <td class='dark-grey'>Posted: 01/10/2015<br>Size: 256KB</td></tr>
-<?php }  
+<?php }
 
 else if($type == 'training_activities'){ ?>
 <tr><td ><span class='bold'>Approval Training </span>
@@ -181,7 +181,7 @@ else if($type == 'training_activities'){ ?>
 <tr><td ><span class='bold'>Complaining to the tribunal</span>
 <br><span class='grey-box'>Reports</span></td>
 <td class='dark-grey'>Date: 01/10/2015<br>Time: 4:00pm</td></tr>
-<?php }  
+<?php }
 
 
 else if($type == 'public_forums'){ ?>
@@ -200,7 +200,7 @@ else if($type == 'public_forums'){ ?>
 <tr><td><span class='bold'>How to use the new registration section</span>
 <br><span class='grey-box'>Reports</span></td>
 <td class='dark-grey'>Started: 27/06/2015<br>Contributors: 189</td></tr>
-<?php } 
+<?php }
 
 else if($type == 'secure_forums'){ ?>
 
@@ -216,7 +216,7 @@ else if($type == 'secure_forums'){ ?>
 <tr><td><span class='bold'>Who is the Accounting Officer in Districts or Municipalities?</span>
 <br><span class='grey-box'>Reports</span></td>
 <td class='dark-grey'>Started: 27/06/2015<br>Contributors: 189</td></tr>
-<?php } 
+<?php }
 
 else if($type == 'frequently_asked_questions'){ ?>
 <tr><td colspan="2"><span class='bold'>What is microprocurement?</span>
@@ -235,9 +235,9 @@ else if($type == 'frequently_asked_questions'){ ?>
   </span>
   <br><span class='body-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</span></td>
 </tr>
-<?php } 
+<?php }
 
-else { 
+else {
 	echo "<tr><td>".format_notice($this, 'WARNING: List can not be generated.')."</td></tr>";
 }?>
 

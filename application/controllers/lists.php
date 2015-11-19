@@ -35,7 +35,7 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__activity_code', (!empty($data['activity_code'])? $data['activity_code']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					$this->native_session->set($data['t'].'__name', (!empty($data['name'])? $data['name']: ''));
-					
+
 					$data['list'] = $this->_account->audit_trail(array(
 						'date'=>$this->native_session->get($data['t'].'__date'), 
 						'user_id'=>$this->native_session->get($data['t'].'__user_id'), 
@@ -56,7 +56,7 @@ class Lists extends CI_Controller
 				case 'provider':
 					$this->load->model('_provider');
 					$data = restore_bad_chars_in_array($data);
-					
+					echo "reached"; exit;
 					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
 					$this->native_session->set($data['t'].'__ministry', (!empty($data['ministry'])? $data['ministry']: ''));
@@ -75,6 +75,109 @@ class Lists extends CI_Controller
 					$this->load->view('providers/provider_list', $data);
 				break;
 				
+				
+				
+				
+				
+				
+				case 'procurement_plan':
+					$this->load->model('_procurement_plan');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_procurement_plan->lists(array(
+						'pde_id'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('procurement_plans/procurement_plan_list', $data);
+				break;
+				
+							
+				
+				
+				case 'tender':
+					$this->load->model('_tender');
+					$this->load->model('_procurement_plan');
+					$data = restore_bad_chars_in_array($data);
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__disposal_entity', (!empty($data['disposal_entity'])? $data['disposal_entity']: ''));
+
+					$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					$this->native_session->set($data['t'].'__hiddenid', (!empty($data['hiddenid'])? $data['hiddenid']: ''));
+
+					# if filter form details are posted
+					if(isset($data['hiddenid'])){
+						#switch lists based on active tab
+						switch($data['hiddenid']){
+							# get procurement plans
+							case 'plans':
+								$data['list'] = $this->_procurement_plan->lists(array(
+									'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+									'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+									'offset'=>$offset,
+									'limit'=>$limit
+								));
+
+								$this->load->view('procurement_plans/procurement_plan_list', $data);
+
+								break;
+
+							# get notices
+							case 'activenotices':
+
+								$data['list'] = $this->_bid->lists(array(
+									'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+									'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+									'offset'=>$offset,
+									'limit'=>$limit
+								));
+
+								$this->load->view('bids/bid_list', $data);
+
+								break;
+							default:
+								# fall backtr
+								$this->load->view('tenders/tender_list', $data);
+						}
+					}
+
+
+
+
+					
+
+				break;
+				
+				
+				
+				
+					case 'resources':
+					
+					echo "reached"; exit;
+					
+					
+					$this->load->view('resources/details_list', $data);
+				break;
+				
+				
+				
+				case 'forums':
+					
+					echo "reached"; exit;
+					
+					
+					$this->load->view('forums/details_list', $data);
+				break;
 				
 				
 				

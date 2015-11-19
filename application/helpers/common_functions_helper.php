@@ -848,11 +848,30 @@ function generate_temp_password()
 
 
 # format printed arrays
-//print an array
 function print_array($array) {
 	print '<pre>';
 	print_r($array);
 	print '</pre>';
+}
+
+# Function checks all values to see if they are all true and returns the value TRUE or FALSE
+function get_decision($values_array, $defaultTo=TRUE)
+{
+	$decision = empty($values_array)? $defaultTo: TRUE;
+
+	if(empty($values_array))
+	{
+		foreach($values_array AS $value)
+		{
+			if(!$value)
+			{
+				$decision = FALSE;
+				break;
+			}
+		}
+	}
+
+	return $decision;
 }
 
 

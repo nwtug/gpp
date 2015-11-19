@@ -21,6 +21,7 @@ class Tenders extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		if(!empty($data['a'])) $data['area'] = $data['a'];
 		$data['procurementPlanList'] = array();
 		
 		$this->load->view('tenders/home', $data);
@@ -50,6 +51,39 @@ class Tenders extends CI_Controller
 		
 		$this->load->view('tenders/manage', $data);
 	}
+	
+	
+	# list actions
+	function list_actions()
+	{
+		$data = filter_forwarded_data($this);
+		echo get_option_list($this, 'tender_list_actions', 'div');
+	}
+	
+	
+	
+	# filter tender
+	function list_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('tenders/list_filter', $data);
+	}
+	
+	
+	
+	# filter tenders for the home page
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
+		else if($data['t'] == 'active_notices') $folder = 'tenders';
+		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
+		else if($data['t'] == 'contract_awards') $folder = 'bids';
+		
+		$this->load->view($folder.'/home_filter', $data);
+	}
+	
 	
 	
 }

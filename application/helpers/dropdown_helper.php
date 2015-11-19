@@ -172,6 +172,220 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		
+		case "procurement_plan_list_actions":
+			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate', 'edit'=>'Edit');
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'edit') $url = 'procurement_plans/add';
+				else if(in_array($key, array('publish', 'deactivate'))) $url = 'procurement_plans/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		case "tender_list_actions":
+			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate', 'edit'=>'Edit');
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'edit') $url = 'tenders/add';
+				else if(in_array($key, array('publish', 'deactivate'))) $url = 'tenders/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		case "all_bid_list_actions":
+		case "best_bidders_bid_list_actions":
+		case "awards_bid_list_actions":
+			
+			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'mark_as_awarded'=>'Mark As Awarded', 'reject_bid'=>'Reject Bid');
+			
+			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_awarded'=>'Mark As Awarded', 'retract_win'=>'Retract Win');
+			
+			else if($list_type == 'awards_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'retract_award'=>'Retract Award');
+			
+			
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'message_bidder') $url = 'bids/message';
+				else if(in_array($key, array('mark_as_won', 'mark_as_awarded', 'retract_win', 'reject_bid', 'retract_award'))) $url = 'bids/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		case "pdes":
+			$types = $obj->_query_reader->get_list('search_pde_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['pde_id']."' onclick=\"universalUpdate('pde_id','".$row['pde_id']."')\">".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['pde_id']."' onclick=\"universalUpdate('pde_id','".$row['pde_id']."'>".$row['name']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		case "disposal_entity":
+			
+			$categoryName = 'Procurement/Disposal Entity';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value='Ministry of Education, Science, Technology and Sports'>".'Ministry of Education, Science, Technology and Sports'."</option>";
+			$optionString .= "<option value='National Medical Stores'>".'National Medical Stores'."</option>";
+			
+		break;
+		
+		case "procurementtypes":
+			
+			$categoryName = 'Procurement Type';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'WORKS'."</option>";
+			$optionString .= "<option value=''>".'SUPPLIES'."</option>";
+			
+		break;
+		
+		case "procurementmethod":
+			
+			$categoryName = 'Procurement Method';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'Open Domestic Bidding'."</option>";
+			$optionString .= "<option value=''>".'Open Domestic Bidding'."</option>";
+			
+		break;
+		
+		case "providers":
+			
+			$categoryName = 'Provider';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'Bet Forward SS'."</option>";
+			$optionString .= "<option value=''>".'Ash & Craft general Supplies'."</option>";
+			
+		break;
+		
+		case "documents":
+			
+			$categoryName = 'Category';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'Legal'."</option>";
+			$optionString .= "<option value=''>".'Audit'."</option>";
+			
+		break;
+		
+		case "standards":
+			
+			$categoryName = 'Category';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'Standard one'."</option>";
+			$optionString .= "<option value=''>".'Standard two'."</option>";
+			
+		break;
+		
+		case "secure_forums":
+			
+			$categoryName = 'Category';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'secure one'."</option>";
+			$optionString .= "<option value=''>".'secure two'."</option>";
+			
+		break;
+		
+		case "public_forums":
+			
+			$categoryName = 'Category';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'public one'."</option>";
+			$optionString .= "<option value=''>".'public two'."</option>";
+			
+		break;
+		
+		
+		
+		case "training":
+			
+			$categoryName = 'Category';
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
+			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			$optionString .= "<option value=''>".'training one'."</option>";
+			$optionString .= "<option value=''>".'training two'."</option>";
+			
+		break;
+		
+		case "financialyears_start":
+			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			{
+				if($return == 'div') $optionString .= "<div data-value=''>Select a Financial Year Start</div>";
+				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+			}
+		break;
+		
+		case "financialyears_start_end":
+			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$i."'>Select a  Financial Year End</div>";
+				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+			}
+		break;
+		
+		case "financialyears_end":
+			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			{
+				if($return == 'div') $optionString .= "<div data-value=''>Select a Financial Year End ".$i."</div>";
+				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+			}
+		break;
+		
+		case "financialyears_start_end":
+			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$i."'>Financial Year ".$i."</div>";
+				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
