@@ -134,6 +134,7 @@ class Lists extends CI_Controller
 
 							# get notices
 							case 'activenotices':
+								$this->load->model('_bid');
 
 								$data['list'] = $this->_bid->lists(array(
 									'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
