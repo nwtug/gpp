@@ -824,4 +824,55 @@ function is_valid_email($email, $isRequired = true)
 	return $isValid;
 }
 
+
+# Generates an 8-character temporary password for the user - this is a one time case and system does not keep un-encrypted copy
+function generate_temp_password()
+{
+	$numbers = '0123456789';
+	$letters = 'abcdefghijklmnopqrstuvwxyz';
+	$characters = '_!-*.';
+	$time = strtotime('now');
+
+	$password = array();
+	$password[0] = $letters[rand(0, strlen($letters)-1)];
+	$password[1] = $letters[rand(0, strlen($letters)-1)];
+	$password[2] = $numbers[rand(0, strlen($numbers)-1)];
+	$password[3] = $characters[rand(0, strlen($characters)-1)];
+	$password[4] = $time[rand(0, strlen($time)-1)];
+	$password[5] = strtoupper($letters[rand(0, strlen($letters)-1)]);
+	$password[6] = $letters[rand(0, strlen($letters)-1)];
+	$password[7] = $time[rand(0, strlen($time)-1)];
+
+	return implode('',$password);
+}
+
+
+# format printed arrays
+function print_array($array) {
+	print '<pre>';
+	print_r($array);
+	print '</pre>';
+}
+
+# Function checks all values to see if they are all true and returns the value TRUE or FALSE
+function get_decision($values_array, $defaultTo=TRUE)
+{
+	$decision = empty($values_array)? $defaultTo: TRUE;
+
+	if(empty($values_array))
+	{
+		foreach($values_array AS $value)
+		{
+			if(!$value)
+			{
+				$decision = FALSE;
+				break;
+			}
+		}
+	}
+
+	return $decision;
+}
+
+
 ?>

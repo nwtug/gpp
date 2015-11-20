@@ -99,12 +99,12 @@ class _messenger extends CI_Model {
 	function send_email_message($userId, $messageDetails)
 	{
 		$isSent = false;
-		
+
 		if(check_sending_settings($this, $userId, 'email'))
 		{
 			$messageDetails['emailfrom'] = NOREPLY_EMAIL;
 			$messageDetails['fromname'] = SITE_GENERAL_NAME;
-			
+
 			# 1. Send message
 			if(!empty($messageDetails['emailaddress']) && !empty($messageDetails['details']))
 			{
@@ -112,31 +112,31 @@ class _messenger extends CI_Model {
 				$this->email->from($messageDetails['emailfrom'], $messageDetails['fromname']);
 				$this->email->reply_to($messageDetails['emailfrom'], $messageDetails['fromname']);
 				if(!empty($messageDetails['cc'])) $this->email->cc($messageDetails['cc']);
-				
+
 				# Copy admin if he is not the sender
 				if((!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y') && $messageDetails['emailfrom'] != SITE_ADMIN_MAIL) $this->email->bcc(SITE_ADMIN_MAIL);
-			
+
 				$this->email->subject($messageDetails['subject']);
 				$this->email->message($messageDetails['details']);
-				
+
 				if(!empty($messageDetails['fileurl'])) $this->email->attach($messageDetails['fileurl']);
 
 				# Use this line to test sending of email without actually sending it
 				# echo $this->email->print_debugger();
-		
+
 				$isSent = $this->email->send();
 				$this->email->clear(TRUE);
-				
-				
+
+
 				# Record messsage sending event
 				$this->log_message_event($userId, $isSent, 'email__message_sent', $messageDetails);
 			}
 		}
-		
+
 		return $isSent;
 	}
-	
-	
+
+
 	
 	# Send an SMS to the specified user
 	function send_sms_message($userId, $messageDetails)

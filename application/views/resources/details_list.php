@@ -1,4 +1,4 @@
-<div id="resourcesearch__1">
+<div id="resources__1">
 <table>
 
 
