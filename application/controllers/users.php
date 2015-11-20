@@ -68,7 +68,16 @@ class Users extends CI_Controller
 	
 	
 	
-	
+	# View details of a provider
+	function details()
+	{
+		$data = filter_forwarded_data($this);
+
+		$data['row']=$this->_user->get_organization($this->uri->segment(4));
+		
+		$data['area'] = 'provider_details';
+		$this->load->view('addons/basic_addons', $data);
+	}
 	
 	
 	

@@ -43,7 +43,7 @@ if($this->native_session->get('__step') && $this->native_session->get('__step') 
 <tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
 
 <tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'accounts/register';?>">New Account</a><?php }?></div>
-<div class='right-div'><a href="javascript:;">Forgot Password</a></div>
+<div class='right-div'><a href="<?php echo base_url().'accounts/forgot';?>">Forgot Password</a></div>
 
 </td></tr>
 </table>

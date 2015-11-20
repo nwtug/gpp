@@ -31,27 +31,27 @@ $this->load->view('addons/public_top_menu', array('__page'=>'resources'));
 <table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Resoucres</th><th class='btn closer' data-rel='pages/portal'></th></tr>
 <tr><td colspan='2'>
-<table class='list-tabs' data-type='paginationdiv__resourcesearch' data-page='resources/documents_list'><tr>
+<table class='list-tabs' data-type='paginationdiv__resources' data-page='resources/documents_list'><tr>
 <td id='documents' <?php if(empty($area) || !empty($area) && $area == 'documents') echo "class='active'";?>>Documents</td>
 <td id='important_links' <?php if(!empty($area) && $area == 'important_links') echo "class='active'";?>>Important Links</td>
 <td id='standards' <?php if(!empty($area) && $area == 'standards') echo "class='active'";?>>Standards</td>
 <td id='training_activities' <?php if(!empty($area) && $area == 'training_activities') echo "class='active'";?>>Training Activities</td>
 </tr></table>
 </td></tr>
-<tr><td colspan='2'><div id='paginationdiv__resourcesearch_list' class='page-list-div'>
+<tr><td colspan='2'><div id='paginationdiv__resources_list' class='page-list-div'>
 <?php $this->load->view('resources/details_list',array('type'=>(!empty($area)? $area: 'documents'),'list'=>$documentsList));?>
-</div></td></tr>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
          
-<div id='resource_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="resourcesearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__resourcesearch_action" id="paginationdiv__resourcesearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/resources";?>" />
-<input name="paginationdiv__resourcesearch_maxpages" id="paginationdiv__resourcesearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
-<input name="paginationdiv__resourcesearch_noperlist" id="paginationdiv__resourcesearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-<input name="paginationdiv__resourcesearch_showdiv" id="paginationdiv__resourcesearch_showdiv" type="hidden" value="paginationdiv__providersearch_list" />
-<input name="paginationdiv__resourcesearch_extrafields" id="paginationdiv__resourcesearch_extrafields" type="hidden" value="" /></div>
+<div id='resources_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="resources" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__resources_action" id="paginationdiv__resources_action" type="hidden" value="<?php echo base_url()."lists/load/t/resources";?>" />
+<input name="paginationdiv__resources_maxpages" id="paginationdiv__resources_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__resources_noperlist" id="paginationdiv__resources_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__resources_showdiv" id="paginationdiv__resources_showdiv" type="hidden" value="paginationdiv__resources_list" />
+<input name="paginationdiv__resources_extrafields" id="paginationdiv__resources_extrafields" type="hidden" value="" /></div>
           
 
-</td><td width='1%' class='filter-list'>FILTER</td></tr></table>
+</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'resources/home_filter/t/documents';?>'>FILTER</td></tr></table>
 </td></tr>
 </table>
 

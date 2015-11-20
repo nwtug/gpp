@@ -22,6 +22,7 @@ class Providers extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		if(!empty($data['a'])) $data['area'] = $data['a'];
 		$data['activeProvidersList'] = array();
 
 		$this->load->view('providers/home', $data);
@@ -72,6 +73,29 @@ class Providers extends CI_Controller
 		$this->load->view('providers/list_filter', $data);
 	}
 	
+	# Filter home provider
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'active_providers') $filter = 'home_active_filter';
+		else if($data['t'] == 'suspended_providers') $filter = 'home_suspended_filter';
+		$this->load->view('providers/'.$filter, $data);
+	}
+
+# View details of a provider
+	function details()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->model('_user');
+
+		$data['row']=$this->_user->get_info($this->uri->segment(4));
+
+		$data['area'] = 'user_details';
+		$this->load->view('addons/basic_addons', $data);
+
+
+	}
 
 }
 

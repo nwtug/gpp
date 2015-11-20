@@ -36,7 +36,17 @@ class Resources extends CI_Controller
 	}
 	
 	
-	
+	# Filter home resources
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'documents') $list = 'document_list_filter';
+		else if($data['t'] == 'important_links') $list = 'links_list_filter';
+		else if($data['t'] == 'standards') $list = 'standards_list_filter';
+		else if($data['t'] == 'training_activities') $list = 'training_list_filter';
+		$this->load->view('resources/'.$list, $data);
+	}
 	
 	
 	

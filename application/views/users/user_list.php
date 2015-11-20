@@ -12,7 +12,7 @@ echo "<table>
 		<td>".$row['name']."</td>
 		<td>".$row['email_address']."</td>
 		<td>".$row['telephone']."</td>
-		<td><a href='javascript:;'>".$row['organization']."</a></td>
+		<td><a href='".base_url()."users/details/id/".$row['user_id']."' class='shadowbox closable'>".$row['organization']."</a></td>
 		<td>".strtoupper($row['user_type'])."</td>
 		<td>".strtoupper($row['status'])."</td>
 		<td><a href='".base_url()."users/permissions/g/".$row['group_id']."' class='shadowbox closable'>".$row['permission_group']."</a></td>

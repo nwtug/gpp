@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.list.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.shadowbox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.pagination.css" type="text/css" media="screen" />
 </head>
 
 <body>
@@ -32,18 +33,27 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <div><table class='home-list-table'>
 <tr><th class='h3 blue tender-icon'>Tender Notices</th></tr>
 <tr><td>
-<table class='list-tabs' data-type='tenders' data-page='pages/home_list'><tr>
+<table class='list-tabs' data-type='paginationdiv__tender' data-page='pages/home_list'><tr>
 <td id='procurement_plans' class='active'>Procurement Plans</td>
 <td id='active_notices'>Active Notices</td>
 <td id='best_evaluated_bidders'>Best Evaluated Bidders</td>
 <td id='contract_awards'>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='tenders_list' class='home-list-div'>
-<?php $this->load->view('pages/home_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
-</div></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'tenders/home_filter/t/procurement_plans';?>'>FILTER</td><td width='1%' class='btn load-more' data-rel='tenders/index/a/procurement_plans'>MORE</td></tr></table>
+
+<div id='paginationdiv__tender_list' class='home-list-div'>
+<?php $this->load->view('pages/home_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
+</div>
+<button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
+<tr><td>
+<div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" />
+<input name="paginationdiv__tender_maxpages" id="paginationdiv__tender_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__tender_noperlist" id="paginationdiv__tender_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__tender_showdiv" id="paginationdiv__tender_showdiv" type="hidden" value="paginationdiv__tender_list" />
+<input name="paginationdiv__tender_extrafields" id="paginationdiv__tender_extrafields" type="hidden" value="" /></div>
+
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'tenders/home_portal_filter/t/procurement_plans';?>'>FILTER</td><td width='1%' class='btn load-more' data-rel='tenders/index/a/procurement_plans'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -53,16 +63,21 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <div><table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Registry of Providers</th></tr>
 <tr><td>
-<table class='list-tabs' data-type='rop' data-page='pages/home_list'><tr>
+<table class='list-tabs' data-type='paginationdiv__provider' data-page='pages/home_list'><tr>
 <td id='active_providers' class='active'>Active Providers</td>
 <td id='suspended_providers'>Suspended Providers</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='rop_list' class='home-list-div'>
+<tr><td><div id='paginationdiv__provider_list' class='home-list-div '>
 <?php $this->load->view('pages/home_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
-</div></td></tr>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more' data-rel='provider'>MORE</td></tr></table>
+<div id='provider_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><input name="paginationdiv__provider_action" id="paginationdiv__provider_action" type="hidden" value="<?php echo base_url()."lists/load/t/provider";?>" />
+                                        <input name="paginationdiv__provider_maxpages" id="paginationdiv__provider_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+                                        <input name="paginationdiv__provider_noperlist" id="paginationdiv__provider_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+                                        <input name="paginationdiv__provider_showdiv" id="paginationdiv__provider_showdiv" type="hidden" value="paginationdiv__provider_list" />
+                                        <input name="paginationdiv__provider_extrafields" id="paginationdiv__provider_extrafields" type="hidden" value="" /></div>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'providers/home_filter/t/active_providers';?>'>FILTER</td><td width='1%' class='btn load-more' data-rel='providers/index/a/active_providers' >MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -81,9 +96,14 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 </td></tr>
 <tr><td><div id='resources_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'documents','list'=>$documentsList));?>
-</div></td></tr>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='resources/index/a/documents'>MORE</td></tr></table>
+<div id='resources_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><input name="paginationdiv__resources_action" id="paginationdiv__resources_action" type="hidden" value="<?php echo base_url()."lists/load/t/resources";?>" />
+<input name="paginationdiv__resources_maxpages" id="paginationdiv__resources_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__resources_noperlist" id="paginationdiv__resources_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__resources_showdiv" id="paginationdiv__resources_showdiv" type="hidden" value="paginationdiv__resources_list" />
+<input name="paginationdiv__resources_extrafields" id="paginationdiv__resources_extrafields" type="hidden" value="" /></div>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'resources/home_filter/t/documents';?>'>FILTER</td><td width='1%' class='btn load-more'  data-rel='resources/index/a/documents'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -101,9 +121,16 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 </td></tr>
 <tr><td><div id='forums_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
-</div></td></tr>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums'>MORE</td></tr></table>
+        
+<div id='forums_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="forums" class="paginationdiv no-scroll"></div><input name="paginationdiv__forums_action" id="paginationdiv__forums_action" type="hidden" value="<?php echo base_url()."lists/load/t/forums";?>" />
+<input name="paginationdiv__forums_maxpages" id="paginationdiv__forums_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__faqsearch_noperlist" id="paginationdiv__faqsearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__forums_showdiv" id="paginationdiv__forums_showdiv" type="hidden" value="paginationdiv__forums_list" />
+<input name="paginationdiv__forums_extrafields" id="paginationdiv__forums_extrafields" type="hidden" value="" /></div>
+        
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'forums/home_filter/t/public_forums';?>'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums/index/a/public_forums'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -121,6 +148,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js'));?>
+<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
 </body>
 </html>
