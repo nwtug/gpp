@@ -18,7 +18,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Procurement' ));
-$this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'procurement' ));
 ?>
 
 <tr>
@@ -37,7 +37,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 </tr>
 
 <tr><td colspan='3'><div id='paginationdiv__procurement_plan_list' class='page-list-div'>
-<div id="provider__1"><?php $this->load->view('procurement_plans/procurement_plan_list',array('list'=>$list));?></div>
+<div id="procurement_plan__1"><?php $this->load->view('procurement_plans/procurement_plan_list',array('list'=>$list));?></div>
 </div>
 <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td colspan='3'>

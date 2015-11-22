@@ -86,6 +86,66 @@ class Tenders extends CI_Controller
 	
 	
 	
+	# to add a tender
+	function add()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($_POST)){
+			# Upload the file before you proceed with the rest of the 
+			$fileUrl = upload_file($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			if(!empty($fileUrl)) {
+				$_POST['document'] = $fileUrl;
+				$result = $this->_tender->add($_POST);
+			}
+			else $result = array('boolean'=>FALSE, 'reason'=>'File could not be uploaded.');
+			
+			if(!$result['boolean']) echo "ERROR: The tender notice could not be added. ".$result['reason'];
+		}
+		else $this->load->view('tenders/new_tender', $data);
+	}
+	
+	
+	
+	# view one tender
+	function view_one()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['tender'] = $this->_tender->details($data['d']);
+		else $data['msg'] = 'ERROR: The tender details can not be resolved';
+		
+		$this->load->view('tenders/tender_details', $data);
+	}
+	
+	
+	
+	
+	# update a tender status
+	function update_status()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['t']) && !empty($data['list'])) $response = $this->_tender->update_status($data['t'], explode('--',$data['list']));
+		
+		# all good
+		if(!empty($response) && $response['boolean']){
+			$data['msg'] = 'The tender status has been updated.';
+			$data['area'] = 'refresh_list_msg';
+		} 
+		# there was an error
+		else {
+			$data['msg'] = (!empty($data['t']) && !empty($data['list']))? 'ERROR: There was an error updating the tender status.': 'ERROR: This action can not be resolved';
+			$data['area'] = 'basic_msg';
+		}
+		
+		$this->load->view('addons/basic_addons', $data);
+		
+		
+		
+	}
+	
+	
 }
 
 /* End of controller file */

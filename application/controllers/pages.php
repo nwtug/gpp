@@ -139,6 +139,22 @@ class Pages extends CI_Controller
 		$data['area'] = "dropdown_list";
 		$this->load->view('addons/basic_addons', $data);
 	}
+	
+	
+	
+	
+	
+	# Download a document
+	function download()
+	{
+		$data = filter_forwarded_data($this);
+		if(!empty($data['file'])) force_download((!empty($data['folder'])? $data['folder']: ''),$data['file']);
+	}
+	
+	
+	
+	
+	
 }
 
 /* End of controller file */

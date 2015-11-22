@@ -18,7 +18,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Providers' ));
-$this->load->view('addons/admin_top_menu', array('__page'=>'providers' ));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'providers' ));
 ?>
 
 <tr>

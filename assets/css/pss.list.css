@@ -50,7 +50,7 @@
 .home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td, .list-table > tbody > tr > td {
 	vertical-align: top;
 	padding: 5px;
-	text-align:left;
+	text-align:left !important;
 }
 
 .closer {

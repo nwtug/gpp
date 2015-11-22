@@ -100,37 +100,34 @@ class _messenger extends CI_Model {
 	{
 		$isSent = false;
 		
-		if(check_sending_settings($this, $userId, 'email'))
+		$messageDetails['emailfrom'] = NOREPLY_EMAIL;
+		$messageDetails['fromname'] = SITE_GENERAL_NAME;
+			
+		# 1. Send message
+		if(!empty($messageDetails['emailaddress']) && !empty($messageDetails['details']))
 		{
-			$messageDetails['emailfrom'] = NOREPLY_EMAIL;
-			$messageDetails['fromname'] = SITE_GENERAL_NAME;
-			
-			# 1. Send message
-			if(!empty($messageDetails['emailaddress']) && !empty($messageDetails['details']))
-			{
-				$this->email->to($messageDetails['emailaddress']);
-				$this->email->from($messageDetails['emailfrom'], $messageDetails['fromname']);
-				$this->email->reply_to($messageDetails['emailfrom'], $messageDetails['fromname']);
-				if(!empty($messageDetails['cc'])) $this->email->cc($messageDetails['cc']);
+			$this->email->to($messageDetails['emailaddress']);
+			$this->email->from($messageDetails['emailfrom'], $messageDetails['fromname']);
+			$this->email->reply_to($messageDetails['emailfrom'], $messageDetails['fromname']);
+			if(!empty($messageDetails['cc'])) $this->email->cc($messageDetails['cc']);
 				
-				# Copy admin if he is not the sender
-				if((!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y') && $messageDetails['emailfrom'] != SITE_ADMIN_MAIL) $this->email->bcc(SITE_ADMIN_MAIL);
+			# Copy admin if he is not the sender
+			if((!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y') && $messageDetails['emailfrom'] != SITE_ADMIN_MAIL) $this->email->bcc(SITE_ADMIN_MAIL);
 			
-				$this->email->subject($messageDetails['subject']);
-				$this->email->message($messageDetails['details']);
+			$this->email->subject($messageDetails['subject']);
+			$this->email->message($messageDetails['details']);
 				
-				if(!empty($messageDetails['fileurl'])) $this->email->attach($messageDetails['fileurl']);
+			if(!empty($messageDetails['fileurl'])) $this->email->attach($messageDetails['fileurl']);
 
-				# Use this line to test sending of email without actually sending it
-				# echo $this->email->print_debugger();
+			# Use this line to test sending of email without actually sending it
+			# echo $this->email->print_debugger();
 		
-				$isSent = $this->email->send();
-				$this->email->clear(TRUE);
+			$isSent = $this->email->send();
+			$this->email->clear(TRUE);
 				
 				
-				# Record messsage sending event
-				$this->log_message_event($userId, $isSent, 'email__message_sent', $messageDetails);
-			}
+			# Record messsage sending event
+			$this->log_message_event($userId, $isSent, 'email__message_sent', $messageDetails);
 		}
 		
 		return $isSent;
@@ -142,50 +139,47 @@ class _messenger extends CI_Model {
 	function send_sms_message($userId, $messageDetails)
 	{
 		$isSent = false;
-		if(check_sending_settings($this, $userId, 'sms'))
+		$messageDetails['emailfrom'] = NOREPLY_EMAIL;
+		$messageDetails['fromname'] = SITE_GENERAL_NAME;
+			
+		if(!empty($messageDetails['telephone']))
 		{
-			$messageDetails['emailfrom'] = NOREPLY_EMAIL;
-			$messageDetails['fromname'] = SITE_GENERAL_NAME;
-			
-			if(!empty($messageDetails['telephone']))
+			#Attempt sending by SMS and then by API
+			$this->load->model('_provider');
+			$providerEmailDomain = $this->_provider->get_email_domain($messageDetails['telephone']);
+			if(!empty($providerEmailDomain))
 			{
-				#Attempt sending by SMS and then by API
-				$this->load->model('_provider');
-				$providerEmailDomain = $this->_provider->get_email_domain($messageDetails['telephone']);
-				if(!empty($providerEmailDomain))
-				{
-					$this->email->to($messageDetails['telephone'].'@'.$providerEmailDomain);
-					$this->email->from($messageDetails['emailfrom'], $messageDetails['fromname']);
-					$this->email->reply_to($messageDetails['emailfrom'], $messageDetails['fromname']);
-					if(!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y') $this->email->bcc(SITE_ADMIN_MAIL);
-					$this->email->subject('');
-					$this->email->message(limit_string_length($messageDetails['sms'],150,FALSE));
+				$this->email->to($messageDetails['telephone'].'@'.$providerEmailDomain);
+				$this->email->from($messageDetails['emailfrom'], $messageDetails['fromname']);
+				$this->email->reply_to($messageDetails['emailfrom'], $messageDetails['fromname']);
+				if(!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y') $this->email->bcc(SITE_ADMIN_MAIL);
+				$this->email->subject('');
+				$this->email->message(limit_string_length($messageDetails['sms'],150,FALSE));
 				
-					$isSent = $this->email->send();
-					$this->email->clear(TRUE);
-				}
+				$isSent = $this->email->send();
+				$this->email->clear(TRUE);
 			}
+		}
 			
-			#Else use the SMS-Global gateway to send the SMS
-			if(!$isSent && !empty($messageDetails['telephone']) && !empty($messageDetails['sms']))
-			{
-				$this->load->library('Sms_global', array('user'=>SMS_GLOBAL_USERNAME, 'pass'=>SMS_GLOBAL_PASSWORD, 'from'=>SMS_GLOBAL_VERIFIED_SENDER)); 
+		#Else use the SMS-Global gateway to send the SMS
+		if(!$isSent && !empty($messageDetails['telephone']) && !empty($messageDetails['sms']))
+		{
+			$this->load->library('Sms_global', array('user'=>SMS_GLOBAL_USERNAME, 'pass'=>SMS_GLOBAL_PASSWORD, 'from'=>SMS_GLOBAL_VERIFIED_SENDER)); 
 				
-				$this->sms_global->to($messageDetails['telephone']);
-				$this->sms_global->from(SMS_GLOBAL_VERIFIED_SENDER);
-				$this->sms_global->message(limit_string_length($messageDetails['sms'],150,FALSE));
-				$this->sms_global->send();
+			$this->sms_global->to($messageDetails['telephone']);
+			$this->sms_global->from(SMS_GLOBAL_VERIFIED_SENDER);
+			$this->sms_global->message(limit_string_length($messageDetails['sms'],150,FALSE));
+			$this->sms_global->send();
 				
-				# only use this to output the message details on screen for debugging
-				#$this->sms_global->print_debugger(); 
+			# only use this to output the message details on screen for debugging
+			#$this->sms_global->print_debugger(); 
 				
-				$isSent = !empty($this->sms_global->get_sms_id())? true: false; 
-			}
+			$isSent = !empty($this->sms_global->get_sms_id())? true: false; 
+		}
 		
 				
-			#Record messsage sending event
-			$this->log_message_event($userId, $isSent, 'sms__message_sent', $messageDetails);
-		}
+		#Record messsage sending event
+		$this->log_message_event($userId, $isSent, 'sms__message_sent', $messageDetails);
 		
 		return $isSent;
 	}	
@@ -204,26 +198,19 @@ class _messenger extends CI_Model {
 	# Send a system message to the specified user
 	function send_system_message($userId, $messageDetails)
 	{
-		$isSent = false;
-		
-		if(check_sending_settings($this, $userId, 'system', (!empty($messageDetails['allow_message_code'])? $messageDetails['allow_message_code']: 'all') ))
+		#Make the sender the no-reply user if no sender id is given
+		$messageDetails['senderid'] = !empty($messageDetails['senderid'])? $messageDetails['senderid']: '2';
+			
+		# 1. Record the message exchange to be accessed by the recipient in their inbox
+		$isSent[0] = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($messageDetails['code'])? $messageDetails['code']: 'user_defined_message'), 'details'=>htmlentities($messageDetails['details'], ENT_QUOTES), 'subject'=>htmlentities($messageDetails['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($messageDetails['fileurl'])? substr(strrchr($messageDetails['fileurl'], "/"),1): ''), 'sender_id'=>$messageDetails['senderid'], 'recipient_id'=>$userId));
+			
+		# 2. copy admin if required
+		if(!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y')
 		{
-			#Make the sender the no-reply user if no sender id is given
-			$messageDetails['senderid'] = !empty($messageDetails['senderid'])? $messageDetails['senderid']: '2';
-			
-			# 1. Record the message exchange to be accessed by the recipient in their inbox
-			$isSent[0] = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($messageDetails['code'])? $messageDetails['code']: 'user_defined_message'), 'details'=>htmlentities($messageDetails['details'], ENT_QUOTES), 'subject'=>htmlentities($messageDetails['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($messageDetails['fileurl'])? substr(strrchr($messageDetails['fileurl'], "/"),1): ''), 'sender_id'=>$messageDetails['senderid'], 'recipient_id'=>$userId));
-			
-			# 2. copy admin if required
-			if(!empty($messageDetails['copyadmin']) && $messageDetails['copyadmin'] == 'Y')
-			{
-			 	$isSent[1] = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($messageDetails['code'])? $messageDetails['code']: 'user_defined_message'), 'details'=>htmlentities($messageDetails['details'], ENT_QUOTES), 'subject'=>htmlentities($messageDetails['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($messageDetails['fileurl'])? substr(strrchr($messageDetails['fileurl'], "/"),1): ''), 'sender_id'=>$messageDetails['senderid'], 'recipient_id'=>implode("','", $this->get_admin_users()) ));
-			}
-			
-			$isSent = get_decision($isSent);
+			 $isSent[1] = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($messageDetails['code'])? $messageDetails['code']: 'user_defined_message'), 'details'=>htmlentities($messageDetails['details'], ENT_QUOTES), 'subject'=>htmlentities($messageDetails['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($messageDetails['fileurl'])? substr(strrchr($messageDetails['fileurl'], "/"),1): ''), 'sender_id'=>$messageDetails['senderid'], 'recipient_id'=>implode("','", $this->get_admin_users()) ));
 		}
 		
-		return $isSent;
+		return get_decision($isSent);
 	}	
 			
 

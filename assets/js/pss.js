@@ -328,7 +328,7 @@ function getBaseURL()
    //Dev environments have the installation sitting in a separate folder
    if(urlArray[2] == '127.0.0.1' || urlArray[2] == '0.0.0.0' || urlArray[2].indexOf("localhost") > -1)
    {
-		BaseURL = 'http://localhost/pss/';
+		BaseURL = 'http://localhost:8888/pss/';
 
    }
    
