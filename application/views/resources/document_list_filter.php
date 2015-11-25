@@ -14,7 +14,7 @@
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('document__phrase');?>' style='width:100%;'/></td></tr>
 <tr>
-  <td><input type='text' id='date' name='date' data-final='date' class='calendar clickactivated' onclick='setDatePicker()' placeholder='Posted Before' value='<?php echo $this->native_session->get('dateadded__date');?>' style='width:100%;'/><input type='hidden' id='hiddenid' name='hiddenid' data-final='hiddenid' value='documentportalfilter' style='width:100%;'/></td></tr>
+  <td><input type='text' id='date' name='date' data-final='date' class='calendar clickactivated' onclick='setDatePicker()' placeholder='Posted Before' value='<?php echo $this->native_session->get('dateadded__date');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='document_details' style='width:100%;'/></td></tr>
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('resources')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>

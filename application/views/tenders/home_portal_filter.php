@@ -7,24 +7,23 @@
 <table class='normal-table filter-container'>
 
 <tr><td colspan="2"><span style="width:50%;padding:0px;">
-  <select id='category__disposal_entity' name='category__disposal_entity' data-final='disposal_entity' class='drop-down' style='width:100%;' onchange="toggleEmpty('entity__disposalentity','category__disposal_entity')">
-    <?php echo get_option_list($this, 'disposal_entity', 'select', '', array('selected'=>$this->native_session->get('tender__disposal_entity') )); ?>
-  </select>
+  <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('procurement_plan__pde');?>" style='width:100%;'/>
+<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('procurement_plan__pde_id');?>' />
 </span></td></tr>
 
 <tr><td><span style="width:49%;padding:0px;">
-  <select id='procurement_type' name='procurement_type' data-final='procurement_type' class='drop-down' style='width:100%;'>
-    <?php echo get_option_list($this, 'procurementtypes', 'select', '', array('selected'=>$this->native_session->get('tender__procurement_type') )); ?>
-  </select>
+  <select id='search__procurementtypes' name='search__procurementtypes' data-final='procurement_type' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'procurementtypes', 'select', '', array('selected'=>$this->native_session->get('tender__procurement_type')));?>
+</select>
 </span></td>
   <td><span style="width:49%;padding:0px;">
-    <select id='procurement_method' name='procurement_method' data-final='procurement_method' class='drop-down' style='width:100%;'>
-      <?php echo get_option_list($this, 'procurementmethod', 'select', '', array('selected'=>$this->native_session->get('tender__procurement_method') )); ?>
-    </select>
+   <select id='search__procurementmethods' name='search__procurementmethods' data-final='procurement_method' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'procurementmethods', 'select', '', array('selected'=>$this->native_session->get('tender__procurement_method')));?>
+</select>
   </span></td>
 </tr>
-<tr><td colspan="2"><input type='text' id='date' name='date' data-final='date' class='calendar clickactivated' onclick='setDatePicker()' placeholder='By Deadline' value='<?php echo $this->native_session->get('activenotices__date');?>' style='width:100%;'/></td></tr>
-<tr><td colspan="2"><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('tender__phrase');?>' style='width:100%;'/><input type='hidden' id='hiddenid' name='hiddenid' data-final='hiddenid' value='activenoticeshome' style='width:100%;'/></td></tr>
+<tr><td colspan="2"><input type='text' id='by_deadline' name='by_deadline' data-final='by_deadline' class='calendar clickactivated' onclick='setDatePicker(this)' placeholder='By Deadline' value='<?php echo $this->native_session->get('tender__by_deadline');?>' style='width:100%;'/></td></tr>
+<tr><td colspan="2"><input type='text' id='phrase' name='phrase' placeholder='Subject Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('tender__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='active_notices_home' style='width:100%;'/></td></tr>
 
 
 <tr><td colspan="2"><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('tender')" style="width:100%;">Apply Filter</button>

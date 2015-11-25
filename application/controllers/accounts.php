@@ -143,7 +143,8 @@ class Accounts extends CI_Controller
 	function provider_dashboard()
 	{
 		$data = filter_forwarded_data($this);
-		$data['tendersList'] = array();
+		$this->load->model('_tender');
+		$data['list'] = $this->_tender->lists();
 		$this->load->view('accounts/provider_dashboard', $data);
 	}
 	
@@ -171,12 +172,11 @@ class Accounts extends CI_Controller
 	function forgot()
 	{
 		$data = filter_forwarded_data($this);  # if form is submitted
-		if($_POST){
+		if(!empty($_POST)) {
 
 			$this->load->model('_user');
-			$result = $this->_user->recover_password($_POST);
-			$data['msg'] = $result? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
-
+			$result = $this->_user->recover_password($this->input->post('registeredemail'));
+			$data['msg'] = $result['boolean']? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
 
 			$data['area'] = 'basic_msg';
 			$this->load->view('addons/basic_addons', $data);
@@ -185,9 +185,8 @@ class Accounts extends CI_Controller
 		else
 			$this->load->view('accounts/recover_password', $data);
 	}
-
-
-
+	
+	
 	# Check provider user name
 	function check_user_name()
 	{
@@ -210,8 +209,33 @@ class Accounts extends CI_Controller
 		$this->load->view('accounts/audit_filter', $data);
 	}
 	
+
+
+
+	# View organization details
+	function view_pde()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['organization'] = $this->_account->details($data['d'], 'pde');
+		if(empty($data['organization'])) $data['msg'] = 'ERROR: The PDE details could not be resolved.';
+		
+		$this->load->view('accounts/organization_details', $data);
+	}
 	
-	
+
+
+
+	# View provider details
+	function view_provider()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['organization'] = $this->_account->details($data['d'], 'provider');
+		if(empty($data['organization'])) $data['msg'] = 'ERROR: The provider details could not be resolved.';
+		
+		$this->load->view('accounts/organization_details', $data);
+	}
 	
 	
 }

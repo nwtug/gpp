@@ -673,7 +673,9 @@ function limit_string_length($string, $maxLength, $ignoreSpaces=TRUE, $endString
 
 
 
-# Function to upload a photo
+# Function to upload a temporary file. 
+# NOTE: This file could be removed by an optimization cron job when aged. 
+# Use the upload_file function below for permanent file upload
 function upload_temp_file($postData, $fileField, $newFileStub, $allowedExtensions='jpeg,jpg')
 {
 	# Check if the temp folder exists in the uploads folder. If it does not, create it
@@ -693,6 +695,44 @@ function upload_temp_file($postData, $fileField, $newFileStub, $allowedExtension
 
 
 
+
+
+# Function to upload a permanent file
+function upload_file($postData, $fileField, $newFileStub, $allowedExtensions='jpeg,jpg')
+{
+	$extension =  strtolower(pathinfo($postData[$fileField]['name'],PATHINFO_EXTENSION));
+	if(in_array($extension, explode(',',$allowedExtensions))) {
+		$fileName = $newFileStub.strtotime('now').'.'.$extension;
+		if (move_uploaded_file($postData[$fileField]["tmp_name"], UPLOAD_DIRECTORY.$fileName)){
+			return $fileName;
+		}
+		else return "";
+	}
+}
+
+
+
+
+
+
+
+# Function to upload many files at once
+function upload_many_files($postData, $fileField, $newFileStub, $allowedExtensions='jpeg,jpg')
+{
+	# to store the new uploaded file names
+	$newFiles = array();
+	
+	foreach($postData AS $file){
+		$extension = !empty($file['name'])? strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)): '';
+		# check the extension
+		if(in_array($extension, explode(',',$allowedExtensions))) {
+			$fileName = $newFileStub.strtotime('now').'.'.$extension;
+			if (move_uploaded_file($file["tmp_name"], UPLOAD_DIRECTORY.$fileName)) array_push($newFiles, $fileName);
+		}
+	}
+	
+	return $newFiles;
+}
 
 
 
@@ -825,40 +865,59 @@ function is_valid_email($email, $isRequired = true)
 }
 
 
-# Generates an 8-character temporary password for the user - this is a one time case and system does not keep un-encrypted copy
-function generate_temp_password()
+
+
+
+
+
+
+
+
+# Force file download
+function force_download($folder, $file)
 {
-	$numbers = '0123456789';
-	$letters = 'abcdefghijklmnopqrstuvwxyz';
-	$characters = '_!-*.';
-	$time = strtotime('now');
+	if(file_exists(UPLOAD_DIRECTORY.$folder."/".$file))
+	{
+		if(strtolower(strrchr($file,".")) == '.pdf')
+		{
+			header('Content-disposition: attachment; filename="'.$file.'"');
+			header('Content-type: application/pdf');
+			readfile(UPLOAD_DIRECTORY.$folder."/".$file);
+		}
+		if(strtolower(strrchr($file,".")) == '.zip')
+		{
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Pragma: public');
+			header('Content-Description: File Transfer');
+			header('Content-Disposition: attachment; filename="'.strtotime('now').str_replace('.','',get_ip_address()).'.zip"');
+			header('Content-Transfer-Encoding: binary');
+			header('Vary: Accept-Encoding');
+			header('Content-Encoding: gzip');
+			header('Keep-Alive: timeout=5, max=100');
+			header('Connection: Keep-Alive');
+			header('Transfer-Encoding: chunked');
+			header('Content-Type: application/octet-stream');
+			apache_setenv('no-gzip', '1');
 
-	$password = array();
-	$password[0] = $letters[rand(0, strlen($letters)-1)];
-	$password[1] = $letters[rand(0, strlen($letters)-1)];
-	$password[2] = $numbers[rand(0, strlen($numbers)-1)];
-	$password[3] = $characters[rand(0, strlen($characters)-1)];
-	$password[4] = $time[rand(0, strlen($time)-1)];
-	$password[5] = strtoupper($letters[rand(0, strlen($letters)-1)]);
-	$password[6] = $letters[rand(0, strlen($letters)-1)];
-	$password[7] = $time[rand(0, strlen($time)-1)];
-
-	return implode('',$password);
+		}
+		else
+		{
+			redirect(base_url()."assets/uploads/".$folder."/".$file);
+		}
+	}
 }
 
 
-# format printed arrays
-function print_array($array) {
-	print '<pre>';
-	print_r($array);
-	print '</pre>';
-}
 
+
+
+	
 # Function checks all values to see if they are all true and returns the value TRUE or FALSE
-function get_decision($values_array, $defaultTo=TRUE)
+function get_decision($values_array, $defaultTo=FALSE)
 {
 	$decision = empty($values_array)? $defaultTo: TRUE;
-
+	
 	if(empty($values_array))
 	{
 		foreach($values_array AS $value)
@@ -870,9 +929,29 @@ function get_decision($values_array, $defaultTo=TRUE)
 			}
 		}
 	}
-
+	
 	return $decision;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

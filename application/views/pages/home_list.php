@@ -1,10 +1,21 @@
 <div id="<?php 
 #change ID depending on the type passed
-if(($type == 'procurement_plans')||($type == 'active_notices')||($type == 'best_evaluated_bidders')||($type == 'contract_awards')){$id="tender__1"; echo $id; }
-elseif(($type == 'active_providers')||($type == 'suspended_providers')){$id="provider__1"; echo $id;  }
-elseif(($type == 'documents')||($type == 'important_links')||($type == 'standards')||($type == 'training_activities')){$id="resource__1"; echo $id;  }
-elseif(($type == 'frequently_asked_questions')||($type == 'secure_forums')||($type == 'public_forums')){$id="forums__1"; echo $id;  }
-?>"><table>
+if(($type == 'procurement_plans')||($type == 'active_notices')||($type == 'best_evaluated_bidders')||($type == 'contract_awards')){
+	echo "tender__1"; 
+}
+elseif(($type == 'active_providers')||($type == 'suspended_providers')){
+	echo "provider__1"; 
+	
+}
+elseif(($type == 'documents')||($type == 'important_links')||($type == 'standards')||($type == 'training_activities')){
+	echo "resources__1";
+}
+elseif(($type == 'frequently_asked_questions')||($type == 'secure_forums')||($type == 'public_forums')){
+	echo "forums__1";
+}
+?>">
+
+<table>
 
 <?php if($type == 'procurement_plans'){?>
 
@@ -195,7 +206,7 @@ else if($type == 'training_activities'){ ?>
 
 
 else if($type == 'public_forums'){ ?>
-<tr><td><span class='bold'>What’s causing the delay in Kima Road construction?</span>
+<tr><td><span class='bold'>What's causing the delay in Kima Road construction?</span>
 <br><span class='grey-box'>Works</span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: 28/05/2015<br>Contributors: 189</td></tr>
 

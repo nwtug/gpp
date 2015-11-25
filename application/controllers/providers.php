@@ -82,6 +82,7 @@ class Providers extends CI_Controller
 		else if($data['t'] == 'suspended_providers') $filter = 'home_suspended_filter';
 		$this->load->view('providers/'.$filter, $data);
 	}
+	{
 
 # View details of a provider
 	function details()

@@ -35,17 +35,28 @@ class Resources extends CI_Controller
 		$this->load->view('resources/details_list', $data);
 	}
 	
-	
 	# Filter home resources
 	function home_filter()
 	{
 		$data = filter_forwarded_data($this);
 		
-		if($data['t'] == 'documents') $list = 'document_list_filter';
-		else if($data['t'] == 'important_links') $list = 'links_list_filter';
-		else if($data['t'] == 'standards') $list = 'standards_list_filter';
-		else if($data['t'] == 'training_activities') $list = 'training_list_filter';
-		$this->load->view('resources/'.$list, $data);
+		if($data['t'] == 'documents') $filter = 'document_list_filter';
+		else if($data['t'] == 'important_links') $filter = 'links_list_filter';
+		else if($data['t'] == 'standards') $filter = 'standards_list_filter';
+		else if($data['t'] == 'training_activities') $filter = 'activities_list_filter';
+		$this->load->view('resources/'.$filter, $data);
+	}
+	
+	# Filter home portal resources
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'documents') $filter = 'document_portal_list_filter';
+		else if($data['t'] == 'important_links') $filter = 'links_portal_list_filter';
+		else if($data['t'] == 'standards') $filter = 'standards_portal_list_filter';
+		else if($data['t'] == 'training_activities') $filter = 'activities_portal_list_filter';
+		$this->load->view('resources/'.$filter, $data);
 	}
 	
 	

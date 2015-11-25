@@ -1,9 +1,15 @@
-<table><tr>
-  <th colspan="4">Links</th>
-  </tr>
-
-<tr><td colspan="4" >FHow to register</td>
+<table><tr><td colspan="2" ><span class='bold'>FHow to register</span>
+  </td>
 </tr>
-<tr><td colspan="4" >FThe procurement procedure.</td></tr>
-<tr><td colspan="4" >FDangers in breaching contracts</td></tr>
-<tr><td colspan="4" >FAvoidable Causes of Delays in Bid Evaluation</td></tr></table>
+
+<tr><td colspan="2" ><span class='bold'>FThe procurement procedure</span>
+  </td>
+</tr>
+
+<tr><td colspan="2" ><span class='bold'>FDangers in breaching contracts</span>
+ </td>
+</tr>
+
+<tr><td colspan="2" ><span class='bold'>FAvoidable Causes of Delays in Bid Evaluation</span>
+  </td>
+</tr></table>

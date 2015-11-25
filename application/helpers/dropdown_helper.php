@@ -20,6 +20,25 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 	
 	switch($list_type)
 	{
+		case "pastyears":
+			$backPeriod = !empty($more['back_period'])? $more['back_period']: MAXIMUM_FINANCIAL_HISTORY;
+			$defaultLabel = !empty($more['default'])? $more['default']: 'Select Year';
+			$optionLabel = !empty($more['pre_option'])? $more['pre_option']: '';
+			$startYear = !empty($more['start'])? $more['start']: @date('Y');
+			
+			if($defaultLabel != '-none-'){
+				if($return == 'div') $optionString .= "<div data-value=''>".$defaultLabel."</div>";
+				else $optionString .= "<option value=''>".$defaultLabel."</option>";
+			}
+			
+			for($i=$startYear; $i>($startYear - $backPeriod); $i--)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$i."'>".$optionLabel.$i."</div>";
+				else $optionString .= "<option value='".$i."'>".$optionLabel.$i."</option>";
+			}
+		break;
+		
+		
 		case "financialyears":
 			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
 			{
@@ -207,19 +226,21 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "all_bid_list_actions":
 		case "best_bidders_bid_list_actions":
 		case "awards_bid_list_actions":
+		case "my_bid_list_actions";
 			
-			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'mark_as_awarded'=>'Mark As Awarded', 'reject_bid'=>'Reject Bid');
+			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'mark_as_awarded'=>'Mark As Awarded', 'reject_bid'=>'Reject Bid', 'mark_as_completed'=>'Mark As Completed', 'mark_as_archived'=>'Mark As Archived');
 			
-			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_awarded'=>'Mark As Awarded', 'retract_win'=>'Retract Win');
+			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_awarded'=>'Mark As Awarded', 'retract_win'=>'Retract Win', 'mark_as_completed'=>'Mark As Completed');
 			
-			else if($list_type == 'awards_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'retract_award'=>'Retract Award');
+			else if($list_type == 'awards_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'retract_award'=>'Retract Award', 'mark_as_completed'=>'Mark As Completed');
 			
+			else if($list_type == 'my_bid_list_actions') $types = array('submit_bid'=>'Submit Bid', 'mark_as_archived'=>'Mark As Archived');
 			
 			
 			foreach($types AS $key=>$row)
 			{
 				if($key == 'message_bidder') $url = 'bids/message';
-				else if(in_array($key, array('mark_as_won', 'mark_as_awarded', 'retract_win', 'reject_bid', 'retract_award'))) $url = 'bids/update_status/t/'.$key;
+				else if(in_array($key, array('mark_as_won', 'mark_as_awarded', 'mark_as_completed', 'retract_win', 'reject_bid', 'retract_award', 'submit_bid'))) $url = 'bids/update_status/t/'.$key;
 				
 				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
@@ -242,138 +263,34 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		
-		
-		
-		case "disposal_entity":
+		case "tenders":
+			if($obj->native_session->get('__user_type') == 'provider') $ownerCondition = " HAVING provider_id='".$obj->native_session->get('__organization_id')."' ";
+			else if($obj->native_session->get('__user_type') == 'pde') $ownerCondition = " AND _organization_id='".$obj->native_session->get('__organization_id')."' ";
+			else $ownerCondition = '';
 			
-			$categoryName = 'Procurement/Disposal Entity';
+			$types = $obj->_query_reader->get_list('search_tender_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE, 'owner_condition'=>$ownerCondition));
 			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value='Ministry of Education, Science, Technology and Sports'>".'Ministry of Education, Science, Technology and Sports'."</option>";
-			$optionString .= "<option value='National Medical Stores'>".'National Medical Stores'."</option>";
-			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."')\">".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."'>".$row['name']."</option>";
+			}
 		break;
+		
+		
+		
+		
 		
 		case "procurementtypes":
+			$types = array('supplies'=>'Supplies', 'works'=>'Works', 'goods'=>'Goods');
 			
-			$categoryName = 'Procurement Type';
+			if($return == 'div') $optionString .= "<div data-value=''>Select Procurement Type</div>";
+			else $optionString .= "<option value=''>Select Procurement Type</option>";
 			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'WORKS'."</option>";
-			$optionString .= "<option value=''>".'SUPPLIES'."</option>";
-			
-		break;
-		
-		case "procurementmethod":
-			
-			$categoryName = 'Procurement Method';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'Open Domestic Bidding'."</option>";
-			$optionString .= "<option value=''>".'Open Domestic Bidding'."</option>";
-			
-		break;
-		
-		case "providers":
-			
-			$categoryName = 'Provider';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'Bet Forward SS'."</option>";
-			$optionString .= "<option value=''>".'Ash & Craft general Supplies'."</option>";
-			
-		break;
-		
-		case "documents":
-			
-			$categoryName = 'Category';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'Legal'."</option>";
-			$optionString .= "<option value=''>".'Audit'."</option>";
-			
-		break;
-		
-		case "standards":
-			
-			$categoryName = 'Category';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'Standard one'."</option>";
-			$optionString .= "<option value=''>".'Standard two'."</option>";
-			
-		break;
-		
-		case "secure_forums":
-			
-			$categoryName = 'Category';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'secure one'."</option>";
-			$optionString .= "<option value=''>".'secure two'."</option>";
-			
-		break;
-		
-		case "public_forums":
-			
-			$categoryName = 'Category';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'public one'."</option>";
-			$optionString .= "<option value=''>".'public two'."</option>";
-			
-		break;
-		
-		
-		
-		case "training":
-			
-			$categoryName = 'Category';
-			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
-			$optionString .= "<option value=''>".'training one'."</option>";
-			$optionString .= "<option value=''>".'training two'."</option>";
-			
-		break;
-		
-		case "financialyears_start":
-			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			foreach($types AS $key=>$row)
 			{
-				if($return == 'div') $optionString .= "<div data-value=''>Select a Financial Year Start</div>";
-				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
-			}
-		break;
-		
-		case "financialyears_start_end":
-			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
-			{
-				if($return == 'div') $optionString .= "<div data-value='".$i."'>Select a  Financial Year End</div>";
-				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
-			}
-		break;
-		
-		case "financialyears_end":
-			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
-			{
-				if($return == 'div') $optionString .= "<div data-value=''>Select a Financial Year End ".$i."</div>";
-				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
-			}
-		break;
-		
-		case "financialyears_start_end":
-			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
-			{
-				if($return == 'div') $optionString .= "<div data-value='".$i."'>Financial Year ".$i."</div>";
-				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
 			}
 		break;
 		
@@ -382,6 +299,91 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		
+		case "procurementmethods":
+			$types = $obj->_query_reader->get_list('get_procurement_methods');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Procurement Method</div>";
+			else $optionString .= "<option value=''>Select Procurement Method</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['code']."'>".$row['method']."</div>";
+				else $optionString .= "<option value='".$row['code']."' ".(!empty($more['selected']) && $more['selected'] == $row['code']? 'selected': '').">".$row['method']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		case "procurementplanstatus":
+		case "tenderstatus":
+		case "bidstatus":
+		case "contractstatus":
+		
+			if($list_type == 'contractstatus') {
+				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+				else if($obj->native_session->get('__user_type') == 'pde') $types = array('saved'=>'Saved','active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+				else $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+			}
+			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'submitted');
+			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
+			
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		case "procurementplans":
+			$types = $obj->_query_reader->get_list('search_procurement_plan_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['plan_id']."' onclick=\"universalUpdate('plan_id','".$row['plan_id']."')\">".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['plan_id']."' onclick=\"universalUpdate('plan_id','".$row['plan_id']."'>".$row['name']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		case "currencies":
+			$types = $obj->_query_reader->get_list('get_currency_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['currency_code']."' onclick=\"universalUpdate('currency_code','".$row['currency_code']."')\">".$row['display']."</div>";
+				else $optionString .= "<option value='".$row['currency_code']."' onclick=\"universalUpdate('currency_code','".$row['currency_code']."'>".$row['display']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		
+		
+		case "contract_list_actions":
+			$types = array('message_provider'=>'Message Provider', 'mark_as_complete'=>'Mark As Complete', 'mark_as_terminated'=>'Terminate', 'mark_as_archived'=>'Archive');
+			
+			foreach($types AS $key=>$row)
+			{
+				if($key == 'message_provider') $url = 'contracts/message_provider';
+				else if(in_array($key, array('mark_as_complete', 'mark_as_terminated', 'mark_as_archived'))) $url = 'contracts/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
 		
 		
 		

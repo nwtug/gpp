@@ -203,7 +203,7 @@ $(function() {
 	
 	//Refresh the list based on pagination
 	$(document).on('click', '#refreshlist', function(){
-		var listContainer = $(document).find('.page-list-div , .home-list-div').first();
+		var listContainer = $(this).parents('.home-list-table').first().find('.page-list-div, .home-list-div').first();
 		var listId = listContainer.find('div').first().attr('id');
 		var listStub = listId.substr(0, listId.indexOf('__'));
 		
@@ -219,6 +219,7 @@ $(function() {
 			if($(this).attr('id') == listStub+'__1') $(this).show('fast');
 			else $(this).remove();
 		});
+		
 		//Now update the first page with the new data
 		if($('#'+listStub+'__1').length) updateFieldLayer($('#paginationdiv__'+listStub+'_action').val(),'','',listStub+'__1','');
 	});

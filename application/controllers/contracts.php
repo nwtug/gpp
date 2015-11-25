@@ -6,7 +6,7 @@
  * @author Al Zziwa <azziwa@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
- * @created 11/4/2015
+ * @created 11/21/2015
  */
 class Contracts extends CI_Controller 
 {
@@ -22,17 +22,56 @@ class Contracts extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
-		$data['list'] = $this->_bid->lists();
+		$data['list'] = $this->_contract->lists();
 		
 		$this->load->view('contracts/manage', $data);
 	}
 	
-	# Filter contracts
+	
+	# list actions
+	function list_actions()
+	{
+		$data = filter_forwarded_data($this);
+		echo get_option_list($this, 'contract_list_actions', 'div');
+	}
+	
+	
+	
+	# filter contract list
 	function list_filter()
 	{
 		$data = filter_forwarded_data($this);
 		$this->load->view('contracts/list_filter', $data);
 	}
+	
+	
+	
+	# generate a contract from a bid winner
+	function add()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# use has posted the contract form
+		if(!empty($_POST)){
+			# Upload the file before you proceed with the rest of the process
+			$fileUrls = upload_many_files($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			if(!empty($fileUrls)) {
+				$_POST['documents'] = $fileUrls;
+				$result = $this->_contract->add($_POST);
+			}
+			else $result = array('boolean'=>FALSE, 'reason'=>'Files could not be uploaded.');
+			
+			if(!$result['boolean']) echo "ERROR: The contract could not be added. ".$result['reason'];
+		} 
+		# just viewing the form
+		else {
+			$this->load->model('_bid');
+			$data['award'] = $this->_bid->details(array('bid_id'=>$data['t']));
+			$this->load->view('contracts/new_contract', $data);
+		}
+	}
+	
+	
 	
 }
 
