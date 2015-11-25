@@ -24,8 +24,13 @@ echo "<th>Last Updated</th></tr>";
 		<td><a href='".base_url()."tenders/view_one/d/".$row['tender_id']."' class='shadowbox closable'>".$row['tender_notice']."</a></td>";
 		
 		if($type == 'awards') {
-			echo "<td>".$row['final_amount_currency'].format_number($row['final_contract_amount'],3)." 
-				 <div class='green-box btn' data-rel='".base_url()."contracts/add/t/".$row['bid_id']."'>Generate Contract</div></td>";
+			echo "<td>".$row['final_amount_currency'].format_number($row['final_contract_amount'],3);
+			if($row['contract_id'] > 0){
+				echo "&nbsp;<div class='orange-box btn shadowbox closable' data-url='".base_url()."contracts/view_one/d/".$row['contract_id']."'>View Contract</div></td>";
+			} else {
+				echo "&nbsp;<div class='green-box btn' data-rel='".base_url()."contracts/add/t/".$row['bid_id']."'>Generate Contract</div></td>";
+			}
+			
 		} else {
 			echo "<td>".$row['bid_currency'].format_number($row['bid_amount'],3)."</td>
 			<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date']))."</td>

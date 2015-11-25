@@ -62,7 +62,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('pages/home_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
 </div></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more' data-rel='provider'>MORE</td></tr></table>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more' data-rel='provider/index/a/active_providers'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 
@@ -103,7 +103,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('pages/home_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
 </div></td></tr>
 <tr><td>
-<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums'>MORE</td></tr></table>
+<table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums/index/a/public_forums'>MORE</td></tr></table>
 </td></tr>
 </table></div>
 

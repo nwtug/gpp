@@ -295,6 +295,11 @@ a.error {
 
 /* OTHER */
 
+.fill-page {
+	height:calc(90vh - 100px); 
+	padding-bottom: 20px;
+}
+
 .body-table {
 	min-height: 100vh;
 	width: 100%;

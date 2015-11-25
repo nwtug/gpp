@@ -48,6 +48,15 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		case "percentage":
+			for($i=0; $i <= 100; $i=$i+10)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$i."'>".$i."%</div>";
+				else $optionString .= "<option value='".$i."'>".$i."%</option>";
+			}
+		break;
+		
+		
 		case "organizationtypes":
 			$types = array('provider'=>'Provider', 'pde'=>'Procurement or Disposal Entity');
 			foreach($types AS $key=>$row)
@@ -324,7 +333,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 			if($list_type == 'contractstatus') {
 				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
-				else if($obj->native_session->get('__user_type') == 'pde') $types = array('saved'=>'Saved','active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+				else if($obj->native_session->get('__user_type') == 'pde') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived','saved'=>'Saved');
 				else $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
 			}
 			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'submitted');

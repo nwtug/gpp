@@ -147,16 +147,15 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
 					$data['list'] = $this->_bid->lists(array(
-						'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'), 
-						'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-						'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
+						'provider'=>$this->native_session->get($data['t'].'__provider_id'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
 						'offset'=>$offset, 
 						'limit'=>$limit
 					));
 					
-					$this->load->view('tenders/tender_list', $data);
+					$data['type'] = $data['listtype'];
+					$this->load->view('bids/bid_list', $data);
 				break;
 				
 				
