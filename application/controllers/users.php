@@ -78,6 +78,9 @@ class Users extends CI_Controller
 		$data['area'] = 'provider_details';
 		$this->load->view('addons/basic_addons', $data);
 	}
+
+	
+
 	
 	
 	

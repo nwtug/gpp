@@ -9,12 +9,16 @@
 <tr><td><input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('procurement_plan__pde');?>" style='width:100%;'/>
 <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('procurement_plan__pde_id');?>' /></td></tr>
 
+<<<<<<< HEAD
 
 <tr><td><select id='search__procurementplanstatus' name='search__procurementplanstatus' data-final='status' class='drop-down' style='width:100%;'>
 <?php echo get_option_list($this, 'procurementplanstatus', 'select', '', array('selected'=>$this->native_session->get('tender__status')));?>
 </select></td></tr>
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Plan Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('procurement_plan__phrase');?>' style='width:100%;'/></td></tr>
+=======
+<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('provider__phrase');?>' style='width:100%;'/></td></tr>
+>>>>>>> 702c46b4c75d490103d264ddc3f007cf8f437efa
 
 
 

@@ -16,7 +16,11 @@
 <tr>
   <td><input type='text' id='datefrom' name='datefrom' data-final='datefrom' class='calendar clickactivated' onclick='setDatePicker()' placeholder='From ' value='<?php echo $this->native_session->get('from_date');?>' style='width:100%;'/></td></tr>
 <tr>
+<<<<<<< HEAD
   <td><input type='text' id='dateto' name='dateto' data-final='dateto' class='calendar clickactivated' onclick='setDatePicker()' placeholder='To' value='<?php echo $this->native_session->get('to__date');?>' style='width:100%;'/></td></tr>
+=======
+  <td><input type='text' id='dateto' name='dateto' data-final='dateto' class='calendar clickactivated' onclick='setDatePicker()' placeholder='To' value='<?php echo $this->native_session->get('to__date');?>' style='width:100%;'/><input type='hidden' id='hiddenid' name='hiddenid' data-final='hiddenid' value='training' style='width:100%;'/></td></tr>
+>>>>>>> 702c46b4c75d490103d264ddc3f007cf8f437efa
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('resources')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>

@@ -6,7 +6,11 @@
 
 <table class='normal-table filter-container'>
 
+<<<<<<< HEAD
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('fag__phrase');?>' style='width:100%;'/></td></tr>
+=======
+<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('fag__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='faq_details' style='width:100%;'/></td></tr>
+>>>>>>> 702c46b4c75d490103d264ddc3f007cf8f437efa
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('forums')" style="width:100%;">Apply Filter</button>
   <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>

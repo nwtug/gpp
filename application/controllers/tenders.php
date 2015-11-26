@@ -79,12 +79,24 @@ class Tenders extends CI_Controller
 		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
 		else if($data['t'] == 'active_notices') $folder = 'tenders';
 		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
-		else if($data['t'] == 'contract_awards') $folder = 'bids';
+		else if($data['t'] == 'contract_awards') $folder = 'contracts';
 		
 		$this->load->view($folder.'/home_filter', $data);
 	}
-	
-	
+
+
+    # filter tenders for the home page
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
+		else if($data['t'] == 'active_notices') $folder = 'tenders';
+		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
+		else if($data['t'] == 'contract_awards') $folder = 'contracts';
+		
+		$this->load->view($folder.'/home_portal_filter', $data);
+	}	
 
 	# to add a tender
 	function add()

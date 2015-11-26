@@ -113,6 +113,31 @@ class Pages extends CI_Controller
 		else $this->load->view('pages/verify_document', $data);
 	}
 
+# Get values filled in by a form layer and put them in a session for layer use
+	function get_layer_form_values()
+	{
+		$data = filter_forwarded_data($this);
+		
+		switch($data['type'])
+		{
+			
+			
+			case 'verify_document':
+			print_r($_POST);
+				
+				$data['msg'] = 'Verified';
+				
+			break;
+			
+			default:
+			break;
+		}
+		
+		$data['area'] = "basic_msg";
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
+
 	# contact us page
 	function contact_us()
 	{
