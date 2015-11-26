@@ -23,25 +23,24 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'my_dashboard'));
 
 <tr>
   <td>&nbsp;</td>
-  <td class='one-column' style='height:calc(80vh - 100px); padding-bottom: 20px;'>
+  <td class='one-column fill-page'>
 
 <table class='home-list-table'>
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Tender Notices</th></tr>
 
-<tr><td><div id='paginationdiv__tenderssearch_list' class='page-list-div'>
-<div id="tenderssearch__1"><?php $this->load->view('tenders/manage_list',array('list'=>$list));?></div>
-</div></td></tr>
+<tr><td><div id='paginationdiv__tender_list' class='page-list-div'>
+<div id="tender__1"><?php $this->load->view('tenders/manage_list',array('list'=>$list));?></div>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td>
 <table><tr><td>
          
-<div id='tenders_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tenderssearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tenderssearch_action" id="paginationdiv__tenderssearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/tenders";?>" />
-<input name="paginationdiv__tenderssearch_maxpages" id="paginationdiv__tenderssearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
-<input name="paginationdiv__tenderssearch_noperlist" id="paginationdiv__tenderssearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-<input name="paginationdiv__tenderssearch_showdiv" id="paginationdiv__tenderssearch_showdiv" type="hidden" value="paginationdiv__tenderssearch_list" />
-<input name="paginationdiv__tenderssearch_extrafields" id="paginationdiv__tenderssearch_extrafields" type="hidden" value="" /></div>
-          
+<div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tender" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" />
+<input name="paginationdiv__tender_maxpages" id="paginationdiv__tender_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__tender_noperlist" id="paginationdiv__tender_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__tender_showdiv" id="paginationdiv__tender_showdiv" type="hidden" value="paginationdiv__tender_list" />
+<input name="paginationdiv__tender_extrafields" id="paginationdiv__tender_extrafields" type="hidden" value="" /></div>
 
-</td><td width='1%' class='filter-list'>FILTER</td></tr></table>
+</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'tenders/list_filter';?>'>FILTER</td></tr></table>
 </td></tr>
 </table>
 
@@ -58,6 +57,6 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'my_dashboard'));
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js'));?>
+<?php echo minify_js('accounts-provider_dashboard', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js'));?>
 </body>
 </html>

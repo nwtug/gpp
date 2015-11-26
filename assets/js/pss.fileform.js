@@ -674,12 +674,36 @@ $(function() {
 		if($(this).val() == '') $('#'+$(this).data('clearfield')).val('');
 	});
 
+	
+	
 
-
-
-
-
-
+	// Limit field character count
+	$(document).on('keyup change', '.limit-chars', function(){
+		if($(this).val().length > $(this).data('max')) {
+			$(this).val( $(this).val().slice(0,  $(this).data('max')  ) );
+		}
+	});
+	
+	
+	
+	
+	// Add an extra file field
+	$(document).on('click', '.add-file-field', function(){
+		var targetArea = $(this).data('targetarea');
+		//Get the last field and copy
+		var fileField = $('#'+targetArea).find('input.filefield').last();
+		$('#'+targetArea).append(fileField.clone());
+		//Change the id and make it optional
+		var fileFieldLast = $('#'+targetArea).find('input.filefield').last();
+		fileFieldLast.addClass('optional');
+		fileFieldLast.val('');
+		var lastId = fileFieldLast.attr('id');
+		var idParts = lastId.split('_');
+		var newId = idParts[0]+'_'+(parseInt(idParts[1]) + 1);
+		fileFieldLast.attr('id', newId);
+	});
+	
+	
 
 	// --------------------------------------------------------------------------------------------------------
 	// Handle single field changes for submission to the back-end
@@ -870,26 +894,28 @@ function postFormFromLayer(formId)
 }
 
 
-
-
-
-
-
-
-// Collect filter values, update the filter specs, reload the list and close the shadowbox
-function applyFilter(type){
-	var container = $(document).find('.filter-container').first();
-	var url = getBaseURL()+'lists/load/t/'+type;
-
-	container.find('input, select').each(function(){
-		if($(this).data('final') && $(this).val() != '') url += '/'+$(this).data('final')+'/'+replaceBadChars($(this).val());
-	});
-	//Update the pagination action
-	window.parent.document.getElementById('paginationdiv__'+type+'_action').value = url;
-	//Refresh the pagination list with this new url
-	window.parent.document.getElementById('refreshlist').click();
-	window.parent.document.getElementById('__shadowbox_closer').click();
-}
+	
+	
+	
+	
+	
+	
+	
+	// Collect filter values, update the filter specs, reload the list and close the shadowbox
+	function applyFilter(type){
+		var container = $(document).find('.filter-container').first();
+		var url = getBaseURL()+'lists/load/t/'+type;
+		
+		container.find('input, select').each(function(){
+			if($(this).data('final') && $(this).val() != '') url += '/'+$(this).data('final')+'/'+replaceBadChars($(this).val());
+		});
+		
+		//Update the pagination action
+		window.parent.document.getElementById('paginationdiv__'+type+'_action').value = url;
+		//Refresh the pagination list with this new url
+		window.parent.document.getElementById('refreshlist').click();
+		window.parent.document.getElementById('__shadowbox_closer').click();
+	}
 
 
 

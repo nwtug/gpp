@@ -51,9 +51,43 @@ class Procurement_plans extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		$this->load->view('procurement_plans/new_plan', $data);
+
+		if(!empty($_POST)){
+			# Upload the file before you proceed with the rest of the process
+			$fileUrl = upload_file($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			if(!empty($fileUrl)) {
+				$_POST['document'] = $fileUrl;
+				$result = $this->_procurement_plan->add($_POST);
+			}
+			else $result = array('boolean'=>FALSE, 'reason'=>'File could not be uploaded.');
+			
+			if(!$result['boolean']) echo "ERROR: The procurement plan could not be added. ".$result['reason'];
+		}
+		else $this->load->view('procurement_plans/new_plan', $data);
 	}
 	
+	
+	
+	
+	
+	
+	# view one procurement plan
+	function view_one()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['plan'] = $this->_procurement_plan->details($data['d']);
+		if(empty($data['plan'])) $data['msg'] = 'ERROR: The procurement plan details can not be resolved';
+		
+		$this->load->view('procurement_plans/procurement_plan_details', $data);
+	}
+	
+	
+	
+	
+	
+	
+
 }
 
 /* End of controller file */

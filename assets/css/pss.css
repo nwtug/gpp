@@ -287,13 +287,18 @@ a.error {
 
 
 .calendar {
-	background: url(../../assets/images/calendar_icon.png) no-repeat right center #F9F9F9;
+	background: url(../../assets/images/calendar_icon.png) no-repeat right center #FFF;
 	padding-right: 40px;
 	width: 188px;
 }
 
 
 /* OTHER */
+
+.fill-page {
+	height:calc(90vh - 100px); 
+	padding-bottom: 20px;
+}
 
 .body-table {
 	min-height: 100vh;
@@ -641,6 +646,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	cursor:pointer;
 }
 
 .green-box {
@@ -652,6 +658,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	cursor:pointer;
 }
 
 .orange-box {
@@ -663,6 +670,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	cursor:pointer;
 }
 
 
@@ -781,14 +789,6 @@ button.btn.grey, button.smallbtn.grey {
 .drop-down-div div.delete-icon {
 	background: url(../../assets/images/delete_icon.png) no-repeat calc(100% - 5px) center;
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,1 @@
+ALTER TABLE `contract_status` ADD `percentage` INT NOT NULL AFTER `_contract_id` ;

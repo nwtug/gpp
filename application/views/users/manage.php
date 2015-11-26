@@ -23,7 +23,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'users' ));
 
 <tr>
   <td>&nbsp;</td>
-  <td class='one-column' style='height:calc(80vh - 100px); padding-bottom: 20px;'>
+  <td class='one-column fill-page'>
 
 <table class='home-list-table'> 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Users List</th>

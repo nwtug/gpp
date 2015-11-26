@@ -140,35 +140,18 @@ class Pages extends CI_Controller
 		$this->load->view('addons/basic_addons', $data);
 	}
 
-	# Get values filled in by a form layer and put them in a session for layer use
-	function get_layer_form_values()
+	
+	
+	
+	
+	
+	# Download a document
+	function download()
 	{
 		$data = filter_forwarded_data($this);
-
-		switch($data['type'])
-		{
-
-
-			case 'verify_document':
-
-				if(isset($_POST)){
-
-					# check if verification number exists (Expected result is boolean)
-					$data['msg'] = $this->_page->verify_certificate($_POST) ? 'Document exists' : 'ERROR: Document does not exist';
-
-				}
-
-
-
-				break;
-
-			default:
-				break;
-		}
-
-		$data['area'] = "basic_msg";
-		$this->load->view('addons/basic_addons', $data);
+		if(!empty($data['file'])) force_download((!empty($data['folder'])? $data['folder']: ''),$data['file']);
 	}
+	
 
 }
 

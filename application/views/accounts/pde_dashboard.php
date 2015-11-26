@@ -31,7 +31,7 @@ $this->load->view('addons/pde_top_menu', array('__page'=>'my_dashboard'));
 
 <tr>
   <td>&nbsp;</td>
-  <td class='three-columns' style='height:calc(93vh - 200px); padding-top:20px;'>
+  <td class='three-columns fill-page'>
 <div><table class='summary-table'>
 <tr><td style='text-align:center;height:30vh;'><span  class='h1'>22</span>
 <br /><span class='h3 blue'>Procurement Plans Submitted</span></td></tr>

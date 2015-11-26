@@ -18,6 +18,7 @@
 .list-table > tbody > tr > th {
 	padding: 5px;
 	text-align: left;
+	vertical-align: top !important;
 }
 
 .home-list-table > tbody > tr:last-child {
@@ -50,7 +51,7 @@
 .home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td, .list-table > tbody > tr > td {
 	vertical-align: top;
 	padding: 5px;
-	text-align:left;
+	text-align:left !important;
 }
 
 .closer {

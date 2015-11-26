@@ -38,10 +38,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <td id='contract_awards' <?php if(!empty($area) && $area == 'contract_awards') echo "class='active'";?>>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td colspan='2'><div id='paginationdiv__tender_list' class='page-list-div'>
 
+<tr><td colspan='2'><div id='paginationdiv__tendernoticesearch_list' class='page-list-div'>
 <?php $this->load->view('tenders/details_list',array('type'=>(!empty($area)? $area: 'procurement_plans'),'list'=>$procurementPlanList));?>
-</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
+</div></td></tr>
+
 <tr><td colspan='2'>
 <table><tr><td>
 

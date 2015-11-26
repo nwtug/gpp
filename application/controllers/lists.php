@@ -86,10 +86,14 @@ class Lists extends CI_Controller
 					
 					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
 					$data['list'] = $this->_procurement_plan->lists(array(
-						'pde_id'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),  
+						'status'=>$this->native_session->get($data['t'].'__status'),
+
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
 						'offset'=>$offset, 
 						'limit'=>$limit
@@ -97,87 +101,34 @@ class Lists extends CI_Controller
 					
 					$this->load->view('procurement_plans/procurement_plan_list', $data);
 				break;
-				
-							
+
+
 				
 				
 				case 'tender':
 					$this->load->model('_tender');
-					$this->load->model('_procurement_plan');
-					$data = restore_bad_chars_in_array($data);
-					# Store in session for the filter to use
-					$this->native_session->set($data['t'].'__disposal_entity', (!empty($data['disposal_entity'])? $data['disposal_entity']: ''));
 
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
 					$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-					$this->native_session->set($data['t'].'__hiddenid', (!empty($data['hiddenid'])? $data['hiddenid']: ''));
-
-					# if filter form details are posted
-					if(isset($data['hiddenid'])){
-						#switch lists based on active tab
-						switch($data['hiddenid']){
-							# get procurement plans
-							case 'plans':
-								$data['list'] = $this->_procurement_plan->lists(array(
-									'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-									'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-									'offset'=>$offset,
-									'limit'=>$limit
-								));
-
-								$this->load->view('procurement_plans/procurement_plan_list', $data);
-
-								break;
-
-							# get notices
-							case 'activenotices':
-								$this->load->model('_bid');
-
-								$data['list'] = $this->_bid->lists(array(
-									'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-									'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-									'offset'=>$offset,
-									'limit'=>$limit
-								));
-
-								$this->load->view('bids/bid_list', $data);
-
-								break;
-							default:
-								# fall backtr
-								$this->load->view('tenders/tender_list', $data);
-						}
-					}
-
-
-
-
 					
-
-				break;
-				
-				
-				
-				
-					case 'resources':
+					$data['list'] = $this->_tender->lists(array(
+						'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'), 
+						'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
+						'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
 					
-					echo "reached"; exit;
-					
-					
-					$this->load->view('resources/details_list', $data);
-				break;
-				
-				
-				
-				case 'forums':
-					
-					echo "reached"; exit;
-					
-					
-					$this->load->view('forums/details_list', $data);
+					$this->load->view('tenders/'.($this->native_session->get('__user_type') == 'provider'? 'manage_list': 'tender_list'), $data);
 				break;
 				
 				
@@ -185,6 +136,99 @@ class Lists extends CI_Controller
 				
 				
 				
+				case 'bid':
+					$this->load->model('_bid');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__provider', (!empty($data['provider'])? $data['provider']: ''));
+					$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_bid->lists(array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
+						'provider'=>$this->native_session->get($data['t'].'__provider_id'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$data['type'] = $data['listtype'];
+					$this->load->view('bids/bid_list', $data);
+
+				break;
+				
+				
+				
+
+				
+				
+				
+				case 'mybid':
+					$this->load->model('_bid');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__submit_from', (!empty($data['submit_from'])? $data['submit_from']: ''));
+					$this->native_session->set($data['t'].'__submit_to', (!empty($data['submit_to'])? $data['submit_to']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					
+					$data['list'] = $this->_bid->my_list(array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'submit_from'=>$this->native_session->get($data['t'].'__submit_from'),
+						'submit_to'=>$this->native_session->get($data['t'].'__submit_to'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('bids/my_bid_list', $data);
+
+				break;
+				
+				
+				
+
+				
+						
+				case 'contract':
+					$this->load->model('_contract');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__tender', (!empty($data['tender'])? $data['tender']: ''));
+					$this->native_session->set($data['t'].'__tender_id', (!empty($data['tender_id'])? $data['tender_id']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					
+					$data['list'] = $this->_contract->lists(array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'tender'=>$this->native_session->get($data['t'].'__tender_id'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('contracts/contract_list', $data);
+
+				break;
+				
+				
+				
+				
+				
+
+				
+				
+				
+
 				
 			
 				default:

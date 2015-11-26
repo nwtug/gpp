@@ -143,7 +143,8 @@ class Accounts extends CI_Controller
 	function provider_dashboard()
 	{
 		$data = filter_forwarded_data($this);
-		$data['tendersList'] = array();
+		$this->load->model('_tender');
+		$data['list'] = $this->_tender->lists();
 		$this->load->view('accounts/provider_dashboard', $data);
 	}
 	
@@ -210,8 +211,33 @@ class Accounts extends CI_Controller
 		$this->load->view('accounts/audit_filter', $data);
 	}
 	
+
+
+
+	# View organization details
+	function view_pde()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['organization'] = $this->_account->details($data['d'], 'pde');
+		if(empty($data['organization'])) $data['msg'] = 'ERROR: The PDE details could not be resolved.';
+		
+		$this->load->view('accounts/organization_details', $data);
+	}
 	
-	
+
+
+
+	# View provider details
+	function view_provider()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['d'])) $data['organization'] = $this->_account->details($data['d'], 'provider');
+		if(empty($data['organization'])) $data['msg'] = 'ERROR: The provider details could not be resolved.';
+		
+		$this->load->view('accounts/organization_details', $data);
+	}
 	
 	
 }

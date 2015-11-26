@@ -1,0 +1,60 @@
+/* CSS Document */
+
+
+.label {
+	font-size: 15px;
+	color:#666;
+}
+.label:not(.long) {
+	padding-top: 15px !important;
+}
+
+.body-form-area {
+	height:calc(90vh - 120px) !important;
+	padding:15px !important; 
+	vertical-align: top;
+}
+
+
+.body-form-area  table {
+	width: 100%;
+	max-width: 700px;
+}
+
+.body-form-area > table > tbody td {
+	padding: 5px;
+	vertical-align: top;
+}
+
+.body-form-area > table > tbody > tr > td:first-child {
+	width:1%;
+	padding-left:0px;
+}
+.body-form-area > table > tbody > tr > td:first-child:not(.long) {
+	white-space:nowrap;
+}
+
+.body-form-area input[type=text]:not(.drop-down), .body-form-area textarea {
+	width: 100%;
+}
+.body-form-area input[type=text].drop-down {
+	width: calc(100% - 10px);
+}
+
+
+.body-form-area select {
+	width: calc(100% + 12px);
+}
+
+.filefield {
+	background: url(../../assets/images/file_field_icon.png) no-repeat calc(100% - 10px) center #FFF;
+	padding-right: 40px;
+	width: calc(100% - 33px) !important;
+}
+
+.add-icon {
+	background: url(../../assets/images/add_icon.png) no-repeat center center;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
