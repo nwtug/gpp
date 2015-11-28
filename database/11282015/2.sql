@@ -1,0 +1,1 @@
+INSERT INTO `pss_v1`.`queries` (`id`, `code`, `details`) VALUES (NULL, 'verify_certificate_info', 'SELECT * FROM certificate WHERE certificate_id=''_CERTIFICATE_ID_'' AND certificate_type = ''_CERTIFICATE_TYPE_''');
