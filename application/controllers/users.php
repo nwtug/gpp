@@ -70,7 +70,26 @@ class Users extends CI_Controller
 	
 	
 	
-	
+	# user settings
+	function settings()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted the settings form
+		if(!empty($_POST)){
+			# Upload the photo if any exists before you proceed with the rest of the process
+			$_POST['photo_url'] = !empty($_FILES)? upload_file($_FILES, 'newphoto__fileurl', 'photo_'.$this->native_session->get('__user_id').'_', 'png,jpg,jpeg,tiff'): '';
+			$result = $this->_user->settings($_POST);
+			
+			if($result['boolean']) $this->native_session->set('msg', 'Your settings have been updated');
+			else echo "ERROR: The settings could not be updated. ".$result['reason'];
+		} 
+		# just viewing the form
+		else {
+			$data['user'] = $this->_user->details();
+			$this->load->view('users/settings', $data);
+		}
+	}
 	
 	
 	

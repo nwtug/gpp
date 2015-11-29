@@ -47,7 +47,8 @@ class _tender extends CI_Model
 		$result = $this->_query_reader->run('add_tender_notice', array(
 				'name'=>htmlentities($data['subject'], ENT_QUOTES), 
 				'details'=>htmlentities($data['summary'], ENT_QUOTES), 
-				'category'=>$data['tender__procurementtypes'], 
+				'type'=>$data['tender__procurementtypes'], 
+				'category'=>$data['tender__procurementcategories'],
 				'method'=>$data['tender__procurementmethods'], 
 				'procurement_plan_id'=>$data['plan_id'], 
 				'document_url'=>$data['document'], 
