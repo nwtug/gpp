@@ -68,11 +68,19 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "documenttypes":
-			$types = array('provider_registration'=>'Provider Registration Certificate', 'training_completion'=>'Training Completion Certificate');
+		case "publicdocumenttypes":
+			
+			if($list_type == "publicdocumenttypes") $types = array('case_studies'=>'Case Studies', 'legal'=>'Legal', 'letters'=>'Letters', 'reports'=>'Reports', 'other'=>'Other');
+			else if($list_type == "documenttypes") $types = array('provider_registration'=>'Provider Registration Certificate', 'training_completion'=>'Training Completion Certificate');
+			
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Document Type</div>";
+			else $optionString .= "<option value=''>Select Document Type</option>";
+			
 			foreach($types AS $key=>$row)
 			{
 				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."'>".$row."</option>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
 			}
 		break;
 		
@@ -332,6 +340,9 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "tenderstatus":
 		case "bidstatus":
 		case "contractstatus":
+		case "documentstatus":
+		case "linkstatus":
+		case "trainingstatus":
 		
 			if($list_type == 'contractstatus') {
 				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
@@ -339,6 +350,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 				else $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
 			}
 			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'submitted');
+			else if( in_array($list_type, array('documentstatus','linkstatus','trainingstatus')) ) $types = array('active'=>'Active', 'inactive'=>'Inactive');
 			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
 			
 			
@@ -391,6 +403,213 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			}
 		break;
 
+		
+		
+		
+		case "document_list_actions":
+		case "link_list_actions":	
+		case "training_list_actions":
+		
+			$types = array('archive'=>'Archive');
+			if($obj->native_session->get('__user_type') == 'admin') {
+				$types = array_merge($types, array('reactivate'=>'Re-Activate', 'delete'=>'Delete'));
+			}
+			
+			if($list_type == "link_list_actions") $urlStub = 'links';
+			else if($list_type == "document_list_actions") $urlStub = 'documents';
+			else if($list_type == "training_list_actions") $urlStub = 'training';
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$urlStub."/update_status/t/".$key."'>".$row."</div>"; 
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		
+		break;
+		
+		
+		
+		
+		
+		case "opentypes":
+			$types = array('same_window'=>'Same Window', 'new_window'=>'New Window', 'pop_up'=>'Pop Up');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Open Type</div>";
+			else $optionString .= "<option value=''>Select Open Type</option>";
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		case "trainingcategories":
+		case "forumcategories":
+			 $types = array('procurement'=>'Procurement', 'legal'=>'Legal', 'financial'=>'Financial', 'government_procedures'=>'Government Procedures', 'other'=>'Other');
+			if($return == 'div') $optionString .= "<div data-value=''>Select Category</div>";
+			else $optionString .= "<option value=''>Select Category</option>";
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+			
+		break;
+		
+		
+		
+		
+		
+		case "grouptypes":
+			 $types = array('admin'=>'Admin', 'pde'=>'PDE', 'provider'=>'Provider');
+			if($return == 'div') $optionString .= "<div data-value=''>Select Group Type</div>";
+			else $optionString .= "<option value=''>Select Group Type</option>";
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+			
+		break;
+		
+		
+		
+		
+		case "permission_list_actions":
+			$types = array('delete'=>'Delete');
+			
+			foreach($types AS $key=>$row)
+			{
+				$url = 'permissions/update_status/t/'.$key;
+				
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		case "faq_list_actions":
+		case "forum_list_actions":
+		
+			$types = array('archive'=>'Archive');
+			if($obj->native_session->get('__user_type') == 'admin') {
+				$types = array_merge($types, array('reactivate'=>'Re-Activate', 'delete'=>'Delete'));
+			}
+			
+			if($list_type == "forum_list_actions") $url = 'forums/update_status';
+			else if($list_type == "faq_list_actions") $url = 'faqs/update_status';
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."/t/".$key."'>".$row."</div>"; 
+				else $optionString .= "<option value='".$key."'>".$row."</option>";
+			}
+		
+		break;
+		
+		
+		
+		
+		case "faqs":
+			$types = $obj->_query_reader->get_list('search_simple_faq_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['faq_id']."' onclick=\"universalUpdate('show_after','".$row['faq_id']."')\">".$row['question']."</div>";
+				else $optionString .= "<option value='".$row['faq_id']."' onclick=\"universalUpdate('show_after','".$row['faq_id']."'>".$row['question']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		case "forumaccess":
+			 $types = array('N'=>'Private', 'Y'=>'Public');
+			 
+			if($return == 'div') $optionString .= "<div data-value=''>Select Access</div>";
+			else $optionString .= "<option value=''>Select Access</option>";
+			
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		case "reporttypes":
+			 $types = array('procurement_plan_tracking'=>'Procurement Plan Tracking', 'procurements_in_progress'=>'Procurements In Progress', 'contracts_signed'=>'Contracts Signed', 'procurements_completed'=>'Procurements Completed', 'low_value_procurements'=>'Low Value Procurements');
+			 
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '').">".$row."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		case "financialquarters":
+			$quarters = array('First','Second','Third','Fourth');
+			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
+			{
+				foreach($quarters AS $quarter){
+					if($return == 'div') $optionString .= "<div data-value='".$i."-".strtolower($quarter)."'>FY ".$i." - ".$quarter." Quarter</div>";
+					else $optionString .= "<option value='".$i."-".strtolower($quarter)."'>FY ".$i." - ".$quarter." Quarter</option>";
+				}
+			}
+		break;
+		
+		
+		
+		
+		
+		
+		case "procurementcategories":
+			$types = $obj->_query_reader->get_list('get_procurement_categories');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Procurement Category</div>";
+			else $optionString .= "<option value=''>Select Procurement Category</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['id']."' ".(!empty($more['selected']) && $more['selected'] == $row['code']? 'selected': '').">".$row['name']."</option>";
+			}
+		break;
+		
+		
+		
+		
+		
+		case "report_list_actions":
+			 $types = array('download_csv'=>'Download CSV', 'download_pdf'=>'Download PDF');
+			 
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='reports/download/t/".$key."'>".$row."</div>";
+				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '')." data-url='reports/download/t/".$key."'>".$row."</option>";
+			}
+		break;
+		
+		
+		
 		
 		
 		

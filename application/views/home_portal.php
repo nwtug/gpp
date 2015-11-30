@@ -41,7 +41,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='contract_awards'>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='tenders_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='tenders_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
 </div></td></tr>
 <tr><td>
@@ -60,7 +60,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='suspended_providers'>Suspended Providers</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='rop_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='rop_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
 </div></td></tr>
 <tr><td>
@@ -81,7 +81,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='training_activities'>Training Activities</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='resources_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='resources_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'documents','list'=>$documentsList));?>
 </div></td></tr>
 <tr><td>
@@ -103,7 +103,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='frequently_asked_questions'>Frequently Asked Questions</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='forums_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='forums_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
 </div></td></tr>
 <tr><td>
@@ -179,6 +179,19 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
     <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+
+<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js'));?>
+<script>
+$(function() {	
+	resizeHomeTables();
+	$(window).resize(function() { resizeHomeTables(); });
+});
+
+function resizeHomeTables(){
+	var listTable = $(document).find('.home-list-table').first();
+	$('.home-list-table').height(listTable.height());
+}
+</script>
+
 </body>
 </html>

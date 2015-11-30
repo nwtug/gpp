@@ -392,7 +392,13 @@ function remove_item($item, $fullArray)
 
 
 
-
+# apply the link open type by getting the real html code equivalents
+function apply_open_type($type, $extraClasses='')
+{
+	if($type == 'pop_up') return " class='shadowbox".(!empty($extraClasses)? ' '.$extraClasses: '')."' ";
+	else if($type == 'new_window') return " target='_blank' ";
+	else return '';
+}
 
 	
 	
@@ -961,7 +967,40 @@ function generate_password($length = 8, $complex = 4)
 
 
 
-
+# get the document class to show the icon
+function document_class($url)
+{
+	$pathParts = pathinfo(UPLOAD_DIRECTORY.$url);
+	$extension = $pathParts['extension'];
+	$class = '';
+	
+	switch($extension){
+		case 'pdf':
+			$class = 'pdf';
+		break;
+		
+		case 'ppt':
+		case 'pptx':
+			$class = 'msppt';
+		break;
+		
+		case 'doc':
+		case 'docx':
+			$class = 'msdoc';
+		break;
+		
+		case 'xls':
+		case 'xlsx':
+			$class = 'msxls';
+		break;
+		
+		default:
+			$class = 'file';
+		break;
+	}
+	
+	return $class;
+}
 
 
 

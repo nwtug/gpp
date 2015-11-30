@@ -1,6 +1,6 @@
 <?php
 /**
- * This class generates and formats tender details. 
+ * This class generates and formats contract details. 
  *
  * @author Al Zziwa <azziwa@newwavetech.co.ug>
  * @version 1.0.0
@@ -76,7 +76,7 @@ class _contract extends CI_Model
 	
 	
 	
-	# get tender details
+	# get contract details
 	function details($id)
 	{
 		return $this->_query_reader->get_row_as_array('get_contract_list', array('tender_condition'=>'', 'pde_condition'=>'',

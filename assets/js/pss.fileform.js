@@ -279,10 +279,12 @@ $(function() {
 		var activate = true;
 
 		inputs.each(function(){
-			if(!$(this).hasClass('optional') && $(this).is('input:text') && (
-					($(this).hasClass('password') && !isValidPassword($(this).attr('id'),''))
-					|| ($(this).val().length < 1)
-				))
+
+			if(!$(this).hasClass('optional') && ($(this).is('input:text') || $(this).is('select') || $(this).is('textarea')) && (
+			($(this).hasClass('password') && !isValidPassword($(this).attr('id'),''))
+			|| ($(this).val().length < 1)
+			))
+
 			{
 				activate = false;
 				return false;
@@ -506,10 +508,27 @@ $(function() {
 		$(this).select();
 	});
 
-
-
-
-
+	
+	// format a link entered in this field
+	$(document).on('focusout', '.user-link', function(e){
+		if($(this).val() != ''){
+			var url = $(this).val().toLowerCase();
+			if(url.substr(0, 8) != 'https://' && url.substr(0, 7) != 'http://') $(this).val('http://'+$(this).val());
+			
+			if(!isValidLink($(this).val())) {
+				showServerSideFadingMessage('ERROR: The link you provided is invalid.');
+				$(this).val('');
+			}
+		}
+	});
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// --------------------------------------------------------------------------------------------------------
 	// Handling editable content

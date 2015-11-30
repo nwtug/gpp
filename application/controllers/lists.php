@@ -223,6 +223,177 @@ class Lists extends CI_Controller
 				
 				
 				
+						
+				case 'document':
+					$this->load->model('_document');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_document->lists($data['listtype'], array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'category'=>$this->native_session->get($data['t'].'__category'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('documents/document_list', $data);
+				break;
+				
+				
+				
+				
+						
+				case 'link':
+					$this->load->model('_link');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__opentype', (!empty($data['opentype'])? $data['opentype']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_link->lists(array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'opentype'=>$this->native_session->get($data['t'].'__opentype'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('links/link_list', $data);
+				break;
+				
+				
+				
+				
+				
+						
+				case 'training':
+					$this->load->model('_training');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_training->lists(array(
+						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
+						'category'=>$this->native_session->get($data['t'].'__category'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('training/training_list', $data);
+				break;
+				
+				
+				
+				
+				
+						
+				case 'permission':
+					$this->load->model('_permission');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__type', (!empty($data['type'])? $data['type']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_permission->lists(array(
+						'type'=>$this->native_session->get($data['t'].'__type'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('permissions/permission_list', $data);
+				break;
+				
+				
+				
+				
+				
+						
+				case 'faq':
+					$this->load->model('_faq');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_faq->lists(array(
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('faqs/faq_list', $data);
+				break;
+				
+				
+				
+				
+				
+						
+				case 'forum':
+					$this->load->model('_forum');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: ''));
+					$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					
+					$data['list'] = $this->_forum->lists(array(
+						'pde'=>$this->native_session->get($data['t'].'__is_public'), 
+						'category'=>$this->native_session->get($data['t'].'__category'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('forum/forum_list', $data);
+				break;
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 
 				

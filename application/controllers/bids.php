@@ -143,7 +143,7 @@ class Bids extends CI_Controller
 		
 		if(!empty($data['t']) && !empty($data['list'])) $result = $this->_bid->update_status($data['t'], explode('--',$data['list']));
 		
-		$data['msg'] = !empty($result['boolean']) && $result['boolean']? 'The bid status has been changed.': 'ERROR: The bid status could not be changes.';
+		$data['msg'] = !empty($result['boolean']) && $result['boolean']? 'The bid status has been changed.': 'ERROR: The bid status could not be changed.';
 		
 		$data['area'] = 'refresh_list_msg';
 		$this->load->view('addons/basic_addons', $data);

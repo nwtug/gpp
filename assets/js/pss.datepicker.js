@@ -20,14 +20,14 @@ $(function() {
 	});
 	*/
 	// This will require including the timepicker-addon js file
-	/*if($('.calendar.showtime').length > 0){
+	if($('.calendar.showtime').length > 0){
 		$('.calendar.showtime').datetimepicker({
 			changeMonth: true,
 			changeYear: true,
 			dateFormat: 'dd/mm/yy',
 			timeFormat: "hh:mm tt"
 		});
-	}*/
+	}
 	
 	$(".calendar").datepicker({
 		changeMonth: true,
