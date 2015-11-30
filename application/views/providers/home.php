@@ -32,7 +32,9 @@
                 <tr><th class='h3 blue rop-icon'>Registry of Providers</th><th class='btn closer' data-rel='page/portal'></th></tr>
                 <tr><td colspan='2'>
                         <table class='list-tabs' data-type='paginationdiv__provider' data-page='providers/provider_list'><tr>
-                                <td id='active_providers' <?php if(!empty($area) && $area == 'active_providers') echo "class='active'";?>>Active Providers</td>
+
+                                <td id='active_providers' <?php if(empty($area) || !empty($area) &&  $area == 'active_providers') echo "class='active'";?>>Active Providers</td>
+
                                 <td id='suspended_providers' <?php if(!empty($area) && $area == 'suspended_providers') echo "class='active'";?>>Suspended Providers</td>
                             </tr></table>
                     </td></tr>

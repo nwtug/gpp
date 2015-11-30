@@ -77,7 +77,9 @@ else if(!empty($area) && $area == "user_details")
 {
   //print_array($row);
 
-	$tableHTML .= "<table>
+
+	$tableHTML .= "<table align='center' width='100%'>
+
   <tr>
     <th>Name</th>
     <td>".$row['first_name']." ".$row['last_name']."</td>

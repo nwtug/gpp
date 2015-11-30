@@ -919,7 +919,6 @@ function postFormFromLayer(formId)
 	
 	
 	
-	
 	// Collect filter values, update the filter specs, reload the list and close the shadowbox
 	function applyFilter(type){
 		var container = $(document).find('.filter-container').first();
@@ -932,10 +931,10 @@ function postFormFromLayer(formId)
 		//Update the pagination action
 		window.parent.document.getElementById('paginationdiv__'+type+'_action').value = url;
 		//Refresh the pagination list with this new url
-		window.parent.document.getElementById('refreshlist').click();
+		$('#paginationdiv__'+type+'_action', window.parent.document).parents('.home-list-table').first().find('#refreshlist').first().click();
+		
 		window.parent.document.getElementById('__shadowbox_closer').click();
 	}
-
 
 
 

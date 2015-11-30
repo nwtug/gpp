@@ -45,7 +45,30 @@ class Forums extends CI_Controller
 	}
 	
 	
+	# Filter resources details
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'public_forums') $filter = 'public_list_filter';
+		else if($data['t'] == 'secure_forums') $filter = 'secure_list_filter';
+		else if($data['t'] == 'frequently_asked_questions') $filter = 'faq_list_filter';
+		
+		$this->load->view('forums/'.$filter, $data);
+	}
 	
+
+	# Filter home portal resources
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'public_forums') $filter = 'public_portal_list_filter';
+		else if($data['t'] == 'secure_forums') $filter = 'secure_portal_list_filter';
+		else if($data['t'] == 'frequently_asked_questions') $filter = 'faq_portal_list_filter';
+		
+		$this->load->view('forums/'.$filter, $data);
+	}
 
 	
 	# manage home page

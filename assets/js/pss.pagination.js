@@ -201,9 +201,9 @@ $(function() {
 	
 	
 	
-	//Refresh the list based on pagination
+		//Refresh the list based on pagination
 	$(document).on('click', '#refreshlist', function(){
-		var listContainer = $(document).find('.page-list-div, .home-list-div').first();
+		var listContainer = $(this).parents('.home-list-table').first().find('.page-list-div, .home-list-div').first();
 		var listId = listContainer.find('div').first().attr('id');
 		var listStub = listId.substr(0, listId.indexOf('__'));
 		

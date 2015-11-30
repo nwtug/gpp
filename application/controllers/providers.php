@@ -78,10 +78,23 @@ class Providers extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		if($data['t'] == 'active_providers') $folder = 'providers';
-		else if($data['t'] == 'suspended_providers') $folder = 'providers';
-		$this->load->view($folder.'/home_list_filter', $data);
+
+		if($data['t'] == 'active_providers') $filter = 'home_active_filter';
+		else if($data['t'] == 'suspended_providers') $filter = 'home_suspended_filter';
+		$this->load->view('providers/'.$filter, $data);
 	}
+	
+	# Filter home portal providers
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'active_providers') $filter = 'home_portal_active_filter';
+		else if($data['t'] == 'suspended_providers') $filter = 'home_portal_suspended_filter';
+		$this->load->view('providers/'.$filter, $data);
+	}
+
+
 
 # View details of a provider
 	function details()

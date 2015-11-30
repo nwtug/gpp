@@ -6,7 +6,8 @@
 
 <table class='normal-table filter-container'>
 
-<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('links__phrase');?>' style='width:100%;'/></td></tr>
+<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('links__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='links_details' style='width:100%;'/></td></tr>
+
 <tr>
   <td>&nbsp;</td></tr>
 

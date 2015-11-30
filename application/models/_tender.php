@@ -9,26 +9,17 @@
  */
 class _tender extends CI_Model
 {
-	# list of tenders
+	# list of providers
 	function lists($scope=array('phrase'=>'', 'procurement_type'=>'', 'procurement_method'=>'', 'pde'=>'', 'by_deadline'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
 	{
-		$userType = $this->native_session->get('__user_type');
-		$organizationId = $this->native_session->get('__organization_id');
-		
 		return $this->_query_reader->get_list('get_tender_list', array(
-			'organization_id'=>($userType == 'provider'? $organizationId: ''),
-			
 			'method_condition'=>(!empty($scope['procurement_method'])? " AND method='".$scope['procurement_method']."' ": ''),
 			
 			'type_condition'=>(!empty($scope['procurement_type'])? " AND category='".$scope['procurement_type']."' ": ''),
 			
-			'status_condition'=>($userType == 'provider'? " AND status = 'published' ": '' ),
-			
-			'owner_condition'=>($userType == 'pde'? " AND _organization_id = '".$organizationId."' ": '' ),
-			
 			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(name) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"')": ''),
 			
-			'deadline_condition'=>(!empty($scope['by_deadline'])? " AND DATE(deadline) <= DATE('".$scope['by_deadline']."') ": ''),
+			'deadline_condition'=>(!empty($scope['by_deadline'])? " AND DATE(deadline) <= DATE('".$scope['deadline']."') ": ''),
 			
 			'pde_condition'=>(!empty($scope['pde'])? " HAVING pde_id = '".$scope['pde']."' ": ''),
 			
@@ -38,8 +29,7 @@ class _tender extends CI_Model
 	
 	
 	
-	
-	
+
 	# add a tender
 	function add($data)
 	{
@@ -72,39 +62,9 @@ class _tender extends CI_Model
 		return array('boolean'=>$result, 'reason'=>'');
 	}
 	
-	
-	
-	
-	
-	# get tender details
-	function details($id)
-	{
-		return $this->_query_reader->get_row_as_array('get_tender_notice', array('tender_id'=>$id));
-	}
-	
-	
-	# update the status of a tender
-	function update_status($newStatus, $idList)
-	{
-		# use appropriate DB status
-		if($newStatus == 'publish') $status = 'published';
-		else if($newStatus == 'deactivate') $status = 'archived';
-		else $status = 'saved';
 		
-		$result = $this->_query_reader->run('update_tender_status', array('new_status'=>$status, 'id_list'=>implode("','",$idList) ));
-		
-		# log action
-		$this->_logger->add_event(array(
-			'user_id'=>$this->native_session->get('__user_id'), 
-			'activity_code'=>'update_tender_status', 
-			'result'=>($result? 'SUCCESS': 'FAIL'), 
-			'log_details'=>"device=".get_user_device()."|browser=".$this->agent->browser(),
-			'uri'=>uri_string(),
-			'ip_address'=>get_ip_address()
-		));
-		
-		return array('boolean'=>$result);
-	}
+	
+	
 	
 }
 
