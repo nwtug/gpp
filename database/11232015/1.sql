@@ -1,0 +1,1 @@
+ALTER TABLE `contract_status` ADD `_entered_by_organization_id` BIGINT NOT NULL AFTER `_entered_by` ;

@@ -18,6 +18,7 @@
 .list-table > tbody > tr > th {
 	padding: 5px;
 	text-align: left;
+	vertical-align: top !important;
 }
 
 .home-list-table > tbody > tr:last-child {

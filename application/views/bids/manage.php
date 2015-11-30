@@ -28,7 +28,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 
 <tr>
   <td>&nbsp;</td>
-  <td class='one-column' style='height:calc(80vh - 100px); padding-bottom: 20px;'>
+  <td class='one-column fill-page'>
 
 <table class='home-list-table'> 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Best Evaluated Bidders List</th>
@@ -49,7 +49,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <input name="paginationdiv__bid_extrafields" id="paginationdiv__bid_extrafields" type="hidden" value="" /></div>
           
 
-</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'bids/list_filter';?>'>FILTER</td></tr></table>
+</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'bids/list_filter/listtype/'.(!empty($a)? $a: 'all');?>'>FILTER</td></tr></table>
 </td></tr>
 </table>
 

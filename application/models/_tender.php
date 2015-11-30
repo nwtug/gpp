@@ -29,9 +29,40 @@ class _tender extends CI_Model
 	
 	
 	
+
+	# add a tender
+	function add($data)
+	{
+		# add the tender notice
+		$result = $this->_query_reader->run('add_tender_notice', array(
+				'name'=>htmlentities($data['subject'], ENT_QUOTES), 
+				'details'=>htmlentities($data['summary'], ENT_QUOTES), 
+				'type'=>$data['tender__procurementtypes'], 
+				'category'=>$data['tender__procurementcategories'],
+				'method'=>$data['tender__procurementmethods'], 
+				'procurement_plan_id'=>$data['plan_id'], 
+				'document_url'=>$data['document'], 
+				'status'=>$data['tender__tenderstatus'], 
+				'deadline'=>date('Y-m-d',strtotime(make_us_date($data['deadline']))), 
+				'display_start_date'=>date('Y-m-d',strtotime(make_us_date($data['display_from']))), 
+				'display_end_date'=>date('Y-m-d',strtotime(make_us_date($data['display_to']))), 
+				'user_id'=>$this->native_session->get('__user_id')
+			));
+		
+		# log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>'add_tender', 
+			'result'=>($result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>"device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>$result, 'reason'=>'');
+	}
 	
-	
-	
+		
 	
 	
 	

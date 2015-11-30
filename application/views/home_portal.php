@@ -40,9 +40,8 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='contract_awards'>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td>
 
-<div id='paginationdiv__tender_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='paginationdiv__tender_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'procurement_plans','list'=>$procurementPlanList));?>
 </div>
 <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" /></td></tr>
@@ -65,12 +64,14 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 </tr></table>
 </td></tr>
 <tr><td><div id='paginationdiv__provider_list' class='home-list-div '>
+
 <?php $this->load->view('pages/home_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
 </div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button>
 <input name="paginationdiv__provider_action" id="paginationdiv__provider_action" type="hidden" value="<?php echo base_url()."lists/load/t/provider";?>" /></td></tr>
 <tr><td>
 
 <table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>28/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'providers/home_portal_filter/t/active_providers';?>'>FILTER</td><td width='1%' class='btn load-more' data-rel='providers/index/a/active_providers' >MORE</td></tr></table>
+
 </td></tr>
 </table></div>
 
@@ -87,7 +88,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='training_activities'>Training Activities</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='resources_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='resources_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'documents','list'=>$documentsList));?>
 </div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button><input name="paginationdiv__resources_action" id="paginationdiv__resources_action" type="hidden" value="<?php echo base_url()."lists/load/t/resources";?>" /></td></tr>
 <tr><td>
@@ -108,14 +109,16 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <td id='frequently_asked_questions'>Frequently Asked Questions</td>
 </tr></table>
 </td></tr>
-<tr><td><div id='forums_list' class='home-list-div'>
+<tr><td style="vertical-align:top;"><div id='forums_list' class='home-list-div'>
 <?php $this->load->view('pages/home_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
 </div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button><input name="paginationdiv__forums_action" id="paginationdiv__forums_action" type="hidden" value="<?php echo base_url()."lists/load/t/forums";?>" /></td></tr>
 <tr><td>
+
         
 
         
 <table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'forums/home_portal_filter/t/public_forums';?>'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums/index/a/public_forums'>MORE</td></tr></table>
+
 </td></tr>
 </table></div>
 
@@ -126,6 +129,18 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
+
 <?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+<script>
+$(function() {	
+	resizeHomeTables();
+	$(window).resize(function() { resizeHomeTables(); });
+});
+
+function resizeHomeTables(){
+	var listTable = $(document).find('.home-list-table').first();
+	$('.home-list-table').height(listTable.height());
+}
+</script>
 </body>
 </html>

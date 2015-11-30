@@ -125,6 +125,60 @@ class _user extends CI_Model
 
 	}
 
+	
+	
+	
+	
+	
+	
+	# get user details
+	function details($id='')
+	{
+		return $this->_query_reader->get_row_as_array('get_user_by_id', array(
+				'user_id'=>(!empty($id)? $id: $this->native_session->get('__user_id')) 
+			));
+	}
+	
+	
+	
+	
+	
+	
+	# save user settings
+	function settings($data)
+	{
+		# a) save the main record
+		$result = $this->_query_reader->run('update_user_settings', array(
+				'photo_url'=>$data['photo_url'], 
+				'password'=>((!empty($data['newpassword']) && !empty($data['confirmpassword']))? sha1($data['newpassword']): ''), 
+				'email_address'=>$data['emailaddress'],
+				'telephone'=>$data['telephone'],
+				'secret_question_id'=>$data['question__secretquestions'], 
+				'secret_answer'=>$data['secretanswer'], 
+				'address_line_1'=>$data['address'], 
+				'city'=>$data['city'], 
+				'state'=>$data['region'], 
+				'zipcode'=>$data['zipcode'], 
+				'country'=>$data['contact__countries'], 
+				'user_id'=>$this->native_session->get('__user_id')
+			));
+		
+		# d) log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>'updated_user_settings', 
+			'result'=>($result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>"emailaddress=".$data['emailaddress']."|device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>$result, 'reason'=>'');
+	}
+	
+	
+	
+	
 
 }
 
