@@ -57,6 +57,6 @@ Ut mauris metus, maximus pretium viverra ornare, pharetra ac lacus. Ut maximus e
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('pages__about', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>

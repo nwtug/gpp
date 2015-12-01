@@ -40,11 +40,11 @@ class Resources extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		if($data['t'] == 'documents') $filter = 'document_list_filter';
-		else if($data['t'] == 'important_links') $filter = 'links_list_filter';
-		else if($data['t'] == 'standards') $filter = 'standards_list_filter';
-		else if($data['t'] == 'training_activities') $filter = 'activities_list_filter';
-		$this->load->view('resources/'.$filter, $data);
+		if($data['t'] == 'documents') $folder = 'documents';
+		else if($data['t'] == 'important_links') $folder = 'links';
+		else if($data['t'] == 'standards') $folder = 'standards';
+		else if($data['t'] == 'training_activities') $folder = 'training';
+		$this->load->view($folder.'/detail_list_filter', $data);
 	}
 	
 	# Filter home portal resources
@@ -52,11 +52,11 @@ class Resources extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		if($data['t'] == 'documents') $filter = 'document_portal_list_filter';
-		else if($data['t'] == 'important_links') $filter = 'links_portal_list_filter';
-		else if($data['t'] == 'standards') $filter = 'standards_portal_list_filter';
-		else if($data['t'] == 'training_activities') $filter = 'activities_portal_list_filter';
-		$this->load->view('resources/'.$filter, $data);
+		if($data['t'] == 'documents') $folder = 'documents';
+		else if($data['t'] == 'important_links') $folder = 'links';
+		else if($data['t'] == 'standards') $folder = 'standards';
+		else if($data['t'] == 'training_activities') $folder = 'training';
+		$this->load->view($folder.'/portal_list_filter', $data);
 	}
 	
 	

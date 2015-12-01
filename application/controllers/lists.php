@@ -341,42 +341,42 @@ class Lists extends CI_Controller
 							# filter documents details  
 							case 'document_details':
 							
-								$this->load->view('resources/document_details', $data);
+								$this->load->view('documents/document_details', $data);
 
 								break;
 								
 							# filter documents home portal details 
 							case 'document_portal_home':
 							
-								$this->load->view('resources/document_home_details', $data);
+								$this->load->view('documents/document_home_details', $data);
 
 								break;
      
 	 						# filter links home details 
 							case 'links_details':
 							
-								$this->load->view('resources/links_details', $data);
+								$this->load->view('links/links_details', $data);
 
 								break;
 	
 							# filter links home portal details 
      						case 'links_portal_home':
 							
-								$this->load->view('resources/links_home_details', $data);
+								$this->load->view('links/links_home_details', $data);
 
 							    break;
      
 	 						# filter standards home details 
 							case 'standard_details':
 							
-								$this->load->view('resources/standard_details', $data);
+								$this->load->view('standards/standard_details', $data);
 
 								break;
 
 							# filter standards home portal details 
 							case 'standard_portal_home':
 							
-								$this->load->view('resources/standard_home_details', $data);
+								$this->load->view('standards/standard_home_details', $data);
 
 								break;
 
@@ -384,14 +384,14 @@ class Lists extends CI_Controller
 							case 'activities_details':
 							
 
-								$this->load->view('resources/activity_details', $data);
+								$this->load->view('training/training_details', $data);
 
 								break;
 
 							# filter activities home portal details 
 							case 'activities_portal_home':
 						
-								$this->load->view('resources/activity_home_details', $data);
+								$this->load->view('training/training_home_details', $data);
 
 								break;
 								

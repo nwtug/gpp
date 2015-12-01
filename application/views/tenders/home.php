@@ -69,6 +69,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+<?php echo minify_js('tenders__home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
 </body>
 </html>
