@@ -25,15 +25,17 @@ class _page extends CI_Model
 	}
 
 	# verify certificate
-	public function verify_certificate($formData)
+	public function verify_document($formData)
 	{
 		$certificate['certificate_type'] = $formData['documenttype__documenttypes'];
 
 		# trackingnumber is expected to be numeric
 		$certificate['certificate_id'] = is_numeric($formData['trackingnumber'])?$formData['trackingnumber']:'';
 
+
+
 		# [get_certificate] query code provided by rogers
-		return $this->_query_reader->get_count('verify_certificate_info',$certificate);
+		return $this->_query_reader->get_count('verify_document',$certificate);
 
 	}
 

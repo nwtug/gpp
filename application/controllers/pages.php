@@ -32,12 +32,59 @@ class Pages extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 
-		# Collect all data needed for the UI
-		$data['procurementPlanList'] = array();
-		$data['activeProvidersList'] = array();
-		$data['documentsList'] = array();
-		$data['publicForumsList'] = array();
+		# Load required modules
+		$this->load->model('_procurement_plan');
+		$this->load->model('_provider');
+		$this->load->model('_bid');
+		$this->load->model('_document');
+		$this->load->model('_link');
 
+		# Collect all data needed for the UI
+
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['activeProvidersList'] = $this->_provider->lists();
+		$data['documentsList'] = array(
+				Array
+				(
+						'id' => 10,
+						'name' => 'Public Procurement Bill MoFEP',
+						'date_entered' => '2015-11-16'
+				),
+				Array
+				(
+						'id' => 11,
+						'name' => 'Public Disposal Bill MoFEP',
+						'date_entered' => '2015-11-16'
+				)
+		);
+		$data['publicForumsList'] = array();
+		$data['publicLinksList'] =  array(
+				Array
+				(
+						'id' => 10,
+						'name' => 'How to register'
+				),
+				Array
+				(
+						'id' => 11,
+						'name' => 'Dangers in breaching contracts'
+				)
+		);
+
+		# dummy data
+		$data['suspendedProvidersList'] = Array
+		(
+				'organization_id' => 10,
+				'status' => 'suspended',
+				'date_registered' => '0000-00-00',
+				'expires' => 'Indefinate',
+				'contact_name' => 'African United Co. Limited ',
+				'category' => 'Audit',
+				'ministry' => '',
+				'country' => 'Republic of South Sudan'
+		);
+
+		//print_array($data);
 		$this->load->view('home_portal', $data);
 	}
 
@@ -100,17 +147,7 @@ class Pages extends CI_Controller
 	function verify()
 	{
 		$data = filter_forwarded_data($this);
-		# assumption a certificate belongsTo an organisation (one-to-one relationship)
-		# if form is submitted
-		if (!empty($_POST)) {
-
-			# check if verification number exists (Expected result is boolean)
-			$msg = $this->_page->verify_certificate($_POST) ? 'Document exists' : 'ERROR: Document does not exist';
-
-			$this->native_session->set('msg', $msg);
-
-		} 
-		else $this->load->view('pages/verify_document', $data);
+		 $this->load->view('pages/verify_document', $data);
 	}
 
 # Get values filled in by a form layer and put them in a session for layer use
@@ -123,9 +160,13 @@ class Pages extends CI_Controller
 			
 			
 			case 'verify_document':
-			print_r($_POST);
-				
-				$data['msg'] = 'Verified';
+				# check if verification number exists (Expected result is boolean)
+				$msg = $this->_page->verify_document($_POST) ? 'Document exists' : 'ERROR: Document does not exist';
+
+				$this->native_session->set('msg', $msg);
+
+
+				$data['msg'] = $msg;
 				
 			break;
 			
