@@ -44,7 +44,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <?php $this->load->view('tenders/details_list',array('type'=>(!empty($area)? $area: 'procurement_plans'),'list'=>$procurementPlanList));?>
 </div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 
-<tr><td colspan='2'>
 <table><tr><td>
 
 <div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tender" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" />

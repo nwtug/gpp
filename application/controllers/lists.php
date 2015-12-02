@@ -410,8 +410,6 @@ class Lists extends CI_Controller
 					
 					
 				break;
-				
-				
 						
 				case 'document':
 					$this->load->model('_document');
@@ -584,6 +582,7 @@ class Lists extends CI_Controller
 				
 				
 				
+
 
 				case 'forums':
 					if(isset($data['parentarea'])){

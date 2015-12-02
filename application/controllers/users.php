@@ -78,10 +78,6 @@ class Users extends CI_Controller
 		$data['area'] = 'provider_details';
 		$this->load->view('addons/basic_addons', $data);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 8089fe6bbc78b41fc4a59a177d91abe5d6e805e8
 	
 	# user settings
 	function settings()

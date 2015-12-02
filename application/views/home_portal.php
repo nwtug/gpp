@@ -116,13 +116,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 <?php $this->load->view('pages/home_list',array('type'=>'public_forums','list'=>$publicForumsList));?>
 </div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button><input name="paginationdiv__forums_action" id="paginationdiv__forums_action" type="hidden" value="<?php echo base_url()."lists/load/t/forums";?>" /></td></tr>
 <tr><td>
-
-
-        
-
-        
 <table><tr><td class='h6' width='98%'>Last Updated: <span class='dark-grey'>08/10/2015</span></td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'forums/home_portal_filter/t/public_forums';?>'>FILTER</td><td width='1%' class='btn load-more'  data-rel='forums/index/a/public_forums'>MORE</td></tr></table>
-
 
 </td></tr>
 </table></div>

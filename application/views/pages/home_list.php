@@ -123,7 +123,8 @@ Expires: 28/02/2014</td></tr>
 
 <td class='dark-grey'>Registered: 14/11/2014<br>
 Expires: 28/02/2014</td></tr>
-<?php }  
+<?php }
+
 
 
 

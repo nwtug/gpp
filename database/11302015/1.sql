@@ -1,0 +1,1 @@
+ALTER TABLE `bids` ADD `date_submitted` DATETIME NOT NULL ;

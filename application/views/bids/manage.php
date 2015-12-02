@@ -33,16 +33,11 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
   <td>&nbsp;</td>
   <td class='one-column fill-page'>
 
-<table class='home-list-table'> 
-<<<<<<< HEAD
+<table class='home-list-table'>
 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'><?php echo (!empty($a)? ($a == 'awards'? 'Contract Award ': 'Best Evaluated Bidders '): 'Bidders '); ?>List</th>
 <th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='bid_actions' class='actions-list-btn list-actions' data-url='bids/list_actions<?php echo (!empty($a)?'/a/'.$a: '');?>' data-width='300' data-targetdiv='paginationdiv__bid_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
 
-=======
-<tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Best Evaluated Bidders List</th>
-<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='bid_actions' class='actions-list-btn list-actions' data-url='bids/list_actions<?php echo (!empty($t)?'/t/'.$t: '');?>' data-width='300' data-targetdiv='paginationdiv__bid_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
->>>>>>> 8089fe6bbc78b41fc4a59a177d91abe5d6e805e8
 </tr>
 
 <tr><td colspan='2'><div id='paginationdiv__bid_list' class='page-list-div'>

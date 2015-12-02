@@ -96,8 +96,7 @@ class Tenders extends CI_Controller
 		else if($data['t'] == 'contract_awards') $folder = 'contracts';
 		
 		$this->load->view($folder.'/home_portal_filter', $data);
-	}	
-	
+	}
 
 	# to add a tender
 	function add()
