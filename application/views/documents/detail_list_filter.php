@@ -6,11 +6,9 @@
 
 <table class='normal-table filter-container'>
 
-<tr><td><span style="width:50%;padding:0px;">
-  <select id='category__documents' name='category__documents' data-final='category' class='drop-down' style='width:100%;' >
-    <?php echo get_option_list($this, 'documents', 'select', '', array('selected'=>$this->native_session->get('documents__category') )); ?>
-  </select>
-</span></td></tr>
+<tr><td><select id='search__publicdocumenttypes' name='search__publicdocumenttypes' data-final='category' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'publicdocumenttypes', 'select', '', array('selected'=>$this->native_session->get('document__category')));?>
+</select></td></tr>
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('document__phrase');?>' style='width:100%;'/></td></tr>
 <tr>

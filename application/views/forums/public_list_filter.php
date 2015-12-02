@@ -6,11 +6,10 @@
 
 <table class='normal-table filter-container'>
 
-<tr><td><span style="width:50%;padding:0px;">
-  <select id='category__public_forums' name='category__public_forums' data-final='category' class='drop-down' style='width:100%;' >
-    <?php echo get_option_list($this, 'public_forums', 'select', '', array('selected'=>$this->native_session->get('public_forums__category') )); ?>
-  </select>
-</span></td></tr>
+
+<tr><td><select id='search__forumcategories' name='search__forumcategories' data-final='category' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'forumcategories', 'select', '', array('selected'=>$this->native_session->get('forum__category')));?>
+</select></td></tr>
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('public__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='public_details' style='width:100%;'/></td></tr>
 

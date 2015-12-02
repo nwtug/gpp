@@ -6,11 +6,10 @@
 
 <table class='normal-table filter-container'>
 
-<tr><td><span style="width:50%;padding:0px;">
-  <select id='category__training' name='category__training' data-final='category' class='drop-down' style='width:100%;' >
-    <?php echo get_option_list($this, 'training', 'select', '', array('selected'=>$this->native_session->get('training__category') )); ?>
-  </select>
-</span></td></tr>
+
+<tr><td><select id='search__trainingcategories' name='search__trainingcategories' data-final='category' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'trainingcategories', 'select', '', array('selected'=>$this->native_session->get('training__category')));?>
+</select></td></tr>
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('training__phrase');?>' style='width:100%;'/></td></tr>
 <tr>
