@@ -47,8 +47,6 @@ class _messenger extends CI_Model {
 			$messageData = $this->populate_template($template, $message);
 			$message = array_merge($messageData, $message);
 
-			print_array($message);
-			
 			# Sending email
 			if(!$formatStrict || ($formatStrict && in_array('email', $required))){
 				if(is_array($receiverId)) 
@@ -395,40 +393,6 @@ class _messenger extends CI_Model {
 	}
 
 
-
-	function send_temporary_func($receiverId, $message, $required=array('system'), $formatStrict=FALSE)
-	{
-		$send_status = FALSE;
-		if (!empty($receiverId) && !empty($message['code'])) {
-			# 1. If email address or first name is not provided, then fetch it using the user id
-			if (empty($message['emailaddress']) || empty($message['firstname'])) {
-				$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id' => $receiverId));
-				if (!empty($user)) {
-					$message['emailaddress'] = !empty($message['emailaddress']) ? $message['emailaddress'] : $user['email_address'];
-					$message['firstname'] = !empty($message['firstname']) ? $message['firstname'] : $user['first_name'];
-					$message['telephone'] = !empty($message['telephone']) ? $message['telephone'] : $user['telephone'];
-				}
-			}
-
-			# Fetch the message template and populate the necessary details
-			$template = $this->get_template_by_code($message['code']);
-			$messageData = $this->populate_template($template, $message);
-			$message = array_merge($messageData, $message);
-
-
-			$send = $this->send_email_message($receiverId, $message);
-
-			if($send){
-				$send_status = TRUE;
-			}
-
-		}
-
-		return $send_status;
-
-	}
-
-	
 	
 }
 

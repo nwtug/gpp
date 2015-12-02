@@ -937,14 +937,7 @@ function get_decision($values_array, $defaultTo=FALSE)
 	return $decision;
 }
 
-# nicely format array
-function print_array($array) {
-	print '<pre>';
-	print_r($array);
-	print '</pre>';
-}
-
-# generate password
+# auto generate password
 function generate_password($length = 8, $complex = 4)
 {
 	$min = "abcdefghijklmnopqrstuvwxyz";
@@ -963,6 +956,13 @@ function generate_password($length = 8, $complex = 4)
 	}
 	$password = substr(str_shuffle($chars), 0, $length);
 	return $password;
+}
+
+# format array in a readable way
+function print_array($array) {
+	print '<pre>';
+	print_r($array);
+	print '</pre>';
 }
 
 

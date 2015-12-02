@@ -73,7 +73,7 @@ class _user extends CI_Model
 		if(is_valid_email($formData['registeredemail']))
 		{
 
-			$user = $this->_query_reader->get_row_as_array('get_user_by_email_address', array('email'=>$formData['registeredemail']));
+			$user = $this->_query_reader->get_row_as_array('get_user_by_email', array('email_address'=>$formData['registeredemail']));
 			if(!empty($user))
 			{
 				# auto generate password
@@ -85,8 +85,7 @@ class _user extends CI_Model
 				#if user's password was updated
 				if($result)
 				{
-
-					$result = $this->_messenger->send_temporary_func($user['id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
+					$result = $this->_messenger->send($user['id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'),TRUE);
 
 
 					if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
