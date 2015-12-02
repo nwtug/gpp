@@ -29,4 +29,4 @@
 <input name="listtype" id="listtype" data-final='listtype' type="hidden" value="<?php echo $listtype;?>" /> 
 <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('document__pde_id');?>' /></td></tr>
 </table>
-<?php echo minify_js('apply_document_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>
+<?php echo minify_js('faqs__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

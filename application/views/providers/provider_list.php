@@ -10,7 +10,7 @@ echo "<table>
 		echo "<tr> 
 		<td><input id='select_".$row['organization_id']."' name='selectall[]' type='checkbox' value='".$row['organization_id']."' class='bigcheckbox'><label for='select_".$row['organization_id']."'></label></td>
 		<td>".$row['name']."</td>
-		<td><a href='javascript:;'>".$row['contact_name']."</a></td>
+		<td><a href='".base_url()."providers/details/id/".$row['organization_id']."' class='shadowbox closable'>".$row['contact_name']."</a></td>
 		<td>".$row['tax_id']."</td>
 		<td>".(!empty($row['category'])? $row['category']: $row['ministry'])."</td>
 		<td><a href='javascript:;'>".$row['rop_number']."</a></td>

@@ -107,6 +107,4 @@ class _tender extends CI_Model
 	}
 	
 }
-
-
 ?>

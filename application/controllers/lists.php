@@ -63,16 +63,61 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__registration_country', (!empty($data['registration_country'])? $data['registration_country']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
-					$data['list'] = $this->_provider->lists(array(
-						'category'=>$this->native_session->get($data['t'].'__category'), 
-						'ministry'=>$this->native_session->get($data['t'].'__ministry'), 
-						'registration_country'=>$this->native_session->get($data['t'].'__registration_country'), 
-						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
-						'offset'=>$offset, 
-						'limit'=>$limit
-					));
 					
-					$this->load->view('providers/provider_list', $data);
+					
+					if(!empty($data['parentarea'])){
+						#switch filter based on hidden field
+						switch($data['parentarea']){
+							# filter active provider details 
+							case 'active_provider':
+							 
+                               $data['status'] = 'active';
+							   $this->load->view('providers/provider_home_details', $data);
+
+								break;
+								
+							# filter active provider details portal home 
+							case 'active_provider_home':
+								
+                                $data['status'] = 'active';
+								$this->load->view('providers/provider_home_portal_details', $data);
+
+								break;
+								
+							# filter suspended provider details home 
+							case 'suspended_provider':
+							    
+                                $data['status'] = 'suspended';
+								$this->load->view('providers/provider_home_details', $data);
+
+								break;
+								
+							# filter suspended provider portal details home 
+							case 'suspended_provider_home':
+							    
+                               $data['status'] = 'suspended';
+    						   $this->load->view('providers/provider_home_portal_details', $data);
+
+								break;
+								
+								default:
+									
+								break;
+						}
+					}
+					
+					else {
+						$data['list'] = $this->_provider->lists(array(
+							'category'=>$this->native_session->get($data['t'].'__category'), 
+							'ministry'=>$this->native_session->get($data['t'].'__ministry'), 
+							'registration_country'=>$this->native_session->get($data['t'].'__registration_country'), 
+							'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+							'offset'=>$offset, 
+							'limit'=>$limit
+						));
+						
+						$this->load->view('providers/provider_list', $data);
+					}
 				break;
 				
 				
@@ -127,13 +172,84 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
+					# if filter form details are posted
+					if(isset($data['parentarea'])){
+						#switch lists based on active tab
+						switch($data['parentarea']){
+							# filter procurement plans details
+							case 'plans':
+							
+
+								$this->load->view('procurement_plans/home_details', $data);
+
+								break;
+								
+								# filter procurement plans home portal
+							case 'plans_home':
+								
+
+								$this->load->view('procurement_plans/home_portal_details', $data);
+
+								break;
+								
+								# filter active notices details 
+							case 'active_notices':
+					       
+
+								$this->load->view('tenders/home_list_details', $data);
+
+								break;
+								
+								# filter active notices home portal
+							case 'active_notices_home':
+					       
+
+								$this->load->view('tenders/home_portal_details', $data);
+
+								break;
+
+                            # filter best evaluated bidder details 
+							case 'best_evaluated_bidder_details':
+								
+								$this->load->view('bids/home_details', $data);
+								
+								break;
+								
+						    # filter best evaluated bidder home portal
+							case 'best_evaluated_bidder_home':
+								
+
+								$this->load->view('bids/home_portal_details', $data);
+								
+								break;
+								
+							# filter contract awards details
+								case 'contract_awards_details':
+								
+
+								$this->load->view('contracts/home_details', $data);
+
+								break;
+								
+								# filter contract awards home portal
+								case 'contract_awards_home':
+								
+
+								$this->load->view('contracts/home_portal_details', $data);
+
+								break;
+								
+							
+								
+							
+							default:
+								# fall backtr
 					$this->load->view('tenders/'.($this->native_session->get('__user_type') == 'provider'? 'manage_list': 'tender_list'), $data);
+						}
+					}
+					
 				break;
-				
-				
-				
-				
-				
+						
 				
 				case 'bid':
 					$this->load->model('_bid');
@@ -216,6 +332,79 @@ class Lists extends CI_Controller
 				break;
 				
 				
+			
+				case 'resources':
+					
+                    if(isset($data['parentarea'])){
+						#switch lists based on active tab
+						switch($data['parentarea']){
+							# filter documents details  
+							case 'document_details':
+							
+								$this->load->view('documents/document_details', $data);
+
+								break;
+								
+							# filter documents home portal details 
+							case 'document_portal_home':
+							
+								$this->load->view('documents/document_home_details', $data);
+
+								break;
+     
+	 						# filter links home details 
+							case 'links_details':
+							
+								$this->load->view('links/links_details', $data);
+
+								break;
+	
+							# filter links home portal details 
+     						case 'links_portal_home':
+							
+								$this->load->view('links/links_home_details', $data);
+
+							    break;
+     
+	 						# filter standards home details 
+							case 'standard_details':
+							
+								$this->load->view('standards/standard_details', $data);
+
+								break;
+
+							# filter standards home portal details 
+							case 'standard_portal_home':
+							
+								$this->load->view('standards/standard_home_details', $data);
+
+								break;
+
+							# filter activities details 
+							case 'activities_details':
+							
+
+								$this->load->view('training/training_details', $data);
+
+								break;
+
+							# filter activities home portal details 
+							case 'activities_portal_home':
+						
+								$this->load->view('training/training_home_details', $data);
+
+								break;
+								
+								default:
+					
+					
+                     $this->load->view('resources/details_list', $data);	
+					 
+					 }
+					}					
+					
+					
+				break;
 				
 				
 						
@@ -390,14 +579,69 @@ class Lists extends CI_Controller
 				
 				
 				
+				case 'forums':
+					if(isset($data['parentarea'])){
+						#switch lists based on active tab
+						switch($data['parentarea']){
+							# filter public home details 
+							case 'public_details':
+							 
+								$this->load->view('forums/public_details', $data);
+						
+					
+								break;
+						    
+							# filter public home portal details 
+							case 'public_portal_home':
+							 
+								$this->load->view('forums/public_home_details', $data);
+						
+					
+								break;
+     
+	 						# filter secure home details 
+							case 'secure_details':
+							
+     							$this->load->view('forums/secure_details', $data);
+						
+					
+								break;
+
+	 						# filter secure home portal details 
+							case 'secure_portal_home':
+							
+								$this->load->view('forums/secure_home_details', $data);
+						
+					
+								break;
+   
+    						# filter faq home details 
+							case 'faq_details':
+							
+								$this->load->view('forums/faq_details', $data);
+						
+					
+								break;
+
+    						# filter faq home portal details 
+							case 'faq_portal_home':
+							 
+								$this->load->view('forums/faq_home_details', $data);
+						
+					
+								break;
+								
+						
+								
+								default:
+					
+					
+					$this->load->view('forums/details_list', $data);
+					
+					}
+			}
+				break;
 				
-				
-				
-				
-				
-				
-				
-			
 				default:
 				break;
 			}

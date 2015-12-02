@@ -55,6 +55,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'verify_document'));
 
 
 
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.fileform.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('pages__verify_document', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.fileform.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>

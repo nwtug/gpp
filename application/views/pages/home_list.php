@@ -1,6 +1,24 @@
+<div id="<?php 
+#change ID depending on the type passed
+if(($type == 'procurement_plans')||($type == 'active_notices')||($type == 'best_evaluated_bidders')||($type == 'contract_awards')){
+	echo "tender__1"; 
+}
+elseif(($type == 'active_providers')||($type == 'suspended_providers')){
+	echo "provider__1"; 
+	
+}
+elseif(($type == 'documents')||($type == 'important_links')||($type == 'standards')||($type == 'training_activities')){
+	echo "resources__1";
+}
+elseif(($type == 'frequently_asked_questions')||($type == 'secure_forums')||($type == 'public_forums')){
+	echo "forums__1";
+}
+?>">
+
 <table>
 
 <?php if($type == 'procurement_plans'){?>
+
 <tr>
 <td colspan="2"><span class='bold'>Ministry of Education, Science, Technology and Sports</span><br><div class="blue-box" data-rel="">Details of 2015-2016 Annual Procurement Plan</div></td>
 </tr>
@@ -92,15 +110,18 @@ else if($type == 'active_providers'){ ?>
 else if($type == 'suspended_providers'){ ?>
 <tr><td><span class='bold'>African United Co. Limited</span>
 <br><span class='grey-box'>Audit</span></td>
-<td class='dark-grey' style="width:1%;white-space:nowrap;">Registered: 28/02/2014</td></tr>
+<td class='dark-grey' style="width:1%;white-space:nowrap;">Registered: 28/02/2014<br>
+Expires: Indefinate</td></tr>
 
 <tr><td><span class='bold'>Mc Del-AM(1994)(U) Limited</span>
 <br><span class='grey-box'>Accountants</span></td>
-<td class='dark-grey'>Registered: 14/11/2014</td></tr>
+<td class='dark-grey'>Registered: 14/11/2014<br>
+Expires: 28/02/2014</td></tr>
 
 <tr><td><span class='bold'>Michele and Joshua Enterprises Limited</span>
 <br><span class='grey-box'>Consultants</span></td>
-<td class='dark-grey'>Registered: 14/11/2014</td></tr>
+<td class='dark-grey'>Registered: 14/11/2014<br>
+Expires: 28/02/2014</td></tr>
 <?php }  
 
 
@@ -185,7 +206,7 @@ else if($type == 'training_activities'){ ?>
 
 
 else if($type == 'public_forums'){ ?>
-<tr><td><span class='bold'>What’s causing the delay in Kima Road construction?</span>
+<tr><td><span class='bold'>What's causing the delay in Kima Road construction?</span>
 <br><span class='grey-box'>Works</span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: 28/05/2015<br>Contributors: 189</td></tr>
 
@@ -250,4 +271,4 @@ else {
 
 
 
-</table>
+</table></div>

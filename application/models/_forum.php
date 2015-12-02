@@ -1,12 +1,13 @@
 <?php
 /**
- * This class manages forum information.
+ * This class generates and formats provider details. 
  *
- * @author Al Zziwa <azziwa@newwavetech.co.ug>
+ * @author David Buwembo <dbuwembo@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
- * @created 11/27/2015
+ * @created 11/20/2015
  */
+
 class _forum extends CI_Model
 {
 	# advanced search list of forums
@@ -30,7 +31,7 @@ class _forum extends CI_Model
 	
 	
 	
-	
+
 	# add a forum
 	function add($data)
 	{
