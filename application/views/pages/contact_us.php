@@ -30,7 +30,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
 <table class='normal-table microform two-columns'>
 <tr><td colspan='2' class='body-title'>Contact Us</td></tr>
 <?php if(!empty($msg)) echo "<tr><td colspan='2' style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";
-$this->load->view('page/contact_us_form');
+$this->load->view('pages/contact_us_form');
 ?>
 
   
