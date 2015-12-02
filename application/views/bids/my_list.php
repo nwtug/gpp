@@ -61,6 +61,6 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'bids' ));
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
+<?php echo minify_js('bids__my_list', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
 </body>
 </html>

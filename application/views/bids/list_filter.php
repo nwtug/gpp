@@ -20,5 +20,6 @@
 <input name="listtype" id="listtype" data-final='listtype' type="hidden" value="<?php echo $listtype;?>" /> 
 <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
 </table>
-<?php echo minify_js('apply_bid_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.pagination.js'));?>
+
+<?php echo minify_js('bids__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.pagination.js'));?>
 

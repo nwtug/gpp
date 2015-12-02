@@ -38,7 +38,7 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 
 <tr><td colspan='3'><div id='paginationdiv__procurement_plan_list' class='page-list-div'>
 
-<div id="provider__1"><?php $this->load->view('procurement_plans/procurement_plan_list',array('list'=>$list));?></div>
+<div id="procurement_plan__1"><?php $this->load->view('procurement_plans/procurement_plan_list',array('list'=>$list));?></div>
 
 </div>
 <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
@@ -69,6 +69,6 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
+<?php echo minify_js('procurement_plans__manage', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
 </body>
 </html>

@@ -58,6 +58,4 @@ class _organization extends CI_Model
 	
 	
 }
-
-
 ?>

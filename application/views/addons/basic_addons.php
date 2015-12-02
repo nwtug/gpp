@@ -97,6 +97,10 @@ else if(!empty($area) && $area == "user_details")
     <th>User Group</th>
     <td>".$row['group_type']."</td>
   </tr>
+<tr>
+    <th>Gender</th>
+    <td>".$row['gender']."</td>
+  </tr>
 
 </table>
 ";
