@@ -104,7 +104,8 @@ class _contract extends CI_Model
 		$result1 = $this->_query_reader->run('add_contract_status', array(
 			'contract_id'=>$data['contract_id'], 
 			'status'=>$data['contract__contractstatus'], 
-			'percentage'=>$data['contract__percentage'], 
+			'percentage'=>$data['contract__percentage'],  
+			'amount_spent'=>$data['amountspent'],
 			'document_url'=>$data['document'], 
 			'user_id'=>$this->native_session->get('__user_id'), 
 			'organization_id'=>$this->native_session->get('__organization_id'), 

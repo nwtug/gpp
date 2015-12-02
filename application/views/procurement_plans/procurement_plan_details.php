@@ -10,7 +10,8 @@ if(!empty($msg)){
 else
 {
 echo "<table>
-<tr><td colspan='2' class='h2 bold'>".$plan['name']."</td></tr>
+<tr><td colspan='2' class='h2 bold'>".$plan['name']
+		.(!empty($plan['reference_number'])? "<BR>(".$plan['reference_number'].")":"")."</td></tr>
 <tr><td colspan='2'>".$plan['details']."</td></tr>
 <tr><td class='label'>PDE</td><td>".$plan['pde']."</td></tr>
 <tr><td class='label'>Financial Period</td><td>".date('Y', strtotime($plan['financial_year_start']))." TO ".date('Y', strtotime($plan['financial_year_end']))."</td></tr>

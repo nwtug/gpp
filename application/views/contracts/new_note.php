@@ -23,6 +23,10 @@ echo "<br><b>Provider:</b> ".html_entity_decode($contract['provider'], ENT_QUOTE
 </select><input type='hidden' name='contract_id' id='contract_id' value='<?php echo $d;?>' /></td>
 </tr></table></td></tr>
 
+
+<tr><td><input type="text" id="amountspent" name="amountspent"  class='numbersonly' placeholder='Amount Spent (in SSP)' value='' style='min-width:100%;'/>
+</td></tr>
+
 <tr><td><input type="text" id="document" name="document"  class='filefield optional' data-val='pdf,doc,docx,jpeg,jpg,tiff' data-size='5120000' placeholder='Document/Photo (OPTIONAL: PDF, Word, JPEG, JPG, TIFF. Max 500MB)' value='' style='min-width:100%;'/>
 </td></tr>
 

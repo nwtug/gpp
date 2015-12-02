@@ -19,16 +19,17 @@ echo "<table class='default-table'>
 
 <tr><td>
 <table class='list-table'>
-<tr><th>Contract Status</th><th>Percentage</th><th>Documents</th><th>Note</th><th>Date Entered</th><th>Entered By</th><th>Entered By Organization</th></tr>";
+<tr><th>Contract Status</th><th>Percentage</th><th>Spent</th><th>Documents</th><th>Note</th><th>Date Entered</th><th>Entered By</th><th>Entered By Organization</th></tr>";
 	foreach($list AS $row) {
 		echo "<tr> 
 		<td>".strtoupper($row['status'])."</td>
 		<td>".$row['percentage']."%</td>
+		<td>SSP".format_number($row['amount_spent'],3)."</td>
 		<td>";
 
 	if(!empty($row['documents'])){
 		$documents = explode(',',$row['documents']);
-		foreach($documents AS $document) echo "<a href='".base_url()."pages/download/file/".$document."'>".$document."</a><br>"; 
+		foreach($documents AS $document) echo "<a href='".base_url()."pages/download/file/".$document."'>".end(explode("_", $document))."</a><br>"; 
 	} else {
 		echo "NONE";
 	}

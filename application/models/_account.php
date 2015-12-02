@@ -66,7 +66,6 @@ class _account extends CI_Model
 		if(!empty($user))
 		{
 			$response['result'] = 'SUCCESS';
-			
 			# Default view on login
 			$response['default_view'] = $this->get_default_view($user['group_type']);
 			
@@ -81,7 +80,8 @@ class _account extends CI_Model
 					'telephone_carrier'=>(!empty($user['telephone_carrier'])? $user['telephone_carrier']: ''),
 					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
 					'user_type'=>$user['group_type'], 
-					'organization_id'=>$user['organization_id']
+					'organization_id'=>$user['organization_id'], 
+					'organization_name'=>$user['organization_name']
 			);
 			
 			# The allowed permissions for the user

@@ -143,8 +143,14 @@
   <td>&nbsp;</td>
 </tr>
 <tr>
-  <td>&nbsp;</td>
-  <td colspan='15' style='font-weight:bold;'>Total Cost of Goods/Works/Services</td>
+  <td rowspan="2">&nbsp;</td>
+  <td colspan='3' rowspan="2" style='font-weight:bold;'>Total Cost of Goods/Works/Services</td>
+  <td>Plan</td>
+  <td colspan='11'>&nbsp;</td>
+</tr>
+<tr>
+  <td colspan='1'>Actual</td>
+  <td colspan='11'>&nbsp;</td>
 </tr>
 <tr>
   <td>&nbsp;</td>

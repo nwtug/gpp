@@ -14,6 +14,10 @@
 
 <tr><td><select id='provider__countries' name='provider__countries' data-final='registration_country' class='drop-down' style='width:100%;'><?php echo get_option_list($this, 'countries', 'select', '', array('selected'=>$this->native_session->get('provider__registration_country')));?></select></td></tr>
 
+<tr><td><select id='search__providerstatus' name='search__providerstatus' data-final='status' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'providerstatus', 'select', '', array('selected'=>$this->native_session->get('provider__status')));?>
+</select></td></tr>
+
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('provider__phrase');?>' style='width:100%;'/></td></tr>
 
 
