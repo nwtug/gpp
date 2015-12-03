@@ -20,23 +20,31 @@
 $this->load->view('addons/public_top_menu', array('__page'=>'government_agencies'));
 ?>
 
+
 <tr>
   <td>&nbsp;</td>
-  <td style='height:calc(85vh - 214px);'>
-<div class='body-title'>Government Agencies</div>
-<div class="body-content"><table>
-<tr><td>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum. Donec blandit ultricies eros. Suspendisse quis nisi volutpat justo tincidunt vehicula vitae sit amet tellus. Sed lacus turpis, dignissim non arcu ac, dictum maximus dui. Nulla congue orci at libero facilisis aliquet. Sed in mauris et eros ornare pretium eu ac quam. Phasellus metus erat, faucibus ut commodo non, varius eu felis. Morbi sit amet lacus maximus, placerat augue eget, ornare velit.
-<br /><br />
-Ut rhoncus vel lacus nec sagittis. Quisque rutrum lectus sed magna tempus facilisis. Nunc auctor, neque ut cursus blandit, nibh libero pharetra turpis, et dignissim mi dolor sit amet mi. Nullam scelerisque magna eu mi facilisis, at posuere dolor imperdiet. Sed vitae arcu eu libero bibendum scelerisque a nec nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis efficitur sem, sit amet condimentum enim scelerisque et. Nam mollis turpis a aliquam iaculis. Curabitur cursus sollicitudin ante, eu aliquam dui vehicula eget. Morbi tempor sollicitudin porttitor. Donec in feugiat purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec eget justo orci.
-<br /><br />
-Ut rhoncus vel lacus nec sagittis. Quisque rutrum lectus sed magna tempus facilisis. Nunc auctor, neque ut cursus blandit, nibh libero pharetra turpis, et dignissim mi dolor sit amet mi. Nullam scelerisque magna eu mi facilisis, at posuere dolor imperdiet. Sed vitae arcu eu libero bibendum scelerisque a nec nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis efficitur sem, sit amet condimentum enim scelerisque et. Nam mollis turpis a aliquam iaculis. Curabitur cursus sollicitudin ante, eu aliquam dui vehicula eget. Morbi tempor sollicitudin porttitor. Donec in feugiat purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec eget justo orci. 
-<br /><br />
+  <td class='one-column' style='height:calc(85vh - 255px); padding-bottom: 20px;'>
+<table class='home-list-table'>
+<tr>
+  <th class='h3 blue rop-icon'>Government Agencies</th><th class='btn closer' data-rel='pages/portal'></th></tr>
+<tr><td colspan='2'>&nbsp;</td></tr>
+<tr><td colspan='2'>
+<div class='page-list-div'><div>
 
-<table><tr><td><button class='button btn blue small' data-url='resources/index/a/standards'>Standards</button></td></tr></table>
-<br /><br />
+<table>
+      <tr>
+        <td ><span class="">Ministry of Finance and Economic Planning </span></td>
+        <td colspan="3">&nbsp;</td></tr>
+      <tr><td ><span class="">Ministry of Public Service & Human Resource Development</span></td><td colspan="3">&nbsp;</td></tr>
+      <tr><td ><span class="">Ministry of Transport, Roads and Bridges</span></td><td colspan="3">&nbsp;</td></tr>
+      <tr><td ><span class="">Ministry of Health; Ministry of Agriculture</span></td><td colspan="3">&nbsp;</td></tr>
+      <tr><td ><span class="">Ministry of Animal resources & Fisheries Industry </span></td><td colspan="3">&nbsp;</td></tr>
+      <tr><td ><span class="">Ministry of Education, Science and Technology</span></td><td colspan="3">&nbsp;</td></tr>
+</table></div></div>
 </td></tr>
-</table></div>
+<tr><td colspan='2'>&nbsp;</td></tr>
+</table>
+
 
 
 </td>

@@ -1,15 +1,24 @@
-<table><tr><td colspan="2" ><span class='bold'>FHow to register</span>
-  </td>
-</tr>
+<?php 
+$stopHtml = "<input name='paginationdiv__resources_stop' id='paginationdiv__resources_stop' type='hidden' value='1' />";
 
-<tr><td colspan="2" ><span class='bold'>FThe procurement procedure</span>
-  </td>
-</tr>
+$listCount = count($list);
+$i = 0;
 
-<tr><td colspan="2" ><span class='bold'>FDangers in breaching contracts</span>
- </td>
-</tr>
+echo "<table>
 
-<tr><td colspan="2" ><span class='bold'>FAvoidable Causes of Delays in Bid Evaluation</span>
-  </td>
-</tr></table>
+";
+foreach($list AS $row) {
+		$i++;
+		echo "<tr><td colspan='2' ><a href=".$row['url'].apply_open_type($row['open_type'], 'closable').">".$row['name']."</a>";
+  ;
+     
+	  # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>
+      
+      

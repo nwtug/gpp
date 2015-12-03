@@ -23,7 +23,20 @@ class Providers extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['activeProvidersList'] = array();
+		$data['activeProvidersList'] =$this->_provider->lists();
+		
+		//loop thru statuses
+		$suspendedProviders = array();
+		foreach($this->_provider->lists() as $row){
+			if(strtolower($row['status'])!=='active'){
+				$suspendedProviders[]=$row;
+			}
+		}
+		
+		$data['suspendedProviders']=$suspendedProviders;
+		
+		//print_array($data);
+
 
 		$this->load->view('providers/home', $data);
 	}
@@ -38,6 +51,7 @@ class Providers extends CI_Controller
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
+		$data['activeProvidersList'] =$this->_provider->lists();
 
 		$this->load->view('providers/details_list', $data);
 	}

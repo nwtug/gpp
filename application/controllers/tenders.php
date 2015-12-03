@@ -15,6 +15,10 @@ class Tenders extends CI_Controller
     {
         parent::__construct();
         $this->load->model('_tender');
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
 	}
 	
 	# tender notices home page
@@ -22,7 +26,13 @@ class Tenders extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['procurementPlanList'] = array();
+		
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+
+		//print_array($data);
 		
 		$this->load->view('tenders/home', $data);
 	}
@@ -37,6 +47,15 @@ class Tenders extends CI_Controller
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
+		
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
 		
 		$this->load->view('tenders/details_list', $data);
 	}

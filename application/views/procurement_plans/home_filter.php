@@ -14,21 +14,13 @@
 
 
 <tr><td><span style="width:99%;padding:0px;">
- <select id='fy_start__pastyears' name='fy_start__pastyears' class='drop-down' style='width:100%;'>
-<?php echo get_option_list($this, 'pastyears', 'select', '', array(
-	'selected'=>(!empty($plan['fy_start'])? $plan['fy_start']: ''),
-	'default'=>'From Year',
-	'back_period'=>10
-	));?>
+ <select id='fy_start__pastyears' name='startpastyears'  data-final='fy_start' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'pastyears', 'select', '', array(	'selected'=>$this->native_session->get('procurement_plan__fy_start'),	'default'=>'From Year',	'back_period'=>10	));?>
 </select>
 </span></td>
   <td><span style="width:99%;padding:0px;">
-   <select id='fy_end__pastyears' name='fy_end__pastyears' class='drop-down' style='width:100%;'>
-<?php echo get_option_list($this, 'pastyears', 'select', '', array(
-	'selected'=>(!empty($plan['fy_end'])? $plan['fy_end']: ''),
-	'default'=>'To Year',
-	'back_period'=>10,
-	'start'=>(@date('Y') + 2)
+   <select id='fy_end__pastyears' name='endpastyears' data-final='fy_end' class='drop-down' style='width:100%;'>
+<?php echo get_option_list($this, 'pastyears', 'select', '', array('selected'=>$this->native_session->get('procurement_plan__fy_end'),	'default'=>'To Year',	'back_period'=>10,	'start'=>(@date('Y') + 2)
 	));?> 
 </select>
   </span></td>

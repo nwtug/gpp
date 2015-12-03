@@ -1,15 +1,25 @@
-<table><tr><td><span class='bold'>FWhat's causing the delay in Kima Road construction?</span>
-<br><span class='grey-box'>Works</span></td>
-<td class='dark-grey' style="width:1%;white-space:nowrap;">Started: 28/05/2015<br>Contributors: 189</td></tr>
+<?php 
+$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
 
-<tr><td><span class='bold'>FWays to reward honest contractors</span>
-<br><span class='grey-box'>General</span></td>
-<td class='dark-grey'>Started: 12/05/2015<br>Contributors: 1,453</td></tr>
+$listCount = count($list);
+$i = 0;
 
-<tr><td><span class='bold'>FMistakes in disposal of Sekit Dam equipment</span>
-<br><span class='grey-box'>Goods</span></td>
-<td class='dark-grey'>Started: 19/04/2015<br>Contributors: 41</td></tr>
+echo "<table>
 
-<tr><td><span class='bold'>FHow to use the new registration section</span>
-<br><span class='grey-box'>Reports</span></td>
-<td class='dark-grey'>Started: 27/06/2015<br>Contributors: 189</td></tr></table>
+";
+foreach($list AS $row) {
+		$i++;
+		echo "<tr><td><span class='bold'>".$row['topic']."</span>
+<br><span class='grey-box'>".$row['category']."</span></td>
+<td class='dark-grey' style='width:1%;white-space:nowrap;'>Started: ".date(SHORT_DATE_FORMAT, strtotime($row['last_updated']))."<br>Contributors: ".$row['no_of_contributors']."</td></tr>
+
+";
+     
+	  # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>

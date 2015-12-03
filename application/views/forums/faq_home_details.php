@@ -1,16 +1,22 @@
-<table><tr><td colspan="2"><span class='bold'>FWhat is microprocurement?</span>
-  <br><span class='body-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</span></td>
-</tr>
+<?php 
+$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
 
-<tr><td colspan="2"><span class='bold'>FWhat is a procurement plan</span>
-  <br><span class='body-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</span></td>
-</tr>
+$listCount = count($list);
+$i = 0;
 
-<tr><td colspan="2"><span class='bold'>FWhat is Sale to Public Officers?</span>
-  <br><span class='body-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</span></td>
-</tr>
+echo "<table>
 
-<tr><td colspan="2"><span class='bold'>FWho is the Accounting Officer in Post Primary Institutions?
-  </span>
-  <br><span class='body-content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</span></td>
-</tr></table>
+";
+foreach($list AS $row) {
+		$i++;
+		echo "<tr><td colspan='2'><span class='bold'>".$row['question']."</span>
+  <br><span class='body-content'>".$row['answer']."</span>";
+     
+	  # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>

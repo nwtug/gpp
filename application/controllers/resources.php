@@ -10,14 +10,30 @@
  */
 class Resources extends CI_Controller 
 {
+	
+	#Constructor to set some default values at class load
+	public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('_document');
+        $this->load->model('_link');
+        $this->load->model('_training');
+
+
+	}
+	
 	# resources home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		
+		$data['area'] = !empty($data['a'])? $data['a']: '';
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['documentsList'] = array();
-		
+		$data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();
+
+		//print_array($data);
 		$this->load->view('resources/home', $data);
 	}
 	
@@ -30,8 +46,13 @@ class Resources extends CI_Controller
 		
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
-		$data['list'] = array();
-		
+        $data['area'] = !empty($data['a'])? $data['a']: '';
+		if(!empty($data['a'])) $data['area'] = $data['a'];
+		$data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();
+
 		$this->load->view('resources/details_list', $data);
 	}
 	

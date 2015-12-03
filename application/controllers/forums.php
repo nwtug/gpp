@@ -15,6 +15,8 @@ class Forums extends CI_Controller
     {
         parent::__construct();
         $this->load->model('_forum');
+        $this->load->model('_faq');
+
 	}
 	
 	
@@ -25,8 +27,12 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['publicForumsList'] = array();
 		
+
+		$data['publicForumsList']= $this->_forum->lists();
+		$data['faqList'] = $this->_faq->lists();
+
+
 		$this->load->view('forums/home', $data);
 	}
 	
@@ -38,9 +44,18 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		$data['type'] = $data['t'];
-		# TODO: Select list based on type passed
-		$data['list'] = array();
+	
 		
+		if($data['type'] == 'public_forums'){
+		$type = 'Y';
+		}
+		else{
+		$type = 'N';	
+		}
+		# TODO: Select list based on type passed
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
+		//$data['secureForumsList']= $this->_forum->lists();
 		$this->load->view('forums/details_list', $data);
 	}
 	
