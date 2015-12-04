@@ -87,7 +87,6 @@ class Providers extends CI_Controller
 		$this->load->view('providers/list_filter', $data);
 	}
 	
-<<<<<<< HEAD
 	# Filter home provider
 	function home_filter()
 	{
@@ -123,7 +122,6 @@ class Providers extends CI_Controller
 
 	}
 
-=======
 	
 	
 	
@@ -185,7 +183,6 @@ class Providers extends CI_Controller
 		}
 	}
 	
->>>>>>> 15f858f3fd0a8925b751d6626671b3af3e6634a0
 }
 
 /* End of controller file */
