@@ -654,6 +654,10 @@ button.btn.grey, button.smallbtn.grey {
 	margin-bottom: 3px;
 }
 
+a.blue-box:hover{
+	color:#FFF !important;
+}
+
 .green-box {
     display: inline-block;
 	background-color: #5cb85c;
