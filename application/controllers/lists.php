@@ -161,13 +161,7 @@ class Lists extends CI_Controller
 								break;
 								
 								default:
-									
-								break;
-						}
-					}
-					
-					else {
-						$data['list'] = $this->_provider->lists(array(
+						   $data['list'] = $this->_provider->lists(array(
 							'category'=>$this->native_session->get($data['t'].'__category'), 
 							'ministry'=>$this->native_session->get($data['t'].'__ministry'), 
 							'registration_country'=>$this->native_session->get($data['t'].'__registration_country'), 
@@ -177,7 +171,10 @@ class Lists extends CI_Controller
 						));
 						
 						$this->load->view('providers/provider_list', $data);
+						}
 					}
+					
+					
 				break;
 				
 				
@@ -239,11 +236,18 @@ class Lists extends CI_Controller
 
 							# filter procurement plans details
 							case 'plans':
-
-								$data['list'] = $this->_procurement_plan->lists(array(
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__fy_start', (!empty($data['startpastyears'])? $data['startpastyears']: ''));
+							$this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
+                            $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$data['list'] = $this->_procurement_plan->lists(array(
 									#todo need to account for status as well
 
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
+										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -256,10 +260,16 @@ class Lists extends CI_Controller
 								# filter procurement plans home portal
 							case 'plans_home';
 
-								$data['list'] = $this->_procurement_plan->lists(array(
-									#todo need to account for status as well
-
+								$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__fy_start', (!empty($data['startpastyears'])? $data['startpastyears']: ''));
+							$this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
+                            $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$data['list'] = $this->_procurement_plan->lists(array(
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
+										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -271,10 +281,18 @@ class Lists extends CI_Controller
 								
 								# filter active notices details 
 							case 'active_notices':
-								$data['list'] = $this->_tender->lists(array(
+							# Store in session for the filter to use
+							$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
 										'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
@@ -290,10 +308,17 @@ class Lists extends CI_Controller
 
 
 
-								$data['list'] = $this->_tender->lists(array(
+							$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
 										'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
@@ -307,11 +332,22 @@ class Lists extends CI_Controller
 
                             # filter best evaluated bidder details 
 							case 'best_evaluated_bidder_details':
-								# TODO Provider parameter not passed
-								$data['list'] = $this->_bid->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-										'provider'=>$this->native_session->get($data['t'].'__provider_id'),
+							
+							
+							$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'providers'=>$this->native_session->get($data['t'].'__providers'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -323,9 +359,19 @@ class Lists extends CI_Controller
 						    # filter best evaluated bidder home portal
 							# TODO Provider parameter not passed
 							case 'best_evaluated_bidder_home':
-								$data['list'] = $this->_bid->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-										'provider'=>$this->native_session->get($data['t'].'__provider_id'),
+							
+							$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'providers'=>$this->native_session->get($data['t'].'__providers'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -340,13 +386,23 @@ class Lists extends CI_Controller
 								
 							# filter contract awards details
 								case 'contract_awards_details':
-									$data['list'] = $this->_contract->lists(array(
-											'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-											'status'=>'active',
-											'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-											'offset'=>$offset,
-											'limit'=>$limit
-									));
+										$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
 								
 
 								$this->load->view('contracts/home_details', $data);
@@ -355,15 +411,23 @@ class Lists extends CI_Controller
 								
 								# filter contract awards home portal
 								case 'contract_awards_home':
-									//print_array($data);
-									$data['list'] = $this->_contract->lists(array(
-											'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-											'status'=>'active',
-											'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-											'offset'=>$offset,
-											'limit'=>$limit
-									));
-									//print_array($data['list']);
+										$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+
+							$data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
 
 									$this->load->view('contracts/home_portal_details', $data);
 
@@ -479,12 +543,14 @@ class Lists extends CI_Controller
 								//print_array($data);
 								# Store in session for the filter to use
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+								$this->native_session->set($data['t'].'__dateposted', (!empty($data['dateposted'])? $data['dateposted']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								# Todo Date not accounted for in lists query
 								$data['list']=$this->_document->lists($data['t'],array(
 										'category'=>$this->native_session->get($data['t'].'__category'),
-										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'phrase'=>$this->native_session->get($data['t'].'__dateposted'),
+										'dateposted'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -499,16 +565,17 @@ class Lists extends CI_Controller
 								//print_array($data);
 								# Store in session for the filter to use
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+								$this->native_session->set($data['t'].'__dateposted', (!empty($data['dateposted'])? $data['dateposted']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								# Todo Date not accounted for in lists query
 								$data['list']=$this->_document->lists($data['t'],array(
-									'category'=>$this->native_session->get($data['t'].'__category'),
-									'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-									'offset'=>$offset,
-									'limit'=>$limit
+										'category'=>$this->native_session->get($data['t'].'__category'),
+										'phrase'=>$this->native_session->get($data['t'].'__dateposted'),
+										'dateposted'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
 								));
-
 							
 								$this->load->view('documents/document_home_details', $data);
 
@@ -520,17 +587,11 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
-								$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
-								$this->native_session->set($data['t'].'__opentype', (!empty($data['opentype'])? $data['opentype']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+								
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_link->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-										'opentype'=>$this->native_session->get($data['t'].'__opentype'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -546,17 +607,11 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
-								$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
-								$this->native_session->set($data['t'].'__opentype', (!empty($data['opentype'])? $data['opentype']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+								
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_link->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
-										'opentype'=>$this->native_session->get($data['t'].'__opentype'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -573,12 +628,14 @@ class Lists extends CI_Controller
 								//print_array($data);
 								# Store in session for the filter to use
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+								$this->native_session->set($data['t'].'__dateposted', (!empty($data['dateposted'])? $data['dateposted']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								# Todo Date not accounted for in lists query
 								$data['list']=$this->_document->lists($data['t'],array(
 										'category'=>$this->native_session->get($data['t'].'__category'),
-										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'phrase'=>$this->native_session->get($data['t'].'__dateposted'),
+										'dateposted'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -594,12 +651,14 @@ class Lists extends CI_Controller
 								//print_array($data);
 								# Store in session for the filter to use
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
+								$this->native_session->set($data['t'].'__dateposted', (!empty($data['dateposted'])? $data['dateposted']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								# Todo Date not accounted for in lists query
 								$data['list']=$this->_document->lists($data['t'],array(
 										'category'=>$this->native_session->get($data['t'].'__category'),
-										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'phrase'=>$this->native_session->get($data['t'].'__dateposted'),
+										'dateposted'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -620,17 +679,21 @@ class Lists extends CI_Controller
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
 								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+								$this->native_session->set($data['t'].'__from_date', (!empty($data['datefrom'])? $data['datefrom']: ''));
+								$this->native_session->set($data['t'].'__to_date', (!empty($data['dateto'])? $data['dateto']: ''));
+
 
 								$data['list'] = $this->_training->lists(array(
 										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'status'=>$this->native_session->get($data['t'].'__status'),
+										'datefrom'=>$this->native_session->get($data['t'].'__from_date'),
+										'dateto'=>$this->native_session->get($data['t'].'__to_date'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
 							
-
 								$this->load->view('training/training_details', $data);
 
 								break;
@@ -647,15 +710,21 @@ class Lists extends CI_Controller
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
 								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+								$this->native_session->set($data['t'].'__from_date', (!empty($data['datefrom'])? $data['datefrom']: ''));
+								$this->native_session->set($data['t'].'__to_date', (!empty($data['dateto'])? $data['dateto']: ''));
+
 
 								$data['list'] = $this->_training->lists(array(
 										'pde'=>$this->native_session->get($data['t'].'__pde_id'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'status'=>$this->native_session->get($data['t'].'__status'),
+										'datefrom'=>$this->native_session->get($data['t'].'__from_date'),
+										'dateto'=>$this->native_session->get($data['t'].'__to_date'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
+							
 
 								//print_array($data['list']);
 						
@@ -857,16 +926,14 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: ''));
+								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: 'Y'));
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_forum->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__is_public'),
+										'is_public'=>$this->native_session->get($data['t'].'__is_public'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -883,16 +950,14 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: ''));
+								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: 'Y'));
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_forum->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__is_public'),
+										'is_public'=>$this->native_session->get($data['t'].'__is_public'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -910,16 +975,14 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: ''));
+								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: 'N'));
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_forum->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__is_public'),
+										'is_public'=>$this->native_session->get($data['t'].'__is_public'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
@@ -936,16 +999,14 @@ class Lists extends CI_Controller
 								$data = restore_bad_chars_in_array($data);
 
 								# Store in session for the filter to use
-								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: ''));
+								$this->native_session->set($data['t'].'__is_public', (!empty($data['is_public'])? $data['is_public']: 'N'));
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
-								$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 								$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 
 								$data['list'] = $this->_forum->lists(array(
-										'pde'=>$this->native_session->get($data['t'].'__is_public'),
+										'is_public'=>$this->native_session->get($data['t'].'__is_public'),
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-										'status'=>$this->native_session->get($data['t'].'__status'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));

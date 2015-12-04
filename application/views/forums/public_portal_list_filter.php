@@ -8,10 +8,10 @@
 
 
 <tr><td><select id='search__forumcategories' name='search__forumcategories' data-final='category' class='drop-down' style='width:100%;'>
-<?php echo get_option_list($this, 'forumcategories', 'select', '', array('selected'=>$this->native_session->get('forum__category')));?>
+<?php echo get_option_list($this, 'forumcategories', 'select', '', array('selected'=>$this->native_session->get('forums__category')));?>
 </select></td></tr>
 
-<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('public__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='public_portal_home' style='width:100%;'/></td></tr>
+<tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('forums__phrase');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='public_portal_home' style='width:100%;'/></td></tr>
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('forums')" style="width:100%;">Apply Filter</button>
   <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>

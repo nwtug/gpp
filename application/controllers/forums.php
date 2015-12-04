@@ -29,7 +29,8 @@ class Forums extends CI_Controller
 		if(!empty($data['a'])) $data['area'] = $data['a'];
 		
 
-		$data['publicForumsList']= $this->_forum->lists();
+        $data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();		
 		$data['faqList'] = $this->_faq->lists();
 
 
@@ -45,16 +46,10 @@ class Forums extends CI_Controller
 		
 		$data['type'] = $data['t'];
 	
-		
-		if($data['type'] == 'public_forums'){
-		$type = 'Y';
-		}
-		else{
-		$type = 'N';	
-		}
 		# TODO: Select list based on type passed
 		$data['faqList'] = $this->_faq->lists();
-		$data['publicForumsList']= $this->_forum->lists();
+		$data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();
 		//$data['secureForumsList']= $this->_forum->lists();
 		$this->load->view('forums/details_list', $data);
 	}

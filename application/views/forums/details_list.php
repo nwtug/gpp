@@ -20,8 +20,8 @@ else if($type == 'secure_forums'){ ?>
 <tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
 
 <?php
-            if(isset($publicForumsList)){
-                foreach($publicForumsList as $list){
+            if(isset($secureForumsList)){
+                foreach($secureForumsList as $list){
                     ?><tr><td ><?=$list['topic']?></td><td><span class='grey-box'><?=$list['category']?></span></td><td>(<?=$list['no_of_contributors']?>)</td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?></td></tr>
 
 <?php }
