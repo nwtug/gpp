@@ -79,13 +79,9 @@ class _account extends CI_Model
 					'telephone'=>$user['telephone'],  
 					'telephone_carrier'=>(!empty($user['telephone_carrier'])? $user['telephone_carrier']: ''),
 					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
-<<<<<<< HEAD
-					'user_type'=>$user['group_type']
-=======
-					'user_type'=>$user['group_type'], 
+					'user_type'=>$user['group_type'],
 					'organization_id'=>$user['organization_id'], 
 					'organization_name'=>$user['organization_name']
->>>>>>> 15f858f3fd0a8925b751d6626671b3af3e6634a0
 			);
 			
 			# The allowed permissions for the user
