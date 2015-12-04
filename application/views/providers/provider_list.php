@@ -13,7 +13,7 @@ echo "<table>
 		<td><a href='".base_url()."providers/details/id/".$row['organization_id']."' class='shadowbox closable'>".$row['contact_name']."</a></td>
 		<td>".$row['tax_id']."</td>
 		<td>".(!empty($row['category'])? $row['category']: $row['ministry'])."</td>
-		<td><a href='javascript:;'>".$row['rop_number']."</a></td>
+		<td>".(!empty($row['rop_number'])? "<a href='javascript:;'>".$row['rop_number']."</a>": "")."<div class='green-box btn'>Generate</div></td>
 		<td>".$row['country']."</td>
 		<td>".$row['address']."</td>
 		<td>".strtoupper($row['status'])."</td>

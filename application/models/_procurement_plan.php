@@ -33,6 +33,7 @@ class _procurement_plan extends CI_Model
 		if($data['fy_end__pastyears'] > $data['fy_start__pastyears']){
 			$result = $this->_query_reader->run('add_procurement_plan', array(
 				'organization_id'=>$data['pde_id'], 
+				'reference_number'=>$data['reference_number'], 
 				'financial_year_start'=>$data['fy_start__pastyears'].'-01-01', 
 				'financial_year_end'=>$data['fy_end__pastyears'].'-12-31', 
 				'title'=>htmlentities($data['name'], ENT_QUOTES), 

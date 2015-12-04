@@ -94,6 +94,21 @@ class Faqs extends CI_Controller
 	}
 	
 	
+	
+	
+	
+	
+	# faq question details
+	function details()
+	{
+		$data = filter_forwarded_data($this);
+		$data['faq'] = $this->_faq->details($data['d']);
+		if(empty($data['faq'])) $data['msg'] = "ERROR: FAQ details can not be resolved.";
+		
+		$this->load->view('faqs/faq_details', $data);
+	}
+	
+	
 }
 
 /* End of controller file */

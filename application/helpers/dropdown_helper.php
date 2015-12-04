@@ -96,11 +96,10 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "businesscategories":
-			$types = $obj->_query_reader->get_list(($more['type'] == 'pde'? 'get_government_ministries': 'get_business_categories'));
-			$categoryName = $more['type'] == 'pde'? 'Ministry': 'Category';
+			$types = $obj->_query_reader->get_list(($more['type'] == 'pde'? 'get_pde_categories': 'get_business_categories'));
 			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			if($return == 'div') $optionString .= "<div data-value=''>Select a Category</div>";
+			else $optionString .= "<option value=''>Select a Category</option>";
 			
 			foreach($types AS $row)
 			{
@@ -341,13 +340,15 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "documentstatus":
 		case "linkstatus":
 		case "trainingstatus":
+		case "providerstatus":
 		
 			if($list_type == 'contractstatus') {
 				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
 				else if($obj->native_session->get('__user_type') == 'pde') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived','saved'=>'Saved');
 				else $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
 			}
-			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'submitted');
+			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'Submitted');
+			else if($list_type == 'providerstatus') $types = array('active'=>'Active', 'inactive'=>'Inactive', 'suspended'=>'Suspended');
 			else if( in_array($list_type, array('documentstatus','linkstatus','trainingstatus')) ) $types = array('active'=>'Active', 'inactive'=>'Inactive');
 			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
 			
@@ -607,8 +608,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			 
 			foreach($types AS $key=>$row)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='reports/download/t/".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '')." data-url='reports/download/t/".$key."'>".$row."</option>";
+				if($return == 'div') $optionString .= "<div class='ignore-pop' data-value='".$key."' data-url='reports/download/t/".$key."'>".$row."</div>";
+				else $optionString .= "<option class='ignore-pop' value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '')." data-url='reports/download/t/".$key."'>".$row."</option>";
 			}
 		break;
 		

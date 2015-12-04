@@ -87,6 +87,7 @@ class Providers extends CI_Controller
 		$this->load->view('providers/list_filter', $data);
 	}
 	
+<<<<<<< HEAD
 	# Filter home provider
 	function home_filter()
 	{
@@ -122,6 +123,69 @@ class Providers extends CI_Controller
 
 	}
 
+=======
+	
+	
+	
+	
+	# update a provider's status
+	function update_status()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['t']) && !empty($data['list'])) $response = $this->_provider->update_status($data['t'], explode('--',$data['list']));
+		
+		# all good
+		if(!empty($response) && $response['boolean']){
+			$data['msg'] = 'The provider status has been updated.';
+			$data['area'] = 'refresh_list_msg';
+		} 
+		# there was an error
+		else {
+			$data['msg'] = (!empty($data['t']) && !empty($data['list']))? 'ERROR: There was an error updating the provider status.': 'ERROR: This action can not be resolved';
+			$data['area'] = 'basic_msg';
+		}
+		
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
+	
+	
+	
+	# send a message to a list of selected providers
+	function message()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted
+		if(!empty($_POST)){
+			$response = $this->_provider->message($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])){
+				$data['msg'] = 'ERROR: There was an error sending to';
+				if(!empty($response['unsent'])) $data['msg'] .= ' the following emails: '.implode(', ', $response['unsent']);
+				else $data['msg'] .= ' the selected providers.';
+				
+				$data['area'] = 'basic_msg';
+			}
+		} 
+		# success
+		else if(!empty($data['result'])){
+			$data['msg'] = 'The messages have been sent.';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		
+		# simply going to a form to send message
+		else {
+			$data['action'] = 'providers/message';
+			$data['redirect'] = 'providers/message/result/sent';
+			$data['id_list'] = implode(',',explode('--',$data['list']));
+			$this->load->view('pages/send_from_list', $data);
+		}
+	}
+	
+>>>>>>> 15f858f3fd0a8925b751d6626671b3af3e6634a0
 }
 
 /* End of controller file */

@@ -1,10 +1,10 @@
 <tr>
     <td>Your Name: </td>
-    <td><input type="text" id="yourname" name="yourname" value="" maxlength="100"/></td>
+    <td><input type="text" id="yourname" name="yourname" maxlength="100" <?php echo ($this->native_session->get('__first_name')? " value='".$this->native_session->get('__first_name').' '.$this->native_session->get('__last_name')."' style='font-weight:bold;' readonly": " value=''");?>/></td>
   </tr>
   <tr>
     <td>Email Address: </td>
-    <td><input type="text" id="emailaddress" name="emailaddress" class="email" value="" maxlength="100"/></td>
+    <td><input type="text" id="emailaddress" name="emailaddress" class="email" maxlength="100" <?php echo ($this->native_session->get('__email_address')? " value='".$this->native_session->get('__email_address')."' style='font-weight:bold;' readonly": " value=''");?>/></td>
   </tr>
   <tr>
     <td>Telephone: </td>

@@ -21,7 +21,7 @@ class Reports extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
-		$data['list'] = $this->_report->lists();
+		$data['list'] = array();#$this->_report->lists();
 		
 		$this->load->view('reports/manage', $data);
 	}
@@ -40,7 +40,26 @@ class Reports extends CI_Controller
 	
 	
 	
-	
+	# download a report that has been generated
+	function download()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->helper('report');
+		$report = $this->_report->report_to_array($data['t']);
+		
+		# download CSV
+		if($data['t'] == 'download_csv'){
+			send_download_headers("file_".strtotime('now').".csv");
+			echo array2csv($report);
+			die();
+		}
+		# download PDF
+		else if($data['t'] == 'download_pdf'){
+			$this->load->model('_file');
+			$reportType = $this->native_session->get('__report_type')? $this->native_session->get('__report_type'): 'procurement_plan_tracking';
+			$this->_file->generate_pdf(generate_report_html($report, $reportType), UPLOAD_DIRECTORY.'file_'.strtotime('now').'.pdf', 'download', array('size'=>'A4','orientation'=>'landscape'));
+		}
+	}
 	
 	
 	

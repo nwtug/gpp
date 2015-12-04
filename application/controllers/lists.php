@@ -61,8 +61,21 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
 					$this->native_session->set($data['t'].'__ministry', (!empty($data['ministry'])? $data['ministry']: ''));
 					$this->native_session->set($data['t'].'__registration_country', (!empty($data['registration_country'])? $data['registration_country']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
+<<<<<<< HEAD
+=======
+					$data['list'] = $this->_provider->lists(array(
+						'category'=>$this->native_session->get($data['t'].'__category'), 
+						'ministry'=>$this->native_session->get($data['t'].'__ministry'), 
+						'registration_country'=>$this->native_session->get($data['t'].'__registration_country'), 
+						'status'=>$this->native_session->get($data['t'].'__status'), 
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+>>>>>>> 15f858f3fd0a8925b751d6626671b3af3e6634a0
 					
 					
 					if(!empty($data['parentarea'])){

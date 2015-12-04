@@ -9,8 +9,14 @@ echo "<table>
 		$i++;
 		echo "<tr> 
 		<td><input id='select_".$row['procurement_plan_id']."' name='selectall[]' type='checkbox' value='".$row['procurement_plan_id']."' class='bigcheckbox'><label for='select_".$row['procurement_plan_id']."'></label></td>
+<<<<<<< HEAD
 		<td><a href='javascript:;'>".$row['pde']."</a></td>
 		<td>".$row['name']."</td>
+=======
+		<td><a href='".base_url()."accounts/view_pde/d/".$row['pde_id']."' class='shadowbox closable'>".$row['pde']."</a></td>
+		<td>".$row['name']
+		.(!empty($row['reference_number'])? "<BR>(".$row['reference_number'].")":"")."</td>
+>>>>>>> 15f858f3fd0a8925b751d6626671b3af3e6634a0
 		<td>FY ".date('Y', strtotime($row['financial_year_start']))."</td>
 		<td>FY ".date('Y', strtotime($row['financial_year_end']))."</td>
 		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_created']));

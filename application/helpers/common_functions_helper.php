@@ -882,6 +882,34 @@ function is_valid_email($email, $isRequired = true)
 
 
 
+# Generate a PDF document
+function generate_pdf($document, $url, $action, $paperSetting=array('size'=>'A4','orientation'=>'portrait'))
+{
+	# get the external library that generates the PDF
+	require_once(HOME_URL."external_libraries/dompdf/dompdf_config.inc.php");
+
+	# Strip slashes if this PHP version supports get_magic_quotes
+	$document = get_magic_quotes_gpc()? stripslashes($document): $document;
+		
+	$dompdf = new DOMPDF();
+	$dompdf->load_html($document);
+	$dompdf->set_paper($paperSetting['size'], $paperSetting['orientation']);
+	$dompdf->render();
+	
+	# Store the entire PDF as a string in $pdf
+	$pdf = $dompdf->output();
+	# Write $pdf to disk
+	file_put_contents($url, $pdf);
+
+	# If the user wants to download the file, then stream it; otherwise display it in the browser as is.
+	if($action == 'download')
+	{
+		$dompdf->stream($filename, array("Attachment" => true));
+		exit(0);
+	}
+}
+
+
 
 
 
@@ -920,6 +948,50 @@ function force_download($folder, $file)
 		}
 	}
 }
+
+
+
+
+# Send download headers
+function send_download_headers($filename) 
+{
+    # disable caching
+    $now = gmdate("D, d M Y H:i:s");
+    header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+    header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+    header("Last-Modified: {$now} GMT");
+
+    # force download  
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+
+    # disposition / encoding on response body
+    header("Content-Disposition: attachment;filename={$filename}");
+    header("Content-Transfer-Encoding: binary");
+}
+
+
+
+# Convert an array to csv
+function array2csv(array &$array)
+{
+   if(count($array) == 0) 
+   {
+     return null;
+   }
+   ob_start();
+   $df = fopen("php://output", 'w');
+   fputcsv($df, array_keys(reset($array)));
+   
+   foreach($array AS $row) 
+   {
+      fputcsv($df, $row);
+   }
+   fclose($df);
+   return ob_get_clean();
+}
+
 
 
 
@@ -989,8 +1061,32 @@ function document_class($url)
 
 
 
-
-
+# get the quarter dates based on the desired formats
+function get_quarter_date($quarter, $type)
+{
+	$quarterParts = explode('-',$quarter);
+	switch($quarterParts[1]){
+        case "first":
+			if($type == 'start') return $quarterParts[0]."-01-01";
+        	else return date('Y-m-d', strtotime($quarterParts[0]."-03 next month - 1 hour"));
+        break;
+		
+		case "second":
+			if($type == 'start') return $quarterParts[0]."-04-01";
+        	else return date('Y-m-d', strtotime($quarterParts[0]."-06 next month - 1 hour"));
+		 break;
+		
+		case "third":
+        	if($type == 'start') return $quarterParts[0]."-07-01";
+        	else return date('Y-m-d', strtotime($quarterParts[0]."-09 next month - 1 hour"));
+		break;
+		
+		case "fourth":
+        	if($type == 'start') return $quarterParts[0]."-10-01";
+        	else return date('Y-m-d', strtotime($quarterParts[0]."-12-31"));
+		break;
+    }
+}
 
 
 
