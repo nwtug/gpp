@@ -22,8 +22,8 @@
 </select>
   </span></td>
 </tr>
-<tr><td colspan="2"><select id='providers' name='procurementtypes' data-final='providers' class='drop-down' style='width:100%;'>
-    <?php echo get_option_list($this, 'providers', 'select', '', array('selected'=>$this->native_session->get('tender__providers') )); ?>
+<tr><td colspan="2"><select id='providers' name='providers' data-final='providers' class='drop-down' style='width:100%;'>
+    <?php echo get_option_list($this, 'allproviders', 'select', '', array('selected'=>$this->native_session->get('tender__providers') )); ?>
   </select><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='best_evaluated_bidder_details' style='width:100%;'/></td></tr>
 
 
