@@ -2,7 +2,6 @@
 $stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 $listCount = count($list);
 $i = 0;
-
 echo "<table>
 <tr><th style='width:1%;'>&nbsp;</th><th>PDE</th><th>Subject</th><th>Procurement Plan</th><th>Bids</th><th>Procurement Type</th><th>Procurement Method</th><th>Deadline</th><th>Display Start</th><th>Display End</th><th>Status</th><th>Added</th></tr>";
 	foreach($list AS $row) {

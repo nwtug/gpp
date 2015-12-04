@@ -54,6 +54,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'forgot_password'));
 
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
+<?php echo minify_js('accounts__recover_password', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

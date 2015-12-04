@@ -62,6 +62,6 @@ $this->load->view('pages/contact_us_form');
 
 
 
-<?php echo minify_js('contact_us', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
+<?php echo minify_js('pages__contact_us', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

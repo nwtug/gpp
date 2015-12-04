@@ -15,14 +15,37 @@ class Pages extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('_page');
 
+
+$this->load->model('_document');
+        $this->load->model('_link');
+        $this->load->model('_training');
+		$this->load->model('_provider');
+		$this->load->model('_page');
+		$this->load->model('_tender');
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
+        $this->load->model('_forum');
+        $this->load->model('_faq');
 	}
 
 	# home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+			$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
 		$this->load->view('home', $data);
 	}
 
@@ -33,11 +56,20 @@ class Pages extends CI_Controller
 		$data = filter_forwarded_data($this);
 
 		# Collect all data needed for the UI
-		$data['procurementPlanList'] = array();
-		$data['activeProvidersList'] = array();
-		$data['documentsList'] = array();
-		$data['publicForumsList'] = array();
-
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		$data['publicForumsList'] = array();
+        $data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
+		$data['secureForumsList']= $this->_forum->lists();	
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
 		$this->load->view('home_portal', $data);
 	}
 
@@ -48,8 +80,20 @@ class Pages extends CI_Controller
 		$data = filter_forwarded_data($this);
 
 		$data['type'] = $data['t'];
+		
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		
+        $data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
+		$data['secureForumsList']= $this->_forum->lists();	
 		# TODO: Select list based on type passed
-		$data['list'] = array();
 		$this->load->view('pages/home_list', $data);
 	}
 
@@ -112,6 +156,31 @@ class Pages extends CI_Controller
 		} 
 		else $this->load->view('pages/verify_document', $data);
 	}
+
+# Get values filled in by a form layer and put them in a session for layer use
+	function get_layer_form_values()
+	{
+		$data = filter_forwarded_data($this);
+		
+		switch($data['type'])
+		{
+			
+			
+			case 'verify_document':
+			print_r($_POST);
+				
+				$data['msg'] = 'Verified';
+				
+			break;
+			
+			default:
+			break;
+		}
+		
+		$data['area'] = "basic_msg";
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
 
 	# contact us page
 	function contact_us()

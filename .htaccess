@@ -4,7 +4,7 @@ AddHandler x-mapp-php5 .php
 </IfModule>
 
 RewriteEngine On
-RewriteBase /pss
+RewriteBase /pss-version-1.0
 RewriteCond %{REQUEST_URI} ^system.*
 RewriteCond $1 !^(index\.php|images|js|uploads|css|robots\.txt)
 

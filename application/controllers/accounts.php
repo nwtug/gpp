@@ -183,7 +183,7 @@ class Accounts extends CI_Controller
 
 		}
 		else
-			$this->load->view('account/recover_password', $data);
+			$this->load->view('accounts/recover_password', $data);
 	}
 	
 	

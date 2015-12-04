@@ -12,6 +12,7 @@ class _tender extends CI_Model
 	# list of tenders
 	function lists($scope=array('phrase'=>'', 'procurement_type'=>'', 'procurement_method'=>'', 'pde'=>'', 'by_deadline'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
 	{
+		$scope['phrase'] = '';
 		$userType = $this->native_session->get('__user_type');
 		$organizationId = $this->native_session->get('__organization_id');
 		
@@ -107,6 +108,4 @@ class _tender extends CI_Model
 	}
 	
 }
-
-
 ?>

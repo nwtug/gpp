@@ -209,6 +209,4 @@ class _bid extends CI_Model
 	
 	
 }
-
-
 ?>
