@@ -79,7 +79,7 @@ class _account extends CI_Model
 					'telephone'=>$user['telephone'],  
 					'telephone_carrier'=>(!empty($user['telephone_carrier'])? $user['telephone_carrier']: ''),
 					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
-					'user_type'=>$user['group_type'], 
+					'user_type'=>$user['group_type'],
 					'organization_id'=>$user['organization_id'], 
 					'organization_name'=>$user['organization_name']
 			);
@@ -323,13 +323,6 @@ class _account extends CI_Model
 	
 	
 	
-	
-	
-	# Get the PDE details
-	function details($id, $type)
-	{
-		if(in_array($type, array('pde','provider'))) return $this->_query_reader->get_row_as_array('get_organization_details_by_id', array('organization_id'=>$id));
-	}
 	
 	
 	

@@ -55,10 +55,6 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 </select></td></tr></table>
 </td></tr>
 
-<tr><td class='label'>Category</td><td><select id='tender__procurementcategories' name='tender__procurementcategories' class='drop-down'>
-<?php echo get_option_list($this, 'procurementcategories', 'select', '', array('selected'=>$plan['category']));?> 
-</select></td></tr>
-
 <tr><td class='label'>Summary</td><td><textarea id='summary' name='summary' placeholder='A brief description of the tender notice (Max 500 characters)' class='limit-chars' data-max='500' style='height: 150px;'><?php echo (!empty($tender['summary'])? $tender['summary']: '');?></textarea></td></tr>
 
 <tr><td class='label'>Document</td><td><input type='text' id='document' name='document' class='filefield' data-val='pdf,doc,docx' data-size='500000' placeholder='Attach Tender Document (PDF, Word. Max 500MB)' value='<?php echo (!empty($tender['document'])? $tender['document']: '');?>'/></td></tr>
@@ -93,6 +89,6 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('new_tender', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.datepick.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js', 'pss.datepicker.js'));?>
+<?php echo minify_js('tenders__new_tender', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.datepick.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js', 'pss.datepicker.js'));?>
 </body>
 </html>

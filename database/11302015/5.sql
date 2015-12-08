@@ -3,7 +3,7 @@ ALTER TABLE `tender_notices` ADD `budget_amount` FLOAT NOT NULL AFTER `status` ;
 
 ALTER TABLE `faqs` CHANGE `answer` `answer` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ;
 
-UPDATE `pss_v1`.`faqs` SET `question` = 'What is the format of a procurement number?', `answer` = 'The basic Procurement Number consists of five parts as follows:
+UPDATE `pss`.`faqs` SET `question` = 'What is the format of a procurement number?', `answer` = 'The basic Procurement Number consists of five parts as follows:
 <ul>
 <li type=''square''> The Procuring Entity - Up to five letters being the commonly used abbreviation which identifies the Procuring Entity. (e.g. “MOFEP” for the Ministry of Finance & Economic Planning)</li> 
 
