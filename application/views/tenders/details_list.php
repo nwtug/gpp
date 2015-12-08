@@ -23,7 +23,7 @@
     <?php }
 
     else if($type == 'active_notices'){ ?>
-      <tr><th>Procuring/Disposal Entity</th><th>Subject of Procurement</th><th>Procurement Type [Procurement Method]</th><th>Deadline</th></tr>
+      <tr><th>Procuring/Disposal Entity</th><th>Subject of Procurement</th><th>Procurement Reference Number</th><th>Procurement Type [Procurement Method]</th><th>Deadline</th></tr>
        <?php
             if(isset($tenderList)){
                 foreach($tenderList as $list){
@@ -31,7 +31,7 @@
       
 <tr><td ><?=$list['pde']?></td><td><?=$list['subject']?><br><a href="<?=base_url().'tenders/view_one/d/'.$list['tender_id']?>" class='shadowbox closable blue-box'>View Details</a>
 </td>
-  <td><span class="grey-box"><?=$list['procurement_type']?>  </span> <span class="dark-grey">[<?=ucwords(str_replace('_',' ',$list['procurement_method']))?>]</span></td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['date_created']))?></td></tr>
+  <td><?=$list['reference_number']?></td><td><span class="grey-box"><?=$list['procurement_type']?>  </span> <span class="dark-grey">[<?=ucwords(str_replace('_',' ',$list['procurement_method']))?>]</span></td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['date_created']))?></td></tr>
 <?php
                 }
 
@@ -39,11 +39,11 @@
     <?php }
 
     else if($type == 'best_evaluated_bidders'){ ?>
-      <tr><th>Date Posted</th><th>Procuring/Disposing Entity</th><th>Procurement Reference Number</th><th>Selected Provider</th><th>Subject</th><th>Date BEB Expires</th><th>Status</th><th>BEB Price</th></tr>
+      <tr><th>Date Posted</th><th>Procuring/Disposing Entity</th><th>Selected Provider</th><th>Subject</th><th>Date BEB Expires</th><th>Status</th><th>BEB Price</th></tr>
     <?php
             if(isset($bebList)){
                 foreach($bebList as $list){
-                    ?>   <tr><td ><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?></td><td><?=$list['pde']?></td><td>to do</td><td><?=$list['provider']?></td><td><?=$list['tender_notice']?><br><a href="<?=base_url().'bids/view_one/d/'.$list['bid_id']?>" class="shadowbox blue-box closable">View Details</a>
+                    ?>   <tr><td ><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?></td><td><?=$list['pde']?></td><td><?=$list['provider']?></td><td><?=$list['tender_notice']?><br><a href="<?=base_url().'bids/view_one/d/'.$list['bid_id']?>" class="shadowbox blue-box closable">View Details</a>
         </td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['valid_end_date']))?></td><td><div class="green-box"><?=$list['status']?></div></td><td><?=$list['bid_amount']?><?=$list['bid_currency']?></td></tr>
       <?php
                 }
