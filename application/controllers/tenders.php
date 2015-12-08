@@ -31,8 +31,6 @@ class Tenders extends CI_Controller
 		$data['tenderList'] = $this->_tender->lists();
 		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
 		$data['contractList']=$this->_contract->lists();
-
-		print_array($data);
 		
 		$this->load->view('tenders/home', $data);
 	}
