@@ -15,6 +15,10 @@ class Tenders extends CI_Controller
     {
         parent::__construct();
         $this->load->model('_tender');
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
 	}
 	
 	# tender notices home page
@@ -22,7 +26,11 @@ class Tenders extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['procurementPlanList'] = array();
+		
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
 		
 		$this->load->view('tenders/home', $data);
 	}
@@ -37,6 +45,15 @@ class Tenders extends CI_Controller
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
+		
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
 		
 		$this->load->view('tenders/details_list', $data);
 	}
@@ -79,12 +96,23 @@ class Tenders extends CI_Controller
 		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
 		else if($data['t'] == 'active_notices') $folder = 'tenders';
 		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
-		else if($data['t'] == 'contract_awards') $folder = 'bids';
+		else if($data['t'] == 'contract_awards') $folder = 'contracts';
 		
 		$this->load->view($folder.'/home_filter', $data);
 	}
-	
-	
+
+    # filter tenders for the home page
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
+		else if($data['t'] == 'active_notices') $folder = 'tenders';
+		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
+		else if($data['t'] == 'contract_awards') $folder = 'contracts';
+		
+		$this->load->view($folder.'/home_portal_filter', $data);
+	}	
 	
 	# to add a tender
 	function add()

@@ -12,7 +12,7 @@
 }
 
 .body-form-area {
-	height:calc(90vh - 120px) !important;
+	height:calc(80vh - 120px) !important;
 	padding:15px !important; 
 	vertical-align: top;
 }

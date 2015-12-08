@@ -33,7 +33,7 @@ class _page extends CI_Model
 		$certificate['certificate_id'] = is_numeric($formData['trackingnumber'])?$formData['trackingnumber']:'';
 
 		# [get_certificate] query code provided by rogers
-		return $this->_query_reader->get_count('get_certificate',$certificate);
+		return $this->_query_reader->get_count('verify_certificate_info',$certificate);
 
 	}
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo IMAGE_URL;?>favicon.ico">
 	<title><?php echo SITE_TITLE.': Tender Notices';?></title>
-    
+
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/external-fonts.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/pss.list.css" type="text/css" media="screen" />
@@ -16,7 +16,7 @@
 
 <body>
 <table class='body-table water-mark-bg'>
-<?php 
+<?php
 $this->load->view('addons/public_header');
 
 $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
@@ -31,27 +31,28 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <table class='home-list-table'>
 <tr><th class='h3 blue rop-icon'>Tender Notices</th><th class='btn closer' data-rel='pages/portal'></th></tr>
 <tr><td colspan='2'>
-<table class='list-tabs' data-type='paginationdiv__tendernoticesearch' data-page='tenders/tenders_list'><tr>
+<table class='list-tabs' data-type='paginationdiv__tender' data-page='tenders/tenders_list'><tr>
 <td id='procurement_plans' <?php if(empty($area) || !empty($area) && $area == 'procurement_plans') echo "class='active'";?>>Procurement Plans</td>
 <td id='active_notices' <?php if(!empty($area) && $area == 'active_notices') echo "class='active'";?>>Active Notices</td>
 <td id='best_evaluated_bidders' <?php if(!empty($area) && $area == 'best_evaluated_bidders') echo "class='active'";?>>Best Evaluated Bidders</td>
 <td id='contract_awards' <?php if(!empty($area) && $area == 'contract_awards') echo "class='active'";?>>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td colspan='2'><div id='paginationdiv__tendernoticesearch_list' class='page-list-div'>
+<tr><td colspan='2'><div id='paginationdiv__tender_list' class='page-list-div'>
+
 <?php $this->load->view('tenders/details_list',array('type'=>(!empty($area)? $area: 'procurement_plans'),'list'=>$procurementPlanList));?>
-</div></td></tr>
+</div><button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
-         
-<div id='tendernotice_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tendernoticesearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tendernoticesearch_action" id="paginationdiv__tendernoticesearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/tenders";?>" />
-<input name="paginationdiv__tendernoticesearch_maxpages" id="paginationdiv__tendernoticesearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
-<input name="paginationdiv__tendernoticesearch_noperlist" id="paginationdiv__tendernoticesearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-<input name="paginationdiv__tendernoticesearch_showdiv" id="paginationdiv__tendernoticesearch_showdiv" type="hidden" value="paginationdiv__tendernoticesearch_list" />
-<input name="paginationdiv__tendernoticesearch_extrafields" id="paginationdiv__tendernoticesearch_extrafields" type="hidden" value="" /></div>
-          
 
-</td><td width='1%' class='filter-list'>FILTER</td></tr></table>
+<div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="tender" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender";?>" />
+<input name="paginationdiv__tender_maxpages" id="paginationdiv__tender_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+<input name="paginationdiv__tender_noperlist" id="paginationdiv__tender_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+<input name="paginationdiv__tender_showdiv" id="paginationdiv__tender_showdiv" type="hidden" value="paginationdiv__tender_list" />
+<input name="paginationdiv__tender_extrafields" id="paginationdiv__tender_extrafields" type="hidden" value="" /></div>
+
+
+</td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'tenders/home_filter/t/procurement_plans';?>'>FILTER</td></tr></table>
 </td></tr>
 </table>
 
@@ -68,6 +69,6 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+<?php echo minify_js('tenders__home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
 </body>
 </html>
