@@ -19,7 +19,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Procurement: Add Plan' ));
-$this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'procurement' ));
 ?>
 
 <tr>
@@ -39,12 +39,6 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <?php }?>
 
 <tr><td class='label'>Plan Name</td><td><input type='text' id='name' name='name' placeholder='Plan Name' value='<?php echo (!empty($plan['name'])? $plan['name']: '');?>'/></td></tr>
-
-
-<tr><td class='label'>Reference Number</td><td style='padding-right:0px;'>
-<table class='default-table' style="width:calc(100% + 18px);"><tr><td style='padding-left:0px;width:99%;'><input type='text' id='reference_number' name='reference_number' placeholder='Reference Number' style="width:calc(100% - 5px);" value='<?php echo (!empty($plan['reference_number'])? $plan['reference_number']: '');?>'/></td>
-<td style='width:1%;padding-left:10px;'><div class='question-icon shadowbox closable' data-url='<?php echo base_url().'faqs/details/d/1';?>'>&nbsp;</div></td></tr></table>
-</td></tr>
 
 <tr><td class='label'>Financial Period</td><td style='padding-right:0px;'>
 <table class='default-table'><tr><td style='padding-left:0px;'><select id='fy_start__pastyears' name='fy_start__pastyears' class='drop-down'>

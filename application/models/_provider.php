@@ -76,7 +76,7 @@ class _provider extends CI_Model
 	{
 		$sent = $notSent = array();
 		$users = $this->_query_reader->get_list('get_users_in_organizations',array('organization_ids'=>implode("','",explode(',',$data['idlist'])) ));
-		$message = array('code'=>'custom_internal_message', 'subject'=>$data['subject'], 'details'=>$data['details']);
+		$message = array('code'=>'custom_internal_message', 'subject'=>$data['reason__contactreason'], 'details'=>$data['details']);
 		
 		foreach($users AS $row) {
 			$result = $this->_messenger->send($row['user_id'], $message, array('email'),TRUE);
@@ -85,6 +85,89 @@ class _provider extends CI_Model
 		}
 		
 		return array('boolean'=>!(empty($sent) && !empty($notSent)), 'not_sent'=>$notSent);		
+	}
+	
+	
+	
+	
+	
+	
+	
+	# generate the provider certificate for the provided period
+	function generate_certificate($data)
+	{
+		$result = FALSE;
+		$this->load->model('_account');
+		$provider = $this->_account->details($data['providerid'], 'provider');
+		
+		if(!empty($provider)){
+			$this->load->helper('report');
+			$this->load->model('_file');
+			$data['provider_name'] = html_entity_decode($provider['name'], ENT_QUOTES);
+			$data['certificate_number'] = generate_certificate_number($provider['organization_id']);
+			$fileName = 'certificate_'.$data['certificate_number'].'.pdf';
+			
+			# now update the provider certificate number
+			$result = $this->_query_reader->run('update_provider_certificate', array(
+					'rop_number'=>$data['certificate_number'], 
+					'rop_certificate_url'=>$fileName, 
+					'registration_fee'=>$data['amount_paid'], 
+					'expiry_date'=>date('Y-m-d',strtotime(make_us_date($data['valid_until']))) ,
+					'organization_id'=>$provider['organization_id'],
+					'user_id'=>$this->native_session->get('__user_id')
+				));
+				
+			$this->_file->generate_pdf(
+				generate_certificate_html($data, 'provider_certificate'), 
+				UPLOAD_DIRECTORY.$fileName, 
+				'download',
+				array('size'=>'A4','orientation'=>'landscape')
+			);
+		}
+		return array('boolean'=>$result, 'file_name'=>($result? $fileName: ''));
+	}
+	
+	
+	
+	
+	# suspend the providers
+	function suspend($data)
+	{
+		$ids = explode(',', $data['idlist']);
+		
+		# add the details of the suspension
+		$result = $this->_query_reader->run('add_suspension_reason', array(
+			'id_list'=>implode("','", $ids), 
+			'reason'=>htmlentities($data['reason'], ENT_QUOTES),
+			'expiry_date'=>date('Y-m-d',strtotime(make_us_date($data['expiry_date']))),
+			'user_id'=>$this->native_session->get('__user_id')
+		));
+		
+		# update the organization status to suspended and expire the registration period
+		if($result) {
+			$result = $this->_query_reader->run('update_provider_suspension', array(
+				'id_list'=>implode("','", $ids), 
+				'user_id'=>$this->native_session->get('__user_id')
+			));
+		}
+		
+		# terminate any active projects by the selected providers
+		if($result) {
+			$result = $this->_query_reader->run('terminate_provider_contracts', array(
+				'id_list'=>implode("','", $ids), 
+				'user_id'=>$this->native_session->get('__user_id')
+			));
+			
+			if($result){
+				$result = $this->_query_reader->run('add_termination_status_due_to_suspension', array(
+					'id_list'=>implode("','", $ids), 
+					'user_id'=>$this->native_session->get('__user_id'), 
+					'organization_id'=>$this->native_session->get('__organization_id')
+				));
+			}
+		}
+		
+		return array('boolean'=>$result);
 	}
 	
 	

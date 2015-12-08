@@ -85,6 +85,30 @@ class Procurement_plans extends CI_Controller
 	
 	
 	
+	# update a provider's status
+	function update_status()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($data['t']) && !empty($data['list'])) $response = $this->_procurement_plan->update_status($data['t'], explode('--',$data['list']));
+		
+		# all good
+		if(!empty($response) && $response['boolean']){
+			$data['msg'] = 'The procurement plan status has been updated.';
+			$data['area'] = 'refresh_list_msg';
+		} 
+		# there was an error
+		else {
+			$data['msg'] = (!empty($data['t']) && !empty($data['list']))? 'ERROR: There was an error updating the procurement plan status.': 'ERROR: This action can not be resolved';
+			$data['area'] = 'basic_msg';
+		}
+		
+		$this->load->view('addons/basic_addons', $data);
+	}
+	
+	
+	
+	
 	
 }
 

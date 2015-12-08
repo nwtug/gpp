@@ -86,9 +86,14 @@ class _forum extends CI_Model
 	
 	
 	# get details of a forum
-	function details($id)
+	function details($id, $isView=FALSE)
 	{
-		return $this->_query_reader->get_row_as_array('get_forum_list', array('phrase_condition'=>" AND id='".$id."' ", 'status_condition'=>'', 'owner_condition'=>'', 'access_condition'=>'', 'category_condition'=>'','limit_text'=>" LIMIT 1 "));
+		$details = $this->_query_reader->get_row_as_array('get_forum_list', array('phrase_condition'=>" AND id='".$id."' ", 'status_condition'=>'', 'owner_condition'=>'', 'access_condition'=>'', 'category_condition'=>'','limit_text'=>" LIMIT 1 "));
+		
+		# record that the forum has been viewed
+		if(!empty($details) && $isView) $result = $this->_query_reader->run('update_no_of_forum_views', array('forum_id'=>$id));
+		 
+		return $details;
 	}
 	
 	
@@ -128,6 +133,35 @@ class _forum extends CI_Model
 	
 	
 	
+	
+	
+	
+	
+	# add a comment to a forum
+	function add_comment($data)
+	{
+		$result = $this->_query_reader->run('add_forum_comment', array(
+				'comment'=>htmlentities($data['details'], ENT_QUOTES),
+				'forum_id'=>$data['forumid'],
+				'user_id'=>$this->native_session->get('__user_id'),
+				'responding_to'=>(!empty($data['respondingto'])? $data['respondingto']: '0')
+			));
+		
+		# update the number of contributors for the forum
+		if($result) $result = $this->_query_reader->run('update_contributor_number', array('forum_id'=>$data['forumid']));
+		
+		return array('boolean'=>$result);
+	}
+	
+	
+	
+	
+	
+	# get the comments of a forum
+	function comments($forumId)
+	{
+		return $this->_query_reader->get_list('get_forum_comments', array('forum_id'=>$forumId)); 
+	}
 	
 }
 

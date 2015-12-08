@@ -15,17 +15,24 @@ if(!empty($msg)){
 echo "<br><b>PDE:</b> ".html_entity_decode($contract['pde'], ENT_QUOTES);
 echo "<br><b>Provider:</b> ".html_entity_decode($contract['provider'], ENT_QUOTES);?></td></tr>
 
-<tr><td style='padding-right:0px;'><table class='default-table' style='width:100%;'><tr><td style='padding-left:0px;'><select id='contract__contractstatus' name='contract__contractstatus' class='drop-down' style="width:100%;">
+<tr><td style='padding-right:0px;'><table class='default-table' style='width:100%;'><tr><td style='padding-left:0px;width:50%;'>
+<?php if($this->native_session->get('__user_type') == 'provider'){ ?>
+<div style='width:100%'>Status: <span class='bold'>Active</span></div>
+<input type='hidden'  id='contract__contractstatus' name='contract__contractstatus' value='active' />
+<?php } else {?>
+<select id='contract__contractstatus' name='contract__contractstatus' class='drop-down' style="width:100%;">
 <?php echo get_option_list($this, 'contractstatus');?>
-</select></td>
-<td style='padding-right:0px;'><select id='contract__percentage' name='contract__percentage' class='drop-down' style="width:calc(100% - 5px);">
+</select>
+<?php }?></td>
+<td style='padding-right:0px;width:50%;'><select id='contract__percentage' name='contract__percentage' class='drop-down' style="width:calc(100% - 5px);">
 <?php echo get_option_list($this, 'percentage');?>
 </select><input type='hidden' name='contract_id' id='contract_id' value='<?php echo $d;?>' /></td>
 </tr></table></td></tr>
 
-
-<tr><td><input type="text" id="amountspent" name="amountspent"  class='numbersonly' placeholder='Amount Spent (in SSP)' value='' style='min-width:100%;'/>
-</td></tr>
+<tr><td style='padding-right:0px;'><table class='default-table' style='width:100%;'><tr><td style='padding-left:0px;width:50%;'>
+<input type="text" id="amountspent" name="amountspent"  class='numbersonly' placeholder='Amount Spent (in SSP)' value='' style='min-width:100%;'/></td>
+<td style='padding-right:0px;width:50%;'><input type="text" id="amountpaid" name="amountpaid"  class='numbersonly' placeholder='Amount Paid (in SSP)' value='' style="width:calc(100% - 5px);"/></td>
+</tr></table></td></tr>
 
 <tr><td><input type="text" id="document" name="document"  class='filefield optional' data-val='pdf,doc,docx,jpeg,jpg,tiff' data-size='5120000' placeholder='Document/Photo (OPTIONAL: PDF, Word, JPEG, JPG, TIFF. Max 500MB)' value='' style='min-width:100%;'/>
 </td></tr>

@@ -10,10 +10,10 @@ echo "<table>
 		echo "<tr> 
 		<td><input id='select_".$row['organization_id']."' name='selectall[]' type='checkbox' value='".$row['organization_id']."' class='bigcheckbox'><label for='select_".$row['organization_id']."'></label></td>
 		<td>".$row['name']."</td>
-		<td><a href='javascript:;'>".$row['contact_name']."</a></td>
+		<td><a href='".base_url()."users/details/d/".$row['contact_id']."' class='shadowbox closable'>".$row['contact_name']."</a></td>
 		<td>".$row['tax_id']."</td>
 		<td>".(!empty($row['category'])? $row['category']: $row['ministry'])."</td>
-		<td>".(!empty($row['rop_number'])? "<a href='javascript:;'>".$row['rop_number']."</a>": "")."<div class='green-box btn'>Generate</div></td>
+		<td>".(!empty($row['rop_number'])? "<a href='".base_url()."pages/download/file/".$row['rop_certificate_url']."'>".$row['rop_number']."</a>": "")."<div class='green-box btn shadowbox closable' data-url='".base_url()."providers/generate_certificate/d/".$row['organization_id']."'>Generate</div></td>
 		<td>".$row['country']."</td>
 		<td>".$row['address']."</td>
 		<td>".strtoupper($row['status'])."</td>

@@ -40,6 +40,12 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 
 <tr><td class='label'>Subject</td><td><input type='text' id='subject' name='subject' placeholder='Notice Subject' value='<?php echo (!empty($tender['subject'])? $tender['subject']: '');?>'/></td></tr>
 
+
+<tr><td class='label'>Reference Number</td><td style='padding-right:0px;'>
+<table class='default-table' style="width:calc(100% + 18px);"><tr><td style='padding-left:0px;width:99%;'><input type='text' id='reference_number' name='reference_number' placeholder='Reference Number' style="width:calc(100% - 5px);" value='<?php echo (!empty($plan['reference_number'])? $plan['reference_number']: '');?>'/></td>
+<td style='width:1%;padding-left:10px;'><div class='question-icon shadowbox closable' data-url='<?php echo base_url().'faqs/details/d/1';?>'>&nbsp;</div></td></tr></table>
+</td></tr>
+
 <tr><td class='label'>Procurement Type</td><td style='padding-right:0px;'>
 <table class='default-table'><tr><td style='padding-left:0px;'><select id='tender__procurementtypes' name='tender__procurementtypes' class='drop-down'>
 <?php echo get_option_list($this, 'procurementtypes', 'select', '', array('selected'=>(!empty($tender['type'])? $tender['type']: '') ));?>
@@ -57,7 +63,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 
 <tr><td class='label'>Document</td><td><input type='text' id='document' name='document' class='filefield' data-val='pdf,doc,docx' data-size='500000' placeholder='Attach Tender Document (PDF, Word. Max 500MB)' value='<?php echo (!empty($tender['document'])? $tender['document']: '');?>'/></td></tr>
 
-<tr><td class='label'>Deadline</td><td><input type='text' id='deadline' name='deadline' class='calendar future-date' style='width: calc(100% - 34px);' placeholder='Select Deadline' value='<?php echo (!empty($tender['deadline'])? $tender['deadline']: '');?>'/></td></tr>
+<tr><td class='label'>Deadline</td><td><input type='text' id='deadline' name='deadline' class='calendar future-date' style='width: calc(100% - 34px);' placeholder='Select Submission Deadline' value='<?php echo (!empty($tender['deadline'])? $tender['deadline']: '');?>'/></td></tr>
 
 <tr><td class='label'>Display Period</td><td style='padding-right:0px;'>
 <table class='default-table'><tr><td style='padding-left:0px;'><input type='text' id='display_from' name='display_from' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='From' style="width:calc(100% - 40px);" value='<?php echo (!empty($tender['display_from'])? $tender['display_from']: '');?>'/></td>

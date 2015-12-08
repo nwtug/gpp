@@ -12,8 +12,13 @@ echo "<table>
 		<td>".$row['name']."</td>
 		<td>".$row['email_address']."</td>
 		<td>".$row['telephone']."</td>
-		<td><a href='javascript:;'>".$row['organization']."</a></td>
-		<td>".strtoupper($row['user_type'])."</td>
+		<td>";
+		
+		if($row['user_type'] == 'pde') echo "<a href='".base_url()."accounts/view_pde/d/".$row['organization_id']."' class='shadowbox closable'>".$row['organization']."</a>";
+		else if($row['user_type'] == 'provider') echo "<a href='".base_url()."accounts/view_provider/d/".$row['organization_id']."' class='shadowbox closable'>".$row['organization']."</a>";
+		else echo $row['organization'];
+		
+		echo "<td>".strtoupper($row['user_type'])."</td>
 		<td>".strtoupper($row['status'])."</td>
 		<td><a href='".base_url()."users/permissions/g/".$row['group_id']."' class='shadowbox closable'>".$row['permission_group']."</a></td>
 		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_created']));

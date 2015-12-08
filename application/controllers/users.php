@@ -93,6 +93,21 @@ class Users extends CI_Controller
 	
 	
 	
+	
+	# get user details
+	function details()
+	{
+		$data = filter_forwarded_data($this);
+		$data['user'] = $this->_user->details($data['d']);
+		$this->load->view('users/user_details', $data);
+	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 /* End of controller file */

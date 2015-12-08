@@ -7,7 +7,7 @@
 
 <table class='normal-table filter-container'>
 <tr><td>
-<input type='text' id='by_deadline' name='by_deadline' data-final='by_deadline' class='calendar clickactivated' onclick='setDatePicker(this)' placeholder='By Deadline' value='<?php echo $this->native_session->get('tender__by_deadline');?>' style='width:100%;'/>
+<input type='text' id='by_deadline' name='by_deadline' data-final='by_deadline' class='calendar clickactivated' onclick='setDatePicker(this)' placeholder='Deadline Before' value='<?php echo $this->native_session->get('tender__by_deadline');?>' style='width:100%;'/>
 </td></tr>
 
 <tr><td><select id='search__procurementtypes' name='search__procurementtypes' data-final='procurement_type' class='drop-down' style='width:100%;'>
@@ -28,4 +28,4 @@
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('tender')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
 </table>
-<?php echo minify_js('apply_tender_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>
+<?php echo minify_js('tenders__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>
