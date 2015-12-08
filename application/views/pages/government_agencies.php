@@ -32,14 +32,16 @@ $this->load->view('addons/public_top_menu', array('__page'=>'government_agencies
 <div class='page-list-div'><div>
 
 <table>
-      <tr>
-        <td ><span class="">Ministry of Finance and Economic Planning </span></td>
-        <td colspan="3">&nbsp;</td></tr>
-      <tr><td ><span class="">Ministry of Public Service & Human Resource Development</span></td><td colspan="3">&nbsp;</td></tr>
-      <tr><td ><span class="">Ministry of Transport, Roads and Bridges</span></td><td colspan="3">&nbsp;</td></tr>
-      <tr><td ><span class="">Ministry of Health; Ministry of Agriculture</span></td><td colspan="3">&nbsp;</td></tr>
-      <tr><td ><span class="">Ministry of Animal resources & Fisheries Industry </span></td><td colspan="3">&nbsp;</td></tr>
-      <tr><td ><span class="">Ministry of Education, Science and Technology</span></td><td colspan="3">&nbsp;</td></tr>
+  <?php
+            if(isset($pdeList)){
+                foreach($pdeList as $list){
+                    ?>   
+      <tr><td ><span class="bold"><?=$list['name']?></span></td><td colspan="3">&nbsp;</td></tr>
+      <?php
+                }
+
+            }
+        ?>
 </table></div></div>
 </td></tr>
 <tr><td colspan='2'>&nbsp;</td></tr>

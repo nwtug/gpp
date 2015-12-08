@@ -17,7 +17,7 @@ class Pages extends CI_Controller
 		parent::__construct();
 
 
-$this->load->model('_document');
+        $this->load->model('_document');
         $this->load->model('_link');
         $this->load->model('_training');
 		$this->load->model('_provider');
@@ -29,13 +29,14 @@ $this->load->model('_document');
 		$this->load->model('_contract');
         $this->load->model('_forum');
         $this->load->model('_faq');
+        $this->load->model('_organization');
 	}
 
 	# home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-			$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
 		$data['tenderList'] = $this->_tender->lists();
 		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
 		$data['contractList']=$this->_contract->lists();
@@ -130,6 +131,9 @@ $this->load->model('_document');
 	function government_agencies()
 	{
 		$data = filter_forwarded_data($this);
+		//$data['pdeList']= $this->_organization->lists();
+		$this->load->model('_query_reader');
+		$data['pdeList'] = $this->_query_reader->get_list('search_pde_list', array('phrase'=>htmlentities('', ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('pages/government_agencies', $data);
 	}
 
