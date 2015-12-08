@@ -4,8 +4,10 @@
 .label {
 	font-size: 15px;
 	color:#666;
+	vertical-align: top !important;
 }
-.label:not(.long) {
+
+.body-form-area .label {
 	padding-top: 15px !important;
 }
 

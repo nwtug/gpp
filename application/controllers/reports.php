@@ -21,9 +21,24 @@ class Reports extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
-		$data['list'] = array();#$this->_report->lists();
 		
-		$this->load->view('reports/manage', $data);
+		# Updating the report parameters
+		if(!empty($_POST)){
+			$data['list'] = $this->_report->lists(array(
+				'type'=>$_POST['report__reporttypes'], 
+				'quarter'=>$_POST['report__financialquarters'], 
+				'pde'=>$_POST['pde_id']
+			));
+			
+			$data['report_type'] = $_POST['report__reporttypes'];
+			$this->native_session->set('__report_type', $data['report_type']);
+			
+			$this->load->view('reports/report_list', $data);
+		}
+		else {
+			$data['list'] = $this->_report->lists();
+			$this->load->view('reports/manage', $data);
+		}
 	}
 	
 	
@@ -62,6 +77,17 @@ class Reports extends CI_Controller
 	}
 	
 	
+	
+	
+	
+	# update the view being displayed for a financial report
+	function update_financial_report()
+	{
+		$data = filter_forwarded_data($this);
+		$data['list'] = $this->_report->stats($data['t'],$data['y']); 
+		
+		$this->load->view('reports/'.$data['t'].'_stats', $data);
+	}
 	
 	
 }

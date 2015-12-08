@@ -31,28 +31,8 @@ $this->load->view('addons/pde_top_menu', array('__page'=>'my_dashboard'));
 
 <tr>
   <td>&nbsp;</td>
-  <td class='three-columns fill-page'>
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>22</span>
-<br /><span class='h3 blue'>Procurement Plans Submitted</span></td></tr>
-<tr><td><a href='javascript:;'>Add Procurement Plan</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Procurement Plan</a></td></tr>
-</table></div>
-
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>1000</span>
-<br /><span class='h3 blue'>Tenders Advertised</span></td></tr>
-<tr><td><a href='javascript:;'>Invite For Tenders</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Tenders</a></td></tr>
-</table></div>
-
-<div><table class='summary-table'>
-<tr><td style='text-align:center;height:30vh;'><span  class='h1'>760</span>
-<br /><span class='h3 blue'>Contracts Awarded</span></td></tr>
-<tr><td><a href='javascript:;'>Award Contract</a></td></tr>
-<tr><td><a href='javascript:;'>Manage Contracts</a></td></tr>
-</table></div>
-
+  <td class='fill-page' style="vertical-align:top;"><div class='three-columns' id='stat_container'>
+<?php $this->load->view('reports/pde_stats',array('list'=>$list)); ?></div>
 </td>
   <td>&nbsp;</td>
 </tr>

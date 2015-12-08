@@ -339,13 +339,13 @@ class Lists extends CI_Controller
 							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
 							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+							$this->native_session->set($data['t'].'__provider', (!empty($data['provider'])? $data['provider']: ''));
 
 							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'providers'=>$this->native_session->get($data['t'].'__provider'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 
 										'offset'=>$offset,
@@ -365,13 +365,13 @@ class Lists extends CI_Controller
 							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
 							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+							$this->native_session->set($data['t'].'__provider', (!empty($data['provider'])? $data['provider']: ''));
 
 							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'provider'=>$this->native_session->get($data['t'].'__provider'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -391,13 +391,13 @@ class Lists extends CI_Controller
 							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
 							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+							$this->native_session->set($data['t'].'__provider', (!empty($data['provider'])? $data['provider']: ''));
 
 							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'providers'=>$this->native_session->get($data['t'].'__provider'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -416,13 +416,13 @@ class Lists extends CI_Controller
 							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 							$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
 							$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-							$this->native_session->set($data['t'].'__providers', (!empty($data['providers'])? $data['providers']: ''));
+							$this->native_session->set($data['t'].'__provider', (!empty($data['provider'])? $data['provider']: ''));
 
 							$data['list'] = $this->_tender->lists(array(
 										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
 										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'providers'=>$this->native_session->get($data['t'].'__providers'),
+										'provider'=>$this->native_session->get($data['t'].'__provider'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -456,7 +456,7 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
-					$data['list'] = $this->_bid->lists(array(
+					$data['list'] = $this->_bid->lists($data['listtype'], array(
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
 						'provider'=>$this->native_session->get($data['t'].'__provider_id'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
@@ -482,15 +482,13 @@ class Lists extends CI_Controller
 					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
-					$this->native_session->set($data['t'].'__submit_from', (!empty($data['submit_from'])? $data['submit_from']: ''));
-					$this->native_session->set($data['t'].'__submit_to', (!empty($data['submit_to'])? $data['submit_to']: ''));
 					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
 					$data['list'] = $this->_bid->my_list(array(
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
-						'submit_from'=>$this->native_session->get($data['t'].'__submit_from'),
-						'submit_to'=>$this->native_session->get($data['t'].'__submit_to'),
 						'status'=>$this->native_session->get($data['t'].'__status'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 						'offset'=>$offset, 
 						'limit'=>$limit
 					));

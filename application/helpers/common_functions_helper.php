@@ -374,7 +374,7 @@ function format_telephone($number)
 # Format ID for display
 function format_id($id)
 {
-	return !empty($id)? "PP".str_pad(dechex($id),5,'0',STR_PAD_LEFT): "";
+	return !empty($id)? "SS".str_pad(dechex($id),5,'0',STR_PAD_LEFT): "";
 }
 
 
@@ -382,6 +382,19 @@ function format_id($id)
 function extract_id($id)
 {
 	return !empty($id)? hexdec(substr($id, 2)): "";
+}
+
+
+# generate certificate id
+function generate_certificate_number($id)
+{
+	return !empty($id)? strtoupper("SS".strrev(@date('Y').str_pad(dechex($id),8,'0',STR_PAD_LEFT))): "";
+}
+
+# extract organization id from certificate number
+function extract_certificate_number($number)
+{
+	return !empty($number)? hexdec(substr(strrev(substr($number, 2)), 4)*1): "";
 }
 
 
@@ -734,13 +747,14 @@ function upload_many_files($postData, $fileField, $newFileStub, $allowedExtensio
 {
 	# to store the new uploaded file names
 	$newFiles = array();
-	
+	$count = 0;
 	foreach($postData AS $file){
 		$extension = !empty($file['name'])? strtolower(pathinfo($file['name'],PATHINFO_EXTENSION)): '';
 		# check the extension
 		if(in_array($extension, explode(',',$allowedExtensions))) {
-			$fileName = $newFileStub.strtotime('now').'.'.$extension;
+			$fileName = $newFileStub.(strtotime('now')+$count).'.'.$extension;
 			if (move_uploaded_file($file["tmp_name"], UPLOAD_DIRECTORY.$fileName)) array_push($newFiles, $fileName);
+			$count++;
 		}
 	}
 	
@@ -1092,7 +1106,19 @@ function get_quarter_date($quarter, $type)
 
 
 
-
+# get current quarter
+function get_current_quarter()
+{
+	# get today's month and determine which qarter it falls into
+	$month = @date('n');
+	
+	if($month < 4) $quarter = 'first';
+	else if($month > 3 && $month < 7) $quarter = 'second';
+	else if($month > 6 && $month < 10) $quarter = 'third';
+	else $quarter = 'fourth';
+	
+	return @date('Y').'-'.$quarter;
+}
 
 
 

@@ -10,7 +10,7 @@
  */
 class Bids extends CI_Controller 
 {
-	#Constructor to set some default values at class load
+	# constructor to set some default values at class load
 	public function __construct()
     {
         parent::__construct();
@@ -131,6 +131,15 @@ class Bids extends CI_Controller
 	
 	
 	
+	# filter my bids
+	function my_list_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('bids/my_list_filter', $data);
+	}
+	
+	
+	
 	# update a bid's status
 	function update_status()
 	{
@@ -143,6 +152,46 @@ class Bids extends CI_Controller
 		$data['area'] = 'refresh_list_msg';
 		$this->load->view('addons/basic_addons', $data);
 	}
+	
+	
+	
+	
+	
+	# send a message to the providers who submitted the selected providers
+	function message()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted
+		if(!empty($_POST)){
+			$response = $this->_bid->message($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])){
+				$data['msg'] = 'ERROR: There was an error sending to';
+				if(!empty($response['unsent'])) $data['msg'] .= ' the following emails: '.implode(', ', $response['unsent']);
+				else $data['msg'] .= ' the selected providers.';
+				
+				$data['area'] = 'basic_msg';
+			}
+		} 
+		# success
+		else if(!empty($data['result'])){
+			$data['msg'] = 'The messages have been sent.';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		
+		# simply going to a form to send message
+		else {
+			$data['action'] = 'bids/message';
+			$data['redirect'] = 'bids/message/result/sent';
+			$data['id_list'] = implode(',',explode('--',$data['list']));
+			$this->load->view('pages/send_from_list', $data);
+		}
+	}
+	
+	
+	
 	
 	
 }

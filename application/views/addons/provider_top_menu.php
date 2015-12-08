@@ -16,7 +16,6 @@
     <div class='btn<?php if($__page == 'contracts') echo " active";?>' data-rel='contracts/manage'>Contracts</div>
     <div class='btn<?php if($__page == 'resources') echo " active";?>' data-rel='documents/manage'>Resources</div>
     <div class='btn<?php if($__page == 'forums') echo " active";?>' data-rel='forums/manage'>Forums</div>
-    <div class='btn<?php if($__page == 'reports') echo " active";?>' data-rel='reports/manage'>Reports</div>
     <div class='btn<?php if($__page == 'settings') echo " active";?>' data-rel='users/settings/view/Y'>Settings</div>
     <div class='btn<?php if($__page == 'help') echo " active";?>' data-rel='faqs/manage'>Help</div>
 >>>>>>> 03fb04c8a7cadb866e3e9de62beba4601bb3c1b3

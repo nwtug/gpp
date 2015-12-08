@@ -33,7 +33,7 @@ echo "<th>Last Updated</th></tr>";
 			<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date']))."</td>
 			<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date']))."</td>
 			<td>".date(FULL_DATE_FORMAT, strtotime($row['date_submitted']))."</td>
-			<td>".strtoupper($row['status'])."</td>";
+			<td>".strtoupper(str_replace('_', ' ', $row['status']))."</td>";
 		}
 		
 		echo "<td>".date(FULL_DATE_FORMAT, strtotime($row['last_updated']));

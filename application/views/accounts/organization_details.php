@@ -7,7 +7,7 @@ echo "<table>
 <tr><td colspan='2' class='h2 bold'>".$organization['name']."</td></tr>
 <tr><td class='label'>Description</td><td>".$organization['description']."</td></tr>
 <tr><td class='label'>Tax ID</td><td>".$organization['tax_id']."</td></tr>
-<tr><td class='label'>Registration Number</td><td>".$organization['registration_number']."</td></tr>
+<tr><td class='label'>Registration Number</td><td>".(!empty($organization['registration_number'])? $organization['registration_number']: ($type == 'provider'? 'NOT CERTIFIED': '&nbsp;'))."</td></tr>
 <tr><td class='label'>Administrator</td><td>".$organization['owner']."</td></tr>
 <tr><td class='label'>Date Registered</td><td>".$organization['date_established']."</td></tr>
 <tr><td class='label'>Registration Country</td><td>".$organization['registration_country']."</td></tr>

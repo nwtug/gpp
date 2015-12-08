@@ -21,7 +21,7 @@ class _tender extends CI_Model
 			
 			'method_condition'=>(!empty($scope['procurement_method'])? " AND method='".$scope['procurement_method']."' ": ''),
 			
-			'type_condition'=>(!empty($scope['procurement_type'])? " AND category='".$scope['procurement_type']."' ": ''),
+			'type_condition'=>(!empty($scope['procurement_type'])? " AND T.type='".$scope['procurement_type']."' ": ''),
 			
 			'status_condition'=>($userType == 'provider'? " AND status = 'published' ": '' ),
 			
@@ -29,7 +29,7 @@ class _tender extends CI_Model
 			
 			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(name) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"')": ''),
 			
-			'deadline_condition'=>(!empty($scope['by_deadline'])? " AND DATE(deadline) <= DATE('".$scope['by_deadline']."') ": ''),
+			'deadline_condition'=>(!empty($scope['by_deadline'])? " AND DATE(deadline) BETWEEN NOW() AND DATE('".date('Y-m-d',strtotime(make_us_date($scope['by_deadline'])))."') ": ''),
 			
 			'pde_condition'=>(!empty($scope['pde'])? " HAVING pde_id = '".$scope['pde']."' ": ''),
 			
@@ -44,9 +44,14 @@ class _tender extends CI_Model
 	# add a tender
 	function add($data)
 	{
+		$result = FALSE;
+		$reason = '';
+		
 		# add the tender notice
-		$result = $this->_query_reader->run('add_tender_notice', array(
+		if($this->_query_reader->get_count('get_tender_by_reference_number', array('reference_number'=>htmlentities($data['reference_number'], ENT_QUOTES) )) == 0){
+			$result = $this->_query_reader->run('add_tender_notice', array(
 				'name'=>htmlentities($data['subject'], ENT_QUOTES), 
+				'reference_number'=>htmlentities($data['reference_number'], ENT_QUOTES), 
 				'details'=>htmlentities($data['summary'], ENT_QUOTES), 
 				'type'=>$data['tender__procurementtypes'], 
 				'category'=>$data['tender__procurementcategories'],
@@ -59,6 +64,8 @@ class _tender extends CI_Model
 				'display_end_date'=>date('Y-m-d',strtotime(make_us_date($data['display_to']))), 
 				'user_id'=>$this->native_session->get('__user_id')
 			));
+		}
+		else $reason = "The reference number is already in use.";
 		
 		# log action
 		$this->_logger->add_event(array(
@@ -70,7 +77,7 @@ class _tender extends CI_Model
 			'ip_address'=>get_ip_address()
 		));
 		
-		return array('boolean'=>$result, 'reason'=>'');
+		return array('boolean'=>$result, 'reason'=>$reason);
 	}
 	
 	

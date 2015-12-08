@@ -2,7 +2,7 @@
   <td>&nbsp;</td>
   <td><div class='h4 left-div small-div-padding'><?php echo date('l, F j, Y g:iA T', strtotime('now'));?></div>
 <div class='right-div row-divs small-padding'>
-	<div class='btn h5'><?php echo $this->native_session->get('__first_name').' '.$this->native_session->get('__last_name').' ['.$this->native_session->get('__user_type').']'?></div>
+	<div class='btn h5' data-rel='users/settings/view/Y'><?php echo $this->native_session->get('__first_name').' '.$this->native_session->get('__last_name').' ['.$this->native_session->get('__user_type').']'?></div>
     <div class='btn h5' data-rel='accounts/logout'>Log Out</div>
 </div></td>
   <td>&nbsp;</td>

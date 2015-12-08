@@ -19,12 +19,13 @@ echo "<table class='default-table'>
 
 <tr><td>
 <table class='list-table'>
-<tr><th>Contract Status</th><th>Percentage</th><th>Spent</th><th>Documents</th><th>Note</th><th>Date Entered</th><th>Entered By</th><th>Entered By Organization</th></tr>";
+<tr><th>Contract Status</th><th>Percentage</th><th>Amounts</th><th>Documents</th><th>Note</th><th>Date Entered</th><th>Entered By</th><th>Entered By Organization</th></tr>";
 	foreach($list AS $row) {
 		echo "<tr> 
 		<td>".strtoupper($row['status'])."</td>
 		<td>".$row['percentage']."%</td>
-		<td>SSP".format_number($row['amount_spent'],3)."</td>
+		<td><i>Spent:</i> <br>SSP".format_number($row['amount_spent'],3)."
+		<i>Paid:</i> <br>SSP".format_number($row['amount_paid'],3)."</td>
 		<td>";
 
 	if(!empty($row['documents'])){

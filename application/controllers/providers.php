@@ -64,6 +64,7 @@ class Providers extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$data['list'] = $this->_provider->lists();
+		
 		$this->load->view('providers/manage', $data);
 	}
 	
@@ -150,6 +151,34 @@ class Providers extends CI_Controller
 	
 	
 	
+	
+	# suspend a provider
+	function suspend()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted
+		if(!empty($_POST)){
+			$response = $this->_provider->suspend($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])) echo 'ERROR: There was an error suspending the selected providers.';
+		} 
+		# success
+		else if(!empty($data['result'])){
+			$data['msg'] = 'The selected providers have been suspended.';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		
+		# simply going to a form
+		else {
+			$data['id_list'] = implode(',',explode('--',$data['list']));
+			$this->load->view('providers/suspend', $data);
+		}
+	}
+	
+	
+	
 	# send a message to a list of selected providers
 	function message()
 	{
@@ -182,6 +211,43 @@ class Providers extends CI_Controller
 			$this->load->view('pages/send_from_list', $data);
 		}
 	}
+	
+	
+	
+	
+	
+	# generate a provider certificate
+	function generate_certificate()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($_POST)){
+			$this->native_session->set('providerid', $_POST['providerid']);
+			$this->native_session->set('amount_paid', $_POST['amount_paid']);
+			$this->native_session->set('valid_until', $_POST['valid_until']);
+		}
+		
+		# success
+		else if(!empty($data['a'])){
+			$response = $this->_provider->generate_certificate(array(
+				'providerid'=>$this->native_session->get('providerid'),
+				'amount_paid'=>$this->native_session->get('amount_paid'),
+				'valid_until'=>$this->native_session->get('valid_until')
+			));
+			
+			$data['msg'] = (!empty($response) && $response['boolean'])? 'The certificate has been generated.': 'ERROR: The certificate could not be generated.';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		
+		else $this->load->view('providers/certificate_specs', $data);
+	}
+	
+	
+	
+	
+	
+	
 	
 }
 
