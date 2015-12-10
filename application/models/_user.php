@@ -10,7 +10,7 @@
 class _user extends CI_Model
 {
 	# list of users
-	function lists($listType, $scope=array('phrase'=>'', 'user_type'=>'', 'organization'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
+	function lists($listType, $scope=array('group'=>'', 'status'=>'', 'phrase'=>'',  'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
 	{
 		if($listType == 'organization') {
 			$scope['organization'] = $this->native_session->get('__organization_id');
@@ -18,7 +18,7 @@ class _user extends CI_Model
 		}
 		
 		return $this->_query_reader->get_list('get_user_list', array(
-			'type_condition'=>(!empty($scope['user_type'])? " HAVING ".(is_array($scope['user_type'])? "user_type IN ('".implode("','",$scope['user_type'])."')": "user_type='".$scope['user_type']."'"): ''),
+			'type_condition'=>(!empty($scope['group'])? " HAVING ".(is_array($scope['group'])? "user_type IN ('".implode("','",$scope['group'])."')": "user_type='".$scope['group']."'"): ''),
 			
 			'organization_condition'=>(!empty($scope['organization'])? " AND _organization_id='".$scope['organization']."' ": ''),
 			
@@ -145,7 +145,40 @@ class _user extends CI_Model
 	
 	
 	
-
+	
+	
+	
+	# send a message to the selected providers
+	function message($data)
+	{
+		$results = array();
+		$users = explode(',',$data['idlist']);
+		$message = array('code'=>'custom_internal_message', 'subject'=>$data['reason__contactreason'], 'details'=>$data['details']);
+		
+		foreach($users AS $i=>$userId) $results[$i] = $this->_messenger->send($userId, $message, array('email'),TRUE);
+		
+		return array('boolean'=>get_decision($results));		
+	}
+	
+	
+	
+	
+	
+	
+	# update the permissions of the user by changing their group
+	function update_permissions($data)
+	{
+		$userIds = explode(',',$data['idlist']);
+		$result = $this->_query_reader->run('update_user_permission_group', array(
+			'id_list'=>implode("','",$userIds), 
+			'group_id'=>$data['user__permissiongroups']
+		));
+		
+		return array('boolean'=>$result);
+	}
+	
+	
+	
 }
 
 

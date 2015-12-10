@@ -372,6 +372,31 @@ class Lists extends CI_Controller
 				
 				
 				
+						
+				case 'user':
+					$this->load->model('_user');
+					$data = restore_bad_chars_in_array($data);
+					
+					# Store in session for the filter to use
+					$this->native_session->set($data['t'].'__group', (!empty($data['group'])? $data['group']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
+					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					$type = ($this->native_session->get('__user_type') == 'admin'? 'all': 'organization');
+		
+					$data['list'] = $this->_user->lists($type, array(
+						'group'=>$this->native_session->get($data['t'].'__group'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
+						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+						'offset'=>$offset, 
+						'limit'=>$limit
+					));
+					
+					$this->load->view('users/user_list', $data);
+				break;
+				
+				
+				
+				
 				
 				
 				

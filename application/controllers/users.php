@@ -104,8 +104,67 @@ class Users extends CI_Controller
 	
 	
 	
+	# filter users
+	function list_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('users/list_filter', $data);
+	}
 	
 	
+	
+	# update the user permission group
+	function update_permissions()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted
+		if(!empty($_POST)){
+			$response = $this->_user->update_permissions($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])) echo 'ERROR: There was an error updating the user permission group.';
+		} 
+		# success
+		else if(!empty($data['result'])){
+			$data['msg'] = 'The user permission group has been updated';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		else {
+			$data['id_list'] = !empty($data['list'])? implode(',',explode('--',$data['list'])): '';
+			$this->load->view('users/update_permissions', $data);
+		}
+	}
+	
+	
+	
+	
+	# send a message to a list of selected users
+	function message()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted
+		if(!empty($_POST)){
+			$response = $this->_user->message($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])) echo 'ERROR: There was an error sending to the selected users.';
+		} 
+		# success
+		else if(!empty($data['result'])){
+			$data['msg'] = 'The messages have been sent.';
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		
+		# simply going to a form to send message
+		else {
+			$data['action'] = 'users/message';
+			$data['redirect'] = 'users/message/result/sent';
+			$data['id_list'] = implode(',',explode('--',$data['list']));
+			$this->load->view('pages/send_from_list', $data);
+		}
+	}
 	
 	
 }
