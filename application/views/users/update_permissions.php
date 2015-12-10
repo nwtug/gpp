@@ -18,7 +18,7 @@ if(!empty($msg)){
 
 <tr><td><button type="button" id="applygroup" name="applygroup" class="btn blue submitmicrobtn" style="width:100%;">Apply Group</button>
 <input type='hidden' id='action' name='action' value='<?php echo base_url().'users/update_permissions';?>' />
-<input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'users/update_permissions/a/msg';?>' />
+<input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'users/update_permissions/result/msg';?>' />
 <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
 
 <input name="layerid" id="layerid" type="hidden" value="" />

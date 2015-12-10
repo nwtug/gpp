@@ -618,6 +618,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		
+		
+		
 		case "permissiongroups":
 			$types = $obj->_query_reader->get_list('get_permission_groups');
 			
@@ -626,8 +628,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 			foreach($types AS $row)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$row['code']."'>".$row['name']."</div>";
-				else $optionString .= "<option value='".$row['code']."' ".(!empty($more['selected']) && $more['selected'] == $row['code']? 'selected': '').">".$row['name']."</option>";
+				if($return == 'div') $optionString .= "<div data-value='".$row['group_id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['group_id']."' ".(!empty($more['selected']) && $more['selected'] == $row['group_id']? 'selected': '').">".$row['name']."</option>";
 			}
 		break;
 		

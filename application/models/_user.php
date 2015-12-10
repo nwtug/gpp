@@ -18,7 +18,9 @@ class _user extends CI_Model
 		}
 		
 		return $this->_query_reader->get_list('get_user_list', array(
-			'type_condition'=>(!empty($scope['group'])? " HAVING ".(is_array($scope['group'])? "user_type IN ('".implode("','",$scope['group'])."')": "user_type='".$scope['group']."'"): ''),
+			'group_condition'=>(!empty($scope['group'])? " AND _permission_group_id='".$scope['group']."' ": ""),
+			
+			'type_condition'=>(!empty($scope['user_type'])? " HAVING ".(is_array($scope['user_type'])? "user_type IN ('".implode("','",$scope['user_type'])."')": "user_type='".$scope['user_type']."'"): ''),
 			
 			'organization_condition'=>(!empty($scope['organization'])? " AND _organization_id='".$scope['organization']."' ": ''),
 			
