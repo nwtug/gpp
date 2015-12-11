@@ -169,14 +169,14 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "users_list_actions":
 		case "provider_users_list_actions":
 			
-			if($list_type == "users_list_actions") $types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'update_type'=>'Update Type', 'update_permission_group'=>'Update Permission Group');
+			if($list_type == "users_list_actions") $types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'update_permission_group'=>'Update Permission Group');
 			else if($list_type == "provider_users_list_actions") $types = array('message'=>'Message');
 			
 			foreach($types AS $key=>$row)
 			{
 				if($key == 'message') $url = 'users/message';
 				else if(in_array($key, array('activate', 'deactivate'))) $url = 'users/update_status/t/'.$key;
-				else if($key == 'update_type') $url = 'users/update_type';
+				else if($key == 'update_permission_group') $url = 'users/update_permissions';
 				
 				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
@@ -352,6 +352,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "linkstatus":
 		case "trainingstatus":
 		case "providerstatus":
+		case "userstatus":
 		
 			if($list_type == 'contractstatus') {
 				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','endorsed'=>'Endorsed by MoJ','cancelled'=>'Cancelled','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
@@ -362,6 +363,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			else if($list_type == 'mybidstatus') $types = array(''=>'Select Bid Status', 'saved'=>'Saved', 'submitted'=>'Submitted','under_review'=>'Under Review', 'short_list'=>'Short Listed', 'rejected'=>'Rejected', 'completed'=>'Completed', 'won'=>'Won', 'awarded'=>'Awarded', 'archived'=>'Archived');
 			else if($list_type == 'providerstatus') $types = array('active'=>'Active', 'inactive'=>'Inactive', 'suspended'=>'Suspended');
 			else if( in_array($list_type, array('documentstatus','linkstatus','trainingstatus')) ) $types = array('active'=>'Active', 'inactive'=>'Inactive');
+			else if($list_type == 'userstatus') $types = array(''=>'Select User Status', 'pending'=>'Pending', 'active'=>'Active', 'inactive'=>'Inactive', 'deleted'=>'Deleted');
 			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
 			
 			
@@ -611,6 +613,25 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			}
 		break;
 		
+		
+		
+		
+		
+		
+		
+		
+		case "permissiongroups":
+			$types = $obj->_query_reader->get_list('get_permission_groups');
+			
+			if($return == 'div') $optionString .= "<div data-value=''>Select Permission Group</div>";
+			else $optionString .= "<option value=''>Select Permission Group</option>";
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['group_id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['group_id']."' ".(!empty($more['selected']) && $more['selected'] == $row['group_id']? 'selected': '').">".$row['name']."</option>";
+			}
+		break;
 		
 		
 		

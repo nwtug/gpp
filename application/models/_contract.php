@@ -64,8 +64,20 @@ class _contract extends CI_Model
 		# c) update the winner's bid to reflect the contract amount for reporting purposes
 		if(!empty($result) && $result) $result = $this->_query_reader->run('update_bid_contract_amount', array('tender_id'=>$data['tender_id'], 'organization_id'=>$data['provider_id'], 'contract_currency'=>$data['currency_code'], 'contract_amount'=>$data['amount'], 'user_id'=>$this->native_session->get('__user_id') ));
 		
+		# d) notify provider about new status
+		if(!empty($result) && $result && $data['contract__contractstatus'] == 'active') {
+			$users = $this->_query_reader->get_list('get_users_in_organizations',array('organization_ids'=>$data['provider_id'] ));
+			$message = array('code'=>'changed_item_status', 'item'=>'contract', 'status'=>'ACTIVE', 'name'=>addslashes($data['name']));
+			$sent = array();
+			foreach($users AS $row) {
+				$result = $this->_messenger->send($row['user_id'], $message, array('email'),TRUE);
+				if($result) array_push($sent, $row['email_address']);
+			}
+			
+			$result = !empty($sent);
+		}
 		
-		# d) log action
+		# e) log action
 		$this->_logger->add_event(array(
 			'user_id'=>$this->native_session->get('__user_id'), 
 			'activity_code'=>'add_contract', 
