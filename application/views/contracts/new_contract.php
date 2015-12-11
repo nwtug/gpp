@@ -54,6 +54,8 @@ echo "<br><a href='".base_url()."accounts/view_provider/d/".$award['provider_id'
 <td style='padding-left:0px;padding-right:5px;'><input type='text' id='amount' name='amount' class='numbersonly' placeholder='Amount (to nearest unit)' style="width:calc(100% - 2px);" value='<?php echo (!empty($contract['amount'])? $contract['amount']: '');?>'/></td></tr></table>
 </td></tr>
 
+<tr><td class='label'>Source of Funds</td><td><input type='text' id='source_of_funds' name='source_of_funds' placeholder='Source of Funds' value='<?php echo (!empty($contract['source_of_funds'])? $contract['source_of_funds']: '');?>'/></td></tr>
+
 <tr><td class='label'>Official Start Date</td><td><input type='text' id='start_date' name='start_date' class='calendar future-date' style='width: calc(100% - 34px);' placeholder='Select Date' value='<?php echo (!empty($contract['start_date'])? $contract['start_date']: '');?>'/></td></tr>
 
 <tr><td class='label'>Status</td><td><select id='contract__contractstatus' name='contract__contractstatus' class='drop-down' style="width:calc(100% + 15px);">

@@ -311,12 +311,14 @@ $(function() {
 					else showWaitDiv('start');
 				},
 				error: function( xhr, textStatus, errorThrown) {
-					//console.log(xhr.responseText);
+
+    				console.log(xhr.responseText);
 					if(tempMessage == '') showWaitDiv('end');
 					showServerSideFadingMessage('ERROR: Something went wrong. We can not submit your data.');
 				},
-				success: function(data) {
-					//console.log('GOT HERE: '+data);
+      	 		success: function(data) {
+		   			console.log('GOT HERE: '+data);
+						
 
 					if(tempMessage == '') showWaitDiv('end');
 					if(data.match(/php error/i)) {// || data.match(/error:/i)
@@ -565,13 +567,15 @@ $(function() {
 	//
 	// <input type="text" id="fieldname" name="fieldname" data-val="jpg,jpeg,gif,png,tiff" [OPTIONAL data-size="500"] class="filefield" value=""/>
 	// --------------------------------------------------------------------------------------------------------
-	$(document).on('click focus', '.filefield', function(e){
+	$(document).on('click', '.filefield', function(e){
 		// Disable to prevent bogus files names
 		$(this).prop("readonly",true);
 		var fileId = $(this).attr('id');
 
 		// 1. Find if the field's actual file field exists. Create it if it does not.
 		if(!($(this).parent().find('input[type="file"]').first().length > 0 && $(this).parent().find('input[type="file"]').first().attr('id') == fileId+'__fileurl')){
+
+			console.log('HERE--CLICKED');
 
 			$(this).after("<input type='file' id='"+fileId+"__fileurl' name='"+fileId+"__fileurl' class='filefieldurl' style='display:none;' value='' />");
 		}
@@ -720,6 +724,7 @@ $(function() {
 		var idParts = lastId.split('_');
 		var newId = idParts[0]+'_'+(parseInt(idParts[1]) + 1);
 		fileFieldLast.attr('id', newId);
+		fileFieldLast.attr('name', newId);
 	});
 	
 	

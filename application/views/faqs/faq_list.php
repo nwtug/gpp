@@ -12,7 +12,13 @@ echo "</tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
-		<td><input id='select_".$row['faq_id']."' name='selectall[]' type='checkbox' value='".$row['faq_id']."' class='bigcheckbox'><label for='select_".$row['faq_id']."'></label></td>
+		<td>";
+		if($this->native_session->get('__user_type') != 'provider'){
+		echo "<input id='select_".$row['faq_id']."' name='selectall[]' type='checkbox' value='".$row['faq_id']."' class='bigcheckbox'><label for='select_".$row['faq_id']."'></label>";
+		}
+		else echo "&nbsp;";
+		
+		echo "</td>
 		<td>".html_entity_decode($row['question'], ENT_QUOTES)."</td>
 		<td>".html_entity_decode($row['answer'], ENT_QUOTES);
 		if($this->native_session->get('__user_type') == 'admin'){

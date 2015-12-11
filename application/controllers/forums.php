@@ -15,6 +15,8 @@ class Forums extends CI_Controller
     {
         parent::__construct();
         $this->load->model('_forum');
+        $this->load->model('_faq');
+
 	}
 	
 	
@@ -25,8 +27,13 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['publicForumsList'] = array();
 		
+
+        $data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();		
+		$data['faqList'] = $this->_faq->lists();
+
+
 		$this->load->view('forums/home', $data);
 	}
 	
@@ -38,9 +45,12 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		$data['type'] = $data['t'];
+	
 		# TODO: Select list based on type passed
-		$data['list'] = array();
-		
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();
+		//$data['secureForumsList']= $this->_forum->lists();
 		$this->load->view('forums/details_list', $data);
 	}
 	
@@ -152,13 +162,46 @@ class Forums extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		
-		if(!empty($data['d'])) $data['forum'] = $this->_forum->details($data['d']);
+		if(!empty($data['d'])) $data['forum'] = $this->_forum->details($data['d'], TRUE);
 		if(empty($data['forum'])) $data['msg'] = 'ERROR: The forum details can not be resolved';
 		
 		$this->load->view('forums/forum_details', $data);
 	}
 	
 
+	
+	
+	# add comment for forum
+	function add_comment()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!empty($_POST)){
+			$result = $this->_forum->add_comment($_POST);
+			$msg = (!empty($result['boolean']) && $result['boolean'])? 'Your comment has been added.': 'ERROR: The comment could not be added.';
+			$this->native_session->set('__msg', $msg);
+		}
+		else if(!empty($data['a'])){
+			$data['msg'] = $this->native_session->get('__msg');
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		else $this->load->view('forums/add_comment', $data);
+	}
+	
+	
+	
+	
+	
+	# view the forum comments
+	function comments()
+	{
+		$data = filter_forwarded_data($this);
+		$data['list'] = $this->_forum->comments($data['d']);
+		$this->load->view('forums/comments', $data);
+	}
+	
+	
 	
 }
 

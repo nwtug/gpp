@@ -22,7 +22,7 @@ else
 <tr><td class='label'>PDE</td><td>".$bid['pde']."</td></tr>
 <tr><td class='label'>Validity Period</td><td>".date(SHORT_DATE_FORMAT, strtotime($bid['valid_start_date']))." TO ".date(SHORT_DATE_FORMAT, strtotime($bid['valid_end_date']))."</td></tr>
 <tr><td class='label'>Bid Amount</td><td>".$bid['bid_currency'].format_number($bid['bid_amount'],3)."</td></tr>
-<tr><td class='label'>Status Trail</td><td>".$bid['status_trail']."</td></tr>
+<tr><td class='label' style='vertical-align: top;'>Status Trail</td><td>".$bid['status_trail']."</td></tr>
 </table>";
 }
 ?>

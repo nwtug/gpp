@@ -21,7 +21,8 @@ echo "<th>Date Started</th></tr>";
 		<td>".ucwords(str_replace('_',' ',$row['category']))."</td>
 		<td>".$row['is_public']."</td>
 		<td>".$row['no_of_views']."</td>
-		<td>".$row['no_of_contributors']."</td>
+		<td>".(!empty($row['no_of_contributors'])? "<a href='".base_url()."forums/comments/d/".$row['forum_id']."' class='shadowbox closable'>Comments</a> (".$row['no_of_contributors'].")": '0')
+			."<br><div class='green-box btn shadowbox' data-url='".base_url()."forums/add_comment/d/".$row['forum_id']."'>Comment</div></td>
 		<td>".$row['moderator']."</td>";
 		
 		if($this->native_session->get('__user_type') != 'provider'){

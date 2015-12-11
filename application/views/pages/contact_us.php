@@ -26,7 +26,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'contact_us'));
   <td style='height:calc(85vh - 214px);'>
 
 
-<div class='center-block body-table-border left-div' style='margin:15px; width:100%; max-width:600px;'>
+<div class='center-block left-div' style='margin:15px; width:100%; max-width:600px;'>
 <table class='normal-table microform two-columns'>
 <tr><td colspan='2' class='body-title'>Contact Us</td></tr>
 <?php if(!empty($msg)) echo "<tr><td colspan='2' style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";

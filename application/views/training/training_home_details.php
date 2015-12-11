@@ -1,15 +1,24 @@
-<table><tr><td ><span class='bold'>FApproval Training </span>
-<br><span class='grey-box'>Legal</span></td>
-<td class='dark-grey' style="width:1%;white-space:nowrap;">Date: 04/10/2015 <br>Time: 2:00pm</td></tr>
+<?php 
+$stopHtml = "<input name='paginationdiv__resources_stop' id='paginationdiv__resources_stop' type='hidden' value='1' />";
 
-<tr><td ><span class='bold'>FBidding Training</span>
-<br><span class='grey-box'>Case Studies</span></td>
-<td class='dark-grey'>Date: 03/10/2015 <br>Time: 4:35pm</td></tr>
+$listCount = count($list);
+$i = 0;
 
-<tr><td ><span class='bold'>FSell of Bidding Document</span>
-<br><span class='grey-box'>Reports</span></td>
-<td class='dark-grey'>Date: 03/10/2015<br>Time: 1:20pm</td></tr>
+echo "<table>
 
-<tr><td ><span class='bold'>FComplaining to the tribunal</span>
-<br><span class='grey-box'>Reports</span></td>
-<td class='dark-grey'>Date: 01/10/2015<br>Time: 4:00pm</td></tr></table>
+";
+foreach($list AS $row) {
+		$i++;
+		echo "<td ><span class='bold'><a href=".base_url().'training/description/d/'.$row['training_id']." class='shadowbox closable'>".$row['subject']."</a></span>
+<br><span class='grey-box'>".ucwords(str_replace('_',' ',$row['category']))."</span></td>
+<td class='dark-grey' style='width:1%;white-space:nowrap;'>Date: ".date(FULL_DATE_FORMAT, strtotime($row['event_time']))."<br>Duration: ".$row['duration']."'hrs'";
+     
+	  # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>
+      

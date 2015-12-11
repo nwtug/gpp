@@ -15,14 +15,38 @@ class Pages extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('_page');
 
+
+        $this->load->model('_document');
+        $this->load->model('_link');
+        $this->load->model('_training');
+		$this->load->model('_provider');
+		$this->load->model('_page');
+		$this->load->model('_tender');
+		$this->load->model('_procurement_plan');
+		$this->load->model('_tender');
+		$this->load->model('_bid');
+		$this->load->model('_contract');
+        $this->load->model('_forum');
+        $this->load->model('_faq');
+        $this->load->model('_organization');
 	}
 
 	# home page
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->$list->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
 		$this->load->view('home', $data);
 	}
 
@@ -42,49 +66,20 @@ class Pages extends CI_Controller
 		# Collect all data needed for the UI
 
 		$data['procurementPlanList'] = $this->_procurement_plan->lists();
-		$data['activeProvidersList'] = $this->_provider->lists();
-		$data['documentsList'] = array(
-				Array
-				(
-						'id' => 10,
-						'name' => 'Public Procurement Bill MoFEP',
-						'date_entered' => '2015-11-16'
-				),
-				Array
-				(
-						'id' => 11,
-						'name' => 'Public Disposal Bill MoFEP',
-						'date_entered' => '2015-11-16'
-				)
-		);
-		$data['publicForumsList'] = array();
-		$data['publicLinksList'] =  array(
-				Array
-				(
-						'id' => 10,
-						'name' => 'How to register'
-				),
-				Array
-				(
-						'id' => 11,
-						'name' => 'Dangers in breaching contracts'
-				)
-		);
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		$data['publicForumsList'] = array();
+        $data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
+		$data['secureForumsList']= $this->_forum->lists();	
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
 
-		# dummy data
-		$data['suspendedProvidersList'] = Array
-		(
-				'organization_id' => 10,
-				'status' => 'suspended',
-				'date_registered' => '0000-00-00',
-				'expires' => 'Indefinate',
-				'contact_name' => 'African United Co. Limited ',
-				'category' => 'Audit',
-				'ministry' => '',
-				'country' => 'Republic of South Sudan'
-		);
-
-		//print_array($data);
 		$this->load->view('home_portal', $data);
 	}
 
@@ -95,8 +90,20 @@ class Pages extends CI_Controller
 		$data = filter_forwarded_data($this);
 
 		$data['type'] = $data['t'];
+		
+		$data['procurementPlanList'] = $this->_procurement_plan->lists();
+		$data['tenderList'] = $this->_tender->lists();
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
+		$data['contractList']=$this->_contract->lists();
+		$data['activeProvidersList'] =$this->_provider->lists();
+        $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');
+		$data['standardList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'standard');
+		$data['linksList'] = $this->_link->lists();
+		$data['trainingList'] = $this->_training->lists();		
+        $data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']= $this->_forum->lists();
+		$data['secureForumsList']= $this->_forum->lists();	
 		# TODO: Select list based on type passed
-		$data['list'] = array();
 		$this->load->view('pages/home_list', $data);
 	}
 
@@ -133,6 +140,9 @@ class Pages extends CI_Controller
 	function government_agencies()
 	{
 		$data = filter_forwarded_data($this);
+		//$data['pdeList']= $this->_organization->lists();
+		$this->load->model('_query_reader');
+		$data['pdeList'] = $this->_query_reader->get_list('search_pde_list', array('phrase'=>htmlentities('', ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('pages/government_agencies', $data);
 	}
 

@@ -1,7 +1,24 @@
-<table><tr><th>Question</th>
-  <th colspan="3">Answer</th></tr>
-<tr><td >FWhat is microprocurement?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >FWhat is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >FWhat is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr></table>
+<?php 
+$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+
+$listCount = count($list);
+$i = 0;
+
+echo "<table><tr><th>Question</th>
+  <th colspan='3'>Answer</th></tr>
+
+";
+
+foreach($list AS $row) {
+		$i++;
+		echo "<tr><td >".$row['question']."</td><td colspan='3'>".$row['answer']."";
+		  
+		   # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>
+     

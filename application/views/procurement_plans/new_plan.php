@@ -19,7 +19,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Procurement: Add Plan' ));
-$this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'procurement' ));
 ?>
 
 <tr>
@@ -33,8 +33,10 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 
 <table> 
 
+<?php if($this->native_session->get('__user_type') == 'admin'){ ?>
 <tr><td class='label long'>Procurement/Disposal Entity</td><td><input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo (!empty($plan['pde'])? $plan['pde']: '');?>"/>
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo (!empty($plan['pde_id'])? $plan['pde_id']: '');?>' /></td></tr>
+</td></tr>
+<?php }?>
 
 <tr><td class='label'>Plan Name</td><td><input type='text' id='name' name='name' placeholder='Plan Name' value='<?php echo (!empty($plan['name'])? $plan['name']: '');?>'/></td></tr>
 
@@ -67,7 +69,8 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'procurement' ));
 <tr><td>&nbsp;</td><td style="text-align:right; padding-right:0px;padding-top:30px; padding-bottom:20px;"><button type="button" id="save" name="save" class="btn green submitmicrobtn" style='width: calc(100% + 10px);'>Save</button>
     <input type='hidden' id='action' name='action' value='<?php echo base_url().'procurement_plans/add';?>' />
     <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'procurement_plans/manage';?>' />
-    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' /></td></tr>
+    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
+    <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo (!empty($plan['pde_id'])? $plan['pde_id']: ($this->native_session->get('__user_type') == 'pde'? $this->native_session->get('__organization_id'): ''));?>' /></td></tr>
 </table>
 
 

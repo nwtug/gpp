@@ -25,7 +25,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
   <td>&nbsp;</td>
   <td style='text-align: left; padding-top:20px;'>
   
-  <table class='default-table' style="width:100%;">
+  <table class='default-table microform ignoreclear' style="width:100%;">
   <tr>
   <td style='padding-right:5px;width:1%;'>
   <select id='report__reporttypes' name='report__reporttypes' class='drop-down'>
@@ -33,14 +33,24 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
   </select></td>
   <td style='padding-right:5px;width:1%;'>
   <select id='report__financialquarters' name='report__financialquarters' class='drop-down'>
-  <?php echo get_option_list($this, 'financialquarters');?>
+  <?php echo get_option_list($this, 'financialquarters', 'select','', array('selected'=>get_current_quarter() ));?>
   </select></td>
+<?php if($this->native_session->get('__user_type') == 'admin'){?>
   <td style='padding-right:5px;'>
   <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="" style="width:calc(100% - 30px);"/>
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='' /></td>
+<input type='hidden' name='pde_id' id='pde_id' value='' /></td>
   <td style='width:1%;'>
-  <button type="button" id="generate" name="generate" class="smallbtn blue" style="padding-top:6px;padding-bottom:6px;">Generate</button> 
-<input name="layerid" id="layerid" type="hidden" value="paginationdiv__report_list" />
+<?php } else {
+	
+	echo "<td style='width:98%;'>
+	<input type='hidden' name='pde_id' id='pde_id' value='".$this->native_session->get('__organization_id')."' />";
+	}
+?>
+
+  <button type="button" id="generate" name="generate" class="smallbtn blue submitmicrobtn" style="padding-top:6px;padding-bottom:6px;">Generate</button> 
+  <input type='hidden' id='action' name='action' value='<?php echo base_url().'reports/manage';?>' />
+  <input type='hidden' id='resultsdiv' name='resultsdiv' value='report__1' />
+<input name="layerid" id="layerid" type="hidden" value="" />
   </td>
 </tr>
 </table>
@@ -55,7 +65,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 
 <table class='home-list-table'> 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Report</th>
-<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='report_actions' class='actions-list-btn list-actions' data-url='reports/list_actions' data-width='300' data-targetdiv='paginationdiv__report_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
+<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='report_actions' class='actions-list-btn list-actions' data-url='reports/list_actions' data-width='300'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
 </tr>
 
 <tr><td colspan='2'><div id='paginationdiv__report_list' class='page-list-div' style='overflow-x:auto;padding:10px;'>

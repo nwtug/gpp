@@ -66,7 +66,6 @@ class _account extends CI_Model
 		if(!empty($user))
 		{
 			$response['result'] = 'SUCCESS';
-			
 			# Default view on login
 			$response['default_view'] = $this->get_default_view($user['group_type']);
 			
@@ -80,7 +79,9 @@ class _account extends CI_Model
 					'telephone'=>$user['telephone'],  
 					'telephone_carrier'=>(!empty($user['telephone_carrier'])? $user['telephone_carrier']: ''),
 					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
-					'user_type'=>$user['group_type']
+					'user_type'=>$user['group_type'],
+					'organization_id'=>$user['organization_id'], 
+					'organization_name'=>$user['organization_name']
 			);
 			
 			# The allowed permissions for the user
@@ -237,7 +238,7 @@ class _account extends CI_Model
 			$message['username'] = $data['newusername'];
 			$message['businessname'] = htmlentities($data['businessname'], ENT_QUOTES);
 			
-			$result = $this->_messenger->send_direct_email($data['emailaddress'], '', $message);
+			$result = TRUE;#$this->_messenger->send_direct_email($data['emailaddress'], '', $message);
 			if(!$result) {
 				$message = 'Your account verification code could not be sent.';
 				$results[0] = $this->_query_reader->run('remove_temp_user', array('user_id'=>$userId));

@@ -8,8 +8,7 @@
 <table class='normal-table filter-container'>
 
 <tr><td colspan="2"><span style="width:50%;padding:0px;">
-  <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('procurement_plan__pde');?>" style='width:100%;'/>
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('procurement_plan__pde_id');?>' />
+  <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('tender__pde');?>" style='width:100%;'/>
 </span></td></tr>
 
 <tr><td><span style="width:49%;padding:0px;">

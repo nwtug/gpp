@@ -73,6 +73,39 @@ class _procurement_plan extends CI_Model
 	
 	
 	
+	# update the status of a procurement plan
+	function update_status($newStatus, $idList)
+	{
+		$result = FALSE;
+		# use appropriate DB status
+		$planStatus = array('publish'=>'published', 'deactivate'=>'archived');
+		
+		if(!empty($planStatus[$newStatus])) {
+			$result = $this->_query_reader->run('update_procurement_plan_status', array(
+				'new_status'=>$planStatus[$newStatus], 
+				'id_list'=>implode("','",$idList), 
+				'user_id'=>$this->native_session->get('__user_id') ));
+		}
+		
+		# log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>'update_procurement_plan_status', 
+			'result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>"device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>(!empty($result) && $result));
+	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 

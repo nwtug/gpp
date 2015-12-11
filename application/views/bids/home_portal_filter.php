@@ -7,8 +7,8 @@
 <table class='normal-table filter-container'>
 
 <tr><td colspan="2"><span style="width:50%;padding:0px;">
-  <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('procurement_plan__pde');?>" style='width:100%;'/>
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('procurement_plan__pde_id');?>' />
+   <input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('tender__pde');?>" style='width:100%;'/>
+  <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('tender__pde_id');?>' />
 </span></td></tr>
 
 <tr><td><span style="width:49%;padding:0px;">
@@ -22,9 +22,8 @@
 </select>
   </span></td>
 </tr>
-<tr><td colspan="2"><select id='providers' name='procurementtypes' data-final='providers' class='drop-down' style='width:100%;'>
-    <?php echo get_option_list($this, 'providers', 'select', '', array('selected'=>$this->native_session->get('tender__providers') )); ?>
-  </select><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='best_evaluated_bidder_home' style='width:100%;'/></td></tr>
+<tr><td colspan="2"><input type="text" id="search__providers" name="search__providers" placeholder="Search Provider Name" data-final='provider' class="drop-down searchable clear-on-empty" data-clearfield='provider_id' value="<?php echo $this->native_session->get('tender__provider');?>" style='width:100%;'/>
+<input type='hidden' name='provider_id' id='provider_id' data-final='provider_id' value='<?php echo $this->native_session->get('tender__provider_id');?>' /><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='best_evaluated_bidder_home' style='width:100%;'/></td></tr>
 
 
 <tr><td colspan="2"><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('tender')" style="width:100%;">Apply Filter</button>

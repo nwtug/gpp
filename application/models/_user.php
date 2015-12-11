@@ -57,7 +57,7 @@ class _user extends CI_Model
 			$userStatus = 'inactive';
 		}
 		$result1 = $this->_query_reader->run('update_user_status', array('user_list'=>implode("','", $users), 'new_status'=>$userStatus)); 
-		$result2 = $this->_query_reader->run('update_organization_status', array('user_list'=>implode("','", $users), 'new_status'=>$organizationStatus)); 
+		$result2 = $this->_query_reader->run('update_organization_status_by_user_ids', array('user_list'=>implode("','", $users), 'new_status'=>$organizationStatus)); 
 		
 		return $result1 && $result2;
 	}

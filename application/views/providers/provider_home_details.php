@@ -1,32 +1,26 @@
-<table>
+<?php 
+$stopHtml = "<input name='paginationdiv__provider_stop' id='paginationdiv__provider_stop' type='hidden' value='1' />";
 
-<?php
-if($status == 'active')
-{?>
-<tr><th>Provider</th><th>Category</th><th>Registered</th><th>Location</th><th>Founded</th></tr>
+$listCount = count($list);
+$i = 0;
 
-			<tr><td>PricewaterhouseCoopers, LLP</td><td>Audit</td><td>28/02/2014</td><td>New York City, NY, USA</td><td>1998</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-            
-  <?php }
-         
-           
-            
-elseif($status == 'suspended') {?>         	<tr><th>Provider</th><th>Category</th><th>Suspension Ends</th><th>Location</th><th>Founded</th></tr>
+echo "<table>
 
-			<tr><td>Bashira Investments Ltd</td><td>Audit</td><td>28/02/2014</td><td>New York City, NY, USA</td><td>1998</td></tr>
-			<tr><td>Muriromu General Engineering & Construction Co.</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Muteco International Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-            
-            </table>
-            
-            <?php }?>
+<tr><th>Provider</th><th>Category</th><th>Registered</th><th>Location</th><th>Founded</th></tr>";
+
+foreach($list AS $row) {
+		$i++;
+		echo "
+
+			<tr><td>".$list['name']."<</td><td>".$list['category']."</td><td>".date(SHORT_DATE_FORMAT, strtotime($list['date_created']))."</td><td>".$list['address']."</td><td>".date(SHORT_DATE_FORMAT, strtotime($list['date_registered']));
+		  
+		   # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+
+?>
+

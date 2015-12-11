@@ -15,12 +15,18 @@ class _contract extends CI_Model
 		$userType = $this->native_session->get('__user_type');
 		$organizationId = $this->native_session->get('__organization_id');
 		
+		if($userType == 'admin') $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived');
+		else if($userType == 'pde')  $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived','saved');
+		else  $status = array('active','complete','terminated','endorsed','cancelled');
+		
+		
+		
 		return $this->_query_reader->get_list('get_contract_list', array(
 			'tender_condition'=>(!empty($scope['tender'])? " AND _tender_id='".$scope['tender']."' ": ''),
 			
 			'pde_condition'=>(!empty($scope['pde'])? " AND _pde_id='".$scope['pde']."' ": ''),
 			
-			'status_condition'=>(!empty($scope['status'])? " AND status = '".$scope['status']."' ": " AND status IN ('active','complete') " ),
+			'status_condition'=>(!empty($scope['status'])? " AND status = '".$scope['status']."' ": " AND status IN ('".implode("','",$status)."') " ),
 			
 			'owner_condition'=>(in_array($userType, array('pde','provider'))? ($userType == 'provider'? " AND _organization_id = '".$organizationId."' ": " AND _pde_id = '".$organizationId."' "): '' ),
 			
@@ -44,6 +50,7 @@ class _contract extends CI_Model
 				'organization_id'=>$data['provider_id'], 
 				'pde_id'=>$data['pde_id'],
 				'name'=>htmlentities($data['name'], ENT_QUOTES),
+				'source_of_funds'=>htmlentities($data['source_of_funds'], ENT_QUOTES),
 				'contract_currency'=>$data['currency_code'], 
 				'contract_amount'=>$data['amount'], 
 				'status'=>$data['contract__contractstatus'], 
@@ -104,7 +111,9 @@ class _contract extends CI_Model
 		$result1 = $this->_query_reader->run('add_contract_status', array(
 			'contract_id'=>$data['contract_id'], 
 			'status'=>$data['contract__contractstatus'], 
-			'percentage'=>$data['contract__percentage'], 
+			'percentage'=>$data['contract__percentage'],  
+			'amount_spent'=>$data['amountspent'], 
+			'amount_paid'=>$data['amountpaid'],
 			'document_url'=>$data['document'], 
 			'user_id'=>$this->native_session->get('__user_id'), 
 			'organization_id'=>$this->native_session->get('__organization_id'), 
@@ -112,11 +121,76 @@ class _contract extends CI_Model
 		));
 		
 		# update the contract percentage
-		$result2 = $this->_query_reader->run('update_contract_percentage', array('contract_id'=>$data['contract_id'], 'percentage'=>$data['contract__percentage'], 'user_id'=>$this->native_session->get('__user_id')));
+		$result2 = $this->_query_reader->run('update_contract_percentage', array('contract_id'=>$data['contract_id'], 'status'=>$data['contract__contractstatus'], 'percentage'=>$data['contract__percentage'], 'user_id'=>$this->native_session->get('__user_id')));
 		
 		return array('boolean'=>get_decision(array($result1, $result2)), 'reason'=>'');
 	}
 	
+	
+	
+	
+	
+	
+	
+	# update the status of a contract
+	function update_status($newStatus, $idList)
+	{
+		$result = FALSE;
+		# use appropriate DB status
+		$contractStatus = array('mark_as_cancelled'=>'cancelled', 'mark_as_endorsed'=>'endorsed', 'mark_as_complete'=>'complete', 'mark_as_terminated'=>'terminated', 'mark_as_archived'=>'archived');
+		
+		if(!empty($contractStatus[$newStatus])) {
+			# update contract status
+			$result = $this->_query_reader->run('update_contract_status', array(
+				'new_status'=>$contractStatus[$newStatus], 
+				'id_list'=>implode("','",$idList), 
+				'user_id'=>$this->native_session->get('__user_id') ));
+				
+			# add the contract status tracking
+			if($result){
+				$result = $this->_query_reader->run('add_automatic_contract_status', array(
+						'id_list'=>implode("','",$idList), 
+						'new_status'=>$contractStatus[$newStatus], 
+						'user_id'=>$this->native_session->get('__user_id'), 
+						'organization_id'=>$this->native_session->get('__organization_id')
+					));
+			}
+			
+			/*# notify associated provider about new status
+			if($result){
+				$sent = array();
+				foreach($bidIds AS $bidId) {
+				
+				$providerUserIds = $this->_query_reader->get_single_column_as_array('get_bid_provider_users', 'user_id', array('bid_id'=>$bidId));
+				$bid = $this->details(array('bid_id'=>$bidId));
+				if(!empty($providerUserIds) && !empty($bid)){
+					$sentResult = $this->_messenger->send($providerUserIds, array(
+						'code'=>'bid_status_changed',
+						'newstatus'=>$status[$newStatus], 
+						'pde'=>$bid['pde'], 
+						'summary'=>$bid['summary'],
+						'tendernotice'=>$bid['tender_notice'],
+						'datesubmitted'=>date(SHORT_DATE_FORMAT, strtotime($bid['date_submitted']))
+					));
+					array_push($sent, $sentResult);
+				}
+				}
+			}*/
+		}
+		
+		
+		# log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>'update_contract_status', 
+			'result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>"device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>(!empty($result) && $result));
+	}
 	
 	
 	

@@ -597,6 +597,8 @@ button.btn.grey, button.smallbtn.grey {
 	background: url(../../assets/images/forums_icon.png) no-repeat left center;
 }
 
+
+
 .show-on-mobile {
 	display:none;
 }
@@ -650,6 +652,10 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
+}
+
+a.blue-box:hover{
+	color:#FFF !important;
 }
 
 .green-box {

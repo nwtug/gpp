@@ -7,8 +7,10 @@
 
 <table class='normal-table filter-container'>
 
+<?php if($this->native_session->get('__user_type') != 'pde'){?>
 <tr><td><input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('bid__pde');?>" style='width:100%;'/>
 <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('bid__pde_id');?>' /></td></tr>
+<?php }?>
 
 <tr><td><input type="text" id="search__providers" name="search__providers" placeholder="Search Provider Name" data-final='provider' class="drop-down searchable clear-on-empty" data-clearfield='provider_id' value="<?php echo $this->native_session->get('bid__provider');?>" style='width:100%;'/>
 <input type='hidden' name='provider_id' id='provider_id' data-final='provider_id' value='<?php echo $this->native_session->get('bid__provider_id');?>' /></td></tr>

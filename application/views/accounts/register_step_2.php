@@ -39,7 +39,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     <div><select id='category__businesscategories' name='category__businesscategories' class='drop-down'>
     <?php echo get_option_list($this, 'businesscategories', 'select','', array(
 		'selected'=>($this->native_session->get('category__businesscategories')? $this->native_session->get('category__businesscategories'): ''),
-		'type'=>$this->native_session->get('organization_type')
+		'type'=>$this->native_session->get('organizationtype')
 	));?>
     </select>
     
@@ -53,7 +53,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     
     <tr><td class='bold'>b) Your Organization Registration:</td></tr>
     
-<?php if($this->native_session->get('organization_type') == 'provider'){?>    
+<?php if($this->native_session->get('organizationtype') == 'provider'){?>    
     <tr><td class='two-fields'>
     <div><input type='text' id='taxid' name='taxid' placeholder='Tax ID' value='<?php echo $this->native_session->get('taxid');?>' /></div>
     <div><input type='text' id='registrationno' name='registrationno' placeholder='Organization Registration Number' value='<?php echo $this->native_session->get('registrationno');?>' /></div>

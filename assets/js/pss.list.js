@@ -104,7 +104,9 @@ $(function() {
 		else {
 			//Update the action link and click it
 			$('#'+triggerDiv+'__link').attr('href',url);
-			$('#'+triggerDiv+'__link').click();
+			//should we use a shadowbox or go straight to the link
+			if(clickedDiv.hasClass('ignore-pop')) document.location.href = url;
+			else $('#'+triggerDiv+'__link').click();
 		}
 		clickedDiv.parents('.list-actions-div').first().remove();
 	});

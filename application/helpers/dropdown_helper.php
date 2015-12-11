@@ -43,7 +43,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
 			{
 				if($return == 'div') $optionString .= "<div data-value='".$i."'>Financial Year ".$i."</div>";
-				else $optionString .= "<option value='".$i."'>Financial Year ".$i."</option>";
+				else $optionString .= "<option value='".$i."' onclick=\"updateFieldLayer('".base_url()."reports/update_financial_report/t/pde/y/".$i."','','','stat_container','')\">Financial Year ".$i."</option>";
 			}
 		break;
 		
@@ -96,11 +96,10 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "businesscategories":
-			$types = $obj->_query_reader->get_list(($more['type'] == 'pde'? 'get_government_ministries': 'get_business_categories'));
-			$categoryName = $more['type'] == 'pde'? 'Ministry': 'Category';
+			$types = $obj->_query_reader->get_list(($more['type'] == 'pde'? 'get_pde_categories': 'get_business_categories'));
 			
-			if($return == 'div') $optionString .= "<div data-value=''>Select a ".$categoryName."</div>";
-			else $optionString .= "<option value=''>Select a ".$categoryName."</option>";
+			if($return == 'div') $optionString .= "<div data-value=''>Select a Category</div>";
+			else $optionString .= "<option value=''>Select a Category</option>";
 			
 			foreach($types AS $row)
 			{
@@ -197,7 +196,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			foreach($types AS $key=>$row)
 			{
 				if($key == 'message') $url = 'providers/message';
-				else if(in_array($key, array('activate', 'deactivate', 'suspend'))) $url = 'providers/update_status/t/'.$key;
+				else if($key == 'suspend') $url = 'providers/suspend';
+				else if(in_array($key, array('activate', 'deactivate'))) $url = 'providers/update_status/t/'.$key;
 				
 				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
@@ -209,14 +209,11 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "procurement_plan_list_actions":
-			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate', 'edit'=>'Edit');
+			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate');
 			
 			foreach($types AS $key=>$row)
 			{
-				if($key == 'edit') $url = 'procurement_plans/add';
-				else if(in_array($key, array('publish', 'deactivate'))) $url = 'procurement_plans/update_status/t/'.$key;
-				
-				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='procurement_plans/update_status/t/".$key."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
 			}
 		break;
@@ -225,14 +222,11 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "tender_list_actions":
-			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate', 'edit'=>'Edit');
+			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate');
 			
 			foreach($types AS $key=>$row)
 			{
-				if($key == 'edit') $url = 'tenders/add';
-				else if(in_array($key, array('publish', 'deactivate'))) $url = 'tenders/update_status/t/'.$key;
-				
-				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
+				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='tenders/update_status/t/".$key."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
 			}
 		break;
@@ -246,9 +240,9 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 
 		case "my_bid_list_actions";
 			
-			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'mark_as_awarded'=>'Mark As Awarded', 'reject_bid'=>'Reject Bid', 'mark_as_completed'=>'Mark As Completed', 'mark_as_archived'=>'Mark As Archived');
+			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'under_review'=>'Under Review', 'short_list'=>'Short List', 'reject_bid'=>'Reject Bid', 'mark_as_completed'=>'Mark As Completed');
 			
-			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_awarded'=>'Mark As Awarded', 'retract_win'=>'Retract Win', 'mark_as_completed'=>'Mark As Completed');
+			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'retract_win'=>'Retract Win', 'mark_as_awarded'=>'Mark As Awarded', 'retract_award'=>'Retract Award', 'mark_as_completed'=>'Mark As Completed');
 			
 			else if($list_type == 'awards_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'retract_award'=>'Retract Award', 'mark_as_completed'=>'Mark As Completed');
 			
@@ -258,8 +252,12 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 			foreach($types AS $key=>$row)
 			{
-				if($key == 'message_bidder') $url = 'bids/message';
-	else if(in_array($key, array('mark_as_won', 'mark_as_awarded', 'mark_as_completed', 'retract_win', 'reject_bid', 'retract_award', 'submit_bid'))) $url = 'bids/update_status/t/'.$key;
+
+				if(in_array($key, array('under_review', 'short_list', 'reject_bid', 'mark_as_completed', 'mark_as_won', 
+				'retract_win', 'mark_as_awarded', 'retract_award', 'submit_bid', 'mark_as_archived'))) {
+					$url = 'bids/update_status/t/'.$key;
+				}
+				else if($key == 'message_bidder') $url = 'bids/message'; 
 
 				
 				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
@@ -280,6 +278,23 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			}
 		break;
 
+		
+		
+		
+		
+		case "providers":
+			$types = $obj->_query_reader->get_list('search_provider_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['provider_id']."' onclick=\"universalUpdate('provider_id','".$row['provider_id']."')\">".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['provider_id']."' onclick=\"universalUpdate('provider_id','".$row['provider_id']."'>".$row['name']."</option>";
+			}
+		break;
+		
+		
+		
+
 		case "tenders":
 			if($obj->native_session->get('__user_type') == 'provider') $ownerCondition = " HAVING provider_id='".$obj->native_session->get('__organization_id')."' ";
 			else if($obj->native_session->get('__user_type') == 'pde') $ownerCondition = " AND _organization_id='".$obj->native_session->get('__organization_id')."' ";
@@ -299,7 +314,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "procurementtypes":
-			$types = array('supplies'=>'Supplies', 'works'=>'Works', 'goods'=>'Goods');
+			$types = array('services'=>'Services', 'works'=>'Works', 'goods'=>'Goods');
 			
 			if($return == 'div') $optionString .= "<div data-value=''>Select Procurement Type</div>";
 			else $optionString .= "<option value=''>Select Procurement Type</option>";
@@ -339,17 +354,21 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "procurementplanstatus":
 		case "tenderstatus":
 		case "bidstatus":
+		case "mybidstatus":
 		case "contractstatus":
 		case "documentstatus":
 		case "linkstatus":
 		case "trainingstatus":
+		case "providerstatus":
 		
 			if($list_type == 'contractstatus') {
-				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
-				else if($obj->native_session->get('__user_type') == 'pde') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived','saved'=>'Saved');
-				else $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+				if($obj->native_session->get('__user_type') == 'provider') $types = array('active'=>'Active','endorsed'=>'Endorsed by MoJ','cancelled'=>'Cancelled','complete'=>'Complete','terminated'=>'Terminated','archived'=>'Archived');
+				else if($obj->native_session->get('__user_type') == 'pde') $types = array('active'=>'Active','complete'=>'Complete','terminated'=>'Terminated','cancelled'=>'Cancelled','commenced'=>'Commenced','final_payment'=>'Final Payment','archived'=>'Archived','saved'=>'Saved');
+				else $types = array('active'=>'Active','complete'=>'Complete','cancelled'=>'Cancelled','commenced'=>'Commenced','final_payment'=>'Final Payment','terminated'=>'Terminated','archived'=>'Archived');
 			}
-			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'submitted');
+			else if($list_type == 'bidstatus') $types = array('saved'=>'Saved', 'submitted'=>'Submitted');
+			else if($list_type == 'mybidstatus') $types = array(''=>'Select Bid Status', 'saved'=>'Saved', 'submitted'=>'Submitted','under_review'=>'Under Review', 'short_list'=>'Short Listed', 'rejected'=>'Rejected', 'completed'=>'Completed', 'won'=>'Won', 'awarded'=>'Awarded', 'archived'=>'Archived');
+			else if($list_type == 'providerstatus') $types = array('active'=>'Active', 'inactive'=>'Inactive', 'suspended'=>'Suspended');
 			else if( in_array($list_type, array('documentstatus','linkstatus','trainingstatus')) ) $types = array('active'=>'Active', 'inactive'=>'Inactive');
 			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
 			
@@ -391,12 +410,12 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 
 		case "contract_list_actions":
-			$types = array('message_provider'=>'Message Provider', 'mark_as_complete'=>'Mark As Complete', 'mark_as_terminated'=>'Terminate', 'mark_as_archived'=>'Archive');
+			$types = array('message_provider'=>'Message Provider', 'mark_as_cancelled'=>'Mark as Cancelled', 'mark_as_endorsed'=>'Mark as Endorsed by MoJ', 'mark_as_complete'=>'Mark as Complete', 'mark_as_terminated'=>'Terminate', 'mark_as_archived'=>'Archive');
 			
 			foreach($types AS $key=>$row)
 			{
 				if($key == 'message_provider') $url = 'contracts/message_provider';
-				else if(in_array($key, array('mark_as_complete', 'mark_as_terminated', 'mark_as_archived'))) $url = 'contracts/update_status/t/'.$key;
+				else $url = 'contracts/update_status/t/'.$key;
 				
 				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='".$url."'>".$row."</div>";
 				else $optionString .= "<option value='".$key."'>".$row."</option>";
@@ -571,7 +590,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			{
 				foreach($quarters AS $quarter){
 					if($return == 'div') $optionString .= "<div data-value='".$i."-".strtolower($quarter)."'>FY ".$i." - ".$quarter." Quarter</div>";
-					else $optionString .= "<option value='".$i."-".strtolower($quarter)."'>FY ".$i." - ".$quarter." Quarter</option>";
+					else $optionString .= "<option value='".$i."-".strtolower($quarter)."' ".(!empty($more['selected']) && $more['selected'] == $i."-".strtolower($quarter)? 'selected': '').">FY ".$i." - ".$quarter." Quarter</option>";
 				}
 			}
 		break;
@@ -603,8 +622,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			 
 			foreach($types AS $key=>$row)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$key."' data-url='reports/download/t/".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '')." data-url='reports/download/t/".$key."'>".$row."</option>";
+				if($return == 'div') $optionString .= "<div class='ignore-pop' data-value='".$key."' data-url='reports/download/t/".$key."'>".$row."</div>";
+				else $optionString .= "<option class='ignore-pop' value='".$key."' ".(!empty($more['selected']) && $more['selected'] == $key? 'selected': '')." data-url='reports/download/t/".$key."'>".$row."</option>";
 			}
 		break;
 		

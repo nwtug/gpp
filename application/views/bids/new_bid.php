@@ -21,13 +21,21 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Submit Bid' ));
-$this->load->view('addons/provider_top_menu', array('__page'=>'bids' ));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>($this->native_session->get('__user_type') == 'provider'? 'contracts': 'procurement') ));
+
+if($this->native_session->get('__user_type') != 'provider'){
 ?>
+<tr>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<?php $this->load->view('addons/procurement_ribbon', array('page'=>'bids')); 
+}
+?>
+
 
 <tr>
   <td>&nbsp;</td>
   <td class='one-column body-form-area microform ignoreclear'>
-
 <table> 
 
 
@@ -36,38 +44,60 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'bids' ));
 echo "<br><a href='".base_url()."tenders/view_one/d/".$tender['tender_id']."' class='shadowbox closable'>".html_entity_decode($tender['name'], ENT_QUOTES)."</a>";?></div>
 <input type='hidden' id='tender_id' name='tender_id' value='<?php echo $tender['tender_id'];?>' /></td></tr>
 
-<tr><td class='label'>Summary</td><td><textarea id='summary' name='summary' placeholder='Briefly describe your bid and why your organization should be awarded the tender  (Max 500 characters)' class='limit-chars' data-max='500' style='height: 150px;'><?php echo (!empty($bid['summary'])? $bid['summary']: '');?></textarea></td></tr>
+<?php if($this->native_session->get('__user_type') != 'provider'){?>
+<tr><td class='label'>Provider</td><td><input type='text' id='tender__providers' name='tender__providers' placeholder='Select Provider' class='drop-down searchable clear-on-empty' data-clearfield='provider_id' value='<?php echo (!empty($bid['provider'])? $bid['provider']: '');?>'/>
+<input type='hidden' id='provider_id' name='provider_id' value='<?php echo (!empty($bid['provider_id'])? $bid['provider_id']: '');?>' /></td></tr>
+<?php }?>
+
+<tr><td class='label'>Summary</td><td><textarea id='summary' name='summary' placeholder='Briefly describe <?php echo $this->native_session->get('__user_type') != 'provider'? "the provider bid proposal as submitted in their offline documents using the cover letter where provided": "your bid and why your organization should be awarded the tender";?>  (Max 500 characters)' class='limit-chars' data-max='500' style='height: 150px;'><?php echo (!empty($bid['summary'])? $bid['summary']: '');?></textarea></td></tr>
 
 
 <tr><td class='label'>Add Documents</td><td style='padding-left:0px;padding-right:0px;'>
+<?php
+if(!empty($bid['documents'])){
+	$documents = explode(',',$bid['documents']);
+	foreach($documents AS $file) echo "&nbsp;&nbsp;<a href='".base_url()."pages/download/file/".$file."'>".$file."</a><br>";
+	
+	echo "<input type='hidden' id='olddocuments' name='olddocuments' value='".$bid['documents']."' />";
+}
+?>
 <table class='default-table' style="width:calc(100% + 18px);">
 <tr><td id='file_field_list' style='width:99%;'>
-<input type='text' id='document_1' name='document[]' class='filefield' data-val='pdf,doc,docx' data-size='5120000' placeholder='Select Bid Document (PDF, Word. Max 500MB)' value=''/>
+<input type='text' id='document_1' name='document_1' class='filefield' data-val='pdf,doc,docx' data-size='5120000' placeholder='Select Bid Document (PDF, Word. Max 500MB)' value=''/>
 </td><td style='width:1%;padding-left:10px;'><div class='add-icon add-file-field' data-targetarea='file_field_list'>&nbsp;</div></td></tr>
 </table>
 </td></tr>
 
 
 <tr><td class='label long'>Validity Period of Your Bid</td><td style='padding-right:0px;'>
-<table class='default-table'><tr><td style='padding-left:0px;'><input type='text' id='valid_from' name='valid_from' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='From' style="width:calc(100% - 40px);" value='<?php echo (!empty($bid['valid_from'])? $bid['valid_from']: '');?>'/></td>
-<td style='padding-right:0px;'><input type='text' id='valid_to' name='valid_to' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='To' style="width:calc(100% - 40px);" value='<?php echo (!empty($bid['valid_to'])? $bid['valid_to']: '');?>'/></td></tr></table>
+<table class='default-table'><tr><td style='padding-left:0px;'><input type='text' id='valid_from' name='valid_from' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='From' style="width:calc(100% - 40px);" value='<?php echo (!empty($bid['valid_start_date'])? date(SHORT_DATE_FORMAT, strtotime($bid['valid_start_date'])): '');?>'/></td>
+<td style='padding-right:0px;'><input type='text' id='valid_to' name='valid_to' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='To' style="width:calc(100% - 40px);" value='<?php echo (!empty($bid['valid_end_date'])? date(SHORT_DATE_FORMAT, strtotime($bid['valid_end_date'])): '');?>'/></td></tr></table>
 </td></tr>
 
 
 <tr><td class='label'>Your Bid</td><td style='padding-right:0px;'>
-<table class='default-table'><tr><td style='padding-left:0px;padding-right:0px;'><input type='text' id='bid__currencies' name='bid__currencies' class='drop-down searchable' style="width:calc(100% - 28px); height:22px;" placeholder='Currency' value='<?php echo (!empty($bid['currency'])? $bid['currency']: '');?>'/>
-<input type='hidden' id='currency_code' name='currency_code' value='<?php echo (!empty($bid['currency_code'])? $bid['currency_code']: '');?>' /></td>
-<td style='padding-left:0px;padding-right:5px;'><input type='text' id='amount' name='amount' class='numbersonly' placeholder='Amount (to nearest unit)' style="width:calc(100% - 5px);" value='<?php echo (!empty($bid['amount'])? $bid['amount']: '');?>'/></td></tr></table>
+<table class='default-table'><tr><td style='padding-left:0px;padding-right:0px;'><input type='text' id='bid__currencies' name='bid__currencies' class='drop-down searchable' style="width:calc(100% - 28px); height:22px;" placeholder='Currency' value='<?php echo (!empty($bid['bid_currency'])? $bid['bid_currency']: '');?>'/>
+<input type='hidden' id='currency_code' name='currency_code' value='<?php echo (!empty($bid['bid_currency'])? $bid['bid_currency']: '');?>' /></td>
+<td style='padding-left:0px;padding-right:5px;'><input type='text' id='amount' name='amount' class='numbersonly' placeholder='Amount (to nearest unit)' style="width:calc(100% - 5px);" value='<?php echo (!empty($bid['bid_amount'])? $bid['bid_amount']: '');?>'/></td></tr></table>
 </td></tr>
 
+<?php if($this->native_session->get('__user_type') == 'provider'){?>
 <tr><td class='label'>Status</td><td><select id='bid__bidstatus' name='bid__bidstatus' class='drop-down' style="width:calc(100% + 15px);">
 <?php echo get_option_list($this, 'bidstatus', 'select', '', array('selected'=>(!empty($bid['status'])? $bid['status']: '') ));?>
 </select></td></tr>
+<?php }?>
 
 <tr><td>&nbsp;</td><td style="text-align:right; padding-right:0px;padding-top:30px; padding-bottom:20px;"><button type="button" id="save" name="save" class="btn green submitmicrobtn" style='width: calc(100% + 10px);'>Save</button>
     <input type='hidden' id='action' name='action' value='<?php echo base_url().'bids/add';?>' />
-    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'bids/my_list';?>' />
-    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' /></td></tr>
+    <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'bids/'.($this->native_session->get('__user_type') != 'provider'? 'manage': 'my_list');?>' />
+    <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
+    <?php 
+	if(!empty($bid['bid_id'])) echo "<input type='hidden' id='bidid' name='bidid' value='".$bid['bid_id']."' />";
+	if($this->native_session->get('__user_type') != 'provider') {
+		echo "<input type='hidden' id='bid__bidstatus' name='bid__bidstatus' value='submitted' />";
+	}
+	?>
+    </td></tr>
 </table>
 
 

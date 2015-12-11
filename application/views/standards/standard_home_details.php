@@ -1,15 +1,25 @@
-<table><tr><td class='pdf-icon-row'><span class='bold'>FSubmission of Procurement</span>
-<br><span class='grey-box'>Legal</span></td>
-<td class='dark-grey' style="width:1%;white-space:nowrap;">Posted: 04/10/2015 <br>Size: 756KB</td></tr>
+<?php 
+$stopHtml = "<input name='paginationdiv__resources_stop' id='paginationdiv__resources_stop' type='hidden' value='1' />";
 
-<tr><td class='msppt-icon-row'><span class='bold'>FComplaining to the tribunal</span>
-<br><span class='grey-box'>Case Studies</span></td>
-<td class='dark-grey'>Posted: 03/10/2015 <br>Size: 4.35MB</td></tr>
+$listCount = count($list);
+$i = 0;
 
-<tr><td class='msdoc-icon-row'><span class='bold'>FRejection of contracts</span>
-<br><span class='grey-box'>Reports</span></td>
-<td class='dark-grey'>Posted: 03/10/2015<br>Size: 124KB</td></tr>
+echo "<table>
 
-<tr><td class='file-icon-row'><span class='bold'>FComplaining to the tribunal</span>
-<br><span class='grey-box'>Reports</span></td>
-<td class='dark-grey'>Posted: 01/10/2015<br>Size: 256KB</td></tr></table>
+";
+foreach($list AS $row) {
+		$i++;
+		echo "<tr><td class='".document_class($row['url'])."-icon-row'><span class='bold'><a href=".base_url().'pages/download/file/'.$row['url'].">".$row['name']."</a></span>
+<br><span class='grey-box'>".$row['category']."</span></td>
+<td class='dark-grey' style='width:1%;white-space:nowrap;'>Posted: ".date(SHORT_DATE_FORMAT, strtotime($row['date_entered']))." <br>Size:
+ ".format_number($row['size'],3)."B"."";
+     
+	  # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td></tr>";
+		  }
+echo "</table>";
+?>
+      

@@ -7,8 +7,10 @@
 
 <table class='normal-table filter-container'>
 
+<?php if($this->native_session->get('__user_type') != 'pde'){?>
 <tr><td><input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('contract__pde');?>" style='width:100%;'/>
 <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('contract__pde_id');?>' /></td></tr>
+<?php }?>
 
 <tr><td><input type="text" id="search__tenders" name="search__tenders" placeholder="Search Tender Name" data-final='tender' class="drop-down searchable clear-on-empty" data-clearfield='tender_id' value="<?php echo $this->native_session->get('contract__tender');?>" style='width:100%;'/>
 <input type='hidden' name='tender_id' id='tender_id' data-final='tender_id' value='<?php echo $this->native_session->get('contract__tender_id');?>' /></td></tr>
