@@ -33,7 +33,6 @@ class Resources extends CI_Controller
 		$data['linksList'] = $this->_link->lists();
 		$data['trainingList'] = $this->_training->lists();
 
-		//print_array($data);
 		$this->load->view('resources/home', $data);
 	}
 	
