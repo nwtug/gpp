@@ -34,9 +34,6 @@ class Providers extends CI_Controller
 		}
 		
 		$data['suspendedProviders']=$suspendedProviders;
-		
-		//print_array($data);
-
 
 		$this->load->view('providers/home', $data);
 	}
@@ -123,10 +120,6 @@ class Providers extends CI_Controller
 
 	}
 
-	
-	
-	
-	
 	# update a provider's status
 	function update_status()
 	{
@@ -243,12 +236,7 @@ class Providers extends CI_Controller
 		else $this->load->view('providers/certificate_specs', $data);
 	}
 	
-	
-	
-	
-	
-	
-	
+		
 }
 
 /* End of controller file */

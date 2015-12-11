@@ -13,9 +13,9 @@
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('resources__phrase');?>' style='width:100%;'/></td></tr>
 <tr>
-  <td><input type='text' id='datefrom' name='datefrom' data-final='datefrom' class='calendar clickactivated' onclick='setDatePicker()' placeholder='From ' value='<?php echo $this->native_session->get('resources__from_date');?>' style='width:100%;'/></td></tr>
+  <td><input type='text' id='valid_from' name='datefrom' data-final='datefrom' class='calendar clickactivated' onclick='setDatePicker(this)' placeholder='From ' value='<?php echo $this->native_session->get('resources__from_date');?>' style='width:100%;'/></td></tr>
 <tr>
-  <td><input type='text' id='dateto' name='dateto' data-final='dateto' class='calendar clickactivated' onclick='setDatePicker()' placeholder='To' value='<?php echo $this->native_session->get('resources__to_date');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='activities_details' style='width:100%;'/></td></tr>
+  <td><input type='text' id='valid_to' name='dateto' data-final='dateto' class='calendar clickactivated' onclick='setDatePicker(this)' placeholder='To' value='<?php echo $this->native_session->get('resources__to_date');?>' style='width:100%;'/><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='activities_details' style='width:100%;'/></td></tr>
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('resources')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" /></td></tr>

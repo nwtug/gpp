@@ -50,7 +50,6 @@ class Forums extends CI_Controller
 		$data['faqList'] = $this->_faq->lists();
 		$data['publicForumsList']=  $this->_forum->lists();
 		$data['secureForumsList']=  $this->_forum->lists();
-		//$data['secureForumsList']= $this->_forum->lists();
 		$this->load->view('forums/details_list', $data);
 	}
 	

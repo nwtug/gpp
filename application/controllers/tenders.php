@@ -83,7 +83,7 @@ class Tenders extends CI_Controller
 	function list_filter()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('tenders/list_filter', $data);
+	    $this->load->view('tenders/list_filter', $data);
 	}
 	
 	
@@ -98,7 +98,7 @@ class Tenders extends CI_Controller
 		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
 		else if($data['t'] == 'contract_awards') $folder = 'contracts';
 		
-		$this->load->view($folder.'/home_filter', $data);
+	    $this->load->view($folder.'/home_filter', $data);
 	}
 
     # filter tenders for the home page
@@ -130,7 +130,7 @@ class Tenders extends CI_Controller
 			
 			if(!$result['boolean']) echo "ERROR: The tender notice could not be added. ".$result['reason'];
 		}
-		else $this->load->view('tenders/new_tender', $data);
+		    else $this->load->view('tenders/new_tender', $data);
 	}
 	
 	

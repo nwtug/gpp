@@ -9,7 +9,7 @@ echo "<table>
 ";
 foreach($list AS $row) {
 		$i++;
-		echo "<tr><td><span class='bold'>".$row['topic']."</span>
+		echo "<tr><td><span class='bold'><a href='".base_url()."forums/view_one/d/'".$row['forum_id']."' class='shadowbox closable'>".$row['topic']."</a></span>
 <br><span class='grey-box'>".$row['category']."</span></td>
 <td class='dark-grey' style='width:1%;white-space:nowrap;'>Started: ".date(SHORT_DATE_FORMAT, strtotime($row['last_updated']))."<br>Contributors: ".$row['no_of_contributors']."</td></tr>
 

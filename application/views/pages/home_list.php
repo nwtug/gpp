@@ -5,7 +5,6 @@ if(($type == 'procurement_plans')||($type == 'active_notices')||($type == 'best_
 }
 elseif(($type == 'active_providers')||($type == 'suspended_providers')){
 	echo "provider__1"; 
-	
 }
 elseif(($type == 'documents')||($type == 'important_links')||($type == 'standards')||($type == 'training_activities')){
 	echo "resources__1";
@@ -41,8 +40,8 @@ else if($type == 'active_notices'){?>
 
 <?php
             if(isset($tenderList)){
-                foreach($tenderList as $list){
-                    ?>
+                foreach($tenderList as $list){ ?>
+       
 <tr>
   <td>
 <span class='bold'><?=$list['subject']?></span>
@@ -51,7 +50,8 @@ else if($type == 'active_notices'){?>
 <td class='dark-grey'><span class='bold'>Entity:</span> <?=$list['pde']?></td></tr>
 
 <?php
-                }
+                
+				}
 
             }?>
 
@@ -166,7 +166,7 @@ else if($type == 'important_links'){ ?>
 </tr>
 <?php }
 
-			}?>
+	}?>
 
 <?php }  
 
@@ -210,7 +210,7 @@ else if($type == 'public_forums'){ ?>
                 foreach($publicForumsList as $list){
                     ?>
 
-<tr><td><span class='bold'><?=$list['topic']?></span>
+<tr><td><span class='bold'><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></span>
 <br><span class='grey-box'><?=$list['category']?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: <?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?><br>Contributors: <?=$list['no_of_contributors']?></td></tr>
 
@@ -227,7 +227,7 @@ else if($type == 'secure_forums'){ ?>
                 foreach($publicForumsList as $list){
                     ?>
 
-<tr><td><span class='bold'><?=$list['topic']?></span>
+<tr><td><span class='bold'><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></span>
 <br><span class='grey-box'><?=$list['category']?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: <?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?><br>Contributors: <?=$list['no_of_contributors']?></td></tr>
 

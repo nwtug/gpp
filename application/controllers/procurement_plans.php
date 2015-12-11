@@ -88,7 +88,7 @@ class Procurement_plans extends CI_Controller
 	# update a provider's status
 	function update_status()
 	{
-		$data = filter_forwarded_data($this);
+		   $data = filter_forwarded_data($this);
 		
 		if(!empty($data['t']) && !empty($data['list'])) $response = $this->_procurement_plan->update_status($data['t'], explode('--',$data['list']));
 		
@@ -103,7 +103,7 @@ class Procurement_plans extends CI_Controller
 			$data['area'] = 'basic_msg';
 		}
 		
-		$this->load->view('addons/basic_addons', $data);
+		    $this->load->view('addons/basic_addons', $data);
 	}
 	
 	

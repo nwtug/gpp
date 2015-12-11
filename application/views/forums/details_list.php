@@ -6,10 +6,23 @@
 <tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
 <?php
             if(isset($publicForumsList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($publicForumsList);
+				$i = 0;
                 foreach($publicForumsList as $list){
-                    ?><tr><td ><?=$list['topic']?></td><td><span class='grey-box'><?=$list['category']?></span></td><td>(<?=$list['no_of_contributors']?>)</td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?></td></tr>
+       				$i++;
+                    ?>
+                    <tr>
+                         <td ><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></td>
+                         <td><span class='grey-box'><?=$list['category']?></span></td>
+                         <td>(<?=$list['no_of_contributors']?>)</td>
+                         <td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?>
+                    <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?> 
+                   </td></tr>
 
-<?php }
+                  <?php }
   
 			}?>
 <?php }  
@@ -21,8 +34,20 @@ else if($type == 'secure_forums'){ ?>
 
 <?php
             if(isset($secureForumsList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($secureForumsList);
+				$i = 0;
                 foreach($secureForumsList as $list){
-                    ?><tr><td ><?=$list['topic']?></td><td><span class='grey-box'><?=$list['category']?></span></td><td>(<?=$list['no_of_contributors']?>)</td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?></td></tr>
+       				$i++;
+                    ?>
+                    <tr>
+                        <td ><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></td>
+                        <td><span class='grey-box'><?=$list['category']?></span></td>
+                        <td>(<?=$list['no_of_contributors']?>)</td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?>
+                   <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?>  
+                    </td></tr>
 
 <?php }
   
@@ -37,8 +62,18 @@ else if($type == 'frequently_asked_questions'){ ?>
 
 <?php
             if(isset($faqList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($faqList);
+				$i = 0;
                 foreach($faqList as $list){
-                    ?><tr><td ><?=$list['question']?></td><td colspan="3"><?=$list['answer']?></td></tr>
+       				$i++;
+                    ?>
+                    <tr>
+                    <td ><?=$list['question']?></td><td colspan="3"><?=$list['answer']?>
+                     <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?>
+                    </td></tr>
  <?php }
   
 			}?>
