@@ -22,7 +22,18 @@ class Providers extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		$data['activeProvidersList'] = array();
+		if(!empty($data['a'])) $data['area'] = $data['a'];
+		$data['activeProvidersList'] =$this->_provider->lists();
+		
+		//loop thru statuses
+		$suspendedProviders = array();
+		foreach($this->_provider->lists() as $row){
+			if(strtolower($row['status'])!=='active'){
+				$suspendedProviders[]=$row;
+			}
+		}
+		
+		$data['suspendedProviders']=$suspendedProviders;
 
 		$this->load->view('providers/home', $data);
 	}
@@ -37,6 +48,7 @@ class Providers extends CI_Controller
 		$data['type'] = $data['t'];
 		# TODO: Select list based on type passed
 		$data['list'] = array();
+		$data['activeProvidersList'] =$this->_provider->lists();
 
 		$this->load->view('providers/details_list', $data);
 	}
@@ -73,10 +85,41 @@ class Providers extends CI_Controller
 		$this->load->view('providers/list_filter', $data);
 	}
 	
+	# Filter home provider
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'active_providers') $filter = 'home_active_filter';
+		else if($data['t'] == 'suspended_providers') $filter = 'home_suspended_filter';
+		$this->load->view('providers/'.$filter, $data);
+	}
 	
-	
-	
-	
+	# Filter home portal providers
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'active_providers') $filter = 'home_portal_active_filter';
+		else if($data['t'] == 'suspended_providers') $filter = 'home_portal_suspended_filter';
+		$this->load->view('providers/'.$filter, $data);
+	}
+
+
+# View details of a provider
+	function details()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->model('_user');
+
+		$data['row']=$this->_user->get_info($this->uri->segment(4));
+
+		$data['area'] = 'user_details';
+		$this->load->view('addons/basic_addons', $data);
+
+
+	}
+
 	# update a provider's status
 	function update_status()
 	{
@@ -193,12 +236,7 @@ class Providers extends CI_Controller
 		else $this->load->view('providers/certificate_specs', $data);
 	}
 	
-	
-	
-	
-	
-	
-	
+		
 }
 
 /* End of controller file */

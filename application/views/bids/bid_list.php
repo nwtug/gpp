@@ -2,16 +2,13 @@
 $stopHtml = "<input name='paginationdiv__bid_stop' id='paginationdiv__bid_stop' type='hidden' value='1' />";
 $listCount = count($list);
 $i = 0;
-
 echo "<table>
 <tr><th style='width:1%;'>&nbsp;</th><th>Provider</th><th>Bid Details</th><th>PDE</th><th>Plan Name</th><th>Tender Notice</th>";
-
 if($type == 'awards') {
 	echo "<th>Contract Amount</th>";
 } else {
 	echo "<th>Bid Amount</th><th>Valid From</th><th>Valid To</th><th>Submitted</th><th>Status</th>";
 }
-
 echo "<th>Last Updated</th></tr>";
 	foreach($list AS $row) {
 		$i++;

@@ -15,6 +15,8 @@ class Forums extends CI_Controller
     {
         parent::__construct();
         $this->load->model('_forum');
+        $this->load->model('_faq');
+
 	}
 	
 	
@@ -25,8 +27,13 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['publicForumsList'] = array();
 		
+
+        $data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();		
+		$data['faqList'] = $this->_faq->lists();
+
+
 		$this->load->view('forums/home', $data);
 	}
 	
@@ -38,14 +45,38 @@ class Forums extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		$data['type'] = $data['t'];
+	
 		# TODO: Select list based on type passed
-		$data['list'] = array();
-		
+		$data['faqList'] = $this->_faq->lists();
+		$data['publicForumsList']=  $this->_forum->lists();
+		$data['secureForumsList']=  $this->_forum->lists();
 		$this->load->view('forums/details_list', $data);
 	}
 	
 	
+	# Filter resources details
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'public_forums') $filter = 'public_list_filter';
+		else if($data['t'] == 'secure_forums') $filter = 'secure_list_filter';
+		else if($data['t'] == 'frequently_asked_questions') $filter = 'faq_list_filter';
+		
+		$this->load->view('forums/'.$filter, $data);
+	}
 	
+	# Filter home portal resources
+	function home_portal_filter()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if($data['t'] == 'public_forums') $filter = 'public_portal_list_filter';
+		else if($data['t'] == 'secure_forums') $filter = 'secure_portal_list_filter';
+		else if($data['t'] == 'frequently_asked_questions') $filter = 'faq_portal_list_filter';
+		
+		$this->load->view('forums/'.$filter, $data);
+	}
 	
 	# manage home page
 	function manage()

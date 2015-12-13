@@ -18,7 +18,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Providers' ));
-$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'providers' ));
+$this->load->view('addons/admin_top_menu', array('__page'=>'providers' ));
 ?>
 
 <tr>
@@ -61,6 +61,6 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
+<?php echo minify_js('providers__manage', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
 </body>
 </html>

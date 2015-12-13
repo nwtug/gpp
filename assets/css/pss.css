@@ -287,7 +287,7 @@ a.error {
 
 
 .calendar {
-	background: url(../../assets/images/calendar_icon.png) no-repeat right center #FFF;
+	background: url(../../assets/images/calendar_icon.png) no-repeat right center #F9F9F9;
 	padding-right: 40px;
 	width: 188px;
 }
@@ -641,6 +641,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	text-transform: capitalize;
 }
 
 .blue-box {
@@ -652,7 +653,10 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
-	cursor:pointer;
+}
+
+a.blue-box:hover{
+	color:#FFF !important;
 }
 
 .green-box {
@@ -664,7 +668,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
-	cursor:pointer;
+	text-transform: capitalize;
 }
 
 .orange-box {
@@ -676,7 +680,7 @@ button.btn.grey, button.smallbtn.grey {
 	font-weight: 800;
 	margin-top: 3px;
 	margin-bottom: 3px;
-	cursor:pointer;
+	text-transform: capitalize;
 }
 
 
@@ -817,6 +821,14 @@ button.btn.grey, button.smallbtn.grey {
 .drop-down-div div.delete-icon {
 	background: url(../../assets/images/delete_icon.png) no-repeat calc(100% - 5px) center;
 }
+
+
+
+
+
+
+
+
 
 
 

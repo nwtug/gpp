@@ -1,33 +1,82 @@
-<div id="resourcesearch__1">
+<div id="forums__1">
 <table>
 
 
 <?php if($type == 'public_forums'){ ?>
 <tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
-<tr><td >What's causing the delay in Kima Road construction?</td><td><span class='grey-box'>Works</span></td><td>(3)</td><td>14/11/2014</td></tr>
-<tr><td >Ways to reward honest contractors</td><td><span class='grey-box'>Legal</span></td><td>(45)</td><td>14/11/2014</td></tr>
-<tr><td >Public Procurement Bill MoFEP</td><td><span class='grey-box'>Works</span></td><td>(9)</td><td>14/11/2014</td></tr>
-<tr><td >Mistakes in disposal of Sekit Dam equipment</td><td><span class='grey-box'>Legal</span></td><td>(10)</td><td>14/11/2014</td></tr>
-<tr><td >How to use the new registration section</td><td><span class='grey-box'>Legal</span></td><td>(11)</td><td>14/11/2014</td></tr>
+<?php
+            if(isset($publicForumsList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($publicForumsList);
+				$i = 0;
+                foreach($publicForumsList as $list){
+       				$i++;
+                    ?>
+                    <tr>
+                         <td ><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></td>
+                         <td><span class='grey-box'><?=$list['category']?></span></td>
+                         <td>(<?=$list['no_of_contributors']?>)</td>
+                         <td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?>
+                    <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?> 
+                   </td></tr>
+
+                  <?php }
+  
+			}?>
 <?php }  
 
 else if($type == 'secure_forums'){ ?>
-<tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
-<tr><td >What were the objectives of reforming the procurement and disposal system in Local Governments?</td><td><span class='grey-box'>Works</span></td><td>(3)</td><td>14/11/2014</td></tr>
-<tr><td >What is the role of councillors?</td><td><span class='grey-box'>Legal</span></td><td>(45)</td><td>14/11/2014</td></tr>
-<tr><td >Who is the Accounting Officer in Districts or Municipalities?</td><td><span class='grey-box'>Legal</span></td><td>(11)</td><td>14/11/2014</td></tr>
 
+
+<tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
+
+<?php
+            if(isset($secureForumsList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($secureForumsList);
+				$i = 0;
+                foreach($secureForumsList as $list){
+       				$i++;
+                    ?>
+                    <tr>
+                        <td ><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></td>
+                        <td><span class='grey-box'><?=$list['category']?></span></td>
+                        <td>(<?=$list['no_of_contributors']?>)</td><td><?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?>
+                   <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?>  
+                    </td></tr>
+
+<?php }
+  
+			}?>
 
 <?php }  
 
 else if($type == 'frequently_asked_questions'){ ?>
 <tr><th>Question</th>
   <th colspan="3">Answer</th></tr>
-<tr><td >What is microprocurement?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
+
+
+<?php
+            if(isset($faqList)){
+				$stopHtml = "<input name='paginationdiv__forums_stop' id='paginationdiv__forums_stop' type='hidden' value='1' />";
+                $listCount = count($faqList);
+				$i = 0;
+                foreach($faqList as $list){
+       				$i++;
+                    ?>
+                    <tr>
+                    <td ><?=$list['question']?></td><td colspan="3"><?=$list['answer']?>
+                     <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		              echo $stopHtml;
+		           }?>
+                    </td></tr>
+ <?php }
+  
+			}?>
 
 <?php }  
 
