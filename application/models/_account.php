@@ -14,6 +14,7 @@ class _account extends CI_Model
 	public function verify($code)
 	{
 		$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>extract_id($code) ));
+
 		# Mark the email and account as verified
 		if(!empty($user['id'])) {
 			$result = $this->_query_reader->run('update_user_value', array('field_name'=>'email_verified', 'field_value'=>'Y', 'user_id'=>$user['id']));

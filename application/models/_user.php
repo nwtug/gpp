@@ -76,6 +76,7 @@ class _user extends CI_Model
 			$user = $this->_query_reader->get_row_as_array('get_user_by_email', array('email_address'=>$formData['registeredemail']));
 			if(!empty($user))
 			{
+
 				# auto generate password
 				$password = generate_password();
 

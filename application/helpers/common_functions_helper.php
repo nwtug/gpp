@@ -66,7 +66,8 @@ function restore_bad_chars_in_array($goodArray)
 }
 
 # format array in a readable way
-function print_array($array) {
+function print_array($array)
+{
 	print '<pre>';
 	print_r($array);
 	print '</pre>';

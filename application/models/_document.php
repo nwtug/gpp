@@ -10,30 +10,32 @@
 class _document extends CI_Model
 {
 	# advanced search list of documents
-	function lists($type, $scope=array('pde'=>'', 'category'=>'', 'phrase'=>'', 'status'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
+	function lists($type, $scope=array('pde'=>'', 'category'=>'', 'phrase'=>'', 'status'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE,'dateposted'=>''))
 	{
 		if(!empty($scope['pde'])) $pde = $scope['pde'];
 		else if($this->native_session->get('__user_type') == 'pde') $pde = $this->native_session->get('__organization_id');
-		
+
 		return $this->_query_reader->get_list('get_document_list', array(
-			'category_condition'=>(!empty($scope['category'])? " AND category='".$scope['category']."' ": ''),
-			
-			'phrase_condition'=>(!empty($scope['phrase'])? " AND name LIKE '%".htmlentities($scope['phrase'], ENT_QUOTES)."%' ": ''),
-			
-			'type_condition'=>(!empty($type)? " AND document_type='".$type."' ": ''),
-			
-			'status_condition'=>" AND status IN ('".($this->native_session->get('__user_type') == 'admin'? "active','inactive": "active")."') ",
-			
-			'owner_condition'=>(!empty($pde)? " AND _entered_by_organization='".$pde."' ": ''),
-			
-			'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "
+				'category_condition'=>(!empty($scope['category'])? " AND category='".$scope['category']."' ": ''),
+
+				'phrase_condition'=>(!empty($scope['phrase'])? " AND name LIKE '%".htmlentities($scope['phrase'], ENT_QUOTES)."%' ": ''),
+
+				'type_condition'=>(!empty($type)? " AND document_type='".$type."' ": ''),
+
+				'date_condition'=>(!empty($scope['dateposted'])? " AND dateposted <='".$scope['dateposted']."' ": ''),
+				'status_condition'=>" AND status IN ('".($this->native_session->get('__user_type') == 'admin'? "active','inactive": "active")."') ",
+
+				'owner_condition'=>(!empty($pde)? " AND _entered_by_organization='".$pde."' ": ''),
+
+				'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "
 		));
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	# add a document
 	function add($data)
 	{

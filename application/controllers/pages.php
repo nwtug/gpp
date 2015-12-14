@@ -38,7 +38,7 @@ class Pages extends CI_Controller
 		$data = filter_forwarded_data($this);
 		$data['procurementPlanList'] = $this->_procurement_plan->lists();
 		$data['tenderList'] = $this->_tender->lists();
-		$data['bebList'] = $this->$list->lists(!empty($data['a'])? $data['a']: '');
+		$data['bebList'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
 		$data['contractList']=$this->_contract->lists();
 		$data['activeProvidersList'] =$this->_provider->lists();
         $data['documentsList'] = $this->_document->lists(!empty($data['a'])? $data['a']: 'system');

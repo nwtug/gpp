@@ -88,6 +88,7 @@ class Lists extends CI_Controller
 										'ministry'=>$this->native_session->get($data['t'].'__ministry'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'ACTIVE',
 										'limit'=>$limit
 								));
 
@@ -98,13 +99,14 @@ class Lists extends CI_Controller
 							# filter active provider details portal home 
 							case 'active_provider_home':
 
-								$data['status'] = 'active';
+
 								$data['list'] =$this->_provider->lists(array(
 										'category'=>$this->native_session->get($data['t'].'__category'),
 										'registration_country'=>$this->native_session->get($data['t'].'registration_country'),
 										'ministry'=>$this->native_session->get($data['t'].'__ministry'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'ACTIVE',
 										'limit'=>$limit
 								));
 
@@ -122,6 +124,7 @@ class Lists extends CI_Controller
 										'ministry'=>$this->native_session->get($data['t'].'__ministry'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'SUSPENDED',
 										'limit'=>$limit
 								));
 								$suspendedProviders =array();
@@ -146,6 +149,7 @@ class Lists extends CI_Controller
 										'ministry'=>$this->native_session->get($data['t'].'__ministry'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'SUSPENDED',
 										'limit'=>$limit
 								));
 								$suspendedProviders =array();
@@ -237,6 +241,7 @@ class Lists extends CI_Controller
 					$this->load->model('_bid');
 					$this->load->model('_contract');
 					$this->load->model('_procurement_plan');
+					$this->load->model('_tender');
 
 
 					
@@ -268,15 +273,16 @@ class Lists extends CI_Controller
                             $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 							$data['list'] = $this->_procurement_plan->lists(array(
-									# todo need to account for status as well
-
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
-										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
+										'financial_year_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'financial_year_start'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'published',
 										'limit'=>$limit
 								));
+
+
 
 								$this->load->view('procurement_plans/home_details', $data);
 
@@ -291,12 +297,13 @@ class Lists extends CI_Controller
 							$this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
                             $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
-							$data['list'] = $this->_procurement_plan->lists(array(
+								$data['list'] = $this->_procurement_plan->lists(array(
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
-										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
+										'financial_year_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'financial_year_start'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
+										'status'=>'published',
 										'limit'=>$limit
 								));
 
@@ -376,14 +383,18 @@ class Lists extends CI_Controller
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
-								
+
+
+
+
+
 								$this->load->view('bids/home_details', $data);
 								
 								break;
 								
 						    # filter best evaluated bidder home portal
 							case 'best_evaluated_bidder_home':
-							
+
 							$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 							$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 							$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
@@ -423,6 +434,8 @@ class Lists extends CI_Controller
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
+
+
 
 
 								$this->load->view('contracts/home_details', $data);
@@ -632,7 +645,7 @@ class Lists extends CI_Controller
 	 						# filter standards home details 
 							case 'standard_details':
 								$this->load->model('_document');
-								//print_array($data);
+								print_array($data);
 								# Store in session for the filter to use
 								$this->native_session->set($data['t'].'__category', (!empty($data['category'])? $data['category']: ''));
 								$this->native_session->set($data['t'].'__dateposted', (!empty($data['dateposted'])? $data['dateposted']: ''));
