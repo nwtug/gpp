@@ -14,7 +14,7 @@
                     ?>
                     <tr>
                        <td class=<?=document_class($list['url']).'-icon-row'?>><a href="<?=base_url().'pages/download/file/'.$list['url']?>"><?=$list['name']?></a></td>
-                       <td><?=$list['category']?></td>
+                       <td><?=ucwords(str_replace('_',' ',$list['category']))?></td>
                        <td><?=format_number($list['size'],3)."B"?></td>
                        <td><?=date(SHORT_DATE_FORMAT, strtotime($list['date_entered']))?>
                     <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
@@ -71,8 +71,7 @@ else if($type == 'standards'){ ?>
                     <tr>
                     <td class=<?=document_class($list['url']).'-icon-row'?>><a href="<?=base_url().'pages/download/file/'.$list['url']?>"><?=$list['name']?></a>
                     </td>
-                    <td>
-					<?=$list['category']?></td>
+                    <td><?=ucwords(str_replace('_',' ',$list['category']))?></td>
                     <td><?=format_number($list['size'],3)."B"?></td>
                     <td><?=date(SHORT_DATE_FORMAT, strtotime($list['date_entered']))?>
                    <?php if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){

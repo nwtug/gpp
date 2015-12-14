@@ -231,22 +231,24 @@ class Lists extends CI_Controller
 				switch($data['parentarea']){
 
 				   # filter procurement plans details
-				  case 'plans':
+				    case 'plans':
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
-					$this->native_session->set($data['t'].'__fy_start', (!empty($data['startpastyears'])? $data['startpastyears']: ''));           			$this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
+					$this->native_session->set($data['t'].'__fy_end', (!empty($data['fy_end'])? $data['fy_end']: ''));  
+					$this->native_session->set($data['t'].'__fy_start', (!empty($data['fy_start'])? $data['fy_start']: ''));
                     $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 					$data['list'] = $this->_procurement_plan->lists(array(
 					#todo need to account for status as well
 
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
-										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
+										'fy_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'fy_start'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
+								
 
 					$this->load->view('procurement_plans/home_details', $data);
 
@@ -257,14 +259,14 @@ class Lists extends CI_Controller
 
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
-					$this->native_session->set($data['t'].'__fy_start', (!empty($data['startpastyears'])? $data['startpastyears']: ''));
-					$this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
+					$this->native_session->set($data['t'].'__fy_end', (!empty($data['fy_end'])? $data['fy_end']: ''));  
+					$this->native_session->set($data['t'].'__fy_start', (!empty($data['fy_start'])? $data['fy_start']: ''));
                     $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
-				    $this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 				    $data['list'] = $this->_procurement_plan->lists(array(
 										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
-										'endpastyears'=>$this->native_session->get($data['t'].'__fy_end'),
-										'startpastyears'=>$this->native_session->get($data['t'].'__fy_start'),
+										'fy_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'fy_start'=>$this->native_session->get($data['t'].'__fy_start'),
 										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 										'offset'=>$offset,
 										'limit'=>$limit
@@ -293,7 +295,8 @@ class Lists extends CI_Controller
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
-
+								
+							
 					$this->load->view('tenders/home_list_details', $data);
 
 				break;
@@ -343,6 +346,8 @@ class Lists extends CI_Controller
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
+								
+								
 								
 				$this->load->view('bids/home_details', $data);
 								
@@ -394,8 +399,7 @@ class Lists extends CI_Controller
 										'offset'=>$offset,
 										'limit'=>$limit
 								));
-
-								
+		
 
 			$this->load->view('contracts/home_details', $data);
 

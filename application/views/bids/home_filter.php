@@ -24,7 +24,7 @@
 </tr>
 <tr><td colspan="2"><span style="width:100%;padding:0px;"><input type="text" id="search__providers" name="search__providers" placeholder="Search Provider Name" data-final='provider' class="drop-down searchable clear-on-empty" data-clearfield='provider_id' value="<?php echo $this->native_session->get('tender__provider');?>" style='width:100%;'/>
 
-<input type='hidden' name='provider_id' id='provider_id' data-final='provider_id' value='<?php echo $this->native_session->get('tender__provider_id');?>' /></span></td></tr>
+<input type='hidden' name='provider_id' id='provider_id' data-final='provider_id' value='<?php echo $this->native_session->get('tender__provider_id');?>' /><input type='hidden' id='parentarea' name='parentarea' data-final='parentarea' value='best_evaluated_bidder_details' style='width:100%;'/></span></td></tr>
 
 
 <tr><td colspan="2"><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('tender')" style="width:100%;">Apply Filter</button>
