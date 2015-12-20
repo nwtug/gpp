@@ -326,6 +326,7 @@ class _messenger extends CI_Model {
 	{
 		$values['messageid'] = $this->assign_message_id($template['id']);
 		$values['loginlink'] = !empty($values['loginlink'])? trim($values['loginlink'],'/'): 'http://www.rssprocurement.org';	
+		$values['sitetitle'] = !empty($values['sitetitle'])? $values['sitetitle']: SITE_TITLE;	
 		
 		# Order keys by length - longest first
 		array_multisort(array_map('strlen', array_keys($values)), SORT_DESC, $values);

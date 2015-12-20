@@ -4,7 +4,7 @@ $listCount = count($list);
 $i = 0;
 
 echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Provider</th><th>Bid Details</th><th>PDE</th><th>Plan Name</th><th>Tender Notice</th>";
+<tr><th style='width:1%;'>&nbsp;</th><th>Provider</th><th>Bid Details</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Plan Name</th><th>Invitation for Bids/Quotations</th>";
 
 if($type == 'awards') {
 	echo "<th>Contract Amount</th>";
@@ -18,9 +18,15 @@ echo "<th>Last Updated</th></tr>";
 		echo "<tr> 
 		<td>".($row['status'] != 'saved'? "<input id='select_".$row['bid_id']."' name='selectall[]' type='checkbox' value='".$row['bid_id']."' class='bigcheckbox'><label for='select_".$row['bid_id']."'></label>":'')."</td>
 		<td><a href='".base_url()."accounts/view_provider/d/".$row['provider_id']."' class='shadowbox closable'>".$row['provider']."</a></td>
-		<td><a href='".base_url()."bids/view_one/d/".$row['bid_id']."' class='shadowbox closable'>Details</a></td>
-		<td><a href='".base_url()."accounts/view_pde/d/".$row['pde_id']."' class='shadowbox closable'>".$row['pde']."</a></td>
-		<td>".$row['procurement_plan']."</td>
+		<td nowrap>";
+		if($row['status'] == 'saved'){
+			echo "<span class='edit-item btn' data-rel='bids/add/d/".$row['bid_id']."/t/".$row['tender_id']."'>&nbsp;</span>";
+		}
+		echo "<a href='".base_url()."bids/view_one/d/".$row['bid_id']."' class='shadowbox closable'>Details</a></td>";
+		if($this->native_session->get('__user_type') != 'pde'){
+			echo "<td><a href='".base_url()."accounts/view_pde/d/".$row['pde_id']."' class='shadowbox closable'>".$row['pde']."</a></td>";
+		}
+		echo "<td>".$row['procurement_plan']."</td>
 		<td><a href='".base_url()."tenders/view_one/d/".$row['tender_id']."' class='shadowbox closable'>".$row['tender_notice']."</a></td>";
 		
 		if($type == 'awards') {
@@ -33,9 +39,9 @@ echo "<th>Last Updated</th></tr>";
 			
 		} else {
 			echo "<td>".$row['bid_currency'].format_number($row['bid_amount'],3)."</td>
-			<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date']))."</td>
-			<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date']))."</td>
-			<td>".date(FULL_DATE_FORMAT, strtotime($row['date_submitted']))."</td>
+			<td>".($row['valid_start_date'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date'])):'NONE')."</td>
+			<td>".($row['valid_end_date'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date'])):'NONE')."</td>
+			<td>".($row['date_submitted'] != '0000-00-00 00:00:00'? date(FULL_DATE_FORMAT, strtotime($row['date_submitted'])):'NONE')."</td>
 			<td>".strtoupper(str_replace('_', ' ', $row['status']))."</td>";
 		}
 		

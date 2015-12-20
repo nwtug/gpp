@@ -45,11 +45,20 @@ $(function() {
 	//Handle cases where a user is entering an email
 	$(document).on('change', '.future-date', function(e){
 		if($(this).val() != ''){
+			// current system date (reconstruct to use only the date part)
 			var now = new Date();
-			var dateParts = $(this).val().split('/');
-			var date = new Date(dateParts[1]+'/'+dateParts[0]+'/'+dateParts[2]);
+			var nowDateString = (now.getMonth() + 1) + "/" +  now.getDate() + "/" +  now.getFullYear();
+			var nowDate = new Date(nowDateString);
 			
-			if(now > date) {
+			// entered date parts
+			var dateParts = $(this).val().split('/');
+			var enteredDate = new Date(dateParts[1]+'/'+dateParts[0]+'/'+dateParts[2]);
+			
+			if(!$(this).hasClass('strict') && nowDate > enteredDate) {
+				showServerSideFadingMessage('ERROR: Only current or future dates are allowed for this field.');
+				$(this).val('');
+			}
+			if($(this).hasClass('strict') && nowDate >= enteredDate) {
 				showServerSideFadingMessage('ERROR: Only future dates are allowed for this field.');
 				$(this).val('');
 			}

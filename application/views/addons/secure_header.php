@@ -12,7 +12,7 @@
 <tr>
   <td>&nbsp;</td>
   <td style='height:6vh;'>
-<table class='normal-table'><tr><td style='width:1%'><img src='<?php echo IMAGE_URL.'logo.png';?>' border='0' style="height:30px;"/></td>
+<table class='normal-table'><tr><td style='width:1%'><img src='<?php echo IMAGE_URL.'ministry_logo_small.png';?>' border='0' style="height:30px;"/></td>
 <td style='width:99%'><span class='h2'><?php echo $__page;?></span></td></tr>
 </table>
 </td>

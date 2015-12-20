@@ -36,9 +36,8 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 echo "<br><a href='".base_url()."accounts/view_provider/d/".$award['provider_id']."' class='shadowbox closable'>".html_entity_decode($award['provider'], ENT_QUOTES)."</a>";?></div>
 <input type='hidden' id='provider_id' name='provider_id' value='<?php echo $award['provider_id'];?>' />
 <input type='hidden' id='pde_id' name='pde_id' value='<?php echo $award['pde_id'];?>' />
+<input type='hidden' id='tender__tendernotices' name='tender__tendernotices' value='<?php echo addslashes(html_entity_decode($award['tender_notice'], ENT_QUOTES));?>' />
 <input type='hidden' id='tender_id' name='tender_id' value='<?php echo $award['tender_id'];?>' /></td></tr>
-
-<tr><td class='label'>Official Contract Name</td><td><input type='text' id='name' name='name' placeholder='Enter Name' value='<?php echo (!empty($contract['name'])? $contract['name']: '');?>'/></td></tr>
 
 <tr><td class='label'>Contract Documents</td><td style='padding-left:0px;padding-right:0px;'>
 <table class='default-table' style="width:calc(100% + 18px);">

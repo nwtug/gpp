@@ -246,14 +246,14 @@ function format_notice($obj, $msg)
 	if(strcasecmp(substr($msg, 0, 8), 'WARNING:') == 0)
 	{
 		$msgString = "<table width='100%' border='0' cellspacing='0' cellpadding='5' style=\"".$style."border:0px;\">".
-						"<tr><td width='1%' class='error' style='border:0px;padding:5px;min-width:0px;' nowrap>".str_replace("WARNING:", "<img src='".base_url()."assets/images/warning.png' border='0'/></td><td  class='error'  style='font-size:13px; color:#000;border:0px; word-wrap: break-word;' width='99%' valign='middle'>", $msg)."</td></tr>".
+						"<tr><td width='1%' class='error' style='border:0px;padding:5px;min-width:0px;vertical-align:top;' nowrap>".str_replace("WARNING:", "<img src='".base_url()."assets/images/warning.png' border='0'/></td><td  class='error'  style='font-size:13px; color:#000;border:0px; word-wrap: break-word;' width='99%' valign='middle'>", $msg)."</td></tr>".
 					  "</table>";
 	}
 	# Error message. look for "ERROR:" in the message
 	else if(strcasecmp(substr($msg, 0, 6), 'ERROR:') == 0)
 	{
 		$msgString = "<table width='100%' border='0' cellspacing='0' cellpadding='5' style=\"".$style."border:0px;\">".
-						"<tr><td class='error' style='border:0px;padding:5px;min-width:0px;' width='1%' nowrap>".str_replace("ERROR:", "<img src='".base_url()."assets/images/error.png'  border='0'/></td><td  width='99%' class='error'  style='font-size:13px;border:0px; word-wrap: break-word;' valign='middle'>", $msg)."</td></tr>".
+						"<tr><td class='error' style='border:0px;padding:5px;min-width:0px;vertical-align:top;' width='1%' nowrap>".str_replace("ERROR:", "<img src='".base_url()."assets/images/error.png'  border='0'/></td><td  width='99%' class='error'  style='font-size:13px;border:0px; word-wrap: break-word;' valign='middle'>", $msg)."</td></tr>".
 					  "</table>";
 	}
 	
@@ -403,6 +403,14 @@ function remove_item($item, $fullArray)
 }
 
 
+
+
+	
+# Remove commas 
+function remove_commas($number)
+{
+	return str_replace(",","",$number);
+}
 
 
 # apply the link open type by getting the real html code equivalents
@@ -1092,6 +1100,11 @@ function get_quarter_date($quarter, $type)
         	if($type == 'start') return $quarterParts[0]."-10-01";
         	else return date('Y-m-d', strtotime($quarterParts[0]."-12-31"));
 		break;
+		
+		case "all":
+        	if($type == 'start') return $quarterParts[0]."-01-01";
+        	else return date('Y-m-d', strtotime($quarterParts[0]."-12-31"));
+		break;
     }
 }
 
@@ -1100,7 +1113,7 @@ function get_quarter_date($quarter, $type)
 
 
 # get current quarter
-function get_current_quarter()
+function get_current_quarter($return = 'year-quarter')
 {
 	# get today's month and determine which qarter it falls into
 	$month = @date('n');
@@ -1110,9 +1123,18 @@ function get_current_quarter()
 	else if($month > 6 && $month < 10) $quarter = 'third';
 	else $quarter = 'fourth';
 	
-	return @date('Y').'-'.$quarter;
+	return ($return == 'quarter'? $quarter: @date('Y').'-'.$quarter);
 }
 
 
+
+
+# check if all items in this array are empty 
+function is_empty_row($row){
+	foreach($row AS $item) if(!empty($item)) return FALSE;
+	
+	# if you get here all items in the array are empty
+	return TRUE;
+}
 
 ?>

@@ -47,22 +47,37 @@ class _tender extends CI_Model
 		$reason = '';
 		
 		# add the tender notice
-		if($this->_query_reader->get_count('get_tender_by_reference_number', array('reference_number'=>htmlentities($data['reference_number'], ENT_QUOTES) )) == 0){
-			$result = $this->_query_reader->run('add_tender_notice', array(
-				'name'=>htmlentities($data['subject'], ENT_QUOTES), 
+		if(($this->_query_reader->get_count('get_tender_by_reference_number', array('reference_number'=>htmlentities($data['reference_number'], ENT_QUOTES) )) == 0 && empty($data['tender_id']))
+			|| !empty($data['tender_id'])
+		){
+			# user is editing and they have uploaded new documents
+			if(!empty($data['tender_id']) && !empty($data['documents'])){
+				$tender = $this->details($data['tender_id']);
+				$oldDocuments = !empty($tender['document_url'])? $tender['document_url']: '';
+			}
+			
+			# update the tender database record
+			$result = $this->_query_reader->run((!empty($data['tender_id'])? 'edit': 'add').'_tender_notice', array(
+				'name'=>htmlentities($data['tender__procurementplansubjects'], ENT_QUOTES), 
 				'reference_number'=>htmlentities($data['reference_number'], ENT_QUOTES), 
 				'details'=>htmlentities($data['summary'], ENT_QUOTES), 
 				'type'=>$data['tender__procurementtypes'], 
-				'category'=>$data['tender__procurementcategories'],
-				'method'=>$data['tender__procurementmethods'], 
 				'procurement_plan_id'=>$data['plan_id'], 
-				'document_url'=>$data['document'], 
+				'subject_id'=>$data['subject_id'], 
+				'document_url'=>(!empty($data['documents'])? implode(',',$data['documents']): ''), 
 				'status'=>$data['tender__tenderstatus'], 
-				'deadline'=>date('Y-m-d',strtotime(make_us_date($data['deadline']))), 
+				'deadline'=>date('Y-m-d H:i:s',strtotime(make_us_date($data['deadline']))), 
 				'display_start_date'=>date('Y-m-d',strtotime(make_us_date($data['display_from']))), 
 				'display_end_date'=>date('Y-m-d',strtotime(make_us_date($data['display_to']))), 
-				'user_id'=>$this->native_session->get('__user_id')
+				'user_id'=>$this->native_session->get('__user_id'),
+				'tender_id'=>(!empty($data['tender_id'])? $data['tender_id']: '')
 			));
+			
+			# safely remove the old documents from the server if the above update succeeded
+			if($result && !empty($oldDocuments)) {
+				$documents = explode(',',$oldDocuments);
+				foreach($documents AS $document) @unlink(UPLOAD_DIRECTORY.$document);
+			}
 		}
 		else $reason = "The reference number is already in use.";
 		

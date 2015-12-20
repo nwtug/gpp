@@ -15,9 +15,12 @@
 <tr>
   <td>&nbsp;</td>
   <td style='height:15vh;'>
-<table class='normal-table'><tr><td style='width:1%'><a href='<?php echo base_url();?>'><img src='<?php echo IMAGE_URL.'logo.png';?>' border='0' /></a></td>
-<td style='width:99%'><span class='h2'>Public Procurement Portal</span>
-<br /><span class='h5 bold'>A one-stop center for the information you need about public procurement in South Sudan</span></td></tr>
+<table class='normal-table'><tr>
+<td style='width:1%'><a href='<?php echo base_url();?>'><img src='<?php echo IMAGE_URL.'country_logo.png';?>' border='0' /></a></td>
+<td style='width:98%'><span class='h2'>Public Procurement Portal</span>
+<br /><span class='h6 bold'>A ONE-STOP CENTER FOR THE INFORMATION YOU NEED ABOUT PUBLIC PROCUREMENT</span></td>
+<td style='width:1%' class='hide-on-mobile'><img src='<?php echo IMAGE_URL.'ministry_logo.png';?>' border='0' /></td>
+</tr>
 </table>
 </td>
   <td>&nbsp;</td>

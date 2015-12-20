@@ -15,7 +15,7 @@ echo "<table>
 <tr><td class='label'>PDE</td><td>".$plan['pde']."</td></tr>
 <tr><td class='label'>Financial Period</td><td>".date('Y', strtotime($plan['financial_year_start']))." TO ".date('Y', strtotime($plan['financial_year_end']))."</td></tr>
 <tr><td class='label'>Status</td><td>".strtoupper($plan['status'])."</td></tr>
-<tr><td class='label'>Document</td><td><a href='".base_url()."pages/download/file/".$plan['document_url']."'>".$plan['document_url']."</a></td></tr>
+<tr><td class='label'>Document</td><td><a href='".base_url()."procurement_plans/download/d/".$plan['procurement_plan_id']."'>Download</a></td></tr>
 
 <tr><td class='label'>Date Entered</td><td>".date(SHORT_DATE_FORMAT, strtotime($plan['date_entered']))."</td></tr>
 <tr><td class='label'>Entered By</td><td>".$plan['entered_by']."</td></tr>

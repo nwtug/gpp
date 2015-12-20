@@ -87,6 +87,13 @@
 }
 
 
+.edit-item {
+	background: url(../../assets/images/edit_icon.png) no-repeat left center;
+	padding-left: 23px !important;
+	cursor: pointer;
+}
+
+
 .list-tabs {
 	width: 100%;
 	border-collapse:collapse;

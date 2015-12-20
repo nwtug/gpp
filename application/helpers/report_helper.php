@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-function generate_report_html($list, $type)
+function generate_report_html($list, $type, $obj=NULL)
 {
 	# pick the right report and fill it up with the provided data
 	
@@ -168,7 +168,66 @@ $html .= "<tr>
 		
 		$html .= "</table>";
 	}
+	
 
+
+
+	
+	
+	#-----------------------------------------------------------------------------------------------------------
+	# PROCUREMENT PLAN - for download
+	#-----------------------------------------------------------------------------------------------------------
+	else if($type == 'procurement_plan'){
+		$html = "<table cellpadding='3' cellspacing='0' class='cell-border'>
+		<tr><td colspan='8'><span style='font-weight:bold;'>Name: ".html_entity_decode($list['name'], ENT_QUOTES)."</span></td><td colspan='7'><span style='font-weight:bold;'>PDE: ".html_entity_decode($list['pde'], ENT_QUOTES)."</span></td></tr>
+		<tr>
+		<td>&nbsp;</td>
+	<td style='font-weight:bold;'>Brief Description</td>
+	<td style='font-weight:bold;'>Procurement Method</td>
+	<td style='font-weight:bold;'>Estimate in SSP</td>
+	<td style='font-weight:bold;'>Tender Document/RFP</td>
+	<td style='font-weight:bold;'>Bid/EOI Invitation &amp; Open</td>
+	<td style='font-weight:bold;'>Bid/EOI Evaluation/Short List</td>
+	<td style='font-weight:bold;'>Issuance of RFP (Services)</td>
+	<td style='font-weight:bold;'>Receipt of RFP (Service)</td>
+    <td style='font-weight:bold;'>Evaluation /Negotiate</td>
+	<td style='font-weight:bold;'>Contract Approval MoFEP</td>
+	<td style='font-weight:bold;'>Contract Endorsement MoJ</td>
+	<td style='font-weight:bold;'>Contract Award</td>
+	<td style='font-weight:bold;'>Commencement of Contract</td>
+	<td style='font-weight:bold;'>Contract Completion</td>
+	</tr>";
+
+		foreach($list['list'] AS $i=>$row){
+			$dataRow = array_slice($row, 2, -2, true); # extract data part while preserving the keys
+			
+			$createRow = !in_array(trim(strtolower($row['B'])), get_option_list($obj, 'procurementcategories', 'array'));
+			
+			# print out the valid rows
+			if($createRow) $html .= "<tr>";
+			
+			# do not make the categories editable
+			if(in_array(trim(strtolower($row['B'])), get_option_list($obj, 'procurementcategories', 'array'))) {
+				foreach($dataRow AS $key=>$cell) {
+					$html .= "<td style='background-color:#FF9;font-weight:bold;'>".(!empty($cell)? $cell: '&nbsp;')."</td>";
+				}
+			}
+			# the data row
+			else {
+				foreach($dataRow AS $key=>$cell) $html .= "<td>".$cell."</td>";
+			}
+			
+			if($createRow) $html .= "</tr>";
+		}
+	
+	
+		$html .= "</table>";
+	}
+	
+	
+	
+	
+	
 
 
 

@@ -238,7 +238,7 @@ class _account extends CI_Model
 			$message['username'] = $data['newusername'];
 			$message['businessname'] = htmlentities($data['businessname'], ENT_QUOTES);
 			
-			$result = TRUE;#$this->_messenger->send_direct_email($data['emailaddress'], '', $message);
+			$result = $this->_messenger->send_direct_email($data['emailaddress'], '', $message);
 			if(!$result) {
 				$message = 'Your account verification code could not be sent.';
 				$results[0] = $this->_query_reader->run('remove_temp_user', array('user_id'=>$userId));

@@ -68,19 +68,20 @@ class Bids extends CI_Controller
 		if(!empty($_POST)){
 			# Upload the file before you proceed with the rest of the process
 			$fileUrls = upload_many_files($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
-			if(!empty($fileUrls)) {
-				$_POST['documents'] = $fileUrls;
-				$result = $this->_bid->add($_POST);
-			}
-			else $result = array('boolean'=>FALSE, 'reason'=>'Files could not be uploaded.');
+			$_POST['documents'] = !empty($fileUrls)? $fileUrls: array();
+			$result = $this->_bid->add($_POST);
 			
 			if(!$result['boolean']) echo "ERROR: The bid could not be added. ".$result['reason'];
 		}
 		# just coming to the form
 		else {
-			$this->load->model('_tender');
-			$data['tender'] = $this->_tender->details($data['t']);
-			$data['bid'] = $this->_bid->details(array('tender_id'=>$data['t']));
+			# if the tender notice id is provided
+			if(!empty($data['t'])){
+				$this->load->model('_tender');
+				$data['tender'] = $this->_tender->details($data['t']);
+			}
+			if(!empty($data['d'])) $data['bid'] = $this->_bid->details(array('bid_id'=>$data['d']));
+			else if(!empty($data['t'])) $data['bid'] = $this->_bid->details(array('tender_id'=>$data['t']));
 			
 			$this->load->view('bids/new_bid', $data);
 		}
@@ -144,7 +145,6 @@ class Bids extends CI_Controller
 	function update_status()
 	{
 		$data = filter_forwarded_data($this);
-		
 		if(!empty($data['t']) && !empty($data['list'])) $result = $this->_bid->update_status($data['t'], explode('--',$data['list']));
 		
 		$data['msg'] = !empty($result['boolean']) && $result['boolean']? 'The bid status has been changed.': 'ERROR: The bid status could not be changed.';
@@ -153,6 +153,25 @@ class Bids extends CI_Controller
 		$this->load->view('addons/basic_addons', $data);
 	}
 	
+	
+	
+	# mark a bid as awarded
+	function mark_as_awarded()
+	{
+		$data = filter_forwarded_data($this);
+		if(!empty($data['list'])) $result = $this->_bid->mark_as_awarded(explode('--',$data['list']));
+		
+		$data['msg'] = !empty($result['boolean']) && $result['boolean']? 'The selected bids have been marked as awarded.': 'ERROR: The selected bids could not be awarded.';
+		if(!empty($result['not_awarded'])) {
+			$data['msg'] .= "<BR><BR>The following bids do not qualify to be awarded: ";
+			foreach($result['not_awarded'] AS $row){
+				$data['msg'] .= "<BR>".$row['provider']." (".$row['bid_currency'].format_number($row['bid_amount'],3).")";
+			}
+		}
+		
+		$data['area'] = 'refresh_list_msg';
+		$this->load->view('addons/basic_addons', $data);
+	}
 	
 	
 	
@@ -193,6 +212,33 @@ class Bids extends CI_Controller
 	
 	
 	
+	# set the best evaluated bidder for a tender notice
+	function best_evaluated()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has posted the new bid information
+		if(!empty($_POST)){
+			$response = $this->_bid->best_evaluated($_POST);
+			if(!$response['boolean']) echo "ERROR: Best evaluated bidder could not be commited.";
+		} 
+		else $this->load->view('bids/best_evaluated', $data);
+	}
+	
+	
+	
+	
+	# get the providers who bid on a tender notice
+	function tender_providers()
+	{
+		$data = filter_forwarded_data($this);
+		if(!empty($data['t'])) $data['list'] = $this->_bid->tender_providers($data['t']);
+		if(empty($data['list'])) {
+			$data['msg'] = (empty($data['t'])? 'ERROR:': 'WARNING:').' No providers could be found for the tender notice.';
+		}
+		
+		$this->load->view('bids/tender_providers', $data);
+	}
 	
 }
 

@@ -49,7 +49,7 @@ class _contract extends CI_Model
 				'tender_id'=>$data['tender_id'], 
 				'organization_id'=>$data['provider_id'], 
 				'pde_id'=>$data['pde_id'],
-				'name'=>htmlentities($data['name'], ENT_QUOTES),
+				'name'=>htmlentities($data['tender__tendernotices'], ENT_QUOTES),
 				'source_of_funds'=>htmlentities($data['source_of_funds'], ENT_QUOTES),
 				'contract_currency'=>$data['currency_code'], 
 				'contract_amount'=>$data['amount'], 
@@ -67,7 +67,7 @@ class _contract extends CI_Model
 		# d) notify provider about new status
 		if(!empty($result) && $result && $data['contract__contractstatus'] == 'active') {
 			$users = $this->_query_reader->get_list('get_users_in_organizations',array('organization_ids'=>$data['provider_id'] ));
-			$message = array('code'=>'changed_item_status', 'item'=>'contract', 'status'=>'ACTIVE', 'name'=>addslashes($data['name']));
+			$message = array('code'=>'changed_item_status', 'item'=>'contract', 'status'=>'ACTIVE', 'name'=>htmlentities($data['tender__tendernotices'], ENT_QUOTES));
 			$sent = array();
 			foreach($users AS $row) {
 				$result = $this->_messenger->send($row['user_id'], $message, array('email'),TRUE);

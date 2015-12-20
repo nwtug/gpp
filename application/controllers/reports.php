@@ -26,7 +26,7 @@ class Reports extends CI_Controller
 		if(!empty($_POST)){
 			$data['list'] = $this->_report->lists(array(
 				'type'=>$_POST['report__reporttypes'], 
-				'quarter'=>$_POST['report__financialquarters'], 
+				'quarter'=>$_POST['report__pastyears'].'-'.$_POST['report__quarters'], 
 				'pde'=>$_POST['pde_id']
 			));
 			

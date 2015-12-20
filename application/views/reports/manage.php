@@ -32,8 +32,12 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
   <?php echo get_option_list($this, 'reporttypes');?>
   </select></td>
   <td style='padding-right:5px;width:1%;'>
-  <select id='report__financialquarters' name='report__financialquarters' class='drop-down'>
-  <?php echo get_option_list($this, 'financialquarters', 'select','', array('selected'=>get_current_quarter() ));?>
+  <select id='report__pastyears' name='report__pastyears' class='drop-down'>
+  <?php echo get_option_list($this, 'pastyears', 'select','', array('default'=>'-none-', 'pre_option'=>'FY '));?>
+  </select></td>
+  <td style='padding-right:5px;width:1%;'>
+  <select id='report__quarters' name='report__quarters' class='drop-down'>
+  <?php echo get_option_list($this, 'quarters', 'select','', array('selected'=>get_current_quarter('quarter') ));?>
   </select></td>
 <?php if($this->native_session->get('__user_type') == 'admin'){?>
   <td style='padding-right:5px;'>

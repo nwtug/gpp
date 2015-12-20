@@ -4,7 +4,7 @@ $listCount = count($list);
 $i = 0;
 
 echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Tender</th><th>Details</th><th>Validity Period</th><th>Bid</th><th>Status Trail</th></tr>";
+<tr><th style='width:1%;'>&nbsp;</th><th>Invitation for Bids/Quotations</th><th>Details</th><th>Validity Period</th><th>Bid</th><th>Status Trail</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 

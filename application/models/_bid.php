@@ -21,7 +21,7 @@ class _bid extends CI_Model
 			
 			'pde_condition'=>(!empty($scope['pde'])? (!empty($scope['phrase'])? ' AND ': ' HAVING ')." pde_id = '".$scope['pde']."' ": ''),
 			
-			'status_condition'=>($status == 'awards'? " AND status = 'awarded' ": ($status == 'best_bidders'? " AND status IN ('won','short_list') ": " AND status NOT IN ('short_list','won','awarded') ")), 
+			'status_condition'=>($status == 'awards'? " AND status = 'awarded' ": ($status == 'best_bidders'? " AND status IN ('won','short_list','complete') ": " AND status NOT IN ('short_list','won','awarded','complete') ")), 
 			
 			'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "
 		));
@@ -72,15 +72,18 @@ class _bid extends CI_Model
 		$bidId = $this->_query_reader->add_data((!empty($data['bidid'])? 'update': 'add').'_bid_record', array(
 				'tender_id'=>$data['tender_id'], 
 				'summary'=>htmlentities($data['summary'], ENT_QUOTES), 
-				'bid_currency'=>$data['currency_code'], 
-				'bid_amount'=>$data['amount'], 
+				'bid_currency'=>(!empty($data['currency_code'])? $data['currency_code']:''), 
+				'bid_amount'=>(!empty($data['amount'])? $data['amount']:'0'), 
 				'status'=>$data['bid__bidstatus'], 
-				'valid_start_date'=>date('Y-m-d',strtotime(make_us_date($data['valid_from']))), 
-				'valid_end_date'=>date('Y-m-d',strtotime(make_us_date($data['valid_to']))), 
+				'valid_start_date'=>(!empty($data['valid_from'])? date('Y-m-d',strtotime(make_us_date($data['valid_from']))): '0000-00-00'), 
+				'valid_end_date'=>(!empty($data['valid_to'])? date('Y-m-d',strtotime(make_us_date($data['valid_to']))): '0000-00-00'), 
 				'user_id'=>$this->native_session->get('__user_id'),
 				'organization_id'=>(!empty($data['provider_id'])? $data['provider_id']: $this->native_session->get('__organization_id')),
 				'bid_id'=>(!empty($data['bidid'])? $data['bidid']: '')
 			));
+		
+		# mark the result as true if the status is still saved and the user is simply updating
+		if(!empty($data['bidid']) && $data['bid__bidstatus'] == 'saved') $result = TRUE;
 		
 		# save the status record
 		if(!empty($bidId) || (!empty($data['bidid']) && $data['bid__bidstatus'] != 'saved')) {
@@ -103,8 +106,10 @@ class _bid extends CI_Model
 			}
 			
 			# adding the new documents
-			foreach($data['documents'] AS $document) {
-				$result = $this->_query_reader->run('add_bid_document', array('bid_id'=>(!empty($data['bidid'])? $data['bidid']: $bidId), 'document_url'=>$document, 'user_id'=>$this->native_session->get('__user_id')));
+			if(!empty($data['documents'])){
+				foreach($data['documents'] AS $document) {
+					$result = $this->_query_reader->run('add_bid_document', array('bid_id'=>(!empty($data['bidid'])? $data['bidid']: $bidId), 'document_url'=>$document, 'user_id'=>$this->native_session->get('__user_id')));
+				}
 			}
 		}
 		
@@ -171,8 +176,8 @@ class _bid extends CI_Model
 	{
 		$msg = '';
 		$bids = implode("','",$bidIds);
-		#'under_review', 'short_list'
-		$status = array('under_review'=>'under_review', 'short_list'=>'short_list', 'mark_as_won'=>'won', 'mark_as_awarded'=>'awarded', 'retract_win'=>'under_review', 'reject_bid'=>'rejected', 'retract_award'=>'under_review', 'submit_bid'=>'submitted', 'mark_as_archived'=>'archived', 'mark_as_completed'=>'complete');
+		# map the status to the action name
+		$status = array('under_review'=>'under_review', 'short_list'=>'short_list', 'mark_as_won'=>'won', 'retract_win'=>'under_review', 'mark_as_awarded'=>'awarded', 'reject_bid'=>'rejected', 'retract_award'=>'under_review', 'submit_bid'=>'submitted', 'mark_as_archived'=>'archived', 'mark_as_completed'=>'complete');
 		
 		# update status trail
 		$result = $this->_query_reader->run('update_status_trail', array('bid_ids'=>$bids));
@@ -200,7 +205,7 @@ class _bid extends CI_Model
 						'pde'=>$bid['pde'], 
 						'summary'=>$bid['summary'],
 						'tendernotice'=>$bid['tender_notice'],
-						'datesubmitted'=>date(SHORT_DATE_FORMAT, strtotime($bid['date_submitted']))
+						'datesubmitted'=>($bid['date_submitted'] == '0000-00-00 00:00:00'? date(SHORT_DATE_FORMAT, strtotime($bid['date_submitted'])): 'NONE')
 					));
 					array_push($sent, $sentResult);
 				}
@@ -229,6 +234,44 @@ class _bid extends CI_Model
 	
 	
 	
+	# mark a bid as awarded
+	function mark_as_awarded($bidIds)
+	{
+		$notAwarded = array();
+		
+		# update status trail
+		$result = $this->_query_reader->run('update_status_trail', array('bid_ids'=>implode("','",$bidIds)));
+		
+		
+		foreach($bidIds AS $bidId) {
+			$bid = $this->details(array('bid_id'=>$bidId));
+			if(!empty($bid['status']) && $bid['status'] == 'won'){
+				$response = $this->update_status('mark_as_awarded', array($bidId));
+				$result = $response['boolean'];
+				$status = 'awarded';
+			} else {
+				array_push($notAwarded, array('provider'=>$bid['provider'], 'bid_currency'=>$bid['bid_currency'], 'bid_amount'=>$bid['bid_amount']));
+				$status = 'complete';
+				$result = TRUE;
+			}
+			
+			# add the new status to the bid status trail
+			if($result) $result = $this->_query_reader->run('add_status_trail', array('new_status'=>$status, 'bid_ids'=>$bidId, 'user_id'=>$this->native_session->get('__user_id') ));
+		}
+		
+		return array('boolean'=>(!empty($result) && $result), 'not_awarded'=>$notAwarded);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	# send a message to the selected bids
 	function message($data)
 	{
@@ -244,6 +287,65 @@ class _bid extends CI_Model
 		
 		return array('boolean'=>!(empty($sent) && !empty($notSent)), 'not_sent'=>$notSent);		
 	}
+	
+	
+	
+	
+	
+	# choose the best evaluated bidder
+	function best_evaluated($data)
+	{
+		# update the bid status based on the best evaluated
+		$result = $this->_query_reader->run('mark_best_evaluated_bidder', array('bid_id'=>$data['bidid'], 'tender_id'=>$data['tender_id'], 'user_id'=>$this->native_session->get('__user_id') ));
+		
+		if($result) $result = $this->_query_reader->run('update_tender_bid_price', array('tender_id'=>$data['tender_id'], 'bid_currency'=>$data['currency_code'], 'bid_price'=>$data['amount'], 'user_id'=>$this->native_session->get('__user_id') ));
+		
+		# add the reasons for choosing the above winning bid for each bidder
+		if($result) {
+			$results = array();
+			$counter = 0;
+			foreach($data AS $key=>$value){
+				if(strpos($key, 'reason_') !== FALSE){
+					$parts = explode('_',$key);
+					$results[$counter] = $this->_query_reader->run('add_best_evaluated_reason', array(
+						'bid_id'=>$parts[1], 
+						'tender_id'=>$data['tender_id'], 
+						'reason'=>(!empty($value)? htmlentities($value, ENT_QUOTES): ($data['bidid'] == $parts[1]? 'winner': 'unsuccessful')),
+						'user_id'=>$this->native_session->get('__user_id') 
+					));
+					
+					$providerUserIds = $this->_query_reader->get_single_column_as_array('get_bid_provider_users', 'user_id', array('bid_id'=>$parts[1]));
+					$bid = $this->details(array('bid_id'=>$parts[1]));
+					if(!empty($providerUserIds) && !empty($bid)){
+						$sentResult = $this->_messenger->send($providerUserIds, array(
+							'code'=>'bid_status_changed',
+							'newstatus'=>($data['bidid'] == $parts[1]? 'won': 'review complete (unsuccessful)'), 
+							'pde'=>$bid['pde'], 
+							'summary'=>$bid['summary'],
+							'tendernotice'=>$bid['tender_notice'],
+							'datesubmitted'=>($bid['date_submitted'] == '0000-00-00 00:00:00'? date(SHORT_DATE_FORMAT, strtotime($bid['date_submitted'])): 'NONE')
+						));
+					}
+					$counter++;
+				}
+			}
+			$result = get_decision($results);
+		}
+		
+		return array('boolean'=>$result);
+	}
+	
+	
+	
+	
+	
+	# tender providers
+	function tender_providers($tenderId)
+	{
+		return $this->_query_reader->get_list('get_tender_provider_bids', array('tender_id'=>$tenderId));
+	}
+	
+	
 	
 	
 	

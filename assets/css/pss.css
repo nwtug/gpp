@@ -113,6 +113,9 @@ a.error {
 	color:#009933;
 }
 
+.read-only {
+	font-weight: 700;
+}
 
 
 .pagemessage {
@@ -247,7 +250,7 @@ a.error {
 }
 
 .water-mark-bg {
-	background: url(../../assets/images/eagle_bg.png) no-repeat right 40px #F9F9F9;
+	background: #F9F9F9;
 }
 
 .grey-menu-bg {
@@ -488,7 +491,7 @@ a.error {
 }
 
 
-.btn {
+.btn, .remove-plan-item, .add-plan-item {
 	cursor: pointer;
 }
 

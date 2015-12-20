@@ -92,17 +92,20 @@ class Tenders extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		if(!empty($_POST)){
-			# Upload the file before you proceed with the rest of the 
-			$fileUrl = upload_file($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
-			if(!empty($fileUrl)) {
-				$_POST['document'] = $fileUrl;
-				$result = $this->_tender->add($_POST);
-			}
-			else $result = array('boolean'=>FALSE, 'reason'=>'File could not be uploaded.');
+			# Upload the file before you proceed with the rest of the process
+			if(!empty($_FILES)) $fileUrls = upload_many_files($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			$_POST['documents'] = !empty($fileUrls)? $fileUrls: array();
+			
+			# check for document upload for new tender notice here because you should not proceed without them
+			if((empty($_POST['tender_id']) && !empty($_POST['documents'])) || !empty($_POST['tender_id'])) $result = $this->_tender->add($_POST);
+			if(empty($_POST['tender_id']) && empty($_POST['documents'])) $result = array('boolean'=>FALSE, 'reason'=>'File(s) could not be uploaded.');
 			
 			if(!$result['boolean']) echo "ERROR: The tender notice could not be added. ".$result['reason'];
 		}
-		else $this->load->view('tenders/new_tender', $data);
+		else {
+			if(!empty($data['d'])) $data['tender'] = $this->_tender->details($data['d']);
+			$this->load->view('tenders/new_tender', $data);
+		}
 	}
 	
 	

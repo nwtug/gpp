@@ -16,7 +16,15 @@ echo "<table>
 <tr><td class='label'>Procurement Plan</td><td>".$tender['procurement_plan']."</td></tr>
 <tr><td class='label'>Type</td><td>".ucfirst($tender['type'])."</td></tr>
 <tr><td class='label'>Method</td><td>".ucwords(str_replace('_', ' ', $tender['method']))."</td></tr>
-<tr><td class='label'>Document</td><td><a href='".base_url()."pages/download/file/".$tender['document_url']."'>".$tender['document_url']."</a></td></tr>
+<tr><td class='label'>Documents</td><td>";
+
+if(!empty($tender['document_url'])){
+	$documents = explode(',',$tender['document_url']);
+	foreach($documents AS $file) echo "<a href='".base_url()."pages/download/file/".$file."'>".$file."</a><br>";
+}
+else echo "&nbsp;";
+
+echo "</td></tr>
 <tr><td class='label'>Deadline</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['deadline']))."</td></tr>";
 
 if($this->native_session->get('__user_type') != 'provider'){

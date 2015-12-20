@@ -158,7 +158,12 @@ $(function() {
 	});
 	
 	
-	
+	// Make field read-only
+	$(document).on('click focus', '.read-only', function(){
+		var fieldId = $(this).attr('id');
+		if($(this).is('select')) $('#'+fieldId+' option:not(:selected)').attr('disabled', true);
+		if($(this).is('input:text') || $(this).is('textarea')) $('#'+fieldId).prop("readonly", true);
+	});
 	
 	
 	
@@ -543,10 +548,13 @@ $(function() {
 	
 	
 	
-	
-	
-	
-	
+	// how an editable field's value is updated
+	$(document).on('focusout', '.editable-field', function(e){
+		var resultsDivId = $(this).attr('id')+'_div';
+		// add the id if it does not exist
+		if($('#'+resultsDivId).length == 0) $(this).before("<div id='"+resultsDivId+"'></div>");
+		updateFieldLayer(getBaseURL()+$(this).data('editurl')+'/value/'+replaceBadChars($(this).val()),'','',resultsDivId,'');
+	});
 	
 	
 	
@@ -569,7 +577,6 @@ $(function() {
 		
 		// 1. Find if the field's actual file field exists. Create it if it does not.
 		if(!($(this).parent().find('input[type="file"]').first().length > 0 && $(this).parent().find('input[type="file"]').first().attr('id') == fileId+'__fileurl')){
-			console.log('HERE--CLICKED');
 			$(this).after("<input type='file' id='"+fileId+"__fileurl' name='"+fileId+"__fileurl' class='filefieldurl' style='display:none;' value='' />");
 		}
 		$('#'+fileId+'__fileurl').click();
