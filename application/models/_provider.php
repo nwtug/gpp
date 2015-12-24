@@ -17,7 +17,7 @@ class _provider extends CI_Model
 			
 			'ministry_condition'=>(!empty($scope['ministry'])? " AND _ministry_id='".$scope['ministry']."' ": ''),
 			
-			'country_condition'=>(!empty($scope['category'])? " AND _registration_country_id='".$scope['registration_country']."' ": ''),
+			'country_condition'=>(!empty($scope['registration_country'])? " AND _registration_country_id='".$scope['registration_country']."' ": ''),
 			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(name) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"')": ''),
 			
 			'status_condition'=>(!empty($scope['status'])? " AND status='".$scope['status']."'": ''),
@@ -45,6 +45,14 @@ class _provider extends CI_Model
 				'new_status'=>$organizationStatus[$newStatus], 
 				'id_list'=>implode("','",$idList), 
 				'user_id'=>$this->native_session->get('__user_id') ));
+				
+			if($result){
+				$result = $this->record_registration_track(array(
+					'status'=>$organizationStatus[$newStatus], 
+					'idlist'=>implode(",",$idList), 
+					'reason'=>''
+				));
+			}
 		}
 		
 		if(!empty($userStatus[$newStatus]) && $result) {
@@ -134,14 +142,8 @@ class _provider extends CI_Model
 	function suspend($data)
 	{
 		$ids = explode(',', $data['idlist']);
-		
-		# add the details of the suspension
-		$result = $this->_query_reader->run('add_suspension_reason', array(
-			'id_list'=>implode("','", $ids), 
-			'reason'=>htmlentities($data['reason'], ENT_QUOTES),
-			'expiry_date'=>date('Y-m-d',strtotime(make_us_date($data['expiry_date']))),
-			'user_id'=>$this->native_session->get('__user_id')
-		));
+		$data['status'] = 'suspended';
+		$result = $this->record_registration_track($data);
 		
 		# update the organization status to suspended and expire the registration period
 		if($result) {
@@ -172,6 +174,48 @@ class _provider extends CI_Model
 	
 	
 	
+	
+	
+	# record a track of the registration status
+	function record_registration_track($data)
+	{
+		$ids = explode(',', $data['idlist']);
+		# end the current registration status
+		$result = $this->_query_reader->run('end_registration_status', array(
+			'id_list'=>implode("','", $ids), 
+			'user_id'=>$this->native_session->get('__user_id')
+		));
+		
+		# add the suspended registration status
+		if($result){
+			$result = $this->_query_reader->run('add_registration_status', array(
+				'id_list'=>implode("','", $ids), 
+				'reason'=>htmlentities($data['reason'], ENT_QUOTES),
+				'status'=>$data['status'],
+				'end_date'=>(!empty($data['expiry_date'])? date('Y-m-d',strtotime(make_us_date($data['expiry_date']))): '0000-00-00'),
+				'user_id'=>$this->native_session->get('__user_id')
+			));
+		}
+		
+		return $result;
+	}
+	
+	
+	
+	
+	
+	
+	# get provider statistics
+	function statistics($field)
+	{
+		if($field == 'latest_date') {
+			$row = $this->_query_reader->get_row_as_array('get_provider_latest_date');
+			return !empty($row[$field]) && strpos($row[$field], '0000-00-00') === FALSE? $row[$field]: '';
+		}
+		
+		# if not found in preset fields, return empty string
+		return '';
+	}
 	
 	
 }

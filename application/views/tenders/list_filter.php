@@ -15,7 +15,7 @@
 </select></td></tr>
 
 <tr><td><select id='search__procurementmethods' name='search__procurementmethods' data-final='procurement_method' class='drop-down' style='width:100%;'>
-<?php echo get_option_list($this, 'procurementmethods', 'select', '', array('selected'=>$this->native_session->get('tender__procurement_method')));?>
+<?php echo get_option_list($this, 'procurementmethods', 'select', '', array('type'=>'public', 'selected'=>$this->native_session->get('tender__procurement_method')));?>
 </select></td></tr>
 
 <tr><td><input type="text" id="search__pdes" name="search__pdes" placeholder="Search PDE Name" data-final='pde' class="drop-down searchable clear-on-empty" data-clearfield='pde_id' value="<?php echo $this->native_session->get('tender__pde');?>" style='width:100%;'/>
@@ -26,6 +26,12 @@
 
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('tender')" style="width:100%;">Apply Filter</button>
-<input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
+<input name="layerid" id="layerid" type="hidden" value="" />
+<?php 
+if(!empty($t)){ 
+	echo "<input name='status' id='status' data-final='status' type='hidden' value='published' />
+	<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />";
+}?></td></tr>
 </table>
+
 <?php echo minify_js('tenders__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

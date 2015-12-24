@@ -12,6 +12,7 @@ echo "<table>
 		<td>".$row['name']."</td>
 		<td>".$row['email_address']."</td>
 		<td>".$row['telephone']."</td>
+
 		<td>";
 		
 		if($row['user_type'] == 'pde') echo "<a href='".base_url()."accounts/view_pde/d/".$row['organization_id']."' class='shadowbox closable'>".$row['organization']."</a>";

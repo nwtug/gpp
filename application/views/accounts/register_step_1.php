@@ -71,6 +71,6 @@ message</a>.</td>
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
+<?php echo minify_js('accounts__register_step_1', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

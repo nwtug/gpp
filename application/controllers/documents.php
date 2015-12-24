@@ -17,6 +17,24 @@ class Documents extends CI_Controller
         $this->load->model('_document');
 	}
 	
+	
+	
+	
+	# resources home page
+	function index()
+	{
+		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['a'])? $data['a']: 'documents';
+		$this->native_session->delete('__view');
+		
+		$data['list'] = $this->get_list_to_show($data['area']);
+		$data['folder'] = $this->get_section_folder($data['area']);
+		$this->load->view('documents/home', $data);
+	}
+	
+	
+	
+	
 	# manage home page
 	function manage()
 	{
@@ -105,6 +123,71 @@ class Documents extends CI_Controller
 	}
 	
 	
+	
+	
+	
+	# documents lists
+	function document_list()
+	{
+		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['t'])? $data['t']: 'documents';
+		$data['list'] = $this->get_list_to_show($data['area']);
+		
+		$this->load->view($this->get_section_folder($data['area']).'/details_list', $data);
+	}
+	
+	
+	
+	
+	
+	# determine which list to show for the view
+	function get_list_to_show($area)
+	{
+        $this->load->model('_document');
+        $this->load->model('_link');
+        $this->load->model('_training');
+		$list = array();
+		
+		if($area == 'documents') $list = $this->_document->lists('system');
+		else if($area == 'standards') $list = $this->_document->lists('standard');
+		else if($area == 'important_links') $list = $this->_link->lists();
+		else if($area == 'training_activities') $list = $this->_training->lists();
+		
+		return $list;
+	}
+	
+	
+	
+	# get section folder
+	function get_section_folder($section)
+	{
+		$folder = '';
+		if($section == 'documents') $folder = 'documents';
+		else if($section == 'important_links') $folder = 'links';
+		else if($section == 'standards') $folder = 'documents';
+		else if($section == 'training_activities') $folder = 'training';
+		
+		return $folder;
+	}
+	
+	
+	
+	
+	
+	
+	
+	# Filter home resources
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['t'])? $data['t']: 'documents';
+		
+		if(in_array($data['area'], array('standards','documents'))) {
+			$data['listtype'] = ($data['area'] == 'standards')? 'standard': 'system';
+		}
+		
+		$this->load->view($this->get_section_folder($data['area']).'/list_filter', $data);
+	}
 	
 	
 	

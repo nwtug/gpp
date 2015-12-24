@@ -68,6 +68,8 @@ function restore_bad_chars_in_array($goodArray)
 
 
 
+
+
 # Replace placeholders for bad characters in a text passed in URL with their actual characters
 function restore_bad_chars($goodString)
 {
@@ -1135,6 +1137,21 @@ function is_empty_row($row){
 	
 	# if you get here all items in the array are empty
 	return TRUE;
+}
+
+
+
+
+
+# get a redirection url based on the given code
+function get_redirect_url($code)
+{
+	$url = '';
+	
+	if($code == 'download_certificate') $url = 'organizations/settings/view/Y';
+	else if($code == 'view_subscription') $url = 'organizations/settings/view/Y'; #TODO: Update to real subscription page
+	
+	return $url;
 }
 
 ?>

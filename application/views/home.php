@@ -23,16 +23,16 @@
 <div><table class='summary-table'>
 <tr><th class='h3 blue'>Welcome</th></tr>
 <tr><td><a href='<?php base_url();?>pages/about'>About This Portal</a></td></tr>
-<tr><td><a href='javascript:;'>The Directorate of Public Procurement</a></td></tr>
-<tr><td><a href='javascript:;'>Laws and Regulations</a></td></tr>
+<tr><td><a href='<?php base_url();?>pages/authority'>The Public Procurement Authority</a></td></tr>
+<tr><td><a href='<?php base_url();?>pages/regulations'>Laws and Regulations</a></td></tr>
 <tr><td><a href='http://www.grss-mof.org' target="_blank">Ministry of Finance Website</a></td></tr>
 <tr><td><a href='<?php base_url();?>forums/index/a/frequently_asked_questions'>Frequently Asked Questions</a></td></tr>
-<tr><td><div class='btn stripped-black' data-rel='resources'>More Resources</div></td></tr>
+<tr><td><div class='btn stripped-black' data-rel='documents'>More Resources</div></td></tr>
 </table></div>
 
 <div><table class='summary-table'>
 <tr><th class='h3 blue'>For Providers</th></tr>
-<tr><td><a href='javascript:;'>Registration Requirements</a></td></tr>
+<tr><td><a href='<?php base_url();?>pages/registration_requirements'>Registration Requirements</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>pages/privacy_policy'>Privacy Policy</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>tenders'>Tender Notices</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>accounts/login/a/view_subscription'>Your Subscription</a></td></tr>
@@ -43,10 +43,10 @@
 <div><table class='summary-table'>
 <tr><th class='h3 blue'>For Government Agencies</th></tr>
 <tr><td><a href='<?php echo BASE_URL;?>providers'>Find Providers</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>resources/index/a/standards'>Get Standard Forms</a></td></tr>
-<tr><td><a href='javascript:;'>Procurement Regulations</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>resources/index/a/training_activities'>Training Activities</a></td></tr>
-<tr><td><a href='<?php echo BASE_URL;?>resources/index/a/important_links'>Important Links</a></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>documents/index/a/standards'>Get Standard Forms</a></td></tr>
+<tr><td><a href='<?php base_url();?>pages/regulations'>Procurement Regulations</a></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>documents/index/a/training_activities'>Training Activities</a></td></tr>
+<tr><td><a href='<?php echo BASE_URL;?>documents/index/a/important_links'>Important Links</a></td></tr>
 <tr><td><div class='btn stripped-black' data-rel='pages/portal'>More Services</div></td></tr>
 </table></div>
 

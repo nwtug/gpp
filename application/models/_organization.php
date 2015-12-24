@@ -10,6 +10,16 @@
 class _organization extends CI_Model
 {
 	
+	# list of organizations
+	function lists($scope=array('phrase'=>'', 'type'=>'', 'status'=>'', 'offset'=>'0', 'limit'=>NUM_OF_ROWS_PER_PAGE))
+	{
+		return $this->_query_reader->get_list('search_'.$scope['type'].'_list', array(
+			'phrase'=>(!empty($scope['phrase'])? htmlentities($scope['phrase'], ENT_QUOTES): ''), 
+			'limit_text'=>' LIMIT '.$scope['offset'].','.$scope['limit']
+		));
+	}
+	
+	
 	# get organization details
 	function details($id='')
 	{
@@ -58,6 +68,4 @@ class _organization extends CI_Model
 	
 	
 }
-
-
 ?>

@@ -23,25 +23,66 @@ class Forums extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['a'])? $data['a']: 'public_forums';
+		$this->native_session->delete('__view');
 		
-		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['publicForumsList'] = array();
-		
+		$data['list'] = $this->get_list_to_show($data['area']);
+		$data['folder'] = $this->get_section_folder($data['area']);
 		$this->load->view('forums/home', $data);
 	}
 	
 	
 	
 	# forums lists
-	function forums_list()
+	function forum_list()
 	{
 		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['t'])? $data['t']: 'public_forums';
 		
-		$data['type'] = $data['t'];
-		# TODO: Select list based on type passed
-		$data['list'] = array();
+		$data['list'] = $this->get_list_to_show($data['area']);
+		$this->load->view($this->get_section_folder($data['area']).'/details_list', $data);
+	}
+	
+	
+	# filter the forum details
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view($this->get_section_folder($data['t']).'/list_filter', $data);
+	}
+	
+	
+	
+	# determine which list to show for the view
+	function get_list_to_show($area)
+	{
+		$this->load->model('_faq');
+		$list = array();
 		
-		$this->load->view('forums/details_list', $data);
+		if($area == 'public_forums') {
+			$list = $this->_forum->lists(array('is_public'=>'Y', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		} else if($area == 'secure_forums') {
+			$list = $this->_forum->lists(array('is_public'=>'N', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		} else if($area == 'frequently_asked_questions') {
+			$list = $this->_faq->lists();
+		}
+		
+		return $list;
+	}
+	
+	
+	
+	
+	
+	# get section folder
+	function get_section_folder($section)
+	{
+		$folder = '';
+		if($section == 'public_forums') $folder = 'forums';
+		else if($section == 'secure_forums') $folder = 'forums';
+		else if($section == 'frequently_asked_questions') $folder = 'faqs';
+		
+		return $folder;
 	}
 	
 	
@@ -52,7 +93,6 @@ class Forums extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$data['list'] = $this->_forum->lists();
-		
 		$this->load->view('forums/manage', $data);
 	}
 	

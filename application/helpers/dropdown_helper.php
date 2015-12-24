@@ -115,7 +115,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "publicdocumenttypes":
 			
 			if($list_type == "publicdocumenttypes") $types = array('case_studies'=>'Case Studies', 'legal'=>'Legal', 'letters'=>'Letters', 'reports'=>'Reports', 'other'=>'Other');
-			else if($list_type == "documenttypes") $types = array('provider_registration'=>'Provider Registration Certificate', 'training_completion'=>'Training Completion Certificate');
+			else if($list_type == "documenttypes") $types = array('registration_certificate'=>'Provider Registration Certificate', 'training_certificate'=>'Training Completion Certificate');
 			
 			
 			if($return == 'div') $optionString .= "<div data-value=''>Select Document Type</div>";
@@ -366,11 +366,19 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "tenders":
+			$invitationCondition = ($obj->native_session->get('__user_type') && $userType == 'provider')? " OR (SELECT id FROM tender_invitations WHERE _provider_id='".$organizationId."' AND _tender_id=T.id LIMIT 1) IS NOT NULL ": '';
+			
+			if(!($obj->native_session->get('__user_type') == 'pde' || $obj->native_session->get('__user_type') == 'admin')){
+				$displayCondition = " AND (method IN ('international_competitive_tendering','national_competitive_tendering') ".$invitationCondition.")";
+			} 
+			else $displayCondition = "";
+			
 			if($obj->native_session->get('__user_type') == 'provider') $ownerCondition = " HAVING provider_id='".$obj->native_session->get('__organization_id')."' ";
 			else if($obj->native_session->get('__user_type') == 'pde') $ownerCondition = " AND _organization_id='".$obj->native_session->get('__organization_id')."' ";
 			else $ownerCondition = '';
 			
-			$types = $obj->_query_reader->get_list('search_tender_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE, 'owner_condition'=>$ownerCondition));
+			
+			$types = $obj->_query_reader->get_list('search_tender_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE, 'owner_condition'=>$ownerCondition.$displayCondition));
 			
 			foreach($types AS $row)
 			{
@@ -402,7 +410,9 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "procurementmethods":
-			$types = $obj->_query_reader->get_list('get_procurement_methods');
+			$types = $obj->_query_reader->get_list('get_procurement_methods', array(
+				'method_condition'=>(!empty($more['type']) && $more['type'] == 'public'? " AND code IN ('international_competitive_tendering','national_competitive_tendering') ": "")
+			));
 			
 			if($return == 'div') $optionString .= "<div data-value=''>Select Procurement Method</div>";
 			else $optionString .= "<option value=''>Select Procurement Method</option>";
@@ -738,6 +748,90 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		
+		
+		
+		
+		
+		
+		case "searchpublic":
+		case "searchsecureadmin":
+		case "searchsecurepde":
+		case "searchsecureprovider":
+		
+			$types['public'][] = array('url'=>'tenders/index/a/procurement_plans', 'display'=>'Procurement Plans');
+			$types['public'][] = array('url'=>'tenders/index/a/active_notices', 'display'=>'Active Notices');
+			$types['public'][] = array('url'=>'tenders/index/a/best_evaluated_bidders', 'display'=>'Best Evaluated Bidders');
+			$types['public'][] = array('url'=>'tenders/index/a/contract_awards', 'display'=>'Contract Awards');
+			$types['public'][] = array('url'=>'providers/index/a/active_providers', 'display'=>'Active Providers');
+			$types['public'][] = array('url'=>'providers/index/a/suspended_providers', 'display'=>'Suspended Providers');
+			$types['public'][] = array('url'=>'documents/index/a/documents', 'display'=>'Documents');
+			$types['public'][] = array('url'=>'documents/index/a/important_links', 'display'=>'Important Links');
+			$types['public'][] = array('url'=>'documents/index/a/standards', 'display'=>'Standards');
+			$types['public'][] = array('url'=>'documents/index/a/training_activities', 'display'=>'Training Activities');
+			$types['public'][] = array('url'=>'forums/index/a/public_forums', 'display'=>'Public Forums');
+			$types['public'][] = array('url'=>'forums/index/a/secure_forums', 'display'=>'Secure Forums');
+			$types['public'][] = array('url'=>'forums/index/a/frequently_asked_questions', 'display'=>'Frequently Asked Questions');
+			
+			$types['admin'][] = array('url'=>'accounts/admin_dashboard', 'display'=>'Audit Trail');
+			$types['admin'][] = array('url'=>'procurement_plans/manage', 'display'=>'Procurement Plans');
+			$types['admin'][] = array('url'=>'tenders/manage', 'display'=>'Invitation for Bids/Quotations');
+			$types['admin'][] = array('url'=>'bids/manage', 'display'=>'Bids Received');
+			$types['admin'][] = array('url'=>'bids/manage/a/best_bidders', 'display'=>'Best Evaluated Bidders');
+			$types['admin'][] = array('url'=>'bids/manage/a/awards', 'display'=>'Contract Awards');
+			$types['admin'][] = array('url'=>'providers/manage', 'display'=>'Providers');
+			$types['admin'][] = array('url'=>'contracts/manage', 'display'=>'Contracts');
+			$types['admin'][] = array('url'=>'documents/manage', 'display'=>'Documents');
+			$types['admin'][] = array('url'=>'links/manage', 'display'=>'Important Links');
+			$types['admin'][] = array('url'=>'documents/manage/a/standard', 'display'=>'Standards');
+			$types['admin'][] = array('url'=>'training/manage', 'display'=>'Training Activities');
+			$types['admin'][] = array('url'=>'forums/manage', 'display'=>'Forums');
+			$types['admin'][] = array('url'=>'reports/manage', 'display'=>'Reports');
+			$types['admin'][] = array('url'=>'users/index', 'display'=>'Users');
+			$types['admin'][] = array('url'=>'permissions/manage', 'display'=>'Permission Groups');
+			$types['admin'][] = array('url'=>'faqs/manage', 'display'=>'FAQs');
+			
+			$types['pde'][] = array('url'=>'procurement_plans/manage', 'display'=>'Procurement Plans');
+			$types['pde'][] = array('url'=>'tenders/manage', 'display'=>'Invitation for Bids/Quotations');
+			$types['pde'][] = array('url'=>'bids/manage', 'display'=>'Bids Received');
+			$types['pde'][] = array('url'=>'bids/manage/a/best_bidders', 'display'=>'Best Evaluated Bidders');
+			$types['pde'][] = array('url'=>'bids/manage/a/awards', 'display'=>'Contract Awards');
+			$types['pde'][] = array('url'=>'providers/manage', 'display'=>'Providers');
+			$types['pde'][] = array('url'=>'documents/manage', 'display'=>'Documents');
+			$types['pde'][] = array('url'=>'links/manage', 'display'=>'Important Links');
+			$types['pde'][] = array('url'=>'documents/manage/a/standard', 'display'=>'Standards');
+			$types['pde'][] = array('url'=>'training/manage', 'display'=>'Training Activities');
+			$types['pde'][] = array('url'=>'forums/manage', 'display'=>'Forums');
+			$types['pde'][] = array('url'=>'reports/manage', 'display'=>'Reports');
+			$types['pde'][] = array('url'=>'users/index', 'display'=>'Users');
+			$types['pde'][] = array('url'=>'faqs/manage', 'display'=>'FAQs');
+			
+			$types['provider'][] = array('url'=>'accounts/provider_dashboard', 'display'=>'Tender Notices');
+			$types['provider'][] = array('url'=>'bids/my_list', 'display'=>'Bids');
+			$types['provider'][] = array('url'=>'contracts/manage', 'display'=>'Contracts');
+			$types['provider'][] = array('url'=>'documents/manage', 'display'=>'Documents');
+			$types['provider'][] = array('url'=>'links/manage', 'display'=>'Important Links');
+			$types['provider'][] = array('url'=>'documents/manage/a/standard', 'display'=>'Standards');
+			$types['provider'][] = array('url'=>'training/manage', 'display'=>'Training Activities');
+			$types['provider'][] = array('url'=>'forums/manage', 'display'=>'Forums');
+			$types['provider'][] = array('url'=>'faqs/manage', 'display'=>'FAQs');
+			
+			
+			# select the search list to show
+			if($list_type == "searchpublic") $list = $types['public'];
+			else if($list_type == "searchsecureadmin") $list = $types['admin'];
+			else if($list_type == "searchsecurepde") $list = $types['pde'];
+			else if($list_type == "searchsecureprovider") $list = $types['provider'];
+		
+			if($return == 'div') $optionString .= "<div data-value=''>Select Search Area</div>";
+			else $optionString .= "<option value=''>Select Search Area</option>";
+			
+			foreach($list AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['url']."'>".$row['display']."</div>";
+				else $optionString .= "<option value='".$row['url']."'>".$row['display']."</option>";
+			}
+		break;
 		
 		
 		

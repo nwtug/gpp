@@ -1,36 +1,66 @@
-<div id="providersearch__1">
-	<table>
-
-
-		<?php if($type == 'active_providers'){ ?>
-			<tr><th>Provider</th><th>Category</th><th>Registered</th><th>Location</th><th>Founded</th></tr>
-
-			<tr><td>PricewaterhouseCoopers, LLP</td><td>Audit</td><td>28/02/2014</td><td>New York City, NY, USA</td><td>1998</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-		<?php }
-
-		else if($type == 'suspended_providers'){ ?>
-			<tr><th>Provider</th><th>Category</th><th>Registered</th><th>Location</th><th>Founded</th></tr>
-
-			<tr><td>Bashira Investments Ltd</td><td>Audit</td><td>28/02/2014</td><td>New York City, NY, USA</td><td>1998</td></tr>
-			<tr><td>Muriromu General Engineering & Construction Co.</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Muteco International Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-			<tr><td>Millenial Publishing Ltd</td><td>Education</td><td>14/11/2014</td><td>Kampala, Uganda</td><td>2002</td></tr>
-		<?php }
-
+<table>
+		<?php 
+		$stopHtml = "<input name='paginationdiv__provider_stop' id='paginationdiv__provider_stop' type='hidden' value='1' />";
+		
+		if(!empty($list)){
+			echo "<tr>";
+			if($area == 'suspended_providers'){
+				echo "<th>Provider</th><th>Date Suspended</th><th>Suspension End Date</th><th>Reason for Suspension</th>";
+				if(!$this->native_session->get('__view')) {
+					echo "<th>Category</th><th>Registered</th><th>Address</th>";
+				}
+			} else {
+				echo "<th>Provider</th><th>Category</th><th>Registered</th>";
+				if(!$this->native_session->get('__view')) {
+					echo "<th>Address</th><th>Founded</th>";
+				}
+			}
+			
+			echo "</tr>";
+			
+			$listCount = count($list);
+			$i = 0;
+            foreach($list AS $row){
+				$i++;
+                echo "<tr>
+					<td>".$row['name'];
+					
+				# suspended providers
+				if($area == 'suspended_providers'){
+					echo "</td>
+					<td>".date(SHORT_DATE_FORMAT, strtotime($row['status_start_date']))."</td>
+					<td>".date(SHORT_DATE_FORMAT, strtotime($row['status_end_date']))."</td>
+					<td>".html_entity_decode($row['status_reason'], ENT_QUOTES);
+					
+					if(!$this->native_session->get('__view')){
+						echo "</td>
+						<td>".$row['category']."</td>
+						<td>".date(SHORT_DATE_FORMAT, strtotime($row['date_created']))."</td>
+						<td>".$row['address'];
+					}
+				}
+				# active providers (and not viewing on home page)
+				else {
+					echo "</td>
+					<td>".$row['category']."</td>
+					<td>".date(SHORT_DATE_FORMAT, strtotime($row['date_created']));
+					
+					if(!$this->native_session->get('__view')){
+						echo "</td>
+						<td>".$row['address']."</td>
+						<td>".($row['date_registered'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['date_registered'])): 'UNKNOWN');
+					}
+				}
+				
+				if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 			echo $stopHtml;
+				}
+				echo "</td>
+				</tr>";
+			}		
+		}
 
 		else {
-			echo "<tr><td>".format_notice($this, 'WARNING: List can not be generated.')."</td></tr>";
+			echo "<tr><td>".format_notice($this, 'WARNING: There are no providers in this list.')."</td></tr>";
 		}?>
-
-
-	</table>
-</div>
+</table>

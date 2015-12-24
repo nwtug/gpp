@@ -22,8 +22,11 @@ class Providers extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		$data['activeProvidersList'] = array();
-
+		$data['area'] = !empty($data['a'])? $data['a']: 'active_providers';
+		$status = $data['area'] == 'suspended_providers'? 'suspended':'active';
+		$this->native_session->delete('__view');
+		
+		$data['list'] = $this->_provider->lists(array('status'=>$status, 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('providers/home', $data);
 	}
 
@@ -33,14 +36,21 @@ class Providers extends CI_Controller
 	function provider_list()
 	{
 		$data = filter_forwarded_data($this);
-
-		$data['type'] = $data['t'];
-		# TODO: Select list based on type passed
-		$data['list'] = array();
-
+		$data['area'] = !empty($data['t'])? $data['t']: 'active_providers';
+		$status = $data['area'] == 'suspended_providers'? 'suspended':'active';
+		
+		$data['list'] = $this->_provider->lists(array('status'=>$status, 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('providers/details_list', $data);
 	}
-
+	
+	
+	
+	# filter providers for the home page
+	function home_filter()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('providers/list_filter', $data);
+	}
 	
 	
 	
@@ -66,17 +76,16 @@ class Providers extends CI_Controller
 	
 	
 	
-	# Filter provider
+	# filter provider
 	function list_filter()
 	{
 		$data = filter_forwarded_data($this);
 		$this->load->view('providers/list_filter', $data);
 	}
-	
-	
-	
-	
-	
+
+
+
+
 	# update a provider's status
 	function update_status()
 	{
@@ -193,12 +202,7 @@ class Providers extends CI_Controller
 		else $this->load->view('providers/certificate_specs', $data);
 	}
 	
-	
-	
-	
-	
-	
-	
+		
 }
 
 /* End of controller file */

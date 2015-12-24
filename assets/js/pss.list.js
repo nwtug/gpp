@@ -23,8 +23,7 @@ $(function() {
 			var url = filterListCell.data('url');
 			//...tenders/home_filter/t/procurement_plans
 			//...tenders/home_filter/t/[clicked id]
-			var currentIdPart = url.substring(url.lastIndexOf("/")); //  "/procurement_plans"
-			var url = url.replace(currentIdPart, '/'+clickedId);
+			var url = url.substring(0,url.lastIndexOf("/"))+'/'+clickedId;
 			filterListCell.data('url', url);
 		}
 		
@@ -32,12 +31,24 @@ $(function() {
 		var moreListCell = clickedCell.parents('.home-list-table').first().find('.load-more').first();
 		if(moreListCell.data('rel')){
 			var moreUrl = moreListCell.data('rel');
-			var currentMoreIdPart = moreUrl.substring(moreUrl.lastIndexOf("/"));
-			var moreUrl = moreUrl.replace(currentMoreIdPart, '/'+clickedId);
+			moreUrl = moreUrl.substring(0,moreUrl.lastIndexOf("/"))+'/'+clickedId;
 			moreListCell.data('rel',moreUrl);
 		}
-		// e) load the clicked cell section list
-		updateFieldLayer(getBaseURL()+page+'/t/'+clickedId,'','',tableType+'_list','');
+		
+		// e) change the pagination url and content
+		var paginationDiv = $(this).parents('.home-list-table').first().find('.pagination').first().find('div').first();
+		var paginationDivId = clickedCell.data('final');
+		paginationDiv.attr('id',paginationDivId);
+		showOnePageNav(paginationDivId);
+		
+		var listDivObj = $(this).parents('.home-list-table').first().find('.page-list-div, .home-list-div').first();
+		listDivObj.attr('id', 'paginationdiv__'+paginationDivId+'_list');
+		var firstDiv = listDivObj.find('div').first();
+		firstDiv.attr('id', paginationDivId+'__1');
+		
+		
+		// f) load the clicked cell section list
+		updateFieldLayer(getBaseURL()+page+'/t/'+clickedId,'','',firstDiv.attr('id'),'');
 	});
 
 
@@ -68,10 +79,18 @@ $(function() {
 		$(this).before("<a href='javascript:;' class='shadowbox' id='"+btnActionId+"__link' style='display:none;'></a>");
 	});
 	
+	
+	
+	
+	
+	
 	// Close the drop down divs if the user resizes the window
 	$(window).resize(function() { 
 		$('.list-actions-div').fadeOut('fast');
 	});
+	
+	
+	
 	
 	
 	// What happens if you click on a list action div
@@ -112,6 +131,15 @@ $(function() {
 	});
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// if the user clicked away, then close the div
 	$(document).mouseup(function (e)
 	{
@@ -131,6 +159,16 @@ $(function() {
 	
 	
 	
+	
 });
 
 
+
+
+
+// Apply system search
+function applySearch()
+{
+	var searchUrl = $('#search__searchsystem').val();
+	if(searchUrl != '') window.parent.document.location.href = getBaseURL()+searchUrl+'/action/search';
+}

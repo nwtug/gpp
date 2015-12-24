@@ -114,7 +114,7 @@ class Procurement_plans extends CI_Controller
 		if(!empty($data['d'])) $plan = $this->_procurement_plan->all_details($data['d']);
 		if(empty($plan['list'])) $data['msg'] = 'ERROR: The procurement plan details can not be resolved';
 		
-		$this->_file->generate_pdf(generate_report_html($plan, 'procurement_plan',$this), UPLOAD_DIRECTORY.'file_'.strtotime('now').'.pdf', 'download', array('size'=>'A4','orientation'=>'landscape'));
+		$this->_file->generate_pdf(generate_report_html($plan, 'procurement_plan', $this), UPLOAD_DIRECTORY.'file_'.strtotime('now').'.pdf', 'download', array('size'=>'A4','orientation'=>'landscape'));
 	}
 	
 	
@@ -133,7 +133,7 @@ class Procurement_plans extends CI_Controller
 	# update a provider's status
 	function update_status()
 	{
-		$data = filter_forwarded_data($this);
+		   $data = filter_forwarded_data($this);
 		
 		if(!empty($data['t']) && !empty($data['list'])) $response = $this->_procurement_plan->update_status($data['t'], explode('--',$data['list']));
 		
@@ -148,7 +148,7 @@ class Procurement_plans extends CI_Controller
 			$data['area'] = 'basic_msg';
 		}
 		
-		$this->load->view('addons/basic_addons', $data);
+		    $this->load->view('addons/basic_addons', $data);
 	}
 	
 	

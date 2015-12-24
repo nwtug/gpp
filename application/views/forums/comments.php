@@ -1,21 +1,22 @@
 <?php 
 echo "<link rel='stylesheet' href='".base_url()."assets/css/pss.css' type='text/css' media='screen' />";
-echo "<link rel='stylesheet' href='".base_url()."assets/css/pss.list.css' type='text/css' media='screen' />";
-echo "<link rel='stylesheet' href='".base_url()."assets/css/pss.form.css' type='text/css' media='screen' />"; 
+echo "<link rel='stylesheet' href='".base_url()."assets/css/pss.list.css' type='text/css' media='screen' />"; 
 
 if(!empty($msg)){
 	echo format_notice($this, $msg);
 }
 else
 {
-echo "<div class='home-list-div' style='min-height:250px;'><table>";
+echo "<table class='list-table'><tr><th>Comment</th><th>Posted By</th><th>Posted On</th></tr>";
 
 foreach($list AS $row){
-echo "<tr><td>".$row['comment']."
-<br><span class='h6'><i>".$row['entered_by']."</i> on ".date(SHORT_DATE_FORMAT, strtotime($row['date_added']))."</span>
-</td>
-";
+echo "<tr>
+<td>".$row['comment']."</td>
+<td style='vertical-align:top;'>".$row['entered_by']."</td>
+<td style='vertical-align:top;'>".date(FULL_DATE_FORMAT, strtotime($row['date_added']))."</td>
+</tr>";
 }
-echo "</table></div>";
+echo "</table>
+</div>";
 }
 ?>

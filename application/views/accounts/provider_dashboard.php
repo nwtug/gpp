@@ -57,6 +57,14 @@ $this->load->view('addons/provider_top_menu', array('__page'=>'my_dashboard'));
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('accounts-provider_dashboard', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js'));?>
+<?php echo minify_js('accounts__provider_dashboard', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js'));?>
+
+<?php if(!empty($action)){ ?>
+<script>
+$(function() { 
+	$(document).find('.filter-list').last().click(); 
+});
+</script>
+<?php }?>
 </body>
 </html>

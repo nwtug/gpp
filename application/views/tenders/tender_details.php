@@ -27,13 +27,13 @@ else echo "&nbsp;";
 echo "</td></tr>
 <tr><td class='label'>Deadline</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['deadline']))."</td></tr>";
 
-if($this->native_session->get('__user_type') != 'provider'){
+if($this->native_session->get('__user_type') && $this->native_session->get('__user_type') != 'provider'){
 echo "<tr><td class='label long'>Display Start Date</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['display_start_date']))."</td></tr>
 <tr><td class='label long'>Display End Date</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['display_end_date']))."</td></tr>
 <tr><td class='label'>Status</td><td>".strtoupper($tender['status'])."</td></tr>
-<tr><td class='label'>Date Entered</td><td>".date(FULL_DATE_FORMAT, strtotime($tender['date_entered']))."</td></tr>
+<tr><td class='label'>Date Entered</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['date_entered']))."</td></tr>
 <tr><td class='label'>Entered By</td><td>".$tender['entered_by']."</td></tr>
-<tr><td class='label'>Last Updated</td><td>".date(FULL_DATE_FORMAT, strtotime($tender['last_updated']))."</td></tr>
+<tr><td class='label'>Last Updated</td><td>".date(SHORT_DATE_FORMAT, strtotime($tender['last_updated']))."</td></tr>
 <tr><td class='label'>Last Updated By</td><td>".$tender['last_updated_by']."</td></tr>";
 }
 

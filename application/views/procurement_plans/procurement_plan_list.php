@@ -15,6 +15,7 @@ echo "<table>
 		echo "<td><span class='edit-item btn' data-rel='procurement_plans/add/d/".$row['procurement_plan_id']."'>".$row['name']."</span></td>
 		<td>FY ".date('Y', strtotime($row['financial_year_start'])).'-'.date('Y', strtotime($row['financial_year_end']))."</td>
 		<td>".strtoupper($row['status'])."</td>
+
 		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_created']));
 		
 		 # Check whether you need to stop the loading of the next pages

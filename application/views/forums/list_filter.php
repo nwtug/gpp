@@ -11,7 +11,7 @@
 <?php echo get_option_list($this, 'forumcategories', 'select', '', array('selected'=>$this->native_session->get('forum__category')));?>
 </select></td></tr>
 
-<?php if($this->native_session->get('__user_id')){?>
+<?php if($this->native_session->get('__user_id') && empty($t)){?>
 <tr><td><select id='search__forumaccess' name='search__forumaccess' data-final='is_public' class='drop-down' style='width:100%;'>
 <?php echo get_option_list($this, 'forumaccess', 'select', '', array('selected'=>$this->native_session->get('forum__is_public')));?>
 </select></td></tr>
@@ -27,6 +27,11 @@
 
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('forum')" style="width:100%;">Apply Filter</button>
-<input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
+<input name="layerid" id="layerid" type="hidden" value="" />
+<?php if(!empty($t)){ 
+	echo "<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />
+	<input type='hidden'  id='search__forumaccess' name='search__forumaccess' data-final='is_public' value='".($t == 'public_forums'? 'Y': 'N')."' />";
+}?>
+</td></tr>
 </table>
 <?php echo minify_js('forums__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

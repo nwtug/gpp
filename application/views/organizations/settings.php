@@ -73,6 +73,13 @@ if(!empty($view)){
     <div><span class='bold'>Registration Country:</span> <?php echo $organization['registration_country']; ?></div>
     <div><span class='bold'>Registration Date:</span> <?php echo (!empty($organization['date_established'])? date(SHORT_DATE_FORMAT, strtotime($organization['date_established'])): ''); ?></div>
     </td></tr>
+    <tr><td class='two-fields' style="vertical-align:top;">
+    <div><span class='bold'>Registrar of Providers ID:</span> <?php echo !empty($organization['rop_number'])? $organization['rop_number']: 'NOT ISSUED'; ?></div>
+    <div><span class='bold'>Registrar of Providers Certificate:</span> <?php echo !empty($organization['rop_certificate_url'])? "<a href='".base_url()."pages/download/file/".$organization['rop_certificate_url']."'>Download</a>": 'NONE'; ?></div>
+    </td></tr>
+    <tr><td class='two-fields' style="vertical-align:top;">
+    &nbsp;
+    </td></tr>
  
     
     <tr><td>&nbsp;</td></tr>
@@ -189,6 +196,6 @@ if(!empty($view)){
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('new_tender', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.datepick.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js', 'pss.datepicker.js'));?>
+<?php echo minify_js('organizations__settings', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.datepick.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js', 'pss.datepicker.js'));?>
 </body>
 </html>

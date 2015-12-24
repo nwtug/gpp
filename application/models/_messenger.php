@@ -288,16 +288,27 @@ class _messenger extends CI_Model {
 			$this->email->message($message['details']);
 			
 			if(!empty($message['fileurl'])) $this->email->attach($message['fileurl']);
+			
+			# 2. copy admin if required
+			if(!empty($message['copyadmin']) && $message['copyadmin'] == 'Y')
+			{
+			 	$adminUsers = $this->get_admin_users();
+				
+				$isSent = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($message['code'])? $message['code']: 'user_defined_message'), 'details'=>htmlentities($message['details'], ENT_QUOTES), 'subject'=>htmlentities($message['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($message['fileurl'])? substr(strrchr($message['fileurl'], "/"),1): ''), 'sender_id'=>(!empty($userId)? $userId: '1'), 'recipient_id'=>implode("','", $adminUsers) ));
+				
+				# email out to the admin users as well
+				$adminEmails = array();
+				foreach($adminUsers AS $admin){
+					$user = $this->_query_reader->get_row_as_array('get_user_by_id', array('user_id'=>$admin));
+					if(!empty($user['email_address'])) array_push($adminEmails, $user['email_address']);
+				}
+				$this->email->bcc(implode(',',$adminEmails));
+			}
+			
 			# Use this line to test sending of email without actually sending it
 			# $this->email->print_debugger();
 			$isSent = $this->email->send();
 			$this->email->clear(TRUE);
-			
-			# 2. copy admin if required
-			if($isSent && !empty($message['copyadmin']) && $message['copyadmin'] == 'Y')
-			{
-			 	$isSent = $this->_query_reader->run('record_message_exchange', array('template_code'=>(!empty($message['code'])? $message['code']: 'user_defined_message'), 'details'=>htmlentities($message['details'], ENT_QUOTES), 'subject'=>htmlentities($message['subject'], ENT_QUOTES), 'attachment_url'=>(!empty($message['fileurl'])? substr(strrchr($message['fileurl'], "/"),1): ''), 'sender_id'=>(!empty($userId)? $userId: '1'), 'recipient_id'=>implode("','", $this->get_admin_users()) ));
-			}
 			
 			#Record messsage sending event
 			$this->log_message_event($userId, $isSent, 'email__message_sent', $message);

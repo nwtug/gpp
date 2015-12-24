@@ -29,27 +29,28 @@
         <td class='one-column' style='height:calc(85vh - 255px); padding-bottom: 20px;'>
 
             <table class='home-list-table'>
-                <tr><th class='h3 blue rop-icon'>Registry of Providers</th><th class='btn closer' data-rel='page/portal'></th></tr>
+                <tr><th class='h3 blue rop-icon'>Registry of Providers</th><th class='btn closer' data-rel='pages/portal'></th></tr>
                 <tr><td colspan='2'>
-                        <table class='list-tabs' data-type='paginationdiv__providersearch' data-page='providers/provider_list'><tr>
-                                <td id='active_providers' class='active'>Active Providers</td>
-                                <td id='suspended_providers'>Suspended Providers</td>
+                        <table class='list-tabs' data-type='paginationdiv__provider' data-page='providers/provider_list'><tr>
+                                <td id='active_providers' data-final='provider' <?php if($area == 'active_providers') echo "class='active'";?>>Active Providers</td>
+                                <td id='suspended_providers' data-final='provider' <?php if($area == 'suspended_providers') echo "class='active'";?>>Suspended Providers</td>
                             </tr></table>
                     </td></tr>
-                <tr><td colspan='2'><div id='paginationdiv__providersearch_list' class='page-list-div'>
-                            <?php $this->load->view('providers/details_list',array('type'=>'active_providers','list'=>$activeProvidersList));?>
-                        </div></td></tr>
+                <tr><td colspan='2'><div id='paginationdiv__provider_list' class='page-list-div'>
+  			<div id="provider__1"><?php $this->load->view('providers/details_list',array('area'=>$area,'list'=>$list));?> 
+			</div></div>
+            <button type='button' id='refreshlist' name='refreshlist' style='display:none;'></button></td></tr>
                 <tr><td colspan='2'>
                         <table><tr><td>
 
-                                    <div id='provider_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="providersearch" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__providersearch_action" id="paginationdiv__providersearch_action" type="hidden" value="<?php echo base_url()."lists/load/t/providers";?>" />
-                                        <input name="paginationdiv__providersearch_maxpages" id="paginationdiv__providersearch_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
-                                        <input name="paginationdiv__providersearch_noperlist" id="paginationdiv__providersearch_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-                                        <input name="paginationdiv__providersearch_showdiv" id="paginationdiv__providersearch_showdiv" type="hidden" value="paginationdiv__providersearch_list" />
-                                        <input name="paginationdiv__providersearch_extrafields" id="paginationdiv__providersearch_extrafields" type="hidden" value="" /></div>
+                                    <div id='provider_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="provider" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__provider_action" id="paginationdiv__provider_action" type="hidden" value="<?php echo base_url()."lists/load/t/provider/area/".$area;?>" />
+                                        <input name="paginationdiv__provider_maxpages" id="paginationdiv__provider_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
+                                        <input name="paginationdiv__provider_noperlist" id="paginationdiv__provider_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
+                                        <input name="paginationdiv__provider_showdiv" id="paginationdiv__provider_showdiv" type="hidden" value="paginationdiv__provider_list" />
+                                        <input name="paginationdiv__provider_extrafields" id="paginationdiv__provider_extrafields" type="hidden" value="" /></div>
 
 
-                                </td><td width='1%' class='filter-list'>FILTER</td></tr></table>
+                                </td><td width='1%' class='filter-list shadowbox closable' data-url='<?php echo base_url().'providers/list_filter/t/'.$area;?>'>FILTER</td></tr></table>
                     </td></tr>
             </table>
 
@@ -67,7 +68,14 @@
 
 </table>
 
-<?php echo minify_js('home_portal', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
+<?php echo minify_js('providers__home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.list.js', 'pss.pagination.js'));?>
 
+<?php if(!empty($action)){ ?>
+<script>
+$(function() { 
+	$(document).find('.filter-list').last().click(); 
+});
+</script>
+<?php }?>
 </body>
 </html>

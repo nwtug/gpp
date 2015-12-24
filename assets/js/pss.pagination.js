@@ -77,6 +77,7 @@ $(function() {
 			
 			if(!divListContainers.length || (divListContainers.length && divListContainers.first().html().indexOf(LOADING_IMG) >= 0)){
 				if(!divListContainers.length) $('#paginationdiv__'+parentDiv.attr('id')+'_list').append("<div id='"+divContainerId+"'></div>");
+				
 				updateFieldLayer(baseUrl+'/p/'+$(this).index()+'/n/'+noPerList,'','',divContainerId,'');
 			
 			} else {
@@ -201,11 +202,12 @@ $(function() {
 	
 	
 	
-	//Refresh the list based on pagination
+		//Refresh the list based on pagination
 	$(document).on('click', '#refreshlist', function(){
-		var listContainer = $(document).find('.page-list-div, .home-list-div').first();
+		var listContainer = $(this).parents('.home-list-table').first().find('.page-list-div, .home-list-div').first();
 		var listId = listContainer.find('div').first().attr('id');
 		var listStub = listId.substr(0, listId.indexOf('__'));
+		var refreshBtn = $(this);
 		
 		// Remove all pagination page-divs
 		$('#'+listStub).children('div').each(function(){

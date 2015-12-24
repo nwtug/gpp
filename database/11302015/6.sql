@@ -1,4 +1,4 @@
-INSERT INTO `pss_v1`.`message_templates` (`id`, `message_type`, `subject`, `details`, `sms`, `copy_admin`, `date_entered`, `_entered_by`, `last_updated`, `_last_updated_by`) VALUES (NULL, 'custom_internal_message', 'Message From RSS Procurement Portal: _SUBJECT_', '_DETAILS_
+INSERT INTO `pss`.`message_templates` (`id`, `message_type`, `subject`, `details`, `sms`, `copy_admin`, `date_entered`, `_entered_by`, `last_updated`, `_last_updated_by`) VALUES (NULL, 'custom_internal_message', 'Message From RSS Procurement Portal: _SUBJECT_', '_DETAILS_
 <BR>
 <BR>
 Regards,

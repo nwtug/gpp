@@ -1,12 +1,13 @@
 <?php
 /**
- * This class manages forum information.
+ * This class generates and formats provider details. 
  *
- * @author Al Zziwa <azziwa@newwavetech.co.ug>
+ * @author David Buwembo <dbuwembo@newwavetech.co.ug>
  * @version 1.0.0
  * @copyright PSS
- * @created 11/27/2015
+ * @created 11/20/2015
  */
+
 class _forum extends CI_Model
 {
 	# advanced search list of forums
@@ -30,7 +31,7 @@ class _forum extends CI_Model
 	
 	
 	
-	
+
 	# add a forum
 	function add($data)
 	{
@@ -143,7 +144,7 @@ class _forum extends CI_Model
 		$result = $this->_query_reader->run('add_forum_comment', array(
 				'comment'=>htmlentities($data['details'], ENT_QUOTES),
 				'forum_id'=>$data['forumid'],
-				'user_id'=>$this->native_session->get('__user_id'),
+				'user_id'=>($this->native_session->get('__user_id')? $this->native_session->get('__user_id'): 'anonymous_'.strtotime('now')),
 				'responding_to'=>(!empty($data['respondingto'])? $data['respondingto']: '0')
 			));
 		
@@ -163,6 +164,23 @@ class _forum extends CI_Model
 		return $this->_query_reader->get_list('get_forum_comments', array('forum_id'=>$forumId)); 
 	}
 	
+	
+	
+	
+	
+	
+	
+	# get forum statistics
+	function statistics($field)
+	{
+		if($field == 'latest_date') {
+			$row = $this->_query_reader->get_row_as_array('get_forum_latest_date');
+			return !empty($row[$field]) && strpos($row[$field], '0000-00-00') === FALSE? $row[$field]: '';
+		}
+		
+		# if not found in preset fields, return empty string
+		return '';
+	}
 }
 
 

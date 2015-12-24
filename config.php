@@ -75,9 +75,9 @@ define('ENABLE_PROFILER', FALSE); #See perfomance stats based on set benchmarks
 
 define('DOWNLOAD_LIMIT', 10000); #Max number of rows that can be downloaded
 
-define('FULL_DATE_FORMAT', 'd/m/Y h:iA');
+define('FULL_DATE_FORMAT', 'd/M/Y h:iA');
 
-define('SHORT_DATE_FORMAT', 'd/m/Y');
+define('SHORT_DATE_FORMAT', 'd/M/Y');
 
 define('MAXIMUM_FINANCIAL_HISTORY', 5);
 

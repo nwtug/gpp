@@ -40,10 +40,15 @@ if($this->native_session->get('__step') && $this->native_session->get('__step') 
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
 <tr><td><input type='text' id='loginusername' name='loginusername' autocapitalize='off' placeholder="User Name" value='' style='width:calc(100% - 20px);' /></td></tr>
 <tr><td><input type='password' id='loginpassword' name='loginpassword' autocapitalize='off' placeholder="Password" value='' style='width:calc(100% - 20px);' /></td></tr>
-<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button></td></tr>
+<tr><td style="padding-bottom:0px;"><button type="button" id="submitlogin" name="submitlogin" class="btn grey" style="width:100%;">Login</button>
+<?php
+if(!empty($a)) {
+	echo "<input type='hidden' id='redirect' name='redirect' value='".$a."' />";
+}
+?></td></tr>
 
 <tr><td class='row-divs'><div class='left-div'><?php if(!$this->native_session->get('__step')){?><a href="<?php echo base_url().'accounts/register';?>">New Account</a><?php }?></div>
-<div class='right-div'><a href="javascript:;">Forgot Password</a></div>
+<div class='right-div'><a href="<?php echo base_url().'accounts/forgot';?>">Forgot Password</a></div>
 
 </td></tr>
 </table>
@@ -59,6 +64,6 @@ if($this->native_session->get('__step') && $this->native_session->get('__step') 
 
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
+<?php echo minify_js('accounts__login', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js'));?>
 </body>
 </html>

@@ -74,7 +74,8 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('providers/provider_list', $data);
+					# [area] indicates that there are specific areas to load to (a property only used on public pages)
+					$this->load->view('providers/'.(!empty($data['area'])? 'details_list': 'provider_list'), $data);
 				break;
 				
 				
@@ -99,7 +100,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('procurement_plans/procurement_plan_list', $data);
+					$this->load->view('procurement_plans/'.(!empty($data['area'])? 'details_list': 'procurement_plan_list'), $data);
 				break;
 				
 				
@@ -116,20 +117,24 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
 					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 					$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+					$isProvider = $this->native_session->get('__user_type') == 'provider';
 					
 					$data['list'] = $this->_tender->lists(array(
 						'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'), 
 						'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
+						'status'=>$this->native_session->get($data['t'].'__status'),
 						'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
+						'display_type'=>($isProvider? 'public':''),
 						'offset'=>$offset, 
 						'limit'=>$limit
 					));
 					
-					$this->load->view('tenders/'.($this->native_session->get('__user_type') == 'provider'? 'manage_list': 'tender_list'), $data);
+					$this->load->view('tenders/'.(!empty($data['area'])? 'details_list': ($isProvider? 'manage_list': 'tender_list')), $data);
 				break;
 				
 				
@@ -157,7 +162,7 @@ class Lists extends CI_Controller
 					));
 					
 					$data['type'] = $data['listtype'];
-					$this->load->view('bids/bid_list', $data);
+					$this->load->view('bids/'.(!empty($data['area'])? 'details_list': 'bid_list'), $data);
 				break;
 				
 				
@@ -207,12 +212,12 @@ class Lists extends CI_Controller
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'), 
 						'tender'=>$this->native_session->get($data['t'].'__tender_id'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
-						'status'=>$this->native_session->get($data['t'].'__status'),
+						'status'=>(!empty($data['area'])? array('active','complete','endorsed','commenced'): $this->native_session->get($data['t'].'__status')),
 						'offset'=>$offset, 
 						'limit'=>$limit
 					));
 					
-					$this->load->view('contracts/contract_list', $data);
+					$this->load->view('contracts/'.(!empty($data['area'])? 'details_list': 'contract_list'), $data);
 				break;
 				
 				
@@ -239,7 +244,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('documents/document_list', $data);
+					$this->load->view('documents/'.(!empty($data['area'])? 'details_list': 'document_list'), $data);
 				break;
 				
 				
@@ -266,7 +271,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('links/link_list', $data);
+					$this->load->view('links/'.(!empty($data['area'])? 'details_list': 'link_list'), $data);
 				break;
 				
 				
@@ -294,7 +299,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('training/training_list', $data);
+					$this->load->view('training/'.(!empty($data['area'])? 'details_list': 'training_list'), $data);
 				break;
 				
 				
@@ -338,7 +343,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('faqs/faq_list', $data);
+					$this->load->view('faqs/'.(!empty($data['area'])? 'details_list': 'faq_list'), $data);
 				break;
 				
 				
@@ -357,7 +362,7 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
 					$data['list'] = $this->_forum->lists(array(
-						'pde'=>$this->native_session->get($data['t'].'__is_public'), 
+						'is_public'=>$this->native_session->get($data['t'].'__is_public'), 
 						'category'=>$this->native_session->get($data['t'].'__category'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'),
 						'status'=>$this->native_session->get($data['t'].'__status'),
@@ -365,7 +370,7 @@ class Lists extends CI_Controller
 						'limit'=>$limit
 					));
 					
-					$this->load->view('forum/forum_list', $data);
+					$this->load->view('forums/'.(!empty($data['area'])? 'details_list': 'forum_list'), $data);
 				break;
 				
 				

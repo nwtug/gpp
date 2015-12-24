@@ -16,7 +16,6 @@ class Pages extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('_page');
-
 	}
 
 	# home page
@@ -31,27 +30,29 @@ class Pages extends CI_Controller
 	function portal()
 	{
 		$data = filter_forwarded_data($this);
+		$this->load->model('_procurement_plan');
+		$this->load->model('_provider');
+		$this->load->model('_document');
+        $this->load->model('_forum');
+		
+		$this->native_session->set('__view', 'portal');
 
 		# Collect all data needed for the UI
-		$data['procurementPlanList'] = array();
-		$data['activeProvidersList'] = array();
-		$data['documentsList'] = array();
-		$data['publicForumsList'] = array();
-
+		$data['procurementPlanList'] = $this->_procurement_plan->lists(array('status'=>'published', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		$data['activeProviderList'] = $this->_provider->lists(array('status'=>'active', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		$data['documentList'] = $this->_document->lists('system');
+		$data['publicForumList'] = $this->_forum->lists(array('is_public'=>'Y', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		
+		
+		$data['procurementPlanLatestDate'] = $this->_procurement_plan->statistics('latest_date');
+		$data['activeProviderLatestDate'] = $this->_provider->statistics('latest_date');
+		$data['documentLatestDate'] = $this->_document->statistics('latest_date');
+		$data['publicForumLatestDate'] = $this->_forum->statistics('latest_date');
+		
+		
 		$this->load->view('home_portal', $data);
 	}
 
-
-	# load a home list
-	function home_list()
-	{
-		$data = filter_forwarded_data($this);
-
-		$data['type'] = $data['t'];
-		# TODO: Select list based on type passed
-		$data['list'] = array();
-		$this->load->view('pages/home_list', $data);
-	}
 
 
 	# about us page
@@ -75,17 +76,33 @@ class Pages extends CI_Controller
 		$this->load->view('pages/privacy_policy', $data);
 	}
 
-	# providers page
-	function providers()
+	# authority page
+	function authority()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('pages/providers', $data);
+		$this->load->view('pages/authority', $data);
+	}
+	
+	# regulations page
+	function regulations()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('pages/regulations', $data);
+	}
+	
+	# registration requirements page
+	function registration_requirements()
+	{
+		$data = filter_forwarded_data($this);
+		$this->load->view('pages/registration_requirements', $data);
 	}
 
 	# government agencies page
 	function government_agencies()
 	{
 		$data = filter_forwarded_data($this);
+        $this->load->model('_organization');
+		$data['list'] = $this->_organization->lists(array('type'=>'pde', 'offset'=>0, 'limit'=>50));
 		$this->load->view('pages/government_agencies', $data);
 	}
 
@@ -100,18 +117,22 @@ class Pages extends CI_Controller
 	function verify()
 	{
 		$data = filter_forwarded_data($this);
-		# assumption a certificate belongsTo an organisation (one-to-one relationship)
-		# if form is submitted
-		if (!empty($_POST)) {
-
-			# check if verification number exists (Expected result is boolean)
-			$msg = $this->_page->verify_certificate($_POST) ? 'Document exists' : 'ERROR: Document does not exist';
-
-			$this->native_session->set('msg', $msg);
-
-		} 
+		
+		# user has posted the document details
+		if(!empty($_POST)){
+			$this->load->model('_document');
+			$response = $this->_document->verify($_POST);
+			
+			$msg = $response['boolean']? 'Document is VALID.': 'WARNING: Document is INVALID';
+			if(!empty($response['expiry_date'])) {
+				$msg .= '<br>Expiry Date: '.date(SHORT_DATE_FORMAT, strtotime($response['expiry_date']));
+			}
+			echo format_notice($this, $msg);
+		}
 		else $this->load->view('pages/verify_document', $data);
 	}
+
+    
 
 	# contact us page
 	function contact_us()
@@ -151,6 +172,22 @@ class Pages extends CI_Controller
 		if(!empty($data['file'])) force_download((!empty($data['folder'])? $data['folder']: ''),$data['file']);
 	}
 	
+	
+	
+	
+	
+	# system search
+	function system_search()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# force to public if user is not logged in
+		if(!(!empty($data['t']) && $data['t'] == 'secure' && $this->native_session->get('__user_id'))) $data['t'] = 'public';
+		# default area to empty string (e.g. for public search)
+		if(empty($data['area'])) $data['area'] = '';
+		
+		$this->load->view('pages/system_search', $data);
+	}
 	
 	
 	

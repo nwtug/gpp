@@ -26,6 +26,14 @@
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('link')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" />
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('link__pde_id');?>' /></td></tr>
+<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('link__pde_id');?>' />
+
+<?php 
+if(!($this->native_session->get('__user_type') && $this->native_session->get('__user_type') == 'admin')){
+	echo "<input type='hidden'  id='search__linkstatus'  name='search__linkstatus' data-final='status' value='published' />";
+}
+if(!empty($t)){ 
+	echo "<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />";
+}?></td></tr>
 </table>
 <?php echo minify_js('links__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

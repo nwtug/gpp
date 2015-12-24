@@ -281,6 +281,26 @@ class _procurement_plan extends CI_Model
 	{
 		return $this->_query_reader->get_row_as_array('get_raw_report_item', array('detail_id'=>$categoryId));
 	}
+	
+	
+	
+	
+	
+	
+	# get procurement plan statistics
+	function statistics($field)
+	{
+		if($field == 'latest_date') {
+			$row = $this->_query_reader->get_row_as_array('get_procurement_plan_latest_date');
+			return !empty($row[$field]) && strpos($row[$field], '0000-00-00') === FALSE? $row[$field]: '';
+		}
+		
+		# if not found in preset fields, return empty string
+		return '';
+	}
+	
+	
+	
 }
 
 

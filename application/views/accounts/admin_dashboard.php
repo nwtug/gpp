@@ -18,7 +18,7 @@
 <table class='body-table water-mark-bg'>
 <?php 
 $this->load->view('addons/secure_header', array('__page'=>'Dashboard'));
-$this->load->view('addons/admin_top_menu', array('__page'=>'my_dashboard'));
+$this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu', array('__page'=>'my_dashboard'));
 ?>
 
 <tr>
@@ -59,6 +59,14 @@ $this->load->view('addons/admin_top_menu', array('__page'=>'my_dashboard'));
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js'));?>
+<?php echo minify_js('accounts__admin_dashboard', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js'));?>
+
+<?php if(!empty($action)){ ?>
+<script>
+$(function() { 
+	$(document).find('.filter-list').last().click(); 
+});
+</script>
+<?php }?>
 </body>
 </html>

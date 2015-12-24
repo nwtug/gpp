@@ -201,23 +201,18 @@ $html .= "<tr>
 		foreach($list['list'] AS $i=>$row){
 			$dataRow = array_slice($row, 2, -2, true); # extract data part while preserving the keys
 			
-			$createRow = !in_array(trim(strtolower($row['B'])), get_option_list($obj, 'procurementcategories', 'array'));
-			
 			# print out the valid rows
-			if($createRow) $html .= "<tr>";
-			
-			# do not make the categories editable
+			$html .= "<tr>";
+			# make the category row cells have a yellow background
 			if(in_array(trim(strtolower($row['B'])), get_option_list($obj, 'procurementcategories', 'array'))) {
 				foreach($dataRow AS $key=>$cell) {
 					$html .= "<td style='background-color:#FF9;font-weight:bold;'>".(!empty($cell)? $cell: '&nbsp;')."</td>";
 				}
 			}
 			# the data row
-			else {
-				foreach($dataRow AS $key=>$cell) $html .= "<td>".$cell."</td>";
-			}
+			else foreach($dataRow AS $key=>$cell) $html .= "<td>".$cell."</td>";
 			
-			if($createRow) $html .= "</tr>";
+			$html .= "</tr>";
 		}
 	
 	

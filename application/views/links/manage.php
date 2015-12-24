@@ -78,6 +78,14 @@ if($this->native_session->get('__user_type') == 'provider'){
 <?php $this->load->view('addons/secure_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
+<?php echo minify_js('links__manage', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js', 'pss.pagination.js', 'pss.fileform.js', 'pss.list.js'));?>
+
+<?php if(!empty($action)){ ?>
+<script>
+$(function() { 
+	$(document).find('.filter-list').last().click(); 
+});
+</script>
+<?php }?>
 </body>
 </html>

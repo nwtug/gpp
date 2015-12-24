@@ -21,24 +21,47 @@ class Tenders extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
-		if(!empty($data['a'])) $data['area'] = $data['a'];
-		$data['procurementPlanList'] = array();
+		$data['area'] = !empty($data['a'])? $data['a']: 'procurement_plans';
+		$this->native_session->delete('__view');
 		
+		$data['list'] = $this->get_list_to_show($data['area']);
+		$data['folder'] = $this->get_section_folder($data['area']);
 		$this->load->view('tenders/home', $data);
 	}
 	
 	
 	
 	# tender notices lists
-	function tenders_list()
+	function tender_list()
 	{
 		$data = filter_forwarded_data($this);
+		$data['area'] = !empty($data['t'])? $data['t']: 'procurement_plans';
 		
-		$data['type'] = $data['t'];
-		# TODO: Select list based on type passed
-		$data['list'] = array();
+		$data['list'] = $this->get_list_to_show($data['area']);
+		$this->load->view($this->get_section_folder($data['area']).'/details_list', $data);
+	}
+	
+	
+	
+	# determine which list to show for the view
+	function get_list_to_show($area)
+	{
+		$this->load->model('_procurement_plan');
+		$this->load->model('_contract');
+		$this->load->model('_bid');
+		$list = array();
 		
-		$this->load->view('tenders/details_list', $data);
+		if($area == 'procurement_plans') {
+			$list = $this->_procurement_plan->lists(array('status'=>'published', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		} else if($area == 'best_evaluated_bidders') {
+			$list = $this->_bid->lists('best_bidders');
+		} else if($area == 'active_notices') {
+			$list = $this->_tender->lists(array('status'=>'published', 'display_type'=>'public', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
+		} else if($area == 'contract_awards') {
+			$list = $this->_contract->lists(array('offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE, 'status'=>array('active','complete','endorsed','commenced')));
+		}
+		
+		return $list;
 	}
 	
 	
@@ -66,7 +89,7 @@ class Tenders extends CI_Controller
 	function list_filter()
 	{
 		$data = filter_forwarded_data($this);
-		$this->load->view('tenders/list_filter', $data);
+	    $this->load->view('tenders/list_filter', $data);
 	}
 	
 	
@@ -75,16 +98,27 @@ class Tenders extends CI_Controller
 	function home_filter()
 	{
 		$data = filter_forwarded_data($this);
+		if($data['t'] == 'best_evaluated_bidders') $data['listtype'] = 'best_bidders';
 		
-		if($data['t'] == 'procurement_plans') $folder = 'procurement_plans';
-		else if($data['t'] == 'active_notices') $folder = 'tenders';
-		else if($data['t'] == 'best_evaluated_bidders') $folder = 'bids';
-		else if($data['t'] == 'contract_awards') $folder = 'bids';
-		
-		$this->load->view($folder.'/home_filter', $data);
+		$this->load->view($this->get_section_folder($data['t']).'/list_filter', $data);
 	}
 	
 	
+	
+	# get section folder
+	function get_section_folder($section)
+	{
+		$folder = '';
+		if($section == 'procurement_plans') $folder = 'procurement_plans';
+		else if($section == 'active_notices') $folder = 'tenders';
+		else if($section == 'best_evaluated_bidders') $folder = 'bids';
+		else if($section == 'contract_awards') $folder = 'contracts';
+		
+		return $folder;
+	}
+	
+	
+		
 	
 	# to add a tender
 	function add()
@@ -100,7 +134,7 @@ class Tenders extends CI_Controller
 			if((empty($_POST['tender_id']) && !empty($_POST['documents'])) || !empty($_POST['tender_id'])) $result = $this->_tender->add($_POST);
 			if(empty($_POST['tender_id']) && empty($_POST['documents'])) $result = array('boolean'=>FALSE, 'reason'=>'File(s) could not be uploaded.');
 			
-			if(!$result['boolean']) echo "ERROR: The tender notice could not be added. ".$result['reason'];
+			if(!$result['boolean']) echo "ERROR: The Invitation for Bids/Quotations could not be added. ".$result['reason'];
 		}
 		else {
 			if(!empty($data['d'])) $data['tender'] = $this->_tender->details($data['d']);
@@ -116,7 +150,7 @@ class Tenders extends CI_Controller
 		$data = filter_forwarded_data($this);
 		
 		if(!empty($data['d'])) $data['tender'] = $this->_tender->details($data['d']);
-		else $data['msg'] = 'ERROR: The tender details can not be resolved';
+		else $data['msg'] = 'ERROR: The Invitation for Bids/Quotations details can not be resolved';
 		
 		$this->load->view('tenders/tender_details', $data);
 	}
@@ -133,20 +167,63 @@ class Tenders extends CI_Controller
 		
 		# all good
 		if(!empty($response) && $response['boolean']){
-			$data['msg'] = 'The tender status has been updated.';
+			$data['msg'] = 'The Invitation for Bids/Quotations status has been updated.';
 			$data['area'] = 'refresh_list_msg';
 		} 
 		# there was an error
 		else {
-			$data['msg'] = (!empty($data['t']) && !empty($data['list']))? 'ERROR: There was an error updating the tender status.': 'ERROR: This action can not be resolved';
+			$data['msg'] = (!empty($data['t']) && !empty($data['list']))? 'ERROR: There was an error updating the Invitation for Bids/Quotations status.': 'ERROR: This action can not be resolved';
 			$data['area'] = 'basic_msg';
 		}
 		
 		$this->load->view('addons/basic_addons', $data);
-		
-		
-		
 	}
+	
+	
+	
+	
+	
+	# invite providers to bid on a tender
+	function invite()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# user has submitted the invitation
+		if(!empty($_POST)){
+			$response = $this->_tender->invite($_POST);
+			$msg = (!empty($response) && $response['boolean'])? 'The Invitation for Bids/Quotations has been sent.' :'ERROR: The Invitation for Bids/Quotations could not be sent.';
+			
+			$this->native_session->set('__msg',$msg);
+		}
+		else if(!empty($data['a'])){
+			$data['msg'] = $this->native_session->get('__msg');
+			$data['area'] = 'refresh_list_msg';
+			$this->load->view('addons/basic_addons', $data);
+		}
+		else {
+			$data['tender'] = $this->_tender->details($data['d']);
+			$data['invited'] = $this->_tender->invitations($data['d']);
+			$this->load->view('tenders/invite', $data);
+		}
+	}
+	
+	
+	
+	
+	# the list of providers invited for a bid
+	function invitations()
+	{
+		$data = filter_forwarded_data($this);
+		$data['tender'] = $this->_tender->details($data['d']);
+		$data['invited'] = $this->_tender->invitations($data['d']);
+		
+		if(empty($data['invited'])) $data['msg'] = "ERROR: No invitations can be resolved.";
+		$this->load->view('tenders/invitations', $data);
+	}
+	
+	
+	
+	
 	
 	
 }

@@ -2,7 +2,6 @@
 $stopHtml = "<input name='paginationdiv__bid_stop' id='paginationdiv__bid_stop' type='hidden' value='1' />";
 $listCount = count($list);
 $i = 0;
-
 echo "<table>
 <tr><th style='width:1%;'>&nbsp;</th><th>Provider</th><th>Bid Details</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Plan Name</th><th>Invitation for Bids/Quotations</th>";
 
@@ -11,7 +10,6 @@ if($type == 'awards') {
 } else {
 	echo "<th>Bid Amount</th><th>Valid From</th><th>Valid To</th><th>Submitted</th><th>Status</th>";
 }
-
 echo "<th>Last Updated</th></tr>";
 	foreach($list AS $row) {
 		$i++;

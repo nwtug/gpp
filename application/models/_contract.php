@@ -17,6 +17,7 @@ class _contract extends CI_Model
 		
 		if($userType == 'admin') $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived');
 		else if($userType == 'pde')  $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived','saved');
+		else if(is_array($scope['status'])) $status = $scope['status'];
 		else  $status = array('active','complete','terminated','endorsed','cancelled');
 		
 		
@@ -26,7 +27,7 @@ class _contract extends CI_Model
 			
 			'pde_condition'=>(!empty($scope['pde'])? " AND _pde_id='".$scope['pde']."' ": ''),
 			
-			'status_condition'=>(!empty($scope['status'])? " AND status = '".$scope['status']."' ": " AND status IN ('".implode("','",$status)."') " ),
+			'status_condition'=>(!empty($scope['status']) && !is_array($scope['status'])? " AND status = '".$scope['status']."' ": " AND status IN ('".implode("','",$status)."') " ),
 			
 			'owner_condition'=>(in_array($userType, array('pde','provider'))? ($userType == 'provider'? " AND _organization_id = '".$organizationId."' ": " AND _pde_id = '".$organizationId."' "): '' ),
 			

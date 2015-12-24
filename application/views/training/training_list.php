@@ -18,7 +18,7 @@ echo "<th>Posted</th></tr>";
 		<td>".($this->native_session->get('__user_type') != 'provider'? "<input id='select_".$row['training_id']."' name='selectall[]' type='checkbox' value='".$row['training_id']."' class='bigcheckbox'><label for='select_".$row['training_id']."'></label>":'&nbsp;')."</td>
 		<td><a href='".base_url()."training/description/d/".$row['training_id']."' class='shadowbox closable'>".htmlentities($row['subject'], ENT_QUOTES)."</a></td>
 		<td>".ucwords(str_replace('_',' ',$row['category']))."</td>
-		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_entered']))."</td>
+		<td>".date(FULL_DATE_FORMAT, strtotime($row['event_time']))."</td>
 		<td>".$row['duration']." hrs</td>";
 		
 		if($this->native_session->get('__user_type') != 'provider'){

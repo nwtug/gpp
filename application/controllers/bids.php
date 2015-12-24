@@ -22,8 +22,8 @@ class Bids extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		$data['type'] = "";
 		$data['list'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
-		
 		$this->load->view('bids/manage', $data);
 	}
 	

@@ -43,7 +43,7 @@ class _training extends CI_Model
 				'subject'=>htmlentities($data['name'], ENT_QUOTES), 
 				'category'=>$data['training__trainingcategories'],  
 				'description'=>htmlentities($data['description'], ENT_QUOTES),
-				'event_time'=>date('Y-m-d H:i:s',strtotime($data['eventtime'])), 
+				'event_time'=>date('Y-m-d H:i:s',strtotime(make_us_date($data['eventtime']))),  
 				'duration'=>$data['duration'], 
 				'user_id'=>$this->native_session->get('__user_id'), 
 				'organization_id'=>$this->native_session->get('__organization_id')

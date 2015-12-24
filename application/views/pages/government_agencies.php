@@ -20,23 +20,31 @@
 $this->load->view('addons/public_top_menu', array('__page'=>'government_agencies'));
 ?>
 
+
 <tr>
   <td>&nbsp;</td>
-  <td style='height:calc(85vh - 214px);'>
-<div class='body-title'>Government Agencies</div>
-<div class="body-content"><table>
-<tr><td>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum. Donec blandit ultricies eros. Suspendisse quis nisi volutpat justo tincidunt vehicula vitae sit amet tellus. Sed lacus turpis, dignissim non arcu ac, dictum maximus dui. Nulla congue orci at libero facilisis aliquet. Sed in mauris et eros ornare pretium eu ac quam. Phasellus metus erat, faucibus ut commodo non, varius eu felis. Morbi sit amet lacus maximus, placerat augue eget, ornare velit.
-<br /><br />
-Ut rhoncus vel lacus nec sagittis. Quisque rutrum lectus sed magna tempus facilisis. Nunc auctor, neque ut cursus blandit, nibh libero pharetra turpis, et dignissim mi dolor sit amet mi. Nullam scelerisque magna eu mi facilisis, at posuere dolor imperdiet. Sed vitae arcu eu libero bibendum scelerisque a nec nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis efficitur sem, sit amet condimentum enim scelerisque et. Nam mollis turpis a aliquam iaculis. Curabitur cursus sollicitudin ante, eu aliquam dui vehicula eget. Morbi tempor sollicitudin porttitor. Donec in feugiat purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec eget justo orci.
-<br /><br />
-Ut rhoncus vel lacus nec sagittis. Quisque rutrum lectus sed magna tempus facilisis. Nunc auctor, neque ut cursus blandit, nibh libero pharetra turpis, et dignissim mi dolor sit amet mi. Nullam scelerisque magna eu mi facilisis, at posuere dolor imperdiet. Sed vitae arcu eu libero bibendum scelerisque a nec nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis efficitur sem, sit amet condimentum enim scelerisque et. Nam mollis turpis a aliquam iaculis. Curabitur cursus sollicitudin ante, eu aliquam dui vehicula eget. Morbi tempor sollicitudin porttitor. Donec in feugiat purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec eget justo orci. 
-<br /><br />
-
-<table><tr><td><button class='button btn blue small' data-url='resources/index/a/standards'>Standards</button></td></tr></table>
-<br /><br />
+  <td class='one-column' style='height:calc(85vh - 255px); padding-bottom: 20px;'>
+<table class='home-list-table'>
+<tr>
+  <th class='h3 blue rop-icon'>Government Agencies</th><th class='btn closer' data-rel='pages/portal'></th></tr>
+<tr><td colspan='2' style="padding:8px;">The list below shows the registered government agencies or Procurement and Disposal Entities (PDEs) that can publish Requests for Proposals (RFPs) on this website. This list changes as more PDEs are registered and approved.</td></tr>
+<tr><td colspan='2'>
+<div class='page-list-div'><div>
+<?php 
+if(!empty($list)){
+	echo "<table>";
+	foreach($list AS $row){
+		echo "<tr><td class='list-item'><a href='".base_url()."accounts/view_pde/d/".$row['pde_id']."' class='shadowbox closable'>".$row['name']."</a></td></tr>";
+	}
+	echo "</table>";
+}
+else echo format_notice($this, "WARNING: There are currently no active PDEs.");
+?>
+</div></div>
 </td></tr>
-</table></div>
+<tr style="border:0px;"><td colspan='2' class="light-grey-bg" style="border:0px;">&nbsp;</td></tr>
+</table>
+
 
 
 </td>
@@ -46,6 +54,6 @@ Ut rhoncus vel lacus nec sagittis. Quisque rutrum lectus sed magna tempus facili
 <?php $this->load->view('addons/public_footer');?>
 
 </table>
-<?php echo minify_js('home', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
+<?php echo minify_js('pages__government_agencies', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'pss.js', 'pss.shadowbox.js'));?>
 </body>
 </html>

@@ -12,14 +12,19 @@
 <input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('contract__pde_id');?>' /></td></tr>
 <?php }?>
 
-<tr><td><input type="text" id="search__tenders" name="search__tenders" placeholder="Search Name" data-final='tender' class="drop-down searchable clear-on-empty" data-clearfield='tender_id' value="<?php echo $this->native_session->get('contract__tender');?>" style='width:100%;'/>
+<tr><td><input type="text" id="search__tenders" name="search__tenders" placeholder="Search Name" data-final='tender' class="drop-down searchable clear-on-empty always-refresh" data-clearfield='tender_id' value="<?php echo $this->native_session->get('contract__tender');?>" style='width:100%;'/>
 <input type='hidden' name='tender_id' id='tender_id' data-final='tender_id' value='<?php echo $this->native_session->get('contract__tender_id');?>' /></td></tr>
 
+<?php if(empty($t)){?>
 <tr><td><select id='search__contractstatus' name='search__contractstatus' data-final='status' class='drop-down' style='width:100%;'>
 <?php echo get_option_list($this, 'contractstatus', 'select', '', array('selected'=>$this->native_session->get('contract__status')));?>
 </select></td></tr>
+<?php }?>
 
-<tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('contract')" style="width:100%;">Apply Filter</button>
-<input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
+<tr><td style="padding-bottom:100px;"><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('contract')" style="width:100%;">Apply Filter</button>
+<input name="layerid" id="layerid" type="hidden" value="" />
+<?php if(!empty($t)){ 
+	echo "<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />";
+}?></td></tr>
 </table>
-<?php echo minify_js('apply_contract_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>
+<?php echo minify_js('contracts__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

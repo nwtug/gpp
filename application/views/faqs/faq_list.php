@@ -11,6 +11,11 @@ if($this->native_session->get('__user_type') == 'admin'){
 echo "</tr>";
 	foreach($list AS $row) {
 		$i++;
+		if(strlen($row['answer']) > 150){
+			$answer = html_entity_decode(limit_string_length($row['answer'], 150, FALSE), ENT_QUOTES)."<a href='".base_url()."faqs/details/d/".$row['faq_id']."' class = 'shadowbox closable grey-box'>Details</a>";
+		}
+		else $answer = html_entity_decode($row['answer'], ENT_QUOTES);
+		
 		echo "<tr> 
 		<td>";
 		if($this->native_session->get('__user_type') != 'provider'){
@@ -20,7 +25,7 @@ echo "</tr>";
 		
 		echo "</td>
 		<td>".html_entity_decode($row['question'], ENT_QUOTES)."</td>
-		<td>".html_entity_decode($row['answer'], ENT_QUOTES);
+		<td>".$answer;
 		if($this->native_session->get('__user_type') == 'admin'){
 			echo "</td><td>".strtoupper($row['status'])."</td>
 			<td>".date(FULL_DATE_FORMAT, strtotime($row['date_entered']));

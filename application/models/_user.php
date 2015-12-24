@@ -67,32 +67,31 @@ class _user extends CI_Model
 
 
 	# Recover a user password
-	function recover_password($formData)
+	function recover_password($data)
 	{
-		$result = false;
+		$result = FALSE;
 		$msg = '';
+		
+		$user = $this->_query_reader->get_row_as_array('search_user_list', array('phrase'=>$data['registeredemail'], 'limit_text'=>'LIMIT 1'));
+		if(!empty($user)){
+			# generate_temp_password is a helper function in common_functions_helper file
+			$password = generate_temp_password();
+			$result = $this->_query_reader->run('update_user_password', array('user_id'=>$user['user_id'], 'password'=>sha1($password) ));
 
-		if(is_valid_email($formData['registeredemail']))
-		{
-			# TODO Rogers (generate a query to cross reference the table: [users.email_address] against the provided email adddress
-			$user = $this->_query_reader->get_row_as_array('get_user_by_email', array('email_address'=>$formData['registeredemail']));
-			if(!empty($user))
-			{
-				$password = generate_temp_password();
-				$result = $this->update_password($user['user_id'], $password);
-				if($result)
-				{
-					$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$formData['registeredemail'], 'password'=>$password, 'login_link'=>base_url().'account/login'), array('email'));
-					if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
-				}
-				else $msg = "ERROR: The password update failed.";
+			#if user's password was updated
+			if($result){
+				$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$data['registeredemail'], 'password'=>$password, 'directionlink'=>base_url().'account/login'), array('email'));
+				if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
 			}
-			else $msg = "WARNING: There is no valid user with the given email address.";
+			else $msg = "ERROR: The password update failed.";
 		}
-		else $msg = "WARNING: Please enter a valid email address.";
-
+		else $msg = "WARNING: There is no valid user with the given email address.";
+		
 		return array('boolean'=>$result, 'msg'=>$msg);
 	}
+
+
+
 	
 	
 	

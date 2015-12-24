@@ -106,10 +106,16 @@ class Accounts extends CI_Controller
 				
 				# Proceed based on the login response from the API
 				if(!empty($response['result']) && $response['result'] == 'SUCCESS' && !empty($response['default_view'])) {
+					
 					add_to_user_session($this, $response['user_details']);
 					$this->native_session->set('__default_view', $response['default_view']);
+					
 					if(!empty($response['permissions'])) $this->native_session->set('__permissions', $response['permissions']);
-					if(!empty($response['default_view']) && !empty($response['permissions'])) redirect(base_url().$response['default_view']);
+					
+					if(!empty($response['default_view']) && !empty($response['permissions'])) {
+						if(!empty($_POST['redirect'])) redirect(base_url().get_redirect_url($_POST['redirect']));
+						else redirect(base_url().$response['default_view']);
+					}
 					else $data['msg'] = "ERROR: No permissions could be resolved for your account.";
 				}
 				else $data['msg'] = "ERROR: The user name and password do not match a registered user. Please check and try again.";
@@ -146,7 +152,7 @@ class Accounts extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$this->load->model('_tender');
-		$data['list'] = $this->_tender->lists();
+		$data['list'] = $this->_tender->lists(array('display_type'=>'public', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('accounts/provider_dashboard', $data);
 	}
 	
@@ -185,7 +191,7 @@ class Accounts extends CI_Controller
 
 		}
 		else
-			$this->load->view('account/recover_password', $data);
+			$this->load->view('accounts/recover_password', $data);
 	}
 	
 	
@@ -214,7 +220,7 @@ class Accounts extends CI_Controller
 
 
 
-	# View organization details
+	# view organization details
 	function view_pde()
 	{
 		$data = filter_forwarded_data($this);
@@ -228,7 +234,7 @@ class Accounts extends CI_Controller
 
 
 
-	# View provider details
+	# view provider details
 	function view_provider()
 	{
 		$data = filter_forwarded_data($this);

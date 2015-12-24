@@ -19,7 +19,7 @@ echo "<table>
 <tr><td class='label'>Access</td><td>".($forum['is_public'] == 'Y'? 'Public': 'Private')."</td></tr>
 <tr><td class='label'>Moderator</td><td>".html_entity_decode($forum['moderator'], ENT_QUOTES)."</td></tr>";
 
-if($this->native_session->get('__user_type') != 'provider'){
+if( !empty($this->native_session->get('__user_type')) && ($this->native_session->get('__user_type')  != 'provider')){
 echo "
 <tr><td class='label'>Status</td><td>".strtoupper($forum['status'])."</td></tr>
 <tr><td class='label'>Date Entered</td><td>".date(FULL_DATE_FORMAT, strtotime($forum['date_entered']))."</td></tr>

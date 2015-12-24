@@ -1,40 +1,49 @@
-<div id="resourcesearch__1">
-<table>
+<?php 
+$stopHtml = "<input name='paginationdiv__forum_stop' id='paginationdiv__forum_stop' type='hidden' value='1' />";
+$listCount = count($list);
+$i = 0;
 
+echo "<table>";
+if(!empty($list)){
+echo "<tr><th>Topic</th>";
+# are you allowed to see beyond this area?
+if($area == 'public_forums' || ($area == 'secure_forums' && $this->native_session->get('__user_id'))){
+	echo "<th>Contributors #</th>";
 
-<?php if($type == 'public_forums'){ ?>
-<tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
-<tr><td >What's causing the delay in Kima Road construction?</td><td><span class='grey-box'>Works</span></td><td>(3)</td><td>14/11/2014</td></tr>
-<tr><td >Ways to reward honest contractors</td><td><span class='grey-box'>Legal</span></td><td>(45)</td><td>14/11/2014</td></tr>
-<tr><td >Public Procurement Bill MoFEP</td><td><span class='grey-box'>Works</span></td><td>(9)</td><td>14/11/2014</td></tr>
-<tr><td >Mistakes in disposal of Sekit Dam equipment</td><td><span class='grey-box'>Legal</span></td><td>(10)</td><td>14/11/2014</td></tr>
-<tr><td >How to use the new registration section</td><td><span class='grey-box'>Legal</span></td><td>(11)</td><td>14/11/2014</td></tr>
-<?php }  
+	if(!$this->native_session->get('__view')){
+		echo "<th>Views #</th><th>Moderator</th><th>Date Started</th>";
+	}
+}
+echo "</tr>";
+	foreach($list AS $row) {
+		$i++;
+		echo "<tr> 
+		<td><span class='grey-box'>".ucwords(str_replace('_',' ',$row['category']))."</span> <a href='".base_url()."forums/view_one/d/".$row['forum_id']."' class='shadowbox closable'>".htmlentities($row['topic'], ENT_QUOTES)."</a>";
 
-else if($type == 'secure_forums'){ ?>
-<tr><th>Question</th><th>Category</th><th>Contributors</th><th>Date</th></tr>
-<tr><td >What were the objectives of reforming the procurement and disposal system in Local Governments?</td><td><span class='grey-box'>Works</span></td><td>(3)</td><td>14/11/2014</td></tr>
-<tr><td >What is the role of councillors?</td><td><span class='grey-box'>Legal</span></td><td>(45)</td><td>14/11/2014</td></tr>
-<tr><td >Who is the Accounting Officer in Districts or Municipalities?</td><td><span class='grey-box'>Legal</span></td><td>(11)</td><td>14/11/2014</td></tr>
+		if($area == 'public_forums' || ($area == 'secure_forums' && $this->native_session->get('__user_id'))){		
+			echo "</td>
+			<td>".(!empty($row['no_of_contributors'])? "[".$row['no_of_contributors']."] <a href='".base_url()."forums/comments/d/".$row['forum_id']."' class='shadowbox closable'>Comments</a>": '0')
+			."<br><div class='green-box btn shadowbox' data-url='".base_url()."forums/add_comment/d/".$row['forum_id']."'>Comment</div>";
+			
+			if(!$this->native_session->get('__view')){
+				echo "</td>
+				<td>".$row['no_of_views']."</td>
+				<td>".$row['moderator']."</td>
+				<td>".date(SHORT_DATE_FORMAT, strtotime($row['date_entered']));
+			}
+		}
+		
+		 # Check whether you need to stop the loading of the next pages
+		if($i == $listCount && ((!empty($n) && $listCount < $n) || (empty($n) && $listCount < NUM_OF_ROWS_PER_PAGE))){
+		 echo $stopHtml;
+		}
+		  echo "</td>
+		</tr>";
+	}
+}
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no forums in this list.')."</td></tr>";
+}
 
-
-<?php }  
-
-else if($type == 'frequently_asked_questions'){ ?>
-<tr><th>Question</th>
-  <th colspan="3">Answer</th></tr>
-<tr><td >What is microprocurement?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is a procurement plan</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-<tr><td >What is Sale to Public Officers?</td><td colspan="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque blandit nulla non bibendum.</td></tr>
-
-<?php }  
-
-else { 
-	echo "<tr><td>".format_notice($this, 'WARNING: List can not be generated.')."</td></tr>";
-}?>
-
-
-</table>
-</div>
+echo "</table>";
+?>

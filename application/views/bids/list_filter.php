@@ -18,7 +18,14 @@
 
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('bid')" style="width:100%;">Apply Filter</button>
-<input name="listtype" id="listtype" data-final='listtype' type="hidden" value="<?php echo $listtype;?>" /> 
-<input name="layerid" id="layerid" type="hidden" value="" /></td></tr>
+<input name="layerid" id="layerid" type="hidden" value="" />
+<?php 
+if(!empty($listtype)){
+	echo "<input name='listtype' id='listtype' data-final='listtype' type='hidden' value='".$listtype."' />";
+}
+if(!empty($t)){ 
+	echo "<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />";
+}?>
+</td></tr>
 </table>
-<?php echo minify_js('apply_bid_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.pagination.js'));?>
+<?php echo minify_js('bids__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.pagination.js'));?>

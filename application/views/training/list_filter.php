@@ -26,6 +26,11 @@
 
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('training')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" />
-<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('training__pde_id');?>' /></td></tr>
+<input type='hidden' name='pde_id' id='pde_id' data-final='pde_id' value='<?php echo $this->native_session->get('training__pde_id');?>' />
+<?php 
+if(!empty($t)){ 
+	echo "<input name='search__trainingstatus' id='search__trainingstatus' data-final='status' type='hidden' value='published' />
+	<input name='area' id='area' data-final='area' type='hidden' value='".$t."' />";
+}?></td></tr>
 </table>
 <?php echo minify_js('training__list_filter', array('jquery-2.1.1.min.js', 'jquery-ui.js', 'jquery.form.js', 'jquery.datepick.js', 'pss.js', 'pss.shadowbox.js', 'pss.fileform.js', 'pss.datepicker.js', 'pss.pagination.js'));?>

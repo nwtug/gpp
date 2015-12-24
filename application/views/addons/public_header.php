@@ -1,6 +1,6 @@
 <tr class="white-bg">
   <td>&nbsp;</td>
-  <td><div class='h4 blue left-div small-div-padding'>Friday, October 9, 2015 2:30PM EAT</div>
+  <td><div class='h4 blue left-div small-div-padding'><?php echo date('l, F j, Y g:iA T');?></div>
 <div class='right-div row-divs small-padding'>
 	<div class='btn h5 dark-green-bg small' data-rel='accounts/register'>Register</div>
     <div class='btn h5 dark-grey' data-rel='accounts/login'>Login</div>

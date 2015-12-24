@@ -29,17 +29,16 @@ $(function() {
 		});
 	}
 	
-	$(".calendar").datepicker({
+	/*$(".calendar").datetimepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: 'dd/mm/yy',
 		timeFormat: 'hh:mm tt'
-	});
+	});*/
 	
 	}
-	
-	
-	
+
+
 	
 	
 	//Handle cases where a user is entering an email
@@ -70,18 +69,18 @@ $(function() {
 	
 	
 	
+
 });
 
-function setDatePicker(obj)
+function setDatePicker()
 {
-	obj.focus();
-	
 	// Date only
 	$( ".calendar.clickactivated:not(.showtime)" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: 'dd/mm/yy'
 	});
+	$( ".calendar.clickactivated:not(.showtime)" ).focus();
 	
 	// This will require including the timepicker-addon js file
 	if($('.calendar.showtime').length > 0){
@@ -92,7 +91,6 @@ function setDatePicker(obj)
 			dateFormat: 'dd/mm/yy',
 			timeFormat: "hh:mm tt"
 		});
+		$('.showtime.clickactivated').focus();
 	}
 }
-
-

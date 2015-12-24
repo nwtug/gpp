@@ -34,24 +34,38 @@
 .home-list-div {
 	width: 100%;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: hidden;
 	height: 20vh;
 }
+.home-list-div:hover {
+	overflow-x: auto;
+	overflow-y: auto;
+}
+
 .home-list-div > table, .list-table {
 	width: 100%;
 	font-size: 13px;
 	border-collapse:collapse;
 }
-.home-list-div > table > tbody > tr:nth-child(odd), .list-table > tbody > tr:nth-child(odd) {
+.home-list-div >  div > table > tbody > tr:nth-child(odd), .list-table > tbody > tr:nth-child(odd) {
 	background-color: #F8F8F8;
 }
-.home-list-div > table > tbody > tr:nth-child(even), .list-table > tbody > tr:nth-child(even) {
+.home-list-div >  div > table > tbody > tr:nth-child(even), .list-table > tbody > tr:nth-child(even) {
 	background-color: #FFF;
 }
-.home-list-div > table > tbody > tr > td, .page-list-div > div > table > tbody > tr > td, .list-table > tbody > tr > td {
+
+.home-list-div >  div > table > tbody > tr > td, 
+.home-list-div >  div > table > tbody > tr > th, 
+.page-list-div > div > table > tbody > tr > td, 
+.list-table > tbody > tr > td {
 	vertical-align: top;
 	padding: 5px;
 	text-align:left !important;
+}
+
+.home-list-div > div > table {
+	width: 100%;
+	border-collapse:collapse;
 }
 
 .closer {
