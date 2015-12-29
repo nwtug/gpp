@@ -23,6 +23,7 @@ class Users extends CI_Controller
 	function index()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		$type = ($this->native_session->get('__user_type') == 'admin'? 'all': 'organization');
 		$data['list'] = $this->_user->lists($type);
@@ -75,6 +76,7 @@ class Users extends CI_Controller
 	function settings()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted the settings form
 		if(!empty($_POST)){
@@ -118,6 +120,7 @@ class Users extends CI_Controller
 	function update_permissions()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted
 		if(!empty($_POST)){

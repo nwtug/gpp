@@ -39,6 +39,7 @@ class Documents extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		$data['area'] = !empty($data['a'])? $data['a']: 'system';
 		$data['list'] = $this->_document->lists($data['area']);
@@ -53,6 +54,7 @@ class Documents extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			# Upload the file before you proceed with the rest of the process

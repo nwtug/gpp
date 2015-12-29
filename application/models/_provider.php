@@ -18,7 +18,7 @@ class _provider extends CI_Model
 			'ministry_condition'=>(!empty($scope['ministry'])? " AND _ministry_id='".$scope['ministry']."' ": ''),
 			
 			'country_condition'=>(!empty($scope['registration_country'])? " AND _registration_country_id='".$scope['registration_country']."' ": ''),
-			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(name) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"')": ''),
+			'phrase_condition'=>(!empty($scope['phrase'])? " AND name LIKE '%".htmlentities($scope['phrase'], ENT_QUOTES)."%' ": ''),
 			
 			'status_condition'=>(!empty($scope['status'])? " AND status='".$scope['status']."'": ''),
 			

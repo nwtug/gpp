@@ -73,17 +73,20 @@ class _user extends CI_Model
 		$msg = '';
 		
 		$user = $this->_query_reader->get_row_as_array('search_user_list', array('phrase'=>$data['registeredemail'], 'limit_text'=>'LIMIT 1'));
-		if(!empty($user)){
+		if(!empty($user['user_id'])){
 			# generate_temp_password is a helper function in common_functions_helper file
 			$password = generate_temp_password();
-			$result = $this->_query_reader->run('update_user_password', array('user_id'=>$user['user_id'], 'password'=>sha1($password) ));
+			
+			$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$data['registeredemail'], 'password'=>$password, 'directionlink'=>base_url().'accounts/login'), array('email'), TRUE);
+			
+			if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
+			
 
-			#if user's password was updated
-			if($result){
-				$result = $this->_messenger->send($user['user_id'], array('code'=>'password_recovery_notification', 'emailaddress'=>$data['registeredemail'], 'password'=>$password, 'directionlink'=>base_url().'account/login'), array('email'));
-				if(!$result) $msg = "ERROR: The message with your temporary password could not be sent.";
+			#if user's password was sent
+			if($result) {
+				$result = $this->_query_reader->run('update_user_password', array('user_id'=>$user['user_id'], 'password'=>sha1($password) ));
+				if(!$result) $msg = "ERROR: The password update failed.";
 			}
-			else $msg = "ERROR: The password update failed.";
 		}
 		else $msg = "WARNING: There is no valid user with the given email address.";
 		

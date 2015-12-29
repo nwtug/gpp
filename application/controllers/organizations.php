@@ -24,6 +24,7 @@ class Organizations extends CI_Controller
 	function settings()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted the organization settings
 		if(!empty($_POST)){

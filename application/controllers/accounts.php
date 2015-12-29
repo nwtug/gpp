@@ -132,6 +132,8 @@ class Accounts extends CI_Controller
 	function admin_dashboard()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
+		
 		$data['list'] = $this->_account->audit_trail();
 		$this->load->view('accounts/admin_dashboard', $data);
 	}
@@ -142,6 +144,8 @@ class Accounts extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$this->load->model('_report');
+		logout_invalid_user($this);
+		
 		$data['list'] = $this->_report->stats('pde');
 		$this->load->view('accounts/pde_dashboard', $data);
 	}
@@ -152,6 +156,8 @@ class Accounts extends CI_Controller
 	{
 		$data = filter_forwarded_data($this);
 		$this->load->model('_tender');
+		logout_invalid_user($this);
+		
 		$data['list'] = $this->_tender->lists(array('display_type'=>'public', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		$this->load->view('accounts/provider_dashboard', $data);
 	}
@@ -183,15 +189,13 @@ class Accounts extends CI_Controller
 		if(!empty($_POST)) {
 
 			$this->load->model('_user');
-			$result = $this->_user->recover_password($this->input->post('registeredemail'));
-			$data['msg'] = $result['boolean']? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
+			$result = $this->_user->recover_password($_POST);
+			$msg = $result['boolean']? 'A temporary password has been generated and <br>sent to your registered email and phone. <br><br>Use it to login and change it immediately on your <br>profile page for your security.': $result['msg'];
 
-			$data['area'] = 'basic_msg';
-			$this->load->view('addons/basic_addons', $data);
+			echo format_notice($this, $msg);
 
 		}
-		else
-			$this->load->view('accounts/recover_password', $data);
+		else $this->load->view('accounts/recover_password', $data);
 	}
 	
 	

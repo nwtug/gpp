@@ -23,6 +23,7 @@ class Procurement_plans extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_procurement_plan->lists();
 		$this->native_session->delete('plan_id');
 		
@@ -51,6 +52,7 @@ class Procurement_plans extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			$result = $this->_procurement_plan->add($_POST);

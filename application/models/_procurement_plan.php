@@ -28,17 +28,21 @@ class _procurement_plan extends CI_Model
 	# update the procurement plan status
 	function add($data)
 	{
-		$fyParts = explode('-', $data['financialyear']);
+		$data['financialperiod'] = $data['financialyear'].'-all';
 		$reason = '';
 		
 		#check to make sure the user is not replacing another financial year
-		$plan = $this->_query_reader->get_row_as_array('get_plan_by_financial_period', array('organization_id'=>$data['pdeid'], 'financial_year_start'=>$fyParts[0].'-01-01', 'financial_year_end'=>$fyParts[1].'-12-31'));
+		$plan = $this->_query_reader->get_row_as_array('get_plan_by_financial_period', array(
+			'organization_id'=>$data['pdeid'], 
+			'financial_year_start'=>get_quarter_date($data['financialperiod'], 'start'), 
+			'financial_year_end'=>get_quarter_date($data['financialperiod'], 'end')
+		));
 		
 		if(empty($plan['plan_id']) || $plan['plan_id'] == $this->native_session->get('plan_id')){
 			$parameters = array(
 				'organization_id'=>$data['pdeid'], 
-				'financial_year_start'=>$fyParts[0].'-01-01', 
-				'financial_year_end'=>$fyParts[1].'-12-31',
+				'financial_year_start'=>get_quarter_date($data['financialperiod'], 'start'), 
+				'financial_year_end'=>get_quarter_date($data['financialperiod'], 'end'),
 				'title'=>htmlentities(restore_bad_chars($data['name']), ENT_QUOTES), 
 				'details'=>'', 
 				'document_url'=>'', 
@@ -84,13 +88,13 @@ class _procurement_plan extends CI_Model
 	function add_details($data)
 	{
 		$reason = '';
-		$fyParts = explode('-', $data['fystart__financialperiods']);
+		$data['financialperiod'] = $data['fystart__financialperiods'].'-all';
 			
 		if(empty($data['plan_id'])){
 			$planCount = $this->_query_reader->get_count('get_procurement_plan_by_data', array(
 					'pde_id'=>$data['pde_id'], 
-					'financial_year_start'=>$fyParts[0].'-01-01', 
-					'financial_year_end'=>$fyParts[1].'-12-31'
+					'financial_year_start'=>get_quarter_date($data['financialperiod'], 'start'), 
+					'financial_year_end'=>get_quarter_date($data['financialperiod'], 'end')
 				));
 		}
 		
@@ -99,8 +103,8 @@ class _procurement_plan extends CI_Model
 		if(!empty($data['plan_id']) || (empty($data['plan_id']) && $planCount == 0)){
 			$planId = $this->_query_reader->add_data((!empty($data['plan_id'])? 'edit': 'add').'_procurement_plan', array(
 				'organization_id'=>$data['pde_id'], 
-				'financial_year_start'=>$fyParts[0].'-01-01', 
-				'financial_year_end'=>$fyParts[1].'-12-31',
+				'financial_year_start'=>get_quarter_date($data['financialperiod'], 'start'), 
+				'financial_year_end'=>get_quarter_date($data['financialperiod'], 'end'),
 				'title'=>htmlentities($data['name'], ENT_QUOTES), 
 				'details'=>'', 
 				'document_url'=>'', 
@@ -134,7 +138,23 @@ class _procurement_plan extends CI_Model
 						{
 							array_push($usefulData, $row);
 						}
-						else if(!empty($row['D'])) array_push($usefulData, $row);
+						else if(!empty($row['D'])) {
+							# convert back to UK format if excel importer converted the dates to US format
+							$tempRow = $row;
+							foreach($tempRow AS $key=>$value){
+								if(strtolower($key) > 'd'){
+									if(strpos($value,'/',3) !== FALSE) $value = date('m-d-y',strtotime(make_us_date($value)));
+									# correct dates in the format 12-31-15 as they can not be converted correctly
+									if(strpos($value,'-',3) !== FALSE && strlen($value) == 8) {
+										$valueParts = explode('-',$value);
+										if(count($valueParts) > 2) $value = substr(@date('Y'),0,2).$valueParts[2].'-'.$valueParts[0].'-'.$valueParts[1];
+									}
+									$row[$key] = !empty($value)? date('d/m/Y',strtotime($value)):'';
+								}
+							}
+							
+							array_push($usefulData, $row);
+						}
 					}
 				}
 					

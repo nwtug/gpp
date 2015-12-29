@@ -70,6 +70,7 @@ class Tenders extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_tender->lists();
 		
 		$this->load->view('tenders/manage', $data);
@@ -124,6 +125,7 @@ class Tenders extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			# Upload the file before you proceed with the rest of the process
@@ -187,6 +189,7 @@ class Tenders extends CI_Controller
 	function invite()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has submitted the invitation
 		if(!empty($_POST)){
@@ -214,6 +217,7 @@ class Tenders extends CI_Controller
 	function invitations()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['tender'] = $this->_tender->details($data['d']);
 		$data['invited'] = $this->_tender->invitations($data['d']);
 		

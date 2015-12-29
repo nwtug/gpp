@@ -23,7 +23,7 @@ class _report extends CI_Model
 		
 		# get proper quarter name
 		$quarter = explode('-', $scope['quarter']);
-		$data['quarter'] = ucfirst($quarter[1]).' '.$quarter[0];
+		$data['quarter'] = 'FY '.$quarter[0].'-'.$quarter[1].' '.ucfirst($quarter[2]);
 		
 		# determine what to have for pde value
 		# always load data for this pde 
@@ -86,7 +86,7 @@ class _report extends CI_Model
 	function report_to_array($format)
 	{
 		$scope['type'] = $this->native_session->get('report_type')? $this->native_session->get('report_type'): 'procurement_plan_tracking';
-		$scope['quarter'] = $this->native_session->get('report_quarter')? $this->native_session->get('report_quarter'): @date('Y').'-first';
+		$scope['quarter'] = $this->native_session->get('report_quarter')? $this->native_session->get('report_quarter'): get_current_quarter();
 		$scope['pde'] = $this->native_session->get('report_pde')? $this->native_session->get('report_pde'): '';
 		$list = $this->lists($scope);
 		
@@ -253,12 +253,16 @@ class _report extends CI_Model
 	# get individual report stats based on required scope
 	function stats($type, $financialYear = '')
 	{
-		$financialYear = !empty($financialYear)? $financialYear: @date('Y');
+		$financialYear = !empty($financialYear)? $financialYear: get_current_quarter('financial_year');
 		
 		switch($type)
 		{
 			case 'pde':
-				return $this->_query_reader->get_row_as_array('get_pde_stats', array('pde_id'=>$this->native_session->get('__organization_id'), 'year'=>$financialYear));
+				return $this->_query_reader->get_row_as_array('get_pde_stats', array(
+					'pde_id'=>$this->native_session->get('__organization_id'), 
+					'start_date'=>get_quarter_date($financialYear.'-all', 'start'), 
+					'end_date'=>get_quarter_date($financialYear.'-all', 'end') 
+				));
 			break;
 			
 			# TODO: add more stats here

@@ -72,15 +72,20 @@ $(function() {
 
 });
 
-function setDatePicker()
+function setDatePicker(obj)
 {
+	
+	
 	// Date only
 	$( ".calendar.clickactivated:not(.showtime)" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
 		dateFormat: 'dd/mm/yy'
 	});
-	$( ".calendar.clickactivated:not(.showtime)" ).focus();
+	
+	var focusFieldObj = $( ".calendar.clickactivated:not(.showtime)" );
+	if(typeof obj !== "undefined") focusFieldObj = $(obj);
+	focusFieldObj.focus();
 	
 	// This will require including the timepicker-addon js file
 	if($('.calendar.showtime').length > 0){
@@ -91,6 +96,9 @@ function setDatePicker()
 			dateFormat: 'dd/mm/yy',
 			timeFormat: "hh:mm tt"
 		});
-		$('.showtime.clickactivated').focus();
+		
+		focusFieldObj = $('.showtime.clickactivated');
+		if(typeof obj !== "undefined") focusFieldObj = $(obj);
+		focusFieldObj.focus();
 	}
 }

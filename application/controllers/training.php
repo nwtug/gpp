@@ -21,6 +21,7 @@ class Training extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_training->lists();
 		
 		$this->load->view('training/manage', $data);
@@ -33,6 +34,7 @@ class Training extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			$result = $this->_training->add($_POST);

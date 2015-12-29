@@ -21,6 +21,7 @@ class Links extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_link->lists();
 		
 		$this->load->view('links/manage', $data);
@@ -33,6 +34,7 @@ class Links extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			$result = $this->_link->add($_POST);

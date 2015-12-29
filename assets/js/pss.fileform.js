@@ -326,7 +326,7 @@ $(function() {
 						// Determine which error to show
 						//The script failed
 						if(data.indexOf('/>') > -1)
-						{//console.log('ERROR: '+data);
+						{console.log('ERROR: '+data);
 							showServerSideFadingMessage('ERROR: Something went wrong. We can not submit your data.');
 						}
 						// Custom message from server

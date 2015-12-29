@@ -22,6 +22,7 @@ class Contracts extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_contract->lists();
 		
 		$this->load->view('contracts/manage', $data);
@@ -50,6 +51,7 @@ class Contracts extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# use has posted the contract form
 		if(!empty($_POST)){

@@ -173,6 +173,32 @@ function decrypt_value($dvalue)
 
 
 
+
+
+# Generates an 8-character temporary password for the user - this is a one time case and system does not keep un-encrypted copy
+function generate_temp_password()
+{
+	$numbers = '0123456789';
+	$letters = 'abcdefghijklmnopqrstuvwxyz';
+	$characters = '_!-*.';
+	$time = strtotime('now');
+	
+	$password = array();
+	$password[0] = $letters[rand(0, strlen($letters)-1)];
+	$password[1] = $letters[rand(0, strlen($letters)-1)];
+	$password[2] = $numbers[rand(0, strlen($numbers)-1)];
+	$password[3] = $characters[rand(0, strlen($characters)-1)];
+	$password[4] = $time[rand(0, strlen($time)-1)];
+	$password[5] = strtoupper($letters[rand(0, strlen($letters)-1)]);
+	$password[6] = $letters[rand(0, strlen($letters)-1)];
+	$password[7] = $time[rand(0, strlen($time)-1)];
+	
+	return implode('',$password);
+}
+
+
+
+
 # Minify a list of files
 function minify_js($page, $files) 
 {
@@ -1082,30 +1108,30 @@ function document_class($url)
 function get_quarter_date($quarter, $type)
 {
 	$quarterParts = explode('-',$quarter);
-	switch($quarterParts[1]){
-        case "first":
-			if($type == 'start') return $quarterParts[0]."-01-01";
-        	else return date('Y-m-d', strtotime($quarterParts[0]."-03 next month - 1 hour"));
+	switch($quarterParts[2]){
+        case "third":
+			if($type == 'start') return $quarterParts[1]."-01-01";
+        	else return date('Y-m-d', strtotime($quarterParts[1]."-03 next month - 1 hour"));
         break;
 		
-		case "second":
-			if($type == 'start') return $quarterParts[0]."-04-01";
-        	else return date('Y-m-d', strtotime($quarterParts[0]."-06 next month - 1 hour"));
+		case "fourth":
+			if($type == 'start') return $quarterParts[1]."-04-01";
+        	else return date('Y-m-d', strtotime($quarterParts[1]."-06 next month - 1 hour"));
 		 break;
 		
-		case "third":
+		case "first":
         	if($type == 'start') return $quarterParts[0]."-07-01";
         	else return date('Y-m-d', strtotime($quarterParts[0]."-09 next month - 1 hour"));
 		break;
 		
-		case "fourth":
+		case "second":
         	if($type == 'start') return $quarterParts[0]."-10-01";
         	else return date('Y-m-d', strtotime($quarterParts[0]."-12-31"));
 		break;
 		
 		case "all":
-        	if($type == 'start') return $quarterParts[0]."-01-01";
-        	else return date('Y-m-d', strtotime($quarterParts[0]."-12-31"));
+        	if($type == 'start') return $quarterParts[0]."-07-01";
+        	else return date('Y-m-d', strtotime($quarterParts[1]."-06 next month - 1 hour"));
 		break;
     }
 }
@@ -1115,17 +1141,32 @@ function get_quarter_date($quarter, $type)
 
 
 # get current quarter
-function get_current_quarter($return = 'year-quarter')
+function get_current_quarter($return = 'year_quarter')
 {
 	# get today's month and determine which qarter it falls into
 	$month = @date('n');
+	$year = @date('Y');
 	
-	if($month < 4) $quarter = 'first';
-	else if($month > 3 && $month < 7) $quarter = 'second';
-	else if($month > 6 && $month < 10) $quarter = 'third';
-	else $quarter = 'fourth';
+	if($month < 4) {
+		$quarter = 'third';
+		$fy = ($year - 1).'-'.$year;
+		
+	} else if($month > 3 && $month < 7) {
+		$quarter = 'fourth';
+		$fy = ($year - 1).'-'.$year;
+		
+	} else if($month > 6 && $month < 10) {
+		$quarter = 'first';
+		$fy = $year.'-'.($year + 1);
+		
+	} else {
+		$quarter = 'second';
+		$fy = $year.'-'.($year + 1);
+	}
 	
-	return ($return == 'quarter'? $quarter: @date('Y').'-'.$quarter);
+	if($return == 'quarter') return $quarter;
+	else if($return == 'financial_year') return $fy;
+	else return $fy.'-'.$quarter;
 }
 
 
@@ -1153,5 +1194,50 @@ function get_redirect_url($code)
 	
 	return $url;
 }
+
+
+
+
+
+
+
+
+
+
+
+# checks user access rights to a certain area of the system
+function check_access($obj, $permission='', $categories=array())
+{
+	# simply checking if the user is logged in
+	if(empty($permission) && empty($categories)){
+		$userId = $obj->native_session->get('__user_id');
+		return !empty($userId);
+	}
+	
+	# checking for real permission
+	else {
+		$list = $obj->native_session->get('__permissions');
+		# checking access - go through the user's permissions
+		if(!empty($list)){
+			foreach($list AS $category=>$permissions){
+				if(!empty($categories) && in_array($category, $categories)) return TRUE;
+				if(!empty($permission) && in_array($permission, $permissions)) return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
+
+
+function logout_invalid_user($obj)
+{
+	if(!check_access($obj)){
+		if(!$obj->native_session->get('__user_id')) $obj->native_session->set('msg','WARNING: You do not have a valid user session.');
+		redirect(BASE_URL.'accounts/logout');
+	}
+}
+
+
 
 ?>

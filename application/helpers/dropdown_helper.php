@@ -42,8 +42,8 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "financialyears":
 			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$i."'>Financial Year ".$i."</div>";
-				else $optionString .= "<option value='".$i."' onclick=\"updateFieldLayer('".base_url()."reports/update_financial_report/t/pde/y/".$i."','','','stat_container','')\">Financial Year ".$i."</option>";
+				if($return == 'div') $optionString .= "<div data-value='".$i.'-'.($i+1)."'>Financial Year ".$i.'-'.($i+1)."</div>";
+				else $optionString .= "<option value='".$i.'-'.($i+1)."' onclick=\"updateFieldLayer('".base_url()."reports/update_financial_report/t/pde/y/".$i.'-'.($i+1)."','','','stat_container','')\">Financial Year ".$i.'-'.($i+1)."</option>";
 			}
 		break;
 		
@@ -115,7 +115,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "publicdocumenttypes":
 			
 			if($list_type == "publicdocumenttypes") $types = array('case_studies'=>'Case Studies', 'legal'=>'Legal', 'letters'=>'Letters', 'reports'=>'Reports', 'other'=>'Other');
-			else if($list_type == "documenttypes") $types = array('registration_certificate'=>'Provider Registration Certificate', 'training_certificate'=>'Training Completion Certificate');
+			else if($list_type == "documenttypes") $types = array('registration_certificate'=>'Provider Registration Certificate');
 			
 			
 			if($return == 'div') $optionString .= "<div data-value=''>Select Document Type</div>";
@@ -130,11 +130,11 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "contactreason":
-			$types = array('Issues With Registration', 'Report Error On System', 'Can Not Find Document', 'Report Provider Fraud');
-			foreach($types AS $key=>$row)
+			$types = array('Issues With Registration', 'Report Error On System', 'Can Not Find Document', 'Report Provider Fraud', 'Other - Details in Message');
+			foreach($types AS $row)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$key."'>".$row."</div>";
-				else $optionString .= "<option value='".$key."'>".$row."</option>";
+				if($return == 'div') $optionString .= "<div data-value='".$row."'>".$row."</div>";
+				else $optionString .= "<option value='".$row."'>".$row."</option>";
 			}
 		break;
 		
@@ -235,7 +235,12 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		case "provider_list_actions":
 			
-			$types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'suspend'=>'Suspend');
+			if($obj->native_session->get('__user_type') == 'admin') {
+				$types = array('message'=>'Message', 'activate'=>'Activate', 'deactivate'=>'Deactivate', 'suspend'=>'Suspend');
+			} else {
+				$types = array('message'=>'Message');
+			}
+			
 			
 			foreach($types AS $key=>$row)
 			{
@@ -466,7 +471,9 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "procurementplans":
-			$types = $obj->_query_reader->get_list('search_procurement_plan_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			$ownerCondition = $obj->native_session->get('__user_type') == 'pde'? " AND _organization_id='".$obj->native_session->get('__organization_id')."' ": '';
+			
+			$types = $obj->_query_reader->get_list('search_procurement_plan_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'organization_condition'=>$ownerCondition, 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
 			
 			foreach($types AS $row)
 			{

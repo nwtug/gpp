@@ -58,6 +58,7 @@ class Providers extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_provider->lists();
 		
 		$this->load->view('providers/manage', $data);
@@ -115,6 +116,7 @@ class Providers extends CI_Controller
 	function suspend()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted
 		if(!empty($_POST)){
@@ -179,6 +181,7 @@ class Providers extends CI_Controller
 	function generate_certificate()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			$this->native_session->set('providerid', $_POST['providerid']);

@@ -181,6 +181,27 @@ class _forum extends CI_Model
 		# if not found in preset fields, return empty string
 		return '';
 	}
+	
+	
+	
+	# remove a forum comment
+	function remove_comment($id)
+	{
+		$comment = $this->_query_reader->get_query_by_code('get_forum_comment_by_id', array('comment_id'=>$id));
+		if(!empty($comment)) $result = $this->_query_reader->run('remove_forum_comment', array('comment_id'=>$id));
+		
+		# log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>'forum_comment_removal', 
+			'result'=>(!empty($result) && $result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>(!empty($comment['comment'])? "comment=".$comment['comment']."|":"")."device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>!empty($result) && $result);
+	}
 }
 
 

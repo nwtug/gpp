@@ -53,7 +53,9 @@ class _file extends CI_Model
 	
 		# Store the entire PDF as a string in $pdf
 		$pdf = $dompdf->output();
-		# Write $pdf to disk
+		
+		# Write $pdf to disk - but first make sure the previous file has been removed if any.
+		if(file_exists($url)) @unlink($url);
 		file_put_contents($url, $pdf);
 
 		# If the user wants to download the file, then stream it; otherwise display it in the browser as is.

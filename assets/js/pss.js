@@ -109,10 +109,23 @@ function confirmActionToLayer(URL, fieldList, fromLayer, layerID, errorMSG)
 			newMSG = "All fields are required except where indicated.";
 		}
 		
+		// This is a layer with an instruction to remove the row as well
+		if(layerID.indexOf('___') != -1){
+			var layerParts = layerID.split('___');
+			layerID = layerParts[1];
+			document.getElementById(layerParts[0]).style.display = 'none';
+		}
 		updateFieldLayer(URL, fieldList, fromLayer, layerID, newMSG);
 	}
 }
 
+
+//Delete a table row given its ID
+function deleteRow(rowId)  
+{   
+    var row = document.getElementById(rowId);
+    row.parentNode.removeChild(row);
+}
 
 
 

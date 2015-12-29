@@ -33,12 +33,12 @@ $this->load->view('addons/public_top_menu', array('__page'=>'forgot_password'));
 <tr><td>
    
    <div id='forgotmsgdiv'></div></td></tr>
-<tr><td class='body-title'>Enter Your Registered Email Address</td></tr>
+<tr><td class='body-title'>Enter Your Email</td></tr>
 <?php if(!empty($msg)) echo "<tr><td style='text-align:left;'>".format_notice($this,$msg)."</td></tr>";?>
 
-<tr><td><input type='text' id='registeredemail' name='registeredemail' class='email' autocapitalize='off' placeholder="Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
-<tr><td style="padding-bottom:0px;"><button type="button" id="sendpassword" name="sendpassword" class="btn grey submitmicrobtn" style="width:100%;">Send Recovery Link</button>
-    <input type="hidden" name="action" id="action" value="<?php echo base_url();?>account/forgot">
+<tr><td><input type='text' id='registeredemail' name='registeredemail' class='email' autocapitalize='off' placeholder="Registered Email Address" value='' style='width:calc(100% - 20px);' /></td></tr>
+<tr><td style="padding-bottom:0px;"><button type="button" id="sendpassword" name="sendpassword" class="btn grey submitmicrobtn" style="width:100%;">Send Temporary Password</button>
+    <input type="hidden" name="action" id="action" value="<?php echo base_url();?>accounts/forgot">
     <input type="hidden" name="resultsdiv" id="resultsdiv" value="forgotmsgdiv">
     </td></tr>
 </table>

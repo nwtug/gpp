@@ -2,7 +2,7 @@
 
 $config['mailtype'] = 'html';
 
-$config['protocol'] = 'sendmail';
+$config['protocol'] = 'mail';
 
 $config['charset']  = 'utf-8'; 
 

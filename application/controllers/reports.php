@@ -21,12 +21,13 @@ class Reports extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# Updating the report parameters
 		if(!empty($_POST)){
 			$data['list'] = $this->_report->lists(array(
 				'type'=>$_POST['report__reporttypes'], 
-				'quarter'=>$_POST['report__pastyears'].'-'.$_POST['report__quarters'], 
+				'quarter'=>$_POST['report__financialperiods'].'-'.$_POST['report__quarters'], 
 				'pde'=>$_POST['pde_id']
 			));
 			

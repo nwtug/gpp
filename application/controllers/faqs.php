@@ -23,6 +23,7 @@ class Faqs extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_faq->lists();
 		
 		$this->load->view('faqs/manage', $data);
@@ -51,6 +52,7 @@ class Faqs extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted the permission form
 		if(!empty($_POST)){

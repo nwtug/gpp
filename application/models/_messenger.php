@@ -118,14 +118,13 @@ class _messenger extends CI_Model {
 			$this->email->message($messageDetails['details']);
 				
 			if(!empty($messageDetails['fileurl'])) $this->email->attach($messageDetails['fileurl']);
-
+			
 			# Use this line to test sending of email without actually sending it
 			# echo $this->email->print_debugger();
 		
 			$isSent = $this->email->send();
 			$this->email->clear(TRUE);
-				
-				
+			
 			# Record messsage sending event
 			$this->log_message_event($userId, $isSent, 'email__message_sent', $messageDetails);
 		}

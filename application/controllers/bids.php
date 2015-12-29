@@ -22,6 +22,8 @@ class Bids extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
+		
 		$data['type'] = "";
 		$data['list'] = $this->_bid->lists(!empty($data['a'])? $data['a']: '');
 		$this->load->view('bids/manage', $data);
@@ -63,6 +65,7 @@ class Bids extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted the new bid information
 		if(!empty($_POST)){
@@ -216,6 +219,7 @@ class Bids extends CI_Controller
 	function best_evaluated()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		# user has posted the new bid information
 		if(!empty($_POST)){

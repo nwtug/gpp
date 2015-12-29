@@ -92,6 +92,7 @@ class Forums extends CI_Controller
 	function manage()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		$data['list'] = $this->_forum->lists();
 		$this->load->view('forums/manage', $data);
 	}
@@ -103,6 +104,7 @@ class Forums extends CI_Controller
 	function add()
 	{
 		$data = filter_forwarded_data($this);
+		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
 			# Upload the document if any exists before you proceed with the rest of the process
@@ -209,6 +211,19 @@ class Forums extends CI_Controller
 	}
 	
 	
+	
+	
+	# remove a forum comment
+	function remove_comment()
+	{
+		$data = filter_forwarded_data($this);
+		
+		# extract the comment id and remove the comment
+		$check = array_key_contains('comments_', $data);
+		if($check['bool']) $response = $this->_forum->remove_comment($data[$check['key']]);
+		
+		echo format_notice($this, (!empty($response['boolean']) && $response['boolean'])?'The forum comment has been removed.':'ERROR: The comment can not be removed.');
+	}
 	
 }
 
