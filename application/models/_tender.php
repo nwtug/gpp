@@ -32,7 +32,10 @@ class _tender extends CI_Model
 			
 			'deadline_condition'=>(!empty($scope['by_deadline'])? " AND DATE(deadline) BETWEEN NOW() AND DATE('".date('Y-m-d',strtotime(make_us_date($scope['by_deadline'])))."') ": ''),
 			
-			'display_condition'=>(!empty($scope['display_type']) && $scope['display_type'] == 'public'? " AND (NOW() BETWEEN DATE(T.display_start_date) AND DATE(T.display_end_date)) AND (method IN ('international_competitive_tendering','national_competitive_tendering') ".$invitationCondition.")": ''),
+			'display_condition'=>(!empty($scope['display_type']) && $scope['display_type'] == 'public'? " 
+			AND NOW() <= DATE(T.deadline)
+			AND (NOW() BETWEEN DATE(T.display_start_date) AND DATE(T.display_end_date)) 
+			AND (method IN ('international_competitive_tendering','national_competitive_tendering') ".$invitationCondition.")": ''),
 			
 			'pde_condition'=>(!empty($scope['pde'])? " HAVING pde_id = '".$scope['pde']."' ": ''),
 			

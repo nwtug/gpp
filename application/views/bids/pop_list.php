@@ -18,7 +18,7 @@ echo "<tr><td>".date(SHORT_DATE_FORMAT, strtotime($row['date_submitted']))."</td
 <td>".$row['bid_currency'].format_number($row['bid_amount'],0)."</td>
 <td>".strtoupper($row['status'])."</td>
 
-<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date']))." TO ".date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date']))."</td>
+<td>".($row['valid_start_date'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['valid_start_date'])):'NONE')." TO ".($row['valid_end_date'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date'])):'NONE')."</td>
 <td>";
 
 	$documents = explode(',',$row['documents']);

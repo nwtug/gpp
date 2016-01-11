@@ -33,7 +33,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 <table class='home-list-table'> 
 <tr><th class='h3 dark-grey' style='padding-left:10px;border-bottom:1px solid #999;'>Invitation for Bids/Quotations List</th>
 <th style='border-bottom:1px solid #999; width:1%;padding:0px; padding-right:15px;'><button type='button' id='newitem' name='newitem' class='btn smallbtn green' data-rel='tenders/add'>New</button></th>
-<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='tender_actions' class='actions-list-btn list-actions' data-url='tenders/list_actions' data-width='300' data-targetdiv='paginationdiv__provider_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
+<th style='border-bottom:1px solid #999; width:1%;padding:0px;'><div id='tender_actions' class='actions-list-btn list-actions' data-url='tenders/list_actions' data-width='300' data-targetdiv='paginationdiv__tender_list'><div class='settings'>&nbsp;</div><div>&nbsp;</div></div></th>
 </tr>
 
 <tr><td colspan='3'><div id='paginationdiv__tender_list' class='page-list-div'>

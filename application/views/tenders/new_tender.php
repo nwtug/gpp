@@ -38,7 +38,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 <tr><td class='label long'>Procurement Plan</td><td><input type="text" id="tender__procurementplans" name="tender__procurementplans" placeholder="Search Procurement Plan" class="<?php echo (empty($tender['plan_id'])? 'drop-down searchable clear-on-empty ': 'read-only');?>" data-clearfield='plan_id' value="<?php echo (!empty($tender['procurement_plan'])? $tender['procurement_plan']: '');?>"/>
 <input type='hidden' name='plan_id' id='plan_id' value='<?php echo (!empty($tender['plan_id'])? $tender['plan_id']: '');?>' /></td></tr>
 
-<tr><td class='label'>Select Subject</td><td><input type='text' id='tender__procurementplansubjects' name='tender__procurementplansubjects' placeholder='Subject of Procurement' class="<?php echo (empty($tender['subject_id'])? 'drop-down searchable always-refresh clear-on-empty ': 'read-only');?>" data-val='plan_id' data-clearfield='subject_id' value='<?php echo (!empty($tender['subject'])? $tender['subject']: '');?>'/>
+<tr><td class='label'>Subject of Procurement</td><td><input type='text' id='tender__procurementplansubjects' name='tender__procurementplansubjects' placeholder='Select or Search Subject' class="<?php echo (empty($tender['subject_id'])? 'drop-down searchable always-refresh clear-on-empty ': 'read-only');?>" data-val='plan_id' data-clearfield='subject_id' value='<?php echo (!empty($tender['subject'])? $tender['subject']: '');?>'/>
 <input type='hidden' name='subject_id' id='subject_id' value='<?php echo (!empty($tender['subject_id'])? $tender['subject_id']: '');?>' /></td></td></tr>
 
 
@@ -67,7 +67,7 @@ if(!empty($tender['document_url'])){
 ?>
 <table class='default-table' style="width:calc(100% + 18px);">
 <tr><td id='file_field_list' style='width:99%;'>
-<input type='text' id='document_1' name='document_1' class='filefield<?php echo (!empty($tender['document_url'])? 'optional': '');?>' data-val='pdf,doc,docx' data-size='5120000' placeholder='<?php echo (!empty($tender['document_url'])? 'OPTIONAL: ': '');?>Select Tender Document (PDF, Word. Max 500MB)' value=''/>
+<input type='text' id='document_1' name='document_1' class='filefield<?php echo (!empty($tender['document_url'])? ' optional': '');?>' data-val='pdf,doc,docx' data-size='5120000' placeholder='<?php echo (!empty($tender['document_url'])? 'OPTIONAL: ': '');?>Select Tender Document (PDF, Word. Max 500MB)' value=''/>
 </td><td style='width:1%;padding-left:10px;'><div class='add-icon add-file-field' data-targetarea='file_field_list'>&nbsp;</div></td></tr>
 </table>
 </td></tr>

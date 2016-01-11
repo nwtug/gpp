@@ -61,6 +61,6 @@
 		}
 
 		else {
-			echo "<tr><td>".format_notice($this, 'WARNING: There are no providers in this list.')."</td></tr>";
+			echo "<tr><td>".format_notice($this, 'WARNING: There are no providers in this list.').$stopHtml."</td></tr>";
 		}?>
 </table>

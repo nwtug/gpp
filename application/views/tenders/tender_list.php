@@ -32,9 +32,9 @@ echo "<table>
 			echo "<br>[".(!empty($row['invite_count'])? "<a href='".base_url()."tenders/invitations/d/".$row['tender_id']."' class='shadowbox closable'>".$row['invite_count']." invited</a>": "0 invited")."] <div class='green-box btn shadowbox' data-url='".base_url()."tenders/invite/d/".$row['tender_id']."'>Invite</div>";
 		}
 		echo "</td>
-		<td>".date(FULL_DATE_FORMAT, strtotime($row['deadline']))."</td>
-		<td>".date(SHORT_DATE_FORMAT, strtotime($row['display_start_date']))."</td>
-		<td>".date(SHORT_DATE_FORMAT, strtotime($row['display_end_date']))."</td>
+		<td>".(strpos($row['deadline'],'0000-00-00') === FALSE? date(FULL_DATE_FORMAT, strtotime($row['deadline'])): 'NONE')."</td>
+		<td>".(strpos($row['display_start_date'],'0000-00-00') === FALSE? date(SHORT_DATE_FORMAT, strtotime($row['display_start_date'])): 'NONE')."</td>
+		<td>".(strpos($row['display_end_date'],'0000-00-00') === FALSE? date(SHORT_DATE_FORMAT, strtotime($row['display_end_date'])): 'NONE')."</td>
 		<td>".strtoupper($row['status'])."</td>
 		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_created']));
 		

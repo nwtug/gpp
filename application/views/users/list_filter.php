@@ -12,7 +12,7 @@
 </select></td></tr>
 
 <tr><td><select id='search__permissiongroups' name='search__permissiongroups' data-final='group' class='drop-down' style='width:100%;'>
-<?php echo get_option_list($this, 'permissiongroups', 'select', '', array('selected'=>$this->native_session->get('user__group')));?>
+<?php echo get_option_list($this, ($this->native_session->get('__user_type') == 'admin'? 'permissiongroups': $this->native_session->get('__user_type').'groups'), 'select', '', array('selected'=>$this->native_session->get('user__group')));?>
 </select></td></tr>
 
 <tr><td><input type='text' id='phrase' name='phrase' placeholder='Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('user__phrase');?>' style='width:100%;'/></td></tr>

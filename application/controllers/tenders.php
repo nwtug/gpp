@@ -54,7 +54,7 @@ class Tenders extends CI_Controller
 		if($area == 'procurement_plans') {
 			$list = $this->_procurement_plan->lists(array('status'=>'published', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		} else if($area == 'best_evaluated_bidders') {
-			$list = $this->_bid->lists('best_bidders');
+			$list = $this->_bid->lists('awards');
 		} else if($area == 'active_notices') {
 			$list = $this->_tender->lists(array('status'=>'published', 'display_type'=>'public', 'offset'=>0, 'limit'=>NUM_OF_ROWS_PER_PAGE));
 		} else if($area == 'contract_awards') {

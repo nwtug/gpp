@@ -81,6 +81,7 @@ define('SHORT_DATE_FORMAT', 'd/M/Y');
 
 define('MAXIMUM_FINANCIAL_HISTORY', 5);
 
+define('FILE_EXPIRY_DAYS', 1);
 
 /*
  *
@@ -131,6 +132,46 @@ define('ENABLE_MESSAGE_CACHE', FALSE);
 define('QUERY_FILE', HOME_URL.'application/helpers/queries_list_helper.php');
 
 define('MESSAGE_FILE', HOME_URL.'application/helpers/message_list_helper.php');
+
+
+
+	
+	
+	
+
+
+/*
+ *---------------------------------------------------------------
+ * CRON JOB SETTINGS
+ *---------------------------------------------------------------
+ */
+
+	define('CRON_HOME_URL',  "/var/www/pss/");
+	
+	define('CRON_REFRESH_PERIOD', "5 minutes");
+
+	define('DEFAULT_CRON_HOME_URL', "/var/www/pss/");
+	
+	# Use in case of multiple system installations on one server
+	# e.g., serialize(array("/var/www/pss-ver-1/", "/var/www/pss-ver-2/", "/var/www/pss-ver-3/"))
+	# If only one installation has cron jobs, serialize(array(getcwd()."/")) works fine
+	define("CRON_INSTALLATIONS", serialize(array("/var/www/pss/"))); 
+	
+	define('SERVER_SUDOER_USER', "root");
+	
+	define('CRON_FILE_NAME', "cron.list");
+	
+	define('CRON_FILE', CRON_HOME_URL.CRON_FILE_NAME);
+
+	define('CRON_FILE_LOG', CRON_HOME_URL."cron.log");
+	
+	define('GLOBAL_CRON_FILE', DEFAULT_CRON_HOME_URL."global.".CRON_FILE_NAME);
+
+
+
+
+
+
 
 
 

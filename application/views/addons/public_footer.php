@@ -19,7 +19,7 @@
 
 
       <tr><td class='top-grey-border'>
-          <div class='h6 left-div content-div'>&copy;<?php echo date('Y');?> Ministry of Finance and Economic Planning (Directorate of Public Procurement)</div>
+          <div class='h6 left-div content-div'>&copy;<?php echo date('Y');?> Ministry of Finance and Economic Planning <br />(Directorate of Public Procurement)</div>
           <div class='h6 right-div content-div align-right'>Developed By <a href='http://newwavetech.co.ug' target='_blank'>New Wave Technologies Ltd</a><input type='hidden' id='layerid' name='layerid' value='' /></div>
         </td></tr>
 

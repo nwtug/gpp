@@ -286,7 +286,7 @@ $(function() {
 		inputs.each(function(){
 			if(!$(this).hasClass('optional') && ($(this).is('input:text') || $(this).is('select') || $(this).is('textarea')) && (
 			($(this).hasClass('password') && !isValidPassword($(this).attr('id'),''))
-			|| ($(this).val().length < 1)
+			|| (($(this).is('select') && $(this).val() == null) || ($(this).is('select') && $(this).val() == '') || $(this).val().length < 1)
 			))
 			{
 				activate = false; 
@@ -319,14 +319,14 @@ $(function() {
 					showServerSideFadingMessage('ERROR: Something went wrong. We can not submit your data.');
 				},
       	 		success: function(data) {
-		   			console.log('GOT HERE: '+data);
+		   			//console.log('GOT HERE: '+data);
 						
 					if(tempMessage == '') showWaitDiv('end');
 					if(data.match(/php error/i)) {// || data.match(/error:/i)
 						// Determine which error to show
 						//The script failed
 						if(data.indexOf('/>') > -1)
-						{console.log('ERROR: '+data);
+						{//console.log('DATA ERROR: '+data);
 							showServerSideFadingMessage('ERROR: Something went wrong. We can not submit your data.');
 						}
 						// Custom message from server

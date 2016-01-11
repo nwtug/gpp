@@ -1,5 +1,6 @@
 <table>
-<?php 
+<?php $stopHtml = "<input name='paginationdiv__bid_stop' id='paginationdiv__bid_stop' type='hidden' value='1' />";
+		
 	if(!empty($list)){
 		echo "<tr><th>Date Posted</th><th>Procuring/Disposing Entity</th><th>Subject</th>";
 		
@@ -8,7 +9,6 @@
 		}
 		
 		echo "</tr>";
-		$stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 		
 		$listCount = count($list);
 		$i = 0;
@@ -22,8 +22,8 @@
 			if(!$this->native_session->get('__view')) {	
 				echo "</td>
 				<td>".$row['provider']."</td>
-				<td>".date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date']))."</td>
-				<td>".$row['status']."</td>
+				<td>".($row['valid_end_date'] != '0000-00-00'? date(SHORT_DATE_FORMAT, strtotime($row['valid_end_date'])):'NONE')."</td>
+				<td>".strtoupper(str_replace('_', ' ', $row['status']))."</td>
 				<td>".$row['bid_currency'].format_number($row['bid_amount'],3,0);
 			}
 			
@@ -36,7 +36,7 @@
 		}
 	}
 	else {
-		echo "<tr><td>".format_notice($this, 'WARNING: There are no best evaluated bidders in this list.')."</td></tr>";
+		echo "<tr><td>".format_notice($this, 'WARNING: There are no best evaluated bidders in this list.').$stopHtml."</td></tr>";
 	}
 ?>
 </table>

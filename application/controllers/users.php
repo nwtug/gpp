@@ -171,6 +171,33 @@ class Users extends CI_Controller
 	}
 	
 	
+	
+	
+	# add a new user for the same organization
+	function add()
+	{
+		$data = filter_forwarded_data($this);
+		
+		if(!($this->native_session->get('__user_type') == 'admin' 
+		|| ($this->native_session->get('__user_type') == 'pde' && $this->native_session->get('__is_owner') == 'Y'))){ 
+			redirect(base_url().'accounts/logout');
+		}
+		
+		# new user is being added
+		if(!empty($_POST)){
+			$response = $this->_user->add($_POST);
+			# there was an error
+			if(!(!empty($response) && $response['boolean'])) {
+				echo !empty($response['reason'])? $response['reason']: 'ERROR: There was an error saving the user details.';
+			}
+			else $this->native_session->set('msg','The user details have been saved.');
+		} 
+		else {
+			if(!empty($data['d'])) $data['user'] = $this->_user->details($data['d']);
+			$this->load->view('users/new_user', $data);
+		}
+	}
+	
 }
 
 /* End of controller file */

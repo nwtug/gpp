@@ -25,6 +25,11 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 ?>
 
 <tr>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<?php $this->load->view('addons/procurement_ribbon', array('page'=>'awards' )); ?>
+
+<tr>
   <td>&nbsp;</td>
   <td class='one-column body-form-area microform ignoreclear'>
 
@@ -55,7 +60,7 @@ echo "<br><a href='".base_url()."accounts/view_provider/d/".$award['provider_id'
 
 <tr><td class='label'>Source of Funds</td><td><input type='text' id='source_of_funds' name='source_of_funds' placeholder='Source of Funds' value='<?php echo (!empty($contract['source_of_funds'])? $contract['source_of_funds']: '');?>'/></td></tr>
 
-<tr><td class='label'>Official Start Date</td><td><input type='text' id='start_date' name='start_date' class='calendar future-date' style='width: calc(100% - 34px);' placeholder='Select Date' value='<?php echo (!empty($contract['start_date'])? $contract['start_date']: '');?>'/></td></tr>
+<tr><td class='label'>Official Start Date</td><td><input type='text' id='start_date' name='start_date' class='calendar clickactivated future-date' style='width: calc(100% - 34px);' onclick='setDatePicker(this)' placeholder='Select Date' value='<?php echo (!empty($contract['start_date'])? $contract['start_date']: '');?>'/></td></tr>
 
 <tr><td class='label'>Status</td><td><select id='contract__contractstatus' name='contract__contractstatus' class='drop-down' style="width:calc(100% + 15px);">
 <?php echo get_option_list($this, 'contractstatus', 'select', '', array('selected'=>(!empty($contract['status'])? $contract['status']: '') ));?>

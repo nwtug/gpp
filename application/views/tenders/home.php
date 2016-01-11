@@ -20,6 +20,9 @@
 $this->load->view('addons/public_header');
 
 $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
+
+# the instruction on how to treat this page list
+$object = rtrim($folder,'s');
 ?>
 
 
@@ -38,19 +41,19 @@ $this->load->view('addons/public_top_menu', array('__page'=>'tenders'));
 <td id='contract_awards' data-final='contract' <?php if($area == 'contract_awards') echo "class='active'";?>>Contract Awards</td>
 </tr></table>
 </td></tr>
-<tr><td colspan='2'><div id='paginationdiv__tender_list' class='page-list-div'>
-<div id="<?php echo rtrim($folder,'s');?>__1">
+<tr><td colspan='2'><div id='paginationdiv__<?php echo $object;?>_list' class='page-list-div'>
+<div id="<?php echo $object;?>__1">
 <?php $this->load->view($folder.'/details_list',array('list'=>$list));?>
 </div>
 </div><button type='button' id='refreshlist' name='refreshlist' class='override-url' style='display:none;'></button></td></tr>
 <tr><td colspan='2'>
 <table><tr><td>
 
-<div id='tender_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="<?php echo rtrim($folder,'s');?>" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender/area/".$area;?>" />
+<div id='<?php echo $object;?>_pagination_div' class='pagination' style="margin:0px;padding:0px; display:inline-block;"><div id="<?php echo $object;?>" class="paginationdiv no-scroll"><div class="previousbtn" style='display:none;'>&#x25c4;</div><div class="selected">1</div><div class="nextbtn">&#x25ba;</div></div><input name="paginationdiv__tender_action" id="paginationdiv__tender_action" type="hidden" value="<?php echo base_url()."lists/load/t/tender/area/".$area;?>" />
 <input name="paginationdiv__tender_maxpages" id="paginationdiv__tender_maxpages" type="hidden" value="<?php echo NUM_OF_LISTS_PER_VIEW;?>" />
 <input name="paginationdiv__tender_noperlist" id="paginationdiv__tender_noperlist" type="hidden" value="<?php echo NUM_OF_ROWS_PER_PAGE;?>" />
-<input name="paginationdiv__tender_showdiv" id="paginationdiv__tender_showdiv" type="hidden" value="paginationdiv__tender_list" />
 <input name="paginationdiv__tender_extrafields" id="paginationdiv__tender_extrafields" type="hidden" value="" />
+<input name="paginationdiv__<?php echo $object;?>_showdiv" id="paginationdiv__<?php echo $object;?>_showdiv" type="hidden" value="paginationdiv__<?php echo $object;?>_list" />
 
 <!-- Additional list actions -->
 <input name="paginationdiv__contract_action" id="paginationdiv__contract_action" type="hidden" value="<?php echo base_url()."lists/load/t/contract/area/".$area;?>" />

@@ -42,7 +42,7 @@ echo "</tr>";
 	}
 }
 else {
-	echo "<tr><td>".format_notice($this, 'WARNING: There are no forums in this list.')."</td></tr>";
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no forums in this list.').$stopHtml."</td></tr>";
 }
 
 echo "</table>";

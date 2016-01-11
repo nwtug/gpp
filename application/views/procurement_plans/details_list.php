@@ -1,8 +1,8 @@
 <table>
-<?php 
+<?php $stopHtml = "<input name='paginationdiv__procurement_plan_stop' id='paginationdiv__procurement_plan_stop' type='hidden' value='1' />";
+		
 	if(!empty($list)){
 		echo "<tr><th>Procuring/Disposal Entity</th><th>&nbsp;</th></tr>";
-		$stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 		
 		$listCount = count($list);
 		$i = 0;
@@ -21,7 +21,7 @@
 		}
 	}
 	else {
-		echo "<tr><td>".format_notice($this, 'WARNING: There are no procurement plans in this list.')."</td></tr>";
+		echo "<tr><td>".format_notice($this, 'WARNING: There are no procurement plans in this list.').$stopHtml."</td></tr>";
 	}
 ?>
 </table>

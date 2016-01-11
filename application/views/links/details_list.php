@@ -21,7 +21,7 @@ echo "<tr><th>Name</th><th>Posted</th></tr>";
 	}
 }
 else {
-	echo "<tr><td>".format_notice($this, 'WARNING: There are no links in this list.')."</td></tr>";
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no links in this list.').$stopHtml."</td></tr>";
 }
 
 echo "</table>";

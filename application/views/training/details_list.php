@@ -33,7 +33,7 @@ echo "</tr>";
 		</tr>";
 	}
 }
-else echo format_notice($this, "WARNING: There are no training activities in this list.");
+else echo format_notice($this, "WARNING: There are no training activities in this list.").$stopHtml;
 	
 echo "</table>";
 ?>

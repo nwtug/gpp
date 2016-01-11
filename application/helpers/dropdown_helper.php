@@ -290,7 +290,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 			if($list_type == 'all_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'under_review'=>'Under Review', 'short_list'=>'Short List', 'reject_bid'=>'Reject Bid');
 			
-			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_awarded'=>'Award to Selected');
+			else if($list_type == 'best_bidders_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'mark_as_won'=>'Mark As Won', 'mark_as_awarded'=>'Award to Selected');
 			
 			else if($list_type == 'awards_bid_list_actions') $types = array('message_bidder'=>'Message Bidder', 'retract_award'=>'Retract Award');
 			
@@ -299,7 +299,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 			foreach($types AS $key=>$row)
 			{
-				if(in_array($key, array('under_review', 'short_list', 'reject_bid', 'retract_award', 'submit_bid', 'mark_as_archived'))) {
+				if(in_array($key, array('under_review', 'short_list', 'reject_bid', 'retract_award', 'submit_bid', 'mark_as_archived', 'mark_as_won'))) {
 					$url = 'bids/update_status/t/'.$key;
 				}
 				else if($key == 'mark_as_awarded') $url = 'bids/mark_as_awarded'; 
@@ -371,10 +371,14 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "tenders":
-			$invitationCondition = ($obj->native_session->get('__user_type') && $userType == 'provider')? " OR (SELECT id FROM tender_invitations WHERE _provider_id='".$organizationId."' AND _tender_id=T.id LIMIT 1) IS NOT NULL ": '';
+			$invitationCondition = ($obj->native_session->get('__user_type') && $obj->native_session->get('__user_type') == 'provider')? " OR (SELECT id FROM tender_invitations WHERE _provider_id='".$organizationId."' AND _tender_id=T.id LIMIT 1) IS NOT NULL ": '';
 			
 			if(!($obj->native_session->get('__user_type') == 'pde' || $obj->native_session->get('__user_type') == 'admin')){
-				$displayCondition = " AND (method IN ('international_competitive_tendering','national_competitive_tendering') ".$invitationCondition.")";
+				$displayCondition = " AND ((
+					NOW() <= DATE(deadline)
+					AND (NOW() BETWEEN DATE(display_start_date) AND DATE(display_end_date)) 
+					AND (method IN ('international_competitive_tendering','national_competitive_tendering'))
+					) ".$invitationCondition.")";
 			} 
 			else $displayCondition = "";
 			
@@ -385,13 +389,30 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 			$types = $obj->_query_reader->get_list('search_tender_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE, 'owner_condition'=>$ownerCondition.$displayCondition));
 			
+			# attempt to make it unique since we are already reusing the query - and the user is only interested in the tender name
+			$names = array();
 			foreach($types AS $row)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."')\">".$row['name']."</div>";
-				else $optionString .= "<option value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."'>".$row['name']."</option>";
+				if(!in_array($row['name'], $names)){
+					$names[] = $row['name'];
+					
+					if($return == 'div') $optionString .= "<div data-value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."')\">".$row['name']."</div>";
+					else $optionString .= "<option value='".$row['tender_id']."' onclick=\"universalUpdate('tender_id','".$row['tender_id']."')\">".$row['name']."</option>";
+				}
 			}
 		break;
 		
+		
+		
+		case "publiccontracts":
+			$types = $obj->_query_reader->get_list('search_contract_awards', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			
+			foreach($types AS $row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['contract_id']."'>".$row['name']."</div>";
+				else $optionString .= "<option value='".$row['contract_id']."'>".$row['name']."</option>";
+			}
+		break;
 		
 		
 		
@@ -517,6 +538,21 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		break;
 		
 		
+		
+		
+		
+		
+		case "admingroups":
+		case "pdegroups":
+		case "providergroups":
+			$types = $obj->_query_reader->get_list('get_permission_group_list', array('type_condition'=>" AND type='".str_replace('groups','',$list_type)."' ", 'phrase_condition'=>'', 'limit_text'=>''));
+		
+			foreach($types AS $key=>$row)
+			{
+				if($return == 'div') $optionString .= "<div data-value='".$row['group_id']."'>".$row."</div>";
+				else $optionString .= "<option value='".$row['group_id']."' ".(!empty($more['selected']) && $more['selected'] == $row['group_id']? 'selected': '').">".$row['name']."</option>";
+			}
+		break;
 		
 		
 		

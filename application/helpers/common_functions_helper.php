@@ -859,8 +859,19 @@ function create_image_from_text($fileName, $text, $size = array('width'=>80, 'he
 # Make date a us date
 function make_us_date($date)
 {
-	$parts = explode('/',$date);
-	return implode('/',array($parts[1],$parts[0],$parts[2]));
+	$datePart = strtok($date, ' ');
+	$allParts = explode(' ', $date);
+	
+	# format 31/12/2015 ...
+	if(strlen($datePart) == 10){
+		$parts = explode('/',$datePart);
+		return implode('/',array($parts[1],$parts[0],$parts[2])).' '.(count($allParts) > 1? $allParts[1]: '');
+	}
+	# format 31/Dec/2015 ...
+	else if(strlen($datePart) == 11){
+		return date('m/d/Y',strtotime(str_replace('/',' ',$datePart))).' '.(count($allParts) > 1? $allParts[1]: '');
+	}
+	else return $date;
 }
 
 #Validate an email address. If the email address is not required, then an empty string will be an acceptable

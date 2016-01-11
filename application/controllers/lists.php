@@ -129,7 +129,7 @@ class Lists extends CI_Controller
 						'status'=>$this->native_session->get($data['t'].'__status'),
 						'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 
-						'display_type'=>($isProvider? 'public':''),
+						'display_type'=>($isProvider || !empty($data['area'])? 'public':''),
 						'offset'=>$offset, 
 						'limit'=>$limit
 					));
@@ -153,7 +153,7 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
 					
-					$data['list'] = $this->_bid->lists($data['listtype'], array(
+					$data['list'] = $this->_bid->lists((!empty($data['area'])? 'awards': $data['listtype']), array(
 						'pde'=>$this->native_session->get($data['t'].'__pde_id'),
 						'provider'=>$this->native_session->get($data['t'].'__provider_id'),
 						'phrase'=>$this->native_session->get($data['t'].'__phrase'), 

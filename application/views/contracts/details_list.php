@@ -1,5 +1,6 @@
 <table>
-<?php 
+<?php $stopHtml = "<input name='paginationdiv__contract_stop' id='paginationdiv__contract_stop' type='hidden' value='1' />";
+		
 	if(!empty($list)){
 		echo "<tr><th>Date Signed</th><th>Procuring/Disposing Entity</th><th>Service Provider</th>";
 		
@@ -8,7 +9,6 @@
 		}
 		
 		echo "</tr>";
-		$stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 		
 		$listCount = count($list);
 		$i = 0;
@@ -36,7 +36,7 @@
 		}
 	}
 	else {
-		echo "<tr><td>".format_notice($this, 'WARNING: There are no contract awards in this list.')."</td></tr>";
+		echo "<tr><td>".format_notice($this, 'WARNING: There are no contract awards in this list.').$stopHtml."</td></tr>";
 	}
 ?>
 </table>

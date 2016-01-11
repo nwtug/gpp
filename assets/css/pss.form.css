@@ -36,7 +36,7 @@
 	white-space:nowrap;
 }
 
-.body-form-area input[type=text]:not(.drop-down), .body-form-area textarea {
+.body-form-area input[type=text]:not(.drop-down), .body-form-area textarea, .body-form-area input[type=password] {
 	width: 100%;
 }
 .body-form-area input[type=text].drop-down {

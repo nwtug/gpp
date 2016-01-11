@@ -183,6 +183,88 @@ class _user extends CI_Model
 	
 	
 	
+	
+	
+	# add a user
+	function add($data)
+	{
+		$result = FALSE;
+		$reason = '';
+		
+		# add the user record
+		if(($this->_query_reader->get_count('check_user_name', array('user_name'=>$data['newusername'])) == 0 && empty($data['user_id']))
+			|| !empty($data['user_id'])
+		){
+			$thisUser = $this->details();
+				
+			# a) add/update the user database record
+			$userId = $this->_query_reader->add_data((!empty($data['user_id'])? 'edit': 'add').'_organization_user', array(
+				'first_name'=>htmlentities($data['firstname'], ENT_QUOTES), 
+				'last_name'=>htmlentities($data['lastname'], ENT_QUOTES),
+				'email_address'=>$data['emailaddress'], 
+				'telephone'=>$data['telephone'], 
+				'country'=>$thisUser['country_id'], 
+				'user_name'=>$data['newusername'], 
+				'password'=>sha1($data['newpassword']),
+				'permission_group_id'=>$data['user__'.$this->native_session->get('__user_type').'groups'],
+				'status'=>$data['user__userstatus'], 
+				'organization_id'=>$this->native_session->get('__organization_id'),
+				'user_id'=>$this->native_session->get('__user_id'),
+				'edit_id'=>(!empty($data['user_id'])? $data['user_id']: '')
+			));
+			
+			# b) notify the user about the changes
+			if((empty($data['user_id']) && !empty($userId)) || !empty($data['user_id'])){
+				$message = array(
+					'first_name'=>htmlentities($data['firstname'], ENT_QUOTES), 
+					'last_name'=>htmlentities($data['lastname'], ENT_QUOTES),
+					'email_address'=>$data['emailaddress'], 
+					'telephone'=>$data['telephone'], 
+					'user_name'=>$data['newusername'], 
+					'password'=>$data['newpassword'],
+					'status'=>strtoupper($data['user__userstatus']) 
+				);
+				
+				$detailString = '';
+				foreach($message AS $key=>$value) $detailString .= '<BR><b>'.ucwords(str_replace('_',' ',$key)).':</b> '.$value;
+				
+				$result = $this->_messenger->send((!empty($data['user_id'])? $data['user_id']: $userId), array(
+						'code'=>'your_user_profile_details',
+						'madeby'=>$thisUser['first_name'].' '.$thisUser['last_name'], 
+						'organization'=>$thisUser['organization_name'], 
+						'newdetails'=>$detailString
+					),
+					array('email'),
+					TRUE);
+				
+				if(!$result) $reason = "ERROR: The user notification could not be sent.";
+			}
+			else {
+				$reason = "ERROR: The user record could not be saved.";
+				$result = FALSE;
+			}
+		}
+		else $reason = "WARNING: The user name is already in use.";
+		
+		# remove the user record if this is a new addition and the commit failed
+		if(empty($data['user_id']) && !$result && !empty($userId)) {
+			$this->_query_reader->run('remove_temp_user', array('user_id'=>$userId));
+		}
+		
+		# c) log action
+		$this->_logger->add_event(array(
+			'user_id'=>$this->native_session->get('__user_id'), 
+			'activity_code'=>(!empty($data['user_id'])? 'edit': 'add').'_user', 
+			'result'=>($result? 'SUCCESS': 'FAIL'), 
+			'log_details'=>"device=".get_user_device()."|browser=".$this->agent->browser(),
+			'uri'=>uri_string(),
+			'ip_address'=>get_ip_address()
+		));
+		
+		return array('boolean'=>$result, 'reason'=>$reason);
+	}
+	
+	
 }
 
 

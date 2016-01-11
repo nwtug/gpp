@@ -81,6 +81,7 @@ class _account extends CI_Model
 					'photo_url'=>(!empty($user['photo_url'])? BASE_URL.'assets/uploads/'.$user['photo_url']: ''),
 					'user_type'=>$user['group_type'], 
 					'organization_id'=>$user['organization_id'], 
+					'is_owner'=>$user['is_owner'], 
 					'organization_name'=>$user['organization_name']
 			);
 			
@@ -314,7 +315,7 @@ class _account extends CI_Model
 	{
 		return $this->_query_reader->get_list('get_audit_trail', array(
 			'date_condition'=>(!empty($scope['date'])? " AND DATE(event_time) = DATE('".date('Y-m-d', strtotime(make_us_date($scope['date'])))."')": ''),
-			'user_condition'=>(!empty($scope['user_id'])? " AND _user_id='".$scope['user_id']."' ": ''),
+			'user_condition'=>(!empty($scope['user_id'])? " AND user_id='".$scope['user_id']."' ": ''),
 			'activity_condition'=>(!empty($scope['activity_code'])? " AND activity_code='".$scope['activity_code']."' ": ''),
 			'phrase_condition'=>(!empty($scope['phrase'])? " AND MATCH(log_details) AGAINST ('+\"".htmlentities($scope['phrase'], ENT_QUOTES)."\"') ": ''),
 			'limit_text'=>" LIMIT ".$scope['offset'].",".$scope['limit']." "

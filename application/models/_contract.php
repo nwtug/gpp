@@ -18,6 +18,7 @@ class _contract extends CI_Model
 		if($userType == 'admin') $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived');
 		else if($userType == 'pde')  $status = array('active','complete','terminated','endorsed','cancelled','commenced','final_payment','archived','saved');
 		else if(is_array($scope['status'])) $status = $scope['status'];
+		else if(!$this->native_session->get('__user_type'))  $status = array('active','complete','endorsed','commenced');
 		else  $status = array('active','complete','terminated','endorsed','cancelled');
 		
 		
