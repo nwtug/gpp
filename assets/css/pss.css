@@ -925,7 +925,13 @@ a.blue-box:hover{
 }
 
 
-
+	
+.show-on-small-screen {
+	display:block;
+}
+.hide-on-small-screen {
+	display:none;
+}
 
 
 
