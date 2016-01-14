@@ -58,7 +58,7 @@ class Documents extends CI_Controller
 		
 		if(!empty($_POST)){
 			# Upload the file before you proceed with the rest of the process
-			$fileUrl = upload_file($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			$fileUrl = upload_file($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx,zip,zipx,rar');
 			if(!empty($fileUrl)) {
 				$_POST['document'] = $fileUrl;
 				$result = $this->_document->add($_POST);

@@ -900,6 +900,23 @@ function changeClass(element,style)
 
 
 
+
+// Remove a class from an element by call
+function removeClass(elementId, className)
+{
+	$('#'+elementId).removeClass(className);
+}
+
+
+// Add a class to an element by call
+function addClass(elementId, className)
+{
+	$('#'+elementId).addClass(className);
+}
+
+
+
+
 //Function to toggle layer(s) on a condition of another layer
 function toggleLayersOnCondition(conditionLayer, affectedLayers)
 {
@@ -2469,9 +2486,9 @@ $(function() {
 	
 	
 	$('.telephone').keyup(function(e){
-    	if($(this).val().length > 11) 
+    	if($(this).val().length > 14) 
 		{
-			$(this).val($(this).val().substr(0,11));
+			$(this).val($(this).val().substr(0,14));
 		}
 	});
 	

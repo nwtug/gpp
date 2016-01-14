@@ -79,7 +79,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     </td></tr>
     <tr><td class='two-fields'>
     <div><input type='text' id='emailaddress' name='emailaddress' class='email' placeholder='Your Email Address' value='<?php echo $this->native_session->get('emailaddress');?>' /></div>
-    <div><input type='text' id='telephone' name='telephone' class='numbersonly telephone' placeholder='Your Telephone Number' value='<?php echo $this->native_session->get('telephone');?>' /></div>
+    <div></div>
+    </td></tr>
+    <tr><td class='two-fields'>
+    <div><input type='text' id='telephone' name='telephone' class='numbersonly telephone' placeholder='Your Telephone (Include country code e.g: 211 91 1234567)' value='<?php echo $this->native_session->get('telephone');?>' /></div>
+    <div><input type='text' id='otherphone' name='otherphone' class='numbersonly telephone optional' placeholder='OPTIONAL: Alternative Telephone (Include country code)' value='<?php echo $this->native_session->get('otherphone');?>' /></div>
     </td></tr>
     <tr><td class='two-fields'>
     <div><select id='question__secretquestions' name='question__secretquestions' class='drop-down'>

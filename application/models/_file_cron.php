@@ -25,7 +25,7 @@ class _file_cron extends CI_Model
 		# b) get the files in the uploads folder within the given period
 		$filesToDelete = array();
 		if($handle = opendir(UPLOAD_DIRECTORY)) {
-			$exemptFiles = array('.','..','plan_template.xls','regulations_2006_f2.pdf');
+			$exemptFiles = unserialize(PERMANENT_FILES);
     		while(FALSE !== ($fileName = readdir($handle))) {
         		$uploadTime = filemtime(UPLOAD_DIRECTORY.$fileName);
 				

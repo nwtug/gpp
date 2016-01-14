@@ -208,6 +208,7 @@ class _account extends CI_Model
 		# Save a temporary user
 		$details1['email_address'] = $data['emailaddress'];
 		$details1['telephone'] = $data['telephone'];
+		$details1['otherphone'] = !empty($data['otherphone'])? $data['otherphone']: '';
 		$details1['country'] = $data['registration__countries'];
 		$details1['user_name'] = trim($data['newusername']);
 		$details1['password'] = sha1($data['newpassword']);
@@ -293,10 +294,21 @@ class _account extends CI_Model
 					'last_name'=>htmlentities($data['lastname'], ENT_QUOTES),
 					'user_id'=>$this->native_session->get('__user_id'),
 					'organization_id'=>$this->native_session->get('__organization_id'),
-					'organization_type'=>$this->native_session->get('organizationtype') 
+					'organization_type'=>$this->native_session->get('organizationtype'),
+					'status'=>($this->native_session->get('organizationtype') == 'provider'? 'active': 'pending') 
 				));
 				
-				if(!$result) $message = 'Your saved account could not be activated.';
+				if($result){
+					if($this->native_session->get('organizationtype') == 'pde'){
+						$sentResult = $this->_messenger->send($this->types('admin'), array(
+							'code'=>'activate_new_pde',
+							'organization_name'=>$this->native_session->get('businessname'),
+							'first_name'=>htmlentities($data['firstname'], ENT_QUOTES), 
+							'last_name'=>htmlentities($data['lastname'], ENT_QUOTES)
+						));
+					}
+				}
+				else $message = 'Your saved account could not be approved.';
 			}
 			else $message = 'The organization contact could not be saved.';
 		}

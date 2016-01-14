@@ -45,6 +45,9 @@ class _training extends CI_Model
 				'description'=>htmlentities($data['description'], ENT_QUOTES),
 				'event_time'=>date('Y-m-d H:i:s',strtotime(make_us_date($data['eventtime']))),  
 				'duration'=>$data['duration'], 
+				'venue'=>htmlentities($data['venue'], ENT_QUOTES),
+				'url'=>(!empty($data['url'])? $data['url']: ''),
+				'documents'=>(!empty($data['documents'])? implode(',',$data['documents']): ''),
 				'user_id'=>$this->native_session->get('__user_id'), 
 				'organization_id'=>$this->native_session->get('__organization_id')
 		));

@@ -123,6 +123,7 @@ class _user extends CI_Model
 				'password'=>((!empty($data['newpassword']) && !empty($data['confirmpassword']))? sha1($data['newpassword']): ''), 
 				'email_address'=>$data['emailaddress'],
 				'telephone'=>$data['telephone'],
+				'otherphone'=>$data['otherphone'],
 				'secret_question_id'=>$data['question__secretquestions'], 
 				'secret_answer'=>$data['secretanswer'], 
 				'address_line_1'=>$data['address'], 

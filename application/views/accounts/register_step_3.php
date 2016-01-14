@@ -51,7 +51,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     </td></tr>
     <tr><td class='two-fields'>
     <div><input type='text' id='region' name='region' placeholder='Region/State' value='<?php echo $this->native_session->get('region');?>' /></div>
-    <div><input type='text' id='zipcode' name='zipcode' placeholder='Zip Code' class='numbersonly' value='<?php echo $this->native_session->get('zipcode');?>' /></div>
+    <div><input type='text' id='zipcode' name='zipcode' placeholder='Zip Code' class='numbersonly' value='<?php echo $this->native_session->get('zipcode')? $this->native_session->get('zipcode'): '81111';?>' /></div>
     </td></tr>
     
     <tr><td class='two-fields'>

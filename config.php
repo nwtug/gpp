@@ -83,6 +83,8 @@ define('MAXIMUM_FINANCIAL_HISTORY', 5);
 
 define('FILE_EXPIRY_DAYS', 1);
 
+define("PERMANENT_FILES", serialize(array('.','..','plan_template.xls','regulations_2006_f2.pdf', 'pde_user_manual.pdf', 'admin_user_manual.pdf'))); 
+
 /*
  *
  *	0 = Disables logging, Error logging TURNED OFF

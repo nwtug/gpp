@@ -4,7 +4,7 @@ $listCount = count($list);
 $i = 0;
 
 echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Title</th><th>Financial Year</th><th>Status</th><th>Added</th></tr>";
+<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Title</th><th>Status</th><th>Added</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -12,8 +12,8 @@ echo "<table>
 		if($this->native_session->get('__user_type') != 'pde'){
 			echo "<td><a href='".base_url()."accounts/view_pde/d/".$row['pde_id']."' class='shadowbox closable'>".$row['pde']."</a></td>";
 		}
-		echo "<td><span class='edit-item btn' data-rel='procurement_plans/add/d/".$row['procurement_plan_id']."'>".$row['name']."</span></td>
-		<td>FY ".date('Y', strtotime($row['financial_year_start'])).'-'.date('Y', strtotime($row['financial_year_end']))."</td>
+		echo "<td><span class='edit-item btn' data-rel='procurement_plans/add/d/".$row['procurement_plan_id']."'>".$row['name']." FY ".date('Y', strtotime($row['financial_year_start'])).'-'.date('Y', strtotime($row['financial_year_end']))."</span></td>
+		
 		<td>".strtoupper($row['status'])."</td>
 
 		<td>".date(FULL_DATE_FORMAT, strtotime($row['date_created']));

@@ -42,8 +42,17 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		case "financialyears":
 			for($i=@date('Y'); $i>(@date('Y') - MAXIMUM_FINANCIAL_HISTORY); $i--)
 			{
-				if($return == 'div') $optionString .= "<div data-value='".$i.'-'.($i+1)."'>Financial Year ".$i.'-'.($i+1)."</div>";
-				else $optionString .= "<option value='".$i.'-'.($i+1)."' onclick=\"updateFieldLayer('".base_url()."reports/update_financial_report/t/pde/y/".$i.'-'.($i+1)."','','','stat_container','')\">Financial Year ".$i.'-'.($i+1)."</option>";
+				if($return == 'div') {
+					$optionString .= "<div data-value='".$i.'-'.($i+1)."'>Financial Year ".$i.'-'.($i+1)."</div>";
+				} else {
+					$optionString .= "<option value='".$i.'-'.($i+1)."' onclick=\"updateFieldLayer('".base_url()."reports/update_financial_report/t/pde/y/".$i.'-'.($i+1)."','','','stat_container','')\"";
+					
+					if(!empty($more['selected']) && $more['selected'] == $i.'-'.($i+1)){
+						$optionString .= " selected";
+					}
+					
+					$optionString .= ">Financial Year ".$i.'-'.($i+1)."</option>";
+				}
 			}
 		break;
 		
@@ -271,7 +280,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "tender_list_actions":
-			$types = array('publish'=>'Publish', 'deactivate'=>'Deactivate');
+			$types = array('publish'=>'Publish/Issue', 'deactivate'=>'Deactivate');
 			
 			foreach($types AS $key=>$row)
 			{
@@ -477,7 +486,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			else if( in_array($list_type, array('documentstatus','linkstatus','trainingstatus')) ) $types = array('active'=>'Active', 'inactive'=>'Inactive');
 			else if($list_type == 'userstatus') $types = array(''=>'Select User Status', 'pending'=>'Pending', 'active'=>'Active', 'inactive'=>'Inactive', 'deleted'=>'Deleted');
 			else if($list_type == 'procurementplanstatus') $types = array('saved'=>'Saved', 'published'=>'Published');
-			else if($list_type == 'tenderstatus') $types = array('saved'=>'Saved', 'cancelled'=>'Cancelled', 'extended'=>'Extended', 'published'=>'Published');
+			else if($list_type == 'tenderstatus') $types = array('saved'=>'Saved', 'cancelled'=>'Cancelled', 'extended'=>'Extended', 'published'=>'Published/Issued');
 			else $types = array('saved'=>'Saved', 'published'=>'Published', 'archived'=>'Archived');
 			
 			
@@ -512,8 +521,20 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 			
 				foreach($types AS $row)
 				{
-					if($return == 'div') $optionString .= "<div data-value='".$row['subject_id']."' onclick=\"universalUpdate('subject_id','".$row['subject_id']."')\">".$row['name']."</div>";
-					else $optionString .= "<option value='".$row['subject_id']."' onclick=\"universalUpdate('subject_id','".$row['subject_id']."'>".$row['name']."</option>";
+					# hide some fields if the method is competitive
+					if(strpos(strtolower($row['display_method']), 'competitive') !== FALSE){
+						$extraJs = ";removeClass('display_from','optional');removeClass('display_to','optional');showLayerSet('display_period_row');";
+					}
+					else {
+						$extraJs = ";addClass('display_from','optional');addClass('display_to','optional');hideLayerSet('display_period_row');";
+					}
+					
+					if($return == 'div') {
+						$optionString .= "<div data-value='".$row['subject_id']."' onclick=\"universalUpdate('subject_id','".$row['subject_id']."')".$extraJs."\">".$row['name']."</div>";
+					}
+					else {
+						$optionString .= "<option value='".$row['subject_id']."' onclick=\"universalUpdate('subject_id','".$row['subject_id']."','".$row['subject_id']."')".$extraJs."\">".$row['name']."</option>";
+					}
 				}
 			}
 			else {

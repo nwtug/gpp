@@ -8,7 +8,7 @@
   </tr>
   <tr>
     <td>Telephone: </td>
-    <td><input type="text" id="telephone" name="telephone" placeholder="Optional (e.g: 0782123456)" class="numbersonly telephone optional" value="" maxlength="10"/></td>
+    <td><input type="text" id="telephone" name="telephone" placeholder="Optional (Include country code e.g: 211 91 1234567)" class="numbersonly telephone optional" value="" maxlength="14"/></td>
   </tr>
   <tr>
     <td>Reason: </td>

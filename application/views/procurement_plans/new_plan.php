@@ -38,8 +38,6 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 </td></tr>
 <?php }?>
 
-<tr><td class='label'>Title</td><td><input type='text' id='name' name='name' placeholder='Title' value='<?php echo (!empty($plan['name'])? $plan['name']: '');?>'/></td></tr>
-
 <tr><td class='label'>Financial Period</td><td><select id='fystart__financialperiods' name='fystart__financialperiods' class='drop-down' style="width:calc(100% + 18px)">
 <?php echo get_option_list($this, 'financialperiods', 'select', '', array(
 	'selected'=>(!empty($plan['financial_year'])? $plan['financial_year']: ''), 'back_period'=>10));?>
@@ -82,6 +80,8 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
     <input type='hidden' id='redirectaction' name='redirectaction' value='<?php echo base_url().'procurement_plans/manage';?>' />
     <input type='hidden' id='resultsdiv' name='resultsdiv' value='' />
     
+    
+    <input type='hidden' id='name' name='name' value='Procurement Plan'/>
     <input type='hidden' name='plan_id' id='plan_id' value='<?php echo (!empty($plan['procurement_plan_id'])? $plan['procurement_plan_id']: '');?>' />
     <input type='hidden' name='pde_id' id='pde_id' value='<?php echo (!empty($plan['pde_id'])? $plan['pde_id']: ($this->native_session->get('__user_type') == 'pde'? $this->native_session->get('__organization_id'): ''));?>' />
     </td></tr>
