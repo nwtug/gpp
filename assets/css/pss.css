@@ -168,6 +168,7 @@ a.error {
 .h2, .h2 > a {
 	font-size: 36px;
 	font-weight: 700;
+	letter-spacing: -2px;
 }
 
 .h3, .h3 > a {
@@ -184,7 +185,7 @@ a.error {
 }
 
 .h6, .h6 > a {
-	font-size: 10px;
+	font-size: 9px;
 }
 
 
@@ -338,7 +339,11 @@ a.error {
 	display: inline-block;
 }
 
-.row-divs.small-padding > div, .small-div-padding, .top-divs > div  {
+.row-divs.small-padding > div  {
+	padding: 6px 3px;
+	margin: 5px;
+}
+.small-div-padding, .top-divs > div  {
 	padding: 6px 15px;
 	margin: 5px;
 }
@@ -446,8 +451,9 @@ a.error {
 }
 
 .summary-table > tbody > tr > td > a:before, .list-item > a:before {
-	content: '\25FE  ';
-	color: #000;
+	content: '\2022 ';
+    color: #000;
+    padding-right: 7px;
 }
 
 .summary-table > tbody > tr > td:last-child {
@@ -487,7 +493,7 @@ a.error {
 	width: calc(33% - 30px) !important;
 	margin-right: 10px;
 	padding: 15px 10px;
-	text-align:justify;
+	text-align:left;
 }
 
 
@@ -744,6 +750,10 @@ a.blue-box:hover{
 	max-width: 1300px;
 }
 
+.body-content .about{
+	
+	padding-right:10px;
+}
 .step-ribbon {
 	background: url(../../assets/images/transparent_bg.png) center center;
 	border-top: solid 1px #D6D6D6;
@@ -854,7 +864,10 @@ a.blue-box:hover{
 	margin-top: 20px;
 }
 
-
+.row-divs.small-padding > div  {
+	padding: 6px 15px;
+	margin: 5px;
+}
 
 }
 
@@ -933,7 +946,10 @@ a.blue-box:hover{
 	display:none;
 }
 
-
+.row-divs.small-padding > div  {
+	padding: 6px 15px;
+	margin: 5px;
+}
 
 }
 
