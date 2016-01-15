@@ -112,6 +112,75 @@ class Lists extends CI_Controller
 					$this->load->model('_tender');
 					$data = restore_bad_chars_in_array($data);
 					
+
+				   # if filter form details are posted
+				   if(isset($data['parentarea'])){
+				   $data = restore_bad_chars_in_array($data);
+
+				   # Store in session for the filter to use
+				   $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+				   $this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+				   $this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+				   $this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+				   $this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+				   $this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+
+				   $this->native_session->set($data['t'].'__fy_start', (!empty($data['startpastyears'])? $data['startpastyears']: ''));
+				   $this->native_session->set($data['t'].'__fy_end', (!empty($data['endpastyears'])? $data['endpastyears']: ''));
+
+
+				   #switch lists based on active tab
+				switch($data['parentarea']){
+
+				   # filter procurement plans details
+				    case 'plans':
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__fy_end', (!empty($data['fy_end'])? $data['fy_end']: ''));  
+					$this->native_session->set($data['t'].'__fy_start', (!empty($data['fy_start'])? $data['fy_start']: ''));
+                    $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+					$data['list'] = $this->_procurement_plan->lists(array(
+					#todo need to account for status as well
+
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'fy_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'fy_start'=>$this->native_session->get($data['t'].'__fy_start'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+								
+
+					$this->load->view('procurement_plans/home_details', $data);
+
+					break;
+								
+					# filter procurement plans home portal
+					case 'plans_home';
+
+					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+					$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+					$this->native_session->set($data['t'].'__fy_end', (!empty($data['fy_end'])? $data['fy_end']: ''));  
+					$this->native_session->set($data['t'].'__fy_start', (!empty($data['fy_start'])? $data['fy_start']: ''));
+                    $this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+				    $data['list'] = $this->_procurement_plan->lists(array(
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'fy_end'=>$this->native_session->get($data['t'].'__fy_end'),
+										'fy_start'=>$this->native_session->get($data['t'].'__fy_start'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
+					$this->load->view('procurement_plans/home_portal_details', $data);
+
+					break;
+								
+					# filter active notices details 
+				   case 'active_notices':
+
 					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
 					$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
@@ -120,7 +189,158 @@ class Lists extends CI_Controller
 					$this->native_session->set($data['t'].'__status', (!empty($data['status'])? $data['status']: ''));
 					$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
 					$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
-					$isProvider = $this->native_session->get('__user_type') == 'provider';
+
+
+				    $data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+								
+							
+					$this->load->view('tenders/home_list_details', $data);
+
+				break;
+								
+				    # filter active notices home portal
+				case 'active_notices_home':
+
+				$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+				$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+				$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+				$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+				$this->native_session->set($data['t'].'__by_deadline', (!empty($data['by_deadline'])? $data['by_deadline']: ''));
+				$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+
+				$data['list'] = $this->_tender->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'by_deadline'=>$this->native_session->get($data['t'].'__by_deadline'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
+
+				$this->load->view('tenders/home_portal_details', $data);
+
+				break;
+
+               # filter best evaluated bidder details 
+				case 'best_evaluated_bidder_details':
+							
+							
+				$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+				$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+				$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+				$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+				$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+				$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
+				$data['list'] = $this->_bid->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'provider_id'=>$this->native_session->get($data['t'].'__provider_id'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+								
+								
+								
+				$this->load->view('bids/home_details', $data);
+								
+				break;
+								
+				# filter best evaluated bidder home portal
+				# TODO Provider parameter not passed
+				case 'best_evaluated_bidder_home':
+							
+				$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+				$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+				$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+				$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+				$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+				$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
+
+				$data['list'] = $this->_bid->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'provider_id'=>$this->native_session->get($data['t'].'__provider_id'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
+
+								
+
+			  $this->load->view('bids/home_portal_details', $data);
+				
+			 break;
+								
+			# filter contract awards details
+			case 'contract_awards_details':
+			$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+			$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+			$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+			$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+			$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+			$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
+
+			$data['list'] = $this->_contract->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'provider_id'=>$this->native_session->get($data['t'].'__provider_id'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+		
+
+			$this->load->view('contracts/home_details', $data);
+
+			break;
+								
+			# filter contract awards home portal
+			case 'contract_awards_home':
+			$this->native_session->set($data['t'].'__procurement_type', (!empty($data['procurement_type'])? $data['procurement_type']: ''));
+			$this->native_session->set($data['t'].'__procurement_method', (!empty($data['procurement_method'])? $data['procurement_method']: ''));
+			$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));
+			$this->native_session->set($data['t'].'__pde_id', (!empty($data['pde_id'])? $data['pde_id']: ''));
+			$this->native_session->set($data['t'].'__phrase', (!empty($data['phrase'])? $data['phrase']: ''));
+			$this->native_session->set($data['t'].'__provider_id', (!empty($data['provider_id'])? $data['provider_id']: ''));
+
+			$data['list'] = $this->_contract->lists(array(
+										'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'),
+										'procurement_method'=>$this->native_session->get($data['t'].'__procurement_method'),
+										'pde_id'=>$this->native_session->get($data['t'].'__pde_id'),
+										'provider_id'=>$this->native_session->get($data['t'].'__provider_id'),
+										'phrase'=>$this->native_session->get($data['t'].'__phrase'),
+										'offset'=>$offset,
+										'limit'=>$limit
+								));
+
+     		$this->load->view('contracts/home_portal_details', $data);
+
+								break;
+								
+							
+								
+							
+							default:
+								# fall backtr
+			$this->load->view('tenders/'.($this->native_session->get('__user_type') == 'provider'? 'manage_list': 'tender_list'), $data);
+						}
+					}
 					
 					$data['list'] = $this->_tender->lists(array(
 						'procurement_type'=>$this->native_session->get($data['t'].'__procurement_type'), 
