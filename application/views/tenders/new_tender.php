@@ -76,10 +76,15 @@ if(!empty($tender['document_url'])){
 
 <tr><td class='label'>Submission Deadline</td><td><input type='text' id='deadline' name='deadline' class='calendar showtime clickactivated future-date' onclick="setDatePicker(this)" style='width: calc(100% - 34px);' placeholder='Select Submission Deadline' value='<?php echo (!empty($tender['deadline']) && $tender['deadline'] != '0000-00-00 00:00:00'? date(FULL_DATE_FORMAT, strtotime($tender['deadline'])): '');?>'/></td></tr>
 
-<tr><td class='label'>Display Period</td><td style='padding-right:0px;'>
+<?php 
+# only show for new tenders or competitive tenders
+if(empty($tender['method']) || (!empty($tender['method']) && strpos($tender['method'], 'competitive') !== FALSE)){?>
+<tr id='display_period_row'><td class='label'>Display Period</td><td style='padding-right:0px;'>
 <table class='default-table'><tr><td style='padding-left:0px;'><input type='text' id='display_from' name='display_from' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='From' style="width:calc(100% - 40px);" value='<?php echo (!empty($tender['display_start_date'])? date(SHORT_DATE_FORMAT, strtotime($tender['display_start_date'])): '');?>'/></td>
 <td style='padding-right:0px;'><input type='text' id='display_to' name='display_to' class='calendar clickactivated future-date' onclick='setDatePicker(this)' placeholder='To' style="width:calc(100% - 40px);" value='<?php echo (!empty($tender['display_end_date'])? date(SHORT_DATE_FORMAT, strtotime($tender['display_end_date'])): '');?>'/></td></tr></table>
 </td></tr>
+<?php }?>
+
 
 <tr><td class='label'>Status</td><td><select id='tender__tenderstatus' name='tender__tenderstatus' class='drop-down' style="width:calc(100% + 15px);">
 <?php echo get_option_list($this, 'tenderstatus', 'select', '', array('selected'=>(!empty($tender['status'])? $tender['status']: '') ));?>

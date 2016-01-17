@@ -24,7 +24,7 @@ $this->load->view('addons/pde_top_menu', array('__page'=>'my_dashboard'));
   <td>&nbsp;</td>
   <td style='text-align: left; padding-top:25px;'>
   <select id='year__financialyears' name='year__financialyears' class='drop-down'>
-  <?php echo get_option_list($this, 'financialyears');?>
+  <?php echo get_option_list($this, 'financialyears', 'select','',array('selected'=>get_current_quarter('financial_year') ));?>
   </select></td>
   <td>&nbsp;</td>
 </tr>

@@ -15,9 +15,6 @@
 </select></td></tr>
 <?php }?>
 
-<tr><td><input type='text' id='phrase' name='phrase' placeholder='Plan Name Search Phrase' data-final='phrase' value='<?php echo $this->native_session->get('procurement_plan__phrase');?>' style='width:100%;'/></td></tr>
-
-
 <tr><td><button type="button" id="applyfilterbtn" name="applyfilterbtn" class="btn blue" onClick="applyFilter('procurement_plan')" style="width:100%;">Apply Filter</button>
 <input name="layerid" id="layerid" type="hidden" value="" />
 <?php 

@@ -74,8 +74,8 @@ class _tender extends CI_Model
 				'document_url'=>(!empty($data['documents'])? implode(',',$data['documents']): ''), 
 				'status'=>$data['tender__tenderstatus'], 
 				'deadline'=>date('Y-m-d H:i:s',strtotime(make_us_date($data['deadline']))), 
-				'display_start_date'=>date('Y-m-d',strtotime(make_us_date($data['display_from']))), 
-				'display_end_date'=>date('Y-m-d',strtotime(make_us_date($data['display_to']))), 
+				'display_start_date'=>(!empty($data['display_from'])? date('Y-m-d',strtotime(make_us_date($data['display_from']))): '0000-00-00'), 
+				'display_end_date'=>(!empty($data['display_to'])? date('Y-m-d',strtotime(make_us_date($data['display_to']))): '0000-00-00'), 
 				'user_id'=>$this->native_session->get('__user_id'),
 				'tender_id'=>(!empty($data['tender_id'])? $data['tender_id']: '')
 			));

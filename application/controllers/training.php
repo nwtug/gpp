@@ -37,8 +37,13 @@ class Training extends CI_Controller
 		logout_invalid_user($this);
 		
 		if(!empty($_POST)){
+			# Upload the file before you proceed with the rest of the process
+			if(!empty($_FILES)) $fileUrls = upload_many_files($_FILES, 'document__fileurl', 'document_', 'pdf,doc,docx');
+			$_POST['documents'] = !empty($fileUrls)? $fileUrls: array();
+			
 			$result = $this->_training->add($_POST);
 			if(!$result['boolean']) echo "ERROR: The training information could not be added. ".$result['reason'];
+			
 		} else {
 			$this->load->view('training/new_training', $data);
 		}

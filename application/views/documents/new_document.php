@@ -40,7 +40,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 <input type='hidden' id='document_type' name='document_type' value='<?php echo $area;?>' /></td></tr>
 
 <tr><td class='label'>Document</td><td>
-<input type='text' id='document' name='document' class='filefield' data-val='pdf,doc,docx' data-size='5120000' placeholder='Select Document (PDF, Word. Max 500MB)' value=''/></td></tr>
+<input type='text' id='document' name='document' class='filefield' data-val='pdf,doc,docx,zip,zipx,rar' data-size='5120000' placeholder='Select Document (PDF, Word, Zip, Rar. Max 500MB)' value=''/></td></tr>
 
 <tr><td class='label'>Comment</td><td><textarea id='description' name='description' placeholder='Briefly describe the document (OPTIONAL, Max 500 characters)' class='limit-chars optional' data-max='500' style='height:150px;width:calc(100% - 2px);'><?php echo (!empty($document['description'])? $document['description']: '');?></textarea></td></tr>
 

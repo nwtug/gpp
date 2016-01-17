@@ -61,7 +61,7 @@ if(!empty($view)){
     
     <tr><td class='two-fields'>
     <div><span class='bold'>Email Address:</span> <?php echo $user['email_address'];?></div>
-    <div><span class='bold'>Telephone:</span> <?php echo $user['telephone'];?></div>
+    <div><span class='bold'>Telephone:</span> <?php echo $user['telephone'].(!empty($user['otherphone'])? " (Alt: ".$user['otherphone'].")": '');?></div>
     </td></tr>
     <tr><td class='two-fields' style="vertical-align:top;">
     <div><span class='bold' style="vertical-align:top;">Secret Question:</span> <div style='display:inline-block;word-wrap: break-word; max-width: calc(100% - 50px);'><?php echo wordwrap($user['secret_question'], 25, '<BR>'); ?></div></div>
@@ -123,7 +123,10 @@ if(!empty($view)){
     </td></tr>
     <tr><td class='two-fields'>
     <div><input type='text' id='emailaddress' name='emailaddress' class='email' placeholder='Your Email Address' value='<?php echo $user['email_address'];?>' /></div>
-    <div><input type='text' id='telephone' name='telephone' class='numbersonly telephone' placeholder='Your Telephone Number' value='<?php echo $user['telephone'];?>' /></div>
+    <div><table class='default-table'><tr>
+    <td style='padding:0px;padding-right:5px;'><input type='text' id='telephone' name='telephone' class='numbersonly telephone' placeholder='Your Telephone' value='<?php echo $user['telephone'];?>' /></td>
+    <td style='padding:0px;'><input type='text' id='otherphone' name='otherphone' class='numbersonly telephone' placeholder='Alternative Telephone' value='<?php echo $user['otherphone'];?>' /></td>
+    </tr></table></div>
     </td></tr>
     <tr><td class='two-fields'>
     <div><select id='question__secretquestions' name='question__secretquestions' class='drop-down'>
