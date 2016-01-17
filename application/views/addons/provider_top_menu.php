@@ -10,7 +10,6 @@
     <div class='btn<?php if($__page == 'forums') echo " active";?>' data-rel='forums/manage'>Forums</div>
     <div class='btn<?php if($__page == 'settings') echo " active";?>' data-rel='users/settings/view/Y'>Settings</div>
     <div class='btn<?php if($__page == 'help') echo " active";?>' data-rel='faqs/manage'>Help</div>
-
   </div>
   <div class='right-div'><div class='trigger-search shadowbox closable' data-url='<?php echo base_url().'pages/system_search/t/secure/area/provider';?>'>&nbsp;</div></div></td>
   <td class='grey-menu-bg'>&nbsp;</td>

@@ -146,7 +146,7 @@ else if($type == 'documents'){ ?>
                 foreach($documentsList as $list){
                     ?>
 <tr><td class=<?=document_class($list['url']).'-icon-row'?>><span class='bold'><a href="<?=base_url().'pages/download/file/'.$list['url']?>"><?=$list['name']?></a></span>
-<br><span class='grey-box'><?=$list['category']?></span></td>
+<br><span class='grey-box'><?=ucwords(str_replace('_',' ',$list['category']))?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Posted: <?=date(SHORT_DATE_FORMAT, strtotime($list['date_entered']))?> <br>Size: <?=format_number($list['size'],3)."B"?></td></tr>
 
                     <?php }
@@ -177,7 +177,7 @@ else if($type == 'standards'){ ?>
                 foreach($standardList as $list){
                     ?>
 <tr><td class=<?=document_class($list['url']).'-icon-row'?>><span class='bold'><a href="<?=base_url().'pages/download/file/'.$list['url']?>"><?=$list['name']?></a></span>
-<br><span class='grey-box'><?=$list['category']?></span></td>
+<br><span class='grey-box'><?=ucwords(str_replace('_',' ',$list['category']))?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Posted: <?=date(SHORT_DATE_FORMAT, strtotime($list['date_entered']))?> <br>Size: <?=format_number($list['size'],3)."B"?></td></tr>
 
                     <?php }
@@ -211,7 +211,7 @@ else if($type == 'public_forums'){ ?>
                     ?>
 
 <tr><td><span class='bold'><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></span>
-<br><span class='grey-box'><?=$list['category']?></span></td>
+<br><span class='grey-box'><?=ucwords(str_replace('_',' ',$list['category']))?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: <?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?><br>Contributors: <?=$list['no_of_contributors']?></td></tr>
 
 <?php }
@@ -228,7 +228,7 @@ else if($type == 'secure_forums'){ ?>
                     ?>
 
 <tr><td><span class='bold'><a href="<?=base_url()?>forums/view_one/d/<?=$list['forum_id']?>" class='shadowbox closable'><?=$list['topic']?></a></span>
-<br><span class='grey-box'><?=$list['category']?></span></td>
+<br><span class='grey-box'><?=ucwords(str_replace('_',' ',$list['category']))?></span></td>
 <td class='dark-grey' style="width:1%;white-space:nowrap;">Started: <?=date(SHORT_DATE_FORMAT, strtotime($list['last_updated']))?><br>Contributors: <?=$list['no_of_contributors']?></td></tr>
 
 <?php }
