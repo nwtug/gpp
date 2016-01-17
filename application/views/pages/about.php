@@ -67,9 +67,11 @@ $this->load->view('addons/public_top_menu', array('__page'=>'about'));
 <tr><td><a href='<?php echo BASE_URL;?>pages/terms_of_use'>Terms</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>pages/privacy_policy'>Privacy Policy</a></td></tr>
 <tr><td><a href='<?php echo BASE_URL;?>pages/government_agencies'>Government Agencies</a></td></tr>
-<tr><td>&nbsp;</td></tr>
 
-</table></div>
+</table>
+
+<br>
+</div>
 
       </td>
     </tr>
