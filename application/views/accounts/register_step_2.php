@@ -47,7 +47,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'register'));
     </td></tr>
     
     <tr><td>
-    <textarea id="description" name="description" placeholder="Brief Description of Your Organization
+    <textarea id="description" name="description" placeholder="Brief Description
     (This will appear in the search results - max 500 characters)" style="height:120px; width:calc(100% - 58px);"><?php echo $this->native_session->get('description');?></textarea>
     </td></tr>
     

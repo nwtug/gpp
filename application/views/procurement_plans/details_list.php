@@ -2,7 +2,7 @@
 <?php $stopHtml = "<input name='paginationdiv__procurement_plan_stop' id='paginationdiv__procurement_plan_stop' type='hidden' value='1' />";
 		
 	if(!empty($list)){
-		echo "<tr><th>Procuring/Disposal Entity</th><th>&nbsp;</th></tr>";
+		echo "<tr><th>Procuring/Disposing Entity</th><th>&nbsp;</th></tr>";
 		
 		$listCount = count($list);
 		$i = 0;
