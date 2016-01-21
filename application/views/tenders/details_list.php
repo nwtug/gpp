@@ -2,7 +2,7 @@
 <?php $stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 		
 	if(!empty($list)){
-		echo "<tr><th>Deadline</th><th>Procuring/Disposal Entity</th><th>Subject of Procurement</th>";
+		echo "<tr><th>Deadline</th><th>Procuring/Disposing Entity</th><th>Subject of Procurement</th>";
 		
 		if(!$this->native_session->get('__view')) {
 			echo "<th>Procurement Reference Number</th><th>Procurement Type (Procurement Method)</th>";

@@ -15,7 +15,7 @@ echo "<tr><th>Question</th><th>Answer</th></tr>";
 		else $answer = html_entity_decode($row['answer'], ENT_QUOTES);
 		
 		echo "<tr> 
-		<td style='vertical-align:top;'>".html_entity_decode($row['question'], ENT_QUOTES)."</td>
+		<td style='vertical-align:top;'><strong>".html_entity_decode($row['question'], ENT_QUOTES)."</strong></td>
 		<td>".$answer;
 		
 		 # Check whether you need to stop the loading of the next pages

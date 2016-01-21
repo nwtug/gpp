@@ -61,7 +61,7 @@ $this->load->view('addons/public_top_menu', array('__page'=>'home_portal'));
 
 
 <div><table class='home-list-table'>
-<tr><th class='h3 blue rop-icon'>Registry of Providers</th></tr>
+<tr><th class='h3 blue rop-icon'>Register of Providers</th></tr>
 <tr><td>
 <table class='list-tabs' data-type='paginationdiv__provider' data-page='providers/provider_list'><tr>
 <td id='active_providers' data-final='provider' class='active'>Active Providers</td>

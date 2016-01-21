@@ -38,7 +38,7 @@ $this->load->view('addons/'.$this->native_session->get('__user_type').'_top_menu
 
 <tr><td class='label'>Question</td><td><input type='text' id='question' name='question' placeholder='Enter Question' value='<?php echo (!empty($faq['name'])? $faq['name']: '');?>'/></td></tr>
 
-<tr><td class='label'>Answer</td><td><textarea id='answer' name='answer' placeholder='The answer to the above question (Max 500 characters)' class='limit-chars' data-max='500' style='height: 150px;'><?php echo (!empty($faq['answer'])? $faq['answer']: '');?></textarea></td></tr>
+<tr><td class='label'>Answer</td><td><textarea id='answer' name='answer' placeholder='The answer to the above question (Max 1500 characters)' class='limit-chars' data-max='1500' style='height: 150px;'><?php echo (!empty($faq['answer'])? $faq['answer']: '');?></textarea></td></tr>
 
 <tr><td class='label'>Show After</td><td><input type="text" id="faq__faqs" name="faq__faqs" placeholder="Search FAQ Question" class="drop-down searchable clear-on-empty" data-clearfield='show_after' value="<?php echo (!empty($faq['show_after_question'])? $faq['show_after_question']: '');?>" style='width:calc(100% - 10px);'/>
 <input type='hidden' id='show_after' name='show_after' value='<?php echo (!empty($faq['show_after'])? $faq['show_after']: '');?>' /></td></tr>

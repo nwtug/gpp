@@ -168,6 +168,7 @@ a.error {
 .h2, .h2 > a {
 	font-size: 36px;
 	font-weight: 700;
+	letter-spacing: -1px;
 }
 
 .h3, .h3 > a {
@@ -338,7 +339,11 @@ a.error {
 	display: inline-block;
 }
 
-.row-divs.small-padding > div, .small-div-padding, .top-divs > div  {
+.row-divs.small-padding > div  {
+	padding: 6px 3px;
+	margin: 5px;
+}
+.small-div-padding, .top-divs > div  {
 	padding: 6px 15px;
 	margin: 5px;
 }
@@ -446,7 +451,7 @@ a.error {
 }
 
 .summary-table > tbody > tr > td > a:before, .list-item > a:before {
-	content: '\25FE  ';
+	content: '\2022  ';
 	color: #000;
 }
 
@@ -484,10 +489,11 @@ a.error {
 }
 
 .content-div {
-	width: calc(33% - 30px) !important;
+	width: calc(43% - 30px) !important;
 	margin-right: 10px;
 	padding: 15px 10px;
-	text-align:justify;
+    text-align:left;
+	font-size:12px;
 }
 
 
@@ -565,8 +571,8 @@ button.btn.grey, button.smallbtn.grey {
 
 .white-link-divs > div {
 	vertical-align:center;
-	padding: 10px 15px;
-	margin: 5px 5px 5px 0px;
+	padding: 10px 5px;
+	margin:5px 0px 5px 0px;
 }
 
 .white-link-divs > div:not(.ignore-border) {
@@ -641,7 +647,7 @@ button.btn.grey, button.smallbtn.grey {
 	color: #FFF;
 	padding: 5px;
 	font-size: 11px;
-	font-weight: 800;
+	font-weight: bold;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	text-transform: capitalize;
@@ -653,7 +659,7 @@ button.btn.grey, button.smallbtn.grey {
 	color: #FFF;
 	padding: 5px;
 	font-size: 11px;
-	font-weight: 800;
+	font-weight:bold;
 	margin-top: 3px;
 	margin-bottom: 3px;
 }
@@ -668,7 +674,7 @@ a.blue-box:hover{
 	color: #FFF;
 	padding: 5px;
 	font-size: 11px;
-	font-weight: 800;
+	font-weight: bold;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	text-transform: capitalize;
@@ -680,7 +686,7 @@ a.blue-box:hover{
 	color: #FFF;
 	padding: 5px;
 	font-size: 11px;
-	font-weight: 800;
+	font-weight: bold;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	text-transform: capitalize;
@@ -742,6 +748,11 @@ a.blue-box:hover{
 	text-align: justify;
 	width: 100%;
 	max-width: 1300px;
+}
+
+.body-content .about{
+	
+	padding-right:20px;
 }
 
 .step-ribbon {
@@ -854,7 +865,10 @@ a.blue-box:hover{
 	margin-top: 20px;
 }
 
-
+.row-divs.small-padding > div  {
+	padding: 6px 15px;
+	margin: 5px;
+}
 
 }
 
@@ -933,7 +947,10 @@ a.blue-box:hover{
 	display:none;
 }
 
-
+.row-divs.small-padding > div  {
+	padding: 6px 15px;
+	margin: 5px;
+}
 
 }
 
@@ -973,7 +990,10 @@ a.blue-box:hover{
 	margin-right: 0px;
 }
 
-
+.row-divs.small-padding > div  {
+	padding: 6px 15px;
+	margin: 5px;
+}
 	
 }
 
