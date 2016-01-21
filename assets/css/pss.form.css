@@ -5,6 +5,8 @@
 	font-size: 15px;
 	color:#666;
 	vertical-align: top !important;
+	padding: 6px 10px 6px 0;
+ 	font-weight: 800;
 }
 
 .body-form-area .label {

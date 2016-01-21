@@ -2,7 +2,7 @@
 <?php $stopHtml = "<input name='paginationdiv__bid_stop' id='paginationdiv__bid_stop' type='hidden' value='1' />";
 		
 	if(!empty($list)){
-		echo "<tr><th>Date Posted</th><th>Procuring/Disposing Entity</th><th>Subject</th>";
+		echo "<tr><th>Date Posted</th><th>Procuring/Disposing Entity</th><th>Procurement Reference Number</th><th>Subject</th>";
 		
 		if(!$this->native_session->get('__view')) {	
 			echo "<th>Selected Provider</th><th>Date BEB Expires</th><th>Status</th><th>BEB Price</th>";
@@ -17,6 +17,7 @@
 			echo "<tr>
 				<td>".date(SHORT_DATE_FORMAT, strtotime($row['last_updated']))."</td>
 				<td>".$row['pde']."</td>
+				<td>".$row['reference_number']."</td>
 				<td><a href='".base_url().'bids/view_one/d/'.$row['bid_id']."' class='shadowbox closable blue-box'>".$row['tender_notice']."</a>";
 				
 			if(!$this->native_session->get('__view')) {	

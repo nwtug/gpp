@@ -2,11 +2,11 @@
   <td>&nbsp;</td>
   <td><div class='h4 blue left-div small-div-padding'><?php echo date('l, F j, Y g:iA T');?></div>
 <div class='right-div row-divs small-padding'>
-	<div class='btn h5 dark-green-bg small' data-rel='accounts/register'>Register</div>
-    <div class='btn h5 dark-grey' data-rel='accounts/login'>Login</div>
-    <div class='btn h5 dark-grey' data-rel='pages/verify'>Verify Document</div>
-    <div class='btn h5 dark-grey' data-rel='pages/contact_us'>Contact Us</div>
-    <div class='btn h5 dark-grey' data-rel='http://www.grss-mof.org' data-target='blank'>Ministry</div>
+	<div class='btn h4 dark-grey' data-rel='accounts/register'>Register</div>
+    <div class='btn h4 dark-grey' data-rel='accounts/login'>Login</div>
+    <div class='btn h4 dark-grey' data-rel='pages/verify'>Verify Document</div>
+    <div class='btn h4 dark-grey' data-rel='pages/contact_us'>Contact Us</div>
+    <div class='btn h4 dark-grey' data-rel='http://www.grss-mof.org' data-target='blank'>Ministry Website</div>
 </div></td>
   <td>&nbsp;</td>
 </tr>
