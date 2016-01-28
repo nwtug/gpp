@@ -3,15 +3,18 @@ $stopHtml = "<input name='paginationdiv__training_stop' id='paginationdiv__train
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Subject</th><th>Category</th><th>Event Date,Time</th><th>Duration</th>";
-if($this->native_session->get('__user_type') != 'provider'){
-	echo "<th>Entered By</th><th>From Organization</th>";
-}
-if($this->native_session->get('__user_type') == 'admin'){
-	echo "<th>Status</th>";
-}
-echo "<th>Posted</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Subject</th><th>Category</th><th>Event Date,Time</th><th>Duration</th>";
+	if($this->native_session->get('__user_type') != 'provider'){
+		echo "<th>Entered By</th><th>From Organization</th>";
+	}
+	if($this->native_session->get('__user_type') == 'admin'){
+		echo "<th>Status</th>";
+	}
+	echo "<th>Posted</th></tr>";
+	
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -38,5 +41,11 @@ echo "<th>Posted</th></tr>";
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no training activities in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

@@ -3,8 +3,10 @@ $stopHtml = "<input name='paginationdiv__contract_stop' id='paginationdiv__contr
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Name</th><th>Amount</th><th>Progress</th><th>Date Started</th><th>Status</th><th>Last Updated</th><th>Last Updated By</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Name</th><th>Amount</th><th>Progress</th><th>Date Started</th><th>Status</th><th>Last Updated</th><th>Last Updated By</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -37,5 +39,10 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no contracts in this list.').$stopHtml."</td></tr>";
+}
 echo "</table>";
 ?>

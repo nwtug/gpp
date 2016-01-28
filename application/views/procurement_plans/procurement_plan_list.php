@@ -3,8 +3,10 @@ $stopHtml = "<input name='paginationdiv__procurement_plan_stop' id='paginationdi
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Title</th><th>Status</th><th>Added</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Title</th><th>Status</th><th>Added</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -25,5 +27,11 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no procurement plans in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

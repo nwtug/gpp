@@ -2,8 +2,10 @@
 $stopHtml = "<input name='paginationdiv__tender_stop' id='paginationdiv__tender_stop' type='hidden' value='1' />";
 $listCount = count($list);
 $i = 0;
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Subject</th><th>Procurement Plan</th><th>Bids</th><th>Procurement Type</th><th>Procurement Method</th><th>Deadline</th><th>Display Start</th><th>Display End</th><th>Status</th><th>Added</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th>".($this->native_session->get('__user_type') == 'pde'? "": "<th>PDE</th>")."<th>Subject</th><th>Procurement Plan</th><th>Bids</th><th>Procurement Type</th><th>Procurement Method</th><th>Deadline</th><th>Display Start</th><th>Display End</th><th>Status</th><th>Added</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -45,5 +47,11 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no tender notices in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

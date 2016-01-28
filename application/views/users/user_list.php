@@ -3,12 +3,14 @@ $stopHtml = "<input name='paginationdiv__user_stop' id='paginationdiv__user_stop
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Email</th><th>Telephone</th>";
-if($this->native_session->get('__user_type') != 'pde'){
-	echo "<th>Organization</th><th>Type</th>";
-}
-echo "<th>Status</th><th>Permissions</th><th>Joined</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Email</th><th>Telephone</th>";
+	if($this->native_session->get('__user_type') != 'pde'){
+		echo "<th>Organization</th><th>Type</th>";
+	}
+	echo "<th>Status</th><th>Permissions</th><th>Joined</th></tr>";
 
 
 	foreach($list AS $row) {
@@ -37,5 +39,11 @@ echo "<th>Status</th><th>Permissions</th><th>Joined</th></tr>";
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no training activities in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

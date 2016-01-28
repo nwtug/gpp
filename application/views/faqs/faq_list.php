@@ -3,12 +3,15 @@ $stopHtml = "<input name='paginationdiv__faq_stop' id='paginationdiv__faq_stop' 
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Question</th><th>Answer</th>";
-if($this->native_session->get('__user_type') == 'admin'){
-	echo "<th>Status</th><th>Date Added</th>";
-}
-echo "</tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Question</th><th>Answer</th>";
+	if($this->native_session->get('__user_type') == 'admin'){
+		echo "<th>Status</th><th>Date Added</th>";
+	}
+	echo "</tr>";
+	
 	foreach($list AS $row) {
 		$i++;
 		if(strlen($row['answer']) > 150){
@@ -37,5 +40,11 @@ echo "</tr>";
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no frequently asked questions in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

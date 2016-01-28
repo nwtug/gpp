@@ -3,8 +3,11 @@ $stopHtml = "<input name='paginationdiv__mybid_stop' id='paginationdiv__mybid_st
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Invitation for Bids/Quotations</th><th>Details</th><th>Validity Period</th><th>Bid</th><th>Status Trail</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Invitation for Bids/Quotations</th><th>Details</th><th>Validity Period</th><th>Bid</th><th>Status Trail</th></tr>";
+	
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -30,5 +33,10 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no bids in this list.').$stopHtml."</td></tr>";
+}
 echo "</table>";
 ?>

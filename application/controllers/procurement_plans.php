@@ -126,8 +126,10 @@ class Procurement_plans extends CI_Controller
 	function edit_single_detail()
 	{
 		$data = filter_forwarded_data($this);
-		$response = $this->_procurement_plan->update_single_detail($data['d'],$data['k'],restore_bad_chars($data['value']));
-		echo format_notice($this, ($response['boolean']? 'Updated': 'ERROR: Not updated'));
+		if(!empty($data['value'])){
+			$response = $this->_procurement_plan->update_single_detail($data['d'],$data['k'],restore_bad_chars($data['value']));
+			echo format_notice($this, ($response['boolean']? 'Updated': 'ERROR: Not updated'));
+		}
 	}
 	
 	

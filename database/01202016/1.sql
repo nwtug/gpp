@@ -1,31 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Jan 20, 2016 at 10:26 AM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `pss_v1`
---
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `faqs`
 --
-
+DROP TABLE IF EXISTS `faqs`;
 CREATE TABLE IF NOT EXISTS `faqs` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `question` varchar(300) NOT NULL,
@@ -39,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `faqs` (
   `last_updated` datetime NOT NULL,
   `_last_updated_by` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `faqs`
@@ -80,6 +57,3 @@ INSERT INTO `faqs` (`id`, `question`, `answer`, `number_of_views`, `status`, `di
 (41, 'What does Procurement mean?', 'Procurement means acquisition by purchase, rental, lease, hire purchase, license, tenancy, franchise, or any type of works, services or supplies or any combination&rsquo; up to the time a user consumes or utilizes a service as per his requirement and in line with the procurement Act and regulations of the country.', 0, 'active', 3, '2016-01-20 12:16:23', 1, 1, '2016-01-20 12:16:23', 1),
 (42, 'Who is responsible for the RSS Government Procurement function?', 'All procurement will be processed by the Procurement Unit of the Ministry of Finance &amp; Economic Planning. No Ministry, Department or other Government Agency shall undertake procurement unless it is designated as a Procuring Entity.', 0, 'active', 2, '2016-01-20 12:18:47', 1, 1, '2016-01-20 12:18:47', 1);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

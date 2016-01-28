@@ -276,16 +276,17 @@ class _procurement_plan extends CI_Model
 			));
 		
 		# determine the number to give the new detail row
-		if($result){
+		if(!empty($rowData['search__procurementcategories'])){
 			$rowLabel = $this->_query_reader->get_row_as_array('get_next_row_label', array(
 				'category_id'=>$rowData['search__procurementcategories'], 
 				'plan_id'=>$rowData['plan_id']
 			));
 			$rowData['A'] = $rowLabel['label'];
+			$rowData['category_id'] = $rowData['search__procurementcategories'];
 		}
 		
 		# add the detail row
-		if($result && !empty($rowData['A'])) {
+		if(!empty($rowData['A'])) {
 			$rowData['C'] = ucwords(str_replace('_', ' ', $rowData['C']));
 			$result = $this->_query_reader->run('add_plan_detail_row', $rowData);
 		}

@@ -3,8 +3,10 @@ $stopHtml = "<input name='paginationdiv__permission_stop' id='paginationdiv__per
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Description</th><th>Permissions</th><th>Type</th><th>Users</th><th>Date Created</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Description</th><th>Permissions</th><th>Type</th><th>Users</th><th>Date Created</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -23,5 +25,11 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no permissions in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

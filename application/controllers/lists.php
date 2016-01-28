@@ -145,6 +145,7 @@ class Lists extends CI_Controller
 				case 'bid':
 					$this->load->model('_bid');
 					$data = restore_bad_chars_in_array($data);
+					$data['listtype'] = !empty($data['listtype'])? $data['listtype']: (!empty($data['a'])? $data['a']: 'all');
 					
 					# Store in session for the filter to use
 					$this->native_session->set($data['t'].'__pde', (!empty($data['pde'])? $data['pde']: ''));

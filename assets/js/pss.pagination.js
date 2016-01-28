@@ -214,6 +214,8 @@ $(function() {
 			if(!($(this).hasClass('previousbtn') || $(this).hasClass('nextbtn') || $(this).html() == '1')) $(this).remove();
 			//Make the first page selected
 			if($(this).html() == '1') $(this).addClass('selected');
+			//Make sure the next button is showing
+			if($(this).hasClass('nextbtn')) $(this).show('fast');
 		});
 		
 		// Now remove all the container children - except the first

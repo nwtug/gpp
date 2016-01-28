@@ -3,15 +3,18 @@ $stopHtml = "<input name='paginationdiv__forum_stop' id='paginationdiv__forum_st
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Topic</th><th>Category</th><th>Is Public</th><th>Views #</th><th>Contributors #</th><th>Moderator</th>";
-if($this->native_session->get('__user_type') != 'provider'){
-	echo "<th>Entered By</th><th>From Organization</th>";
-}
-if($this->native_session->get('__user_type') == 'admin'){
-	echo "<th>Status</th>";
-}
-echo "<th>Date Started</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Topic</th><th>Category</th><th>Is Public</th><th>Views #</th><th>Contributors #</th><th>Moderator</th>";
+	if($this->native_session->get('__user_type') != 'provider'){
+		echo "<th>Entered By</th><th>From Organization</th>";
+	}
+	if($this->native_session->get('__user_type') == 'admin'){
+		echo "<th>Status</th>";
+	}
+	echo "<th>Date Started</th></tr>";
+	
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -42,5 +45,11 @@ echo "<th>Date Started</th></tr>";
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no forums in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>

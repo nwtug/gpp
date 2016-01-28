@@ -3,8 +3,10 @@ $stopHtml = "<input name='paginationdiv__provider_stop' id='paginationdiv__provi
 $listCount = count($list);
 $i = 0;
 
-echo "<table>
-<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Contact</th><th>Tax ID</th><th>Category/Ministry</th><th style='white-space:nowrap;'>ROP #</th><th>Country</th><th>Address</th><th>Status</th><th>Registered</th><th>Joined</th><th>Expiry</th></tr>";
+echo "<table>";
+
+if(!empty($list)){
+	echo "<tr><th style='width:1%;'>&nbsp;</th><th>Name</th><th>Contact</th><th>Tax ID</th><th>Category/Ministry</th><th style='white-space:nowrap;'>ROP #</th><th>Country</th><th>Address</th><th>Status</th><th>Registered</th><th>Joined</th><th>Expiry</th></tr>";
 	foreach($list AS $row) {
 		$i++;
 		echo "<tr> 
@@ -34,5 +36,11 @@ echo "<table>
 		  echo "</td>
 		</tr>";
 	}
+}
+
+else {
+	echo "<tr><td>".format_notice($this, 'WARNING: There are no providers in this list.').$stopHtml."</td></tr>";
+}
+
 echo "</table>";
 ?>
