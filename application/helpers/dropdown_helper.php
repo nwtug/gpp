@@ -368,7 +368,7 @@ function get_option_list($obj, $list_type, $return = 'select', $searchBy="", $mo
 		
 		
 		case "providers":
-			$types = $obj->_query_reader->get_list('search_provider_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
+			$types = $obj->_query_reader->get_list('search_active_provider_list', array('phrase'=>htmlentities($searchBy, ENT_QUOTES), 'limit_text'=>' LIMIT '.NUM_OF_ROWS_PER_PAGE));
 			
 			foreach($types AS $row)
 			{
