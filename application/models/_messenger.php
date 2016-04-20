@@ -272,20 +272,27 @@ class _messenger extends CI_Model {
 			
 			# Put default if user is not specified
 			if(empty($message['emailfrom'])){
-				$message['fromname'] = SITE_TITLE;
-				$message['emailfrom'] = NOREPLY_EMAIL;
+				$message['fromname'] = $message['yourname'];
+				$message['emailfrom'] = $recipientEmail;
 			}
-			
+
+		
+
 			$template = $this->get_template_by_code($message['code']);
 			$messageData = $this->populate_template($template, $message);
 			$message = array_merge($messageData, $message);
-			
-			$this->email->to($recipientEmail);
-			$this->email->from(NOREPLY_EMAIL, SITE_TITLE);
-			$this->email->reply_to(NOREPLY_EMAIL, SITE_TITLE);
+						
+			$this->email->to(HELP_EMAIL);			
+			$this->email->from($recipientEmail,$message['yourname']);
+			$this->email->reply_to($recipientEmail, $message['yourname']);
 			$this->email->subject($message['subject']);
 			$this->email->message($message['details']);
 			
+
+
+			
+
+
 			if(!empty($message['fileurl'])) $this->email->attach($message['fileurl']);
 			
 			# 2. copy admin if required
@@ -311,6 +318,11 @@ class _messenger extends CI_Model {
 			
 			#Record messsage sending event
 			$this->log_message_event($userId, $isSent, 'email__message_sent', $message);
+
+
+			exit($this->db->last_query());
+
+			
 		}
 		
 		return $isSent;
