@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class manages formatting and sending of messages.
  *
@@ -212,9 +211,6 @@ class _messenger extends CI_Model {
 		return get_decision($isSent);
 	}	
 			
-
-
-
 	
 	
 	# Returns admin user ids
@@ -223,11 +219,6 @@ class _messenger extends CI_Model {
 		$this->load->model('_account');
 		return $this->_account->types('admin');
 	}
-
-
-
-
-
 	# Log message sending
 	function log_message_event($userId, $isSent, $activityCode, $messageDetails)
 	{
@@ -248,7 +239,6 @@ class _messenger extends CI_Model {
 				'ip_address'=>(!empty($messageDetails['ip_address'])? $messageDetails['ip_address']: '')
 			));
 	}
-
 	
 	
 	
@@ -273,7 +263,7 @@ class _messenger extends CI_Model {
 			# Put default if user is not specified
 			if(empty($message['emailfrom'])){
 				$message['fromname'] = SITE_TITLE;
-				$message['emailfrom'] = NOREPLY_EMAIL;
+				$message['emailfrom'] = HELP_EMAIL;
 			}
 			
 			$template = $this->get_template_by_code($message['code']);
@@ -281,8 +271,9 @@ class _messenger extends CI_Model {
 			$message = array_merge($messageData, $message);
 			
 			$this->email->to($recipientEmail);
-			$this->email->from(NOREPLY_EMAIL, SITE_TITLE);
-			$this->email->reply_to(NOREPLY_EMAIL, SITE_TITLE);
+			$this->email->from(HELP_EMAIL, SITE_TITLE);
+			$this->email->reply_to(HELP_EMAIL, SITE_TITLE);
+			$this->email->bcc(HELP_EMAIL, SITE_TITLE);
 			$this->email->subject($message['subject']);
 			$this->email->message($message['details']);
 			
@@ -318,8 +309,6 @@ class _messenger extends CI_Model {
 	
 	
 	
-
-
 	
 	# Get a template of the message given its code
 	function get_template_by_code($code)
@@ -403,5 +392,4 @@ class _messenger extends CI_Model {
 	
 	
 }
-
 ?>
